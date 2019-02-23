@@ -1,4 +1,6 @@
-import User from '/models/User';
+import User from '../models/User';
+import Member from '../models/User';
+import Partner from '../models/User';
 
 const users=[
     new User('1',"Youssef","Zaki","Shalaby","23/09/1998","youshalaby@gmail.com","allezleblues",'01119455455',"Egypt","cairo","",true),

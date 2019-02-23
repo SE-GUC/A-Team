@@ -1,4 +1,4 @@
-import Task from '/models/Task';
+import Task from '../models/Task';
 
 const Task=[
     new Task('1', "21/02/2019 8:15 PM","",'5678','20000',"",false,'',"3 weeks","High",false,'3',"I need someone to Apply unit tests on my code",'4',["Java","programming"],"", '1') ,

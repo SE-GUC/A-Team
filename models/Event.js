@@ -13,3 +13,4 @@ class Event
         this.attendees_ids=attendees_ids;
     }
 }
+module.exports = Event

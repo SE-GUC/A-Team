@@ -1,4 +1,4 @@
-import User from '/models/User';// hena el mafrood badawar 3al folder el ana 3amalto 3ashan a import user.js
+import User from '../models/User';// hena el mafrood badawar 3al folder el ana 3amalto 3ashan a import user.js
 
 
 
