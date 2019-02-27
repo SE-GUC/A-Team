@@ -34,4 +34,4 @@ class Partner extends User{
 
 module.exports=User
 module.exports=Member
-module.exports=Partner
+module.exports=Partner 

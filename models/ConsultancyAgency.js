@@ -8,4 +8,4 @@ class ConsultancyAgency
         this.reports=reports;
     }
 } 
-module.exports=ConsultancyAgency
+module.exports=ConsultancyAgency 
