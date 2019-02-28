@@ -14,6 +14,18 @@ const events=[
         topics:["technology","Java","Programming"],
         type:"hobba",
         attendees_ids:["1","2"]
+    },
+    {
+        id:2,
+        remaining_places:"12",
+        organizer:"Mohammed Mahrous",
+        location:"Mall of arabia hall 2, 6 october city, cairo, Egypt",
+        about:"event that helps ict startups",
+        price:"60",
+        speakers:["Elon Musk","Hassan Soubra"],
+        topics:["technology","Java","Programming"],
+        type:"hobba",
+        attendees_ids:["1","2"]
     }
 
 ];
@@ -34,10 +46,11 @@ router.get('/:type',(req,res)=> {
 });
 
 //delete event
-router.get('/:id',(req,res)=> {
-    const found= events.some(event =>event.type===req.params.type)
+router.delete('/delete/:id',(req,res)=> {
+    const found= events.some(event =>event.id===parseInt(req.params.id));
     if (found){
-        res.json(events.filter({msg:'Member deleted',events:events.filter(event=>event.id!==parseInt(req.params.id))}));
+        res.json({msg:'Event deleted', 
+        events : events.filter(event=>event.id!==parseInt(req.params.id))});
     }
     else{
       res.status(400).json({msg: 'No events with this type'})  
@@ -45,7 +58,7 @@ router.get('/:id',(req,res)=> {
 
 });
 
-//
+//update event
 router.put('/update/:id',(req,res)=> {
     const found= events.some(event =>event.id===parseInt(req.params.id));
     if (found){
@@ -87,7 +100,6 @@ router.post('/addEvent',(req,res)=>
         const type=req.body.type
         const attendees_ids=[]
         
-        console.log(events.length)
 
         const event1={
             id:id,
