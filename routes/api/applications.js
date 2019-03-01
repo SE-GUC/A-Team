@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const Joi = require('joi');
 const uuid = require('uuid');
@@ -10,18 +8,18 @@ const router = express.Router();
 // Models
 const applications=[ 
     {
-        application_id:'1',
-        event_id:'1',
-        partner_id:'3',
-        member_id:'2',
+        id:1,
+        event_id:1,
+        partner_id:3,
+        member_id:2,
         
     
     },
     {
-        application_id:'2',
-        event_id:'1',
-        partner_id:'3',
-        member_id:'2',
+        id:2,
+        event_id:1,
+        partner_id:3,
+        member_id:2,
        
         
     }
@@ -33,7 +31,7 @@ router.get('/',(req,res)=> res.json({ data: applications }));
 
 // Create a new application by user for a specific event
 router.post('/addapplication', (req, res) => {
-    const application_id=req.body.application_id;
+    const id=uuid.v4();
     const member_id = req.body.member_id;
     const partner_id=req.body.partner_id;
     const event_id = req.body.event_id;
@@ -45,7 +43,7 @@ router.post('/addapplication', (req, res) => {
 	//if (typeof age !== 'number') return res.status(400).send({ err: 'Invalid Event id' });
 
 	const apply = {
-        application_id,
+        id,
         member_id,
         partner_id,
         event_id,
@@ -57,10 +55,10 @@ router.post('/addapplication', (req, res) => {
 
 //delete
 router.delete('/delete/:id',(req,res)=> {
-    const found= applications.some(application=>application.application_id===parseInt(req.params.id))
+    const found= applications.some(application=>application.id===parseInt(req.params.id))
     if (found){
         res.json({msg:'Application deleted', 
-        applications : applications.filter(application=>application.application_id!==parseInt(req.params.id))});
+        applications : applications.filter(application=>application.id!==parseInt(req.params.id))});
     }
     else{
       res.status(400).json({msg: 'This application is not found'})  
@@ -69,11 +67,11 @@ router.delete('/delete/:id',(req,res)=> {
 });
 //update
 router.put('/update/:id',(req,res)=> {
-    const found= applications.some(application =>application.application_id===parseInt(req.params.id));
+    const found= applications.some(application =>application.id===parseInt(req.params.id));
     if (found){
         const updatedApp=req.body;
         applications.forEach(application =>{
-            if (application.application_id===parseInt(req.params.id))
+            if (application.id===parseInt(req.params.id))
             {
                 application.member=updatedApp.member?updatedApp.member:application.member;
                 application.partner=updatedApp.partner?updatedApp.partner:application.partner;
