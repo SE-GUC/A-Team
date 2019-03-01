@@ -13,7 +13,7 @@ const feedbacks=[
         description:'it was superb'
     },
     {
-        id:1,
+        id:2,
         event_id:1,
         partner_id:3,
         member_id:2,
@@ -39,7 +39,8 @@ router.get('/:id', (req, res) => {
 //Create Feedback
 router.post('/', (req, res) =>{
     const newFeedback = {
-        event_id: uuid.v4(),
+        id:uuid.v4(),
+        event_id: req.body.event_id,
         partner_id: req.body.partner_id,
         member_id: req.body.member_id,
         description: req.body.description
