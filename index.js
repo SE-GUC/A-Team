@@ -1,18 +1,18 @@
 const express=require('express');
-const tasks=require('./routes/api2/tasksh')
+const applications=require('./routes/api/applications')
 
 const app = express();
 app.use(express.json())
 
 
 app.get('/', (req, res) => {
-    res.send(`<h1>Welcome to Tasks</h1>
-    <a href="/database/tasks">Tasks</a>
+    res.send(`<h1>Please Apply</h1>
+    <a href="/api/applications">Applications</a>
     `);
 })
 
 
-app.use('/api/tasks', tasks)
+app.use('/api/applications', applications)
 
 
 

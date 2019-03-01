@@ -42,7 +42,7 @@ router.post('/addapplication', (req, res) => {
 	if (!member_id) return res.status(400).send({ err: 'Member not Found' });
     if (!partner_id) return res.status(400).send({ err: 'Member not Found' });
 	if (!event_id) return res.status(400).send({ err: 'Event id is required' });
-	if (typeof age !== 'number') return res.status(400).send({ err: 'Invalid Event id' });
+	//if (typeof age !== 'number') return res.status(400).send({ err: 'Invalid Event id' });
 
 	const apply = {
         application_id,
@@ -60,14 +60,14 @@ router.delete('/delete/:id',(req,res)=> {
     const found= applications.some(application=>application.application_id===parseInt(req.params.id))
     if (found){
         res.json({msg:'Application deleted', 
-        applications : applications.filter(application=>eapplication.application_id!==parseInt(req.params.id))});
+        applications : applications.filter(application=>application.application_id!==parseInt(req.params.id))});
     }
     else{
       res.status(400).json({msg: 'This application is not found'})  
     }
 
 });
-
+//update
 router.put('/update/:id',(req,res)=> {
     const found= applications.some(application =>application.application_id===parseInt(req.params.id));
     if (found){
