@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const uuid = require('uuid');
+
 
 
 const events=[
@@ -89,7 +91,7 @@ router.put('/update/:id',(req,res)=> {
 router.post('/addEvent',(req,res)=>
     {
           //event id
-        const id=events.length+1
+        
         const remaining_places= req.body.remaining_places
         const organizer= req.body.organizer
         const location= req.body.location
@@ -102,7 +104,7 @@ router.post('/addEvent',(req,res)=>
         
 
         const event1={
-            id:id,
+            id:uuid.v4(),
             remaining_places:remaining_places,
             organizer:organizer,
             location:location,
