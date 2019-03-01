@@ -1,3 +1,6 @@
+const express = require('express')
+const router = express.Router()
+
 const users=[
     {
         id:'1',
@@ -63,7 +66,8 @@ const users=[
     }
     
     ]
-    module.exports=users
+    module.exports=router
+    
     
     
     

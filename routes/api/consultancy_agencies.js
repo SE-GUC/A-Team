@@ -1,3 +1,6 @@
+const express = require('express')
+const router = express.Router()
+
 const consultancy_agencies=[
     {
         c_id:'1',
@@ -9,4 +12,4 @@ const consultancy_agencies=[
 
     }
 ]
-module.exports=consultancy_agencies
+module.exports=router
