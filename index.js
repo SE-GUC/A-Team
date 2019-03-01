@@ -9,6 +9,8 @@ const events=require('./routes/api/events')
 const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
+const feedbacks=require ('./routes/api/feedbacks')
+
 
 
 
@@ -41,6 +43,7 @@ app.use('/api/events', events)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
+app.use('/api/feedbacks', feedbacks)
 
 
 app.use((req, res) => {
@@ -49,3 +52,14 @@ app.use((req, res) => {
 const PORT = 4000;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
  
+
+
+
+
+
+
+
+
+
+
+
