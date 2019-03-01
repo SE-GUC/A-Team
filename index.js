@@ -5,7 +5,6 @@ app.use(express.json())
 
 
 const http= require('http')
-const server= http.createServer(app);
 const events=require('./routes/api/events')
 const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
