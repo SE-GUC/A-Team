@@ -8,6 +8,8 @@ const http= require('http')
 const events=require('./routes/api/events')
 const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
+const PartnerRequest= require('./routes/api/PartnerRequest')
+
 
 
 
@@ -27,9 +29,18 @@ app.get('/', (req, res) => {
 
 
 
+app.get('/',(req,res)=>{
+    res.send(`
+    <h1>Hello</h1>
+    <a href="/api/PartnerRequest" > to initiate a request to organize an event</a>`)
+})
+
+
+
 app.use('/api/events', events)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
+app.use('/api/PartnerRequest',PartnerRequest)
 
 
 app.use((req, res) => {
