@@ -19,9 +19,9 @@ router.get('/', (req, res) => res.json({ data: locations }))
 // get single location 
 
 router.get('/:title', (req,res) => {
-    const found = locations.some(locations => locations.title == req.params.title);
+    const found = locations.some(locations => locations.title ===req.params.title);
     if(found) {
-        res.json(locations.filter(locations => locations.title == req.params.title));
+        res.json(locations.filter(locations => locations.title ===req.params.title));
     } else {
         res.status(400).json({msg: `title ${req.params.title} not found`});
     }
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
 // Update  location 
 router.put('/:title', (req,res) => {
     const found = locations.some(locations => locations.title == req.params.title);
-     //getting response_From_admin
+
     if(found) {
         const updateLocation = req.body;
         locations.forEach(location => {
