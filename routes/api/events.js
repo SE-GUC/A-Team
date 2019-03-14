@@ -32,6 +32,71 @@ const events=[
 
 ];
 
+
+
+router.get('/:id', (req,res) => {
+    const found = events.some(event => event.id == req.params.id);
+    if(found) {
+        res.json(events.filter(event => event.id == req.params.id));
+    } else {
+        res.status(400).json({msg: `ID ${req.params.id} not found`});
+    }
+});
+
+router.get('/location/:location', (req,res) => {
+    //const updateTask = req.body;
+    //const foundlocation=updateTask.id?true:false; 
+    
+    events.forEach(event => {
+        if(event.location === req.params.location) {
+            res.json(event);
+        }
+    });
+
+});
+router.get('/basedescription/:des', (req,res) => {
+     
+    events.forEach(event => {
+        if(event.description === req.params.des) {
+            res.json(event);
+        }
+    });
+});
+router.get('/registerationprice/:price', (req,res) => {
+     
+    events.forEach(event => {
+        if(event.price === req.params.price) {
+            res.json(event);
+        }
+    });
+});
+router.get('/places/:place', (req,res) => {
+     
+    events.forEach(event => {
+        if(event.remaining_places === req.params.place) {
+            res.json(event);
+        }
+    });
+});
+router.get('/speakers/:speakers', (req,res) => {
+     
+    events.forEach(event => {
+        if(event.speakers === req.params.speakers) {
+            res.json(event);
+        }
+    });
+});
+router.get('/topics/:topics', (req,res) => {
+     
+    events.forEach(event => {
+        if(event.topics === req.params.topics) {
+            res.json(event);
+        }
+    });
+});
+
+
+
 //get all events in database
 router.get('/',(req,res)=> res.json({ data: events }));
 

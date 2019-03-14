@@ -10,6 +10,9 @@ const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
 const feedbacks=require ('./routes/api/feedbacks')
+const tasks= require('./routes/api/tasks')
+const tasks_objects= require('./routes/api/tasks_objects')
+
 
 
 
@@ -38,12 +41,24 @@ app.get('/',(req,res)=>{
 })
 
 
+app.get('/',(req,res)=>{
+    res.send(`
+    <h1>Hello</h1>
+    <a href="api/tasks" >Go to member page</a>`)
+})
+
+
+
+
 
 app.use('/api/events', events)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
 app.use('/api/feedbacks', feedbacks)
+app.use('/api/tasks',tasks)
+app.use('/api/tasks',tasks_objects)
+
 
 
 app.use((req, res) => {
