@@ -1,4 +1,6 @@
 const express=require('express');
+const mongoose = require('mongoose')
+
 
 const app = express();
 app.use(express.json())
@@ -14,9 +16,13 @@ const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
 const tasks_objects= require('./routes/api/tasks_objects')
 
+const db = require('./config/keys').mongoURI
 
 
-
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
 
 
 
