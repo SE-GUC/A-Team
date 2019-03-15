@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 
-class LOC {
+class Location {
     constructor(title, location, capacity, booked) {
         this.title = title;
         this.location = location;
@@ -10,4 +10,4 @@ class LOC {
     };
 }
 
-module.exports = LOC
+module.exports = Location

@@ -4,14 +4,14 @@ const uuid = require('uuid');
 const router = express.Router();
 
  
-const LOC = require('../../models/LOC')
+const Location = require('../../models/Location')
 
 
 const locations = [
-    new LOC('City Star', 'Nasr City', 20000, "booked"),
-    new LOC('Mall Of Arabia', '6th of october', 200000, "available"),
-    new LOC('Sun City', 'sheraton', 50000, "booked"),
-    new LOC('GUC', 'Tagmoaa', 100000, "available"),
+    new Location('City Star', 'Nasr City', 20000, "booked"),
+    new Location('Mall Of Arabia', '6th of october', 200000, "available"),
+    new Location('Sun City', 'sheraton', 50000, "booked"),
+    new Location('GUC', 'Tagmoaa', 100000, "available"),
     ];
 
 router.get('/', (req, res) => res.json({ data: locations }))
