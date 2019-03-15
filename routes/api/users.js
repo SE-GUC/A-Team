@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const uuid = require('uuid')
 
 const users=[
     {
-        id:'1',
+        id:1,
         first_name:"Youssef",
         middle_name:"Zaki",
         last_name:"Shalaby",
@@ -19,7 +20,7 @@ const users=[
     
     },
     {
-        id:'2',
+        id:2,
         first_name:"Mesut",
         middle_name:"AMin",
         last_name:"Ozil",
@@ -33,7 +34,7 @@ const users=[
     
     },
     {
-        id:'3',
+        id:3,
         first_name:"Emily",
         middle_name:"Olivia",
         last_name:"Blunt",
@@ -49,7 +50,7 @@ const users=[
     
     },
     {
-        id:'4',
+        id:4,
         first_name:"Tessa",
         middle_name:"Lyn",
         last_name:"Thompson",
@@ -61,12 +62,87 @@ const users=[
         city:"New York",
         account_open_on:""
     
-    
-    
     }
     
     ]
-    module.exports=router
+
+
+//to get every User
+router.get('/', (req, res) => {
+    res.json(users);
+});
+
+//to get a specific user
+router.get('/:id', (req, res) => {
+        const found = users.some(user =>user.id === parseInt(req.params.id));
+        if(found){
+            res.json(users.filter(user => user.id===parseInt(req.params.id)));
+        } else {
+            res.status(400).json({msg:'user not found'});
+        }
+    });
+
+//Create user
+router.post('/', (req, res) =>{
+    const newuser = {
+        id:uuid.v4(),
+        first_name:req.body.first_name,
+        middle_name:req.body.middle_name,
+        last_name:req.body.last_name,
+        dob:req.body.dob,
+        email:req.body.email,
+        password:req.body.password,
+        phone:req.body.phone,
+        country:req.body.country,
+        city:req.body.city     
+    }
+    if( !newuser.first_name || !newuser.middle_name || !newuser.dob || 
+        !newuser.password){
+
+            return res.status(400).json({msg: 'Please include the required data'});
+        }
+
+        users.push(newuser);
+        res.json(users);
+});
+
+//Update user
+router.put('/:id', (req, res) => {
+    const found = users.some(user =>user.id === parseInt(req.params.id));
+    if(found){
+        const upduser = req.body;
+        users.forEach(user => {
+            if(user.id === parseInt(req.params.id)){
+                user.first_name=upduser.first_name? upduser.first_name : user.first_name;
+                user.middle_name=upduser.middle_name? upduser.middle_name : user.middle_name;
+                user.last_name=upduser.last_name? upduser.last_name : user.last_name;
+                user.dob=upduser.dob? upduser.dob : user.dob;
+                user.email=upduser.email? upduser.email : user.email;
+                user.password=upduser.password? upduser.password : user.password;
+                user.phone=upduser.phone? upduser.phone : user.phone;
+                user.country=upduser.country? upduser.country : user.country;
+                user.city=upduser.city? upduser.city : user.city; 
+        
+
+                 res.json({ msg:'user updated', user});
+            } 
+        });
+    } else {
+        res.status(400).json({msg:'user not found'});
+    }
+});
+
+//Delete user
+router.delete('/:id', (req, res) => {
+    const found = users.some(user =>user.id === parseInt(req.params.id));
+    if(found){
+        res.json({msg: 'User deleted', users : users.filter(user => user.id !== parseInt(req.params.id))});
+    } else {
+        res.status(400).json({msg:'user not found'});
+    }
+});
+
+module.exports=router
     
     
     

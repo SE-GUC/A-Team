@@ -6,6 +6,7 @@ app.use(express.json())
 
 const http= require('http')
 const events=require('./routes/api/events')
+const users=require('./routes/api/users')
 const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
@@ -52,6 +53,7 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/events', events)
+app.use('/api/users', users)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
