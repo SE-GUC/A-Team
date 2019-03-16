@@ -1,6 +1,28 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+
+const feedbackSchema = new Schema({
+    user_id: {
+        type: Number,
+        required:true
+    },
+    comment: {
+        type: String,
+        required: true
+    }
+})
+const applicationSchema = new Schema({
+    applicant_id: {
+        type: Schema.Types.ObjectId,
+        required:true
+    },
+    isAccepted: {
+        type: Boolean,
+        required: true
+    }
+})
+
 // Create the schema
 const EventSchema = new Schema({
     _id: {
@@ -40,17 +62,15 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
+    partnerInitiated:{
+        type: Schema.Types.ObjectId,
+        required: true
+    },
     attendees: [{
         type: Schema.Types.ObjectId
     }],
-    feedbacks: [{
-        type: Schema.Types.ObjectId, //user id then we want another thing here for the feedback itself
-        //hena kda dunno how
-    }],
-    applicants: [{
-        type: Schema.Types.ObjectId, //user id then we want another thing here for the boolean isAccepted
-        //hena kda dunno how
-    }]
+    feedbacks: [feedbackSchema],
+    applicants: [applicationSchema]
 })
 
 module.exports = Event = mongoose.model('events', EventSchema)
