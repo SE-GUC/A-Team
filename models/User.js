@@ -28,6 +28,10 @@ const UserSchema = new Schema({
         ref: 'Location',
         required: false
     },
+    eventsAttended: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }],
     account_open_on: { //whats that?
         type: String,
         required: false
