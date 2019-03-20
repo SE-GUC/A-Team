@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+
+
 //Creating Schema
 const Tasks_schema=new Schema({
-    name: {
+    id: {
         type: Number,
+        required: true
+    },
+    name: {
+        type: String,
         required: true
     },
     time_of_post:{
@@ -70,7 +76,11 @@ const Tasks_schema=new Schema({
     admin_id:{
         type:Number,
         required:false
-    }
+    },
+    applicants:[{
+    type:Number,
+    required:false
+    }]
 })
 
 
