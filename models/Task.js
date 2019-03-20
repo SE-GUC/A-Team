@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+//Creating Schema
 const Tasks_schema=new Schema({
     name: {
         type: Number,
@@ -73,4 +74,4 @@ const Tasks_schema=new Schema({
 })
 
 
-module.exports = User = mongoose.model('tasks', Tasks_schema)
+module.exports = Task = mongoose.model('tasks', Tasks_schema)
