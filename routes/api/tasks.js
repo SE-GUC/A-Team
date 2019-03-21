@@ -2,8 +2,9 @@ const express= require('express');
 const router= express.Router();
 const moment= require('moment')
 const Tasks = require('../../models/Task') //mongo
+const uuid = require('uuid')
 
-
+/*
 const users=[
     {
         id:'1',
@@ -13,7 +14,7 @@ const users=[
         dob:"23/09/1998",
         email:"youshalaby@gmail.com",
         password:"allezleblues",
-        phone: '01119455455' ,
+        phone: '01119455455',
         country:"Egypt",
         city:"cairo",
         account_open_on:""
@@ -150,7 +151,34 @@ const event=[
         }
     
     ]
+    */
+//add random task
+router.post('/add_task', async (req,res) => {
+    const newTask = new Task({
+        name:"Octane",
+        time_of_post: new Date('01.02.2012'),
+        time_of_review:new Date('01.02.2012'),
+        monetary_compensation: 2000,
+        price:898989,
+        time_of_assingment:new Date('01.02.2012'),
+        is_assigned:false,
+        assigned_id:'',
+        time_expected:"3 days",
+        level_of_comitment:"High",
+        is_reviewed:false,
+        experience_needed:"6 yrs",
+        description:"Be aware of the new kill leader",
+        p_id:'',
+        skills:["Apex Legends"],
+        response_from_admin:'',
+        admin_id:1,
+        applicants:[1,2,3] 
+        })
+    newTask
+    .save()
+    .then(task => res.json({data: task}))
     
+})
 //Show All Tasks/
 
 //Youssef Shalaby
@@ -277,7 +305,68 @@ router.get('/notif',(req,res) => {
     //showing a notification
     res.json(notif);
 });
+//---------------------------------------------
+//MONGO DB IMPLEMENTATION
 //Amr 'Manga' Nashaat
+
+
+
+//Create Task Mongo
+router.post('/', async(req,res) => {
+    try{
+    const id = uuid.v4()
+    const {name, time_of_post, time_of_review, monetary_compensation, price, time_of_assingment, is_assigned, assigned_id, time_expected, level_of_comitment, is_reviewed, experience_needed, description,p_id,response_from_admin, admin_id, applicants } = req.body
+    const new_task = new Task({
+        id,
+        name,
+        time_of_post,
+        time_of_review, 
+        monetary_compensation, 
+        price,
+        time_of_assingment, 
+        is_assigned, 
+        assigned_id,
+        time_expected,
+        level_of_comitment,
+        is_reviewed, 
+        experience_needed,
+        description,p_id,
+        response_from_admin,
+        admin_id, 
+        applicants 
+    })
+    new_task
+    .save()
+    //.then(task => res.json({data: task}))
+    res.json({msg: 'Task added', data:new_task})
+} catch(error) {
+    console.log("oops")
+}
+        
+})
+//UPDATE TASK MONGO
+router.put('/:name', async(req,res) => {
+    try {
+        const name = req.params.name
+        const tsk = await Tasks.findOne({name})
+        if(!tsk) return res.status(404).send({error: 'Task does not exist'})
+        const updatedTsk = await Tasks.updateOne(req.body)
+        res.json({msg:'Updated Task'})
+    } catch(error) {
+        console.log("cant update")
+    }
+})
+//DELETE TASK MONGO
+
+//---------------------------------------------------------------------
+
+
+
+
+
+
+
+//OLD DISPLAY ON TASK ID
 router.get('/get/:id', (req,res) => {
     //Getting a task via id
     const tasks=Task
@@ -288,6 +377,7 @@ router.get('/get/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+//NEW DISPLAY ON TASK ID
 router.put('/update/:id', (req,res) => {
     //updating a Task with the given inputs
     const tasks=Task
@@ -344,7 +434,7 @@ router.get('/Tasks/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
-router.put('/:id', (req,res) => {
+/*router.put('/:id', (req,res) => {
     //assigning a request to a member
     const found = Task.some(task => task.id === req.params.id);
     const updateTask = req.body; 
@@ -360,5 +450,6 @@ router.put('/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+*/
 
 module.exports=router
