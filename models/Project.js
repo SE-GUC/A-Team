@@ -1,12 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Task = mongoose.model('tasks')
+const Task= require('./Task')
+const task_schema=mongoose.model('tasks').schema
 
 const ProjectSchema = new Schema({
-    _id:{
-        type:Number,
-        required:true
-    },
     project_name:{
         type:String,
         required:true
@@ -24,10 +21,10 @@ const ProjectSchema = new Schema({
         required:false
         
     },
-    Tasks:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'tasks'
-    }]
+    Tasks:{
+        type: [Schema.Types.ObjectId], 
+        ref: 'tasks'
+    }
 
 })
 module.exports=project= mongoose.model('Project', ProjectSchema)
