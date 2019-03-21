@@ -28,11 +28,14 @@ const UserSchema = new Schema({
         ref: 'Location',
         required: false
     },
+    eventsAttended: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }],
     account_open_on: { //whats that?
         type: String,
         required: false
     }
 })
 
-
-module.exports = User = mongoose.model('users', UserSchema)
+module.exports = User = mongoose.model('User', UserSchema)
