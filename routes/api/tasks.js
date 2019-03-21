@@ -358,6 +358,7 @@ router.put('/:name', async(req,res) => {
 })
 
 //DELETE TASK MONGO
+//Manga
 router.delete('/:name', async(req,res) => {
     try {
         const name = req.params.name
