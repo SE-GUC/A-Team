@@ -16,6 +16,7 @@ const Event = require('../../models/Event')
 // 	"applicant_id":"ahmedasdfghlololololasdg",
 // 	"isAccepted":true
 // }
+
 router.get('/location/:location', (req,res) => {
     //const updateTask = req.body;
     //const foundlocation=updateTask.id?true:false; 

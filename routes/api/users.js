@@ -3,8 +3,19 @@ const router = express.Router()
 const uuid = require('uuid')
 const bcrypt = require('bcryptjs')
 const User = require('../../models/User')
+const joi = require('joi')
 
 
+
+
+// {
+//   "name":"hi ikldskgvv",
+//   "dob":"03/10/1983",
+//   "email":"lifelianghje@gmail.com",
+//   "password":"blackpanther",
+//   "phone": 104840022,
+//   "account_open_on":""
+// }     
 
 // const users=[
 //     {
@@ -75,30 +86,6 @@ router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
 
-//Create user
-// router.post('/', (req, res) =>{
-//     const newuser = {
-//         id:uuid.v4(),
-//         first_name:req.body.first_name,
-//         middle_name:req.body.middle_name,
-//         last_name:req.body.last_name,
-//         dob:req.body.dob,
-//         email:req.body.email,
-//         password:req.body.password,
-//         phone:req.body.phone,
-//         country:req.body.country,
-//         city:req.body.city     
-//     }
-//     if( !newuser.first_name || !newuser.middle_name || !newuser.dob || 
-//         !newuser.password){
-
-//             return res.status(400).json({msg: 'Please include the required data'});
-//         }
-
-//         users.push(newuser);
-//         res.json(users);
-// });
-
 //register new user
 router.post('/register', async (req,res) => {
     const { email, dob, name, password, phone, location, account_open_on }  = req.body
@@ -121,7 +108,7 @@ router.post('/register', async (req,res) => {
     .save()
     .then(user => res.json({data: user}))
     .catch(err => res.json({error: 'Can not create user'}))
-})
+}) 
 
 router
   .route('/:id')
