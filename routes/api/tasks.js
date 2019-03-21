@@ -351,13 +351,25 @@ router.put('/:name', async(req,res) => {
         const tsk = await Tasks.findOne({name})
         if(!tsk) return res.status(404).send({error: 'Task does not exist'})
         const updatedTsk = await Tasks.updateOne(req.body)
-        res.json({msg:'Updated Task'})
+        res.json({msg:`Updated Task ${name}`,data: updatedTsk})
     } catch(error) {
         console.log("cant update")
+        res.json({msg: 'cant update'})
     }
 })
-//DELETE TASK MONGO
 
+//DELETE TASK MONGO
+router.delete('/:name', async(req,res) => {
+    try {
+        const name = req.params.name
+        const deletedTask = await Tasks.findOne({name})
+        if(!deletedTask) return res.status(404).send({error: 'Task doesnt exist'})
+        res.json({msg: `Task ${name} deleted`, data: deletedTask})
+    } catch(error) {
+        console.log(error)
+        res.json({msg: 'cant delete'})
+    }
+}) 
 //---------------------------------------------------------------------
 
 
