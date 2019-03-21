@@ -7,24 +7,24 @@ const uuid= require('uuid')
 
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
-        name:"Octane",
-        time_of_post: new Date('01.02.2012'),
-        time_of_review:new Date('01.02.2012'),
+        name:"First Task!!",
+        time_of_post: new Date(),
+        time_of_review:'',
         monetary_compensation: 2000,
         price:898989,
-        time_of_assingment:new Date('01.02.2012'),
+        time_of_assingment:'',
         is_assigned:false,
-        assigned_id:'',
+        assigned_id:undefined,
         time_expected:"3 days",
         level_of_comitment:"High",
         is_reviewed:false,
-        experience_needed:"6 yrs",
-        description:"Be aware of the new kill leader",
-        p_id:'',
-        skills:["Apex Legends"],
+        experience_needed:"6 months",
+        description:"This is not a request",
+        p_id:undefined,
+        skills:["Mongo","Express","React","Node.js"],
         response_from_admin:'',
-        admin_id:1,
-        applicants:[1,2,3] 
+        admin_id: mongoose.Types.ObjectId(),
+        applicants:[] 
         })
     newTask
     .save()
@@ -47,6 +47,7 @@ const level_of_comitment= req.body.level_of_comitment
 const experience_needed= req.body.experience_needed
 const description= req.body.description
 const skills= req.body.skills
+
 
 const task={
     id: Task.length+1,

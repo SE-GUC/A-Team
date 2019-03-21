@@ -13,17 +13,19 @@ const ProjectSchema = new Schema({
         required:true
     },
     partner_responsible:{
-        type: Number,
+        type: Schema.Types.ObjectId, //make object 5ara
         required:true
     },
     consultancy_agency_sponsor:{
-        type:Number,
+        type:Schema.Types.ObjectId,
         required:false
         
     },
     Tasks:{
         type: [Schema.Types.ObjectId], 
-        ref: 'tasks'
+        ref: 'tasks',
+        required:true
+    
     }
 
 })
