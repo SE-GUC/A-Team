@@ -18,21 +18,15 @@ router.get('/', (req, res) => {
 
 //register a new member
 router.post('/register', async (req,res) => {
-    const { email, dob, name, password, phone, location, account_open_on }  = req.body
-    const member = await Member.findOne({email})
-    if(member) return res.status(400).json({error: 'Email already exists'})
+    const { years_of_experience, skills, interests, }  = req.body
+    //const member = await Member.findOne({email})
+    //if(member) return res.status(400).json({error: 'Email already exists'})
     
-    const salt = bcrypt.genSaltSync(10)
-    const hashedPassword = bcrypt.hashSync(password,salt)
+    
     const newMember = new Member({
-            name,
-            email,
-            password: hashedPassword ,
-            dob,
-            phone,
-            location,
-            eventsAttended: [],
-            account_open_on
+            years_of_experience,
+            skills,
+            interests,
         })
     newMember
     .save()
