@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const eventrequestschema= new Schema({
-    id:{
-        type: Number,
+    _id:{
+        type: Schema.Types.ObjectId,
         required: true
     },
     organizer:{
