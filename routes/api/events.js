@@ -168,5 +168,56 @@ router
     })
   })
 
+  router
+  .route('/:id/applicants')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        user_id: joi.string().length(24).required(),
+        comment: joi.string().required()
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const applicants = {
+        _id: mongoose.Types.ObjectId(),
+        user_id: request.body.user_id,
+        isAccepted: request.body.isAccepted
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+    }
+  })
+  .put(async (req,res)=>{
+    try {
+      const status = joi.validate(request.body, {
+        user_id: joi.string().length(24).required(),
+        isAccepted: joi.string().required()
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const applicants = {
+        _id: mongoose.Types.ObjectId(),
+        applicant_id: request.body.user_id,
+        isAccepted: request.body.isAccepted
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $set: { applicants: applicant } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+    }
 
+  })
 module.exports=router 
