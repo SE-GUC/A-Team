@@ -33,7 +33,7 @@ const Tasks_schema=new Schema({
         required:false
     },
     assigned_id:{
-        type:Number,
+        type:Schema.Types.ObjectId, //object zeft
         required:false
     },
     time_expected:{
@@ -57,7 +57,7 @@ const Tasks_schema=new Schema({
         required:true
     },
     p_id:{
-        type:Number,
+        type:Schema.Types.ObjectId, //object 5ara
         required:false,
     },
     skills:[{
@@ -70,11 +70,11 @@ const Tasks_schema=new Schema({
 
     },
     admin_id:{
-        type:Number,
+        type:Schema.Types.ObjectId, //object 5ara
         required:false
     },
     applicants:[{
-    type:Number,
+    type:Schema.Types.ObjectId, //object
     required:false
     }]
 })
