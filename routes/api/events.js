@@ -6,6 +6,16 @@ const router = express.Router()
 const Event = require('../../models/Event')
 
 
+
+// {
+// 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
+// 	"isAccepted":true
+// }
+
+// {
+// 	"applicant_id":"ahmedasdfghlololololasdg",
+// 	"isAccepted":true
+// }
 router.get('/location/:location', (req,res) => {
     //const updateTask = req.body;
     //const foundlocation=updateTask.id?true:false; 
@@ -169,7 +179,7 @@ router
   })
 
   router
-  .route('/:id/applicants')
+  .route('/:id/apply')
   .all(async (request, response, next) => {
     const status = joi.validate(request.params, {
       id: joi.string().length(24).required()
@@ -182,41 +192,41 @@ router
   .post(async (request, response) => {
     try {
       const status = joi.validate(request.body, {
-        user_id: joi.string().length(24).required(),
-        comment: joi.string().required()
+        applicant_id: joi.string().length(24).required(),
+        isAccepted: joi.boolean().required()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
       }
-      const applicants = {
+      const applicant = {
         _id: mongoose.Types.ObjectId(),
-        user_id: request.body.user_id,
+        applicant_id: request.body.applicant_id,
         isAccepted: request.body.isAccepted
       }
-      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
+      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
       return response.json({ data: event })
     } catch (err) {
-      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+      return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
   })
-  .put(async (req,res)=>{
+  .put(async (request,response)=>{
     try {
       const status = joi.validate(request.body, {
-        user_id: joi.string().length(24).required(),
-        isAccepted: joi.string().required()
+        applicant_id: joi.string().length(24).required(),
+        isAccepted: joi.boolean().required()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
       }
-      const applicants = {
+      const applicant = {
         _id: mongoose.Types.ObjectId(),
-        applicant_id: request.body.user_id,
+        applicant_id: request.body.applicant_id,
         isAccepted: request.body.isAccepted
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $set: { applicants: applicant } }).exec()
       return response.json({ data: event })
     } catch (err) {
-      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+      return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
 
   })
