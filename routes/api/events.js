@@ -112,8 +112,8 @@ router
         type: request.body.type,
         partnerInitiated: request.body.partnerInitiated,
         attendees: request.body.attendees,
-        feedbacks: request.body.feedbacks || [],
-        applicants: request.body.applicants || []
+        feedbacks: request.body.ratings || [],
+        applicants: request.body.ratings || []
       }).save()
       return response.json({ data: event })
     } catch (err) {
@@ -166,59 +166,6 @@ router
         return response.json({ error: `Error, couldn't delete a event given the following data` })
       }
     })
-  })
-
-  router
-  .route('/:id/feedback')
-  .all(async (request, response, next) => {
-    const status = joi.validate(request.params, {
-      id: joi.string().length(24).required()
-    })
-    if (status.error) {
-      return response.json({ error: status.error.details[0].message })
-    }
-    next()
-  })
-  .post(async (request, response) => {
-    try {
-      const status = joi.validate(request.body, {
-        user_id: joi.string().length(24).required(),
-        comment: joi.string().required()
-      })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
-      }
-      const feedback = {
-        _id: mongoose.Types.ObjectId(),
-        user_id: request.body.user_id,
-        comment: request.body.comment
-      }
-      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
-      return response.json({ data: event })
-    } catch (err) {
-      return response.json({ error: `Error, couldn't vote for a event given the following data` })
-    }
-  })
-  .put(async (request,response)=>{
-    try {
-      const status = joi.validate(request.body, {
-        user_id: joi.string().length(24).required(),
-        comment: joi.string().required()
-      })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
-      }
-      const feedback = {
-        _id: mongoose.Types.ObjectId(),
-        user_id: request.body.user_id,
-        comment: request.body.comment
-      }
-      const event = await Event.findByIdAndUpdate(request.params.id, { $set: { feedbacks: feedback } }).exec()
-      return response.json({ data: event })
-    } catch (err) {
-      return response.json({ error: `Error, couldn't vote for a event given the following data` })
-    }
-
   })
 
 
