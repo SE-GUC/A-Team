@@ -314,10 +314,9 @@ router.get('/notif',(req,res) => {
 //Create Task Mongo
 router.post('/', async(req,res) => {
     try{
-    const id = uuid.v4()
     const {name, time_of_post, time_of_review, monetary_compensation, price, time_of_assingment, is_assigned, assigned_id, time_expected, level_of_comitment, is_reviewed, experience_needed, description,p_id,response_from_admin, admin_id, applicants } = req.body
     const new_task = new Task({
-        id,
+        id: uuid.v4(),
         name,
         time_of_post,
         time_of_review, 
@@ -337,7 +336,7 @@ router.post('/', async(req,res) => {
     })
     new_task
     .save()
-    //.then(task => res.json({data: task}))
+    //.then(Tasks => res.json({data: new_task}))
     res.json({msg: 'Task added', data:new_task})
 } catch(error) {
     console.log("oops")
@@ -362,7 +361,7 @@ router.put('/:name', async(req,res) => {
 router.delete('/:name', async(req,res) => {
     try {
         const name = req.params.name
-        const deletedTask = await Tasks.findOne({name})
+        const deletedTask = await Tasks.findOneAndRemove({name})
         if(!deletedTask) return res.status(404).send({error: 'Task doesnt exist'})
         res.json({msg: `Task ${name} deleted`, data: deletedTask})
     } catch(error) {
@@ -370,6 +369,11 @@ router.delete('/:name', async(req,res) => {
         res.json({msg: 'cant delete'})
     }
 }) 
+//READ TASK MONGO
+router.get('/view_tasks', async (req,res) => {
+    const tasking = await Tasks.find()
+    res.json({data: tasking})
+})
 //---------------------------------------------------------------------
 
 
