@@ -26,31 +26,30 @@ router.post('/create',async (req,res)=>{
 });
 
 router
-.route('/:id/addTask') //add Task to project
-.all(async (request, response, next) => {
-  const status = joi.validate(request.params, {
-    id: joi.string().length(24).required()
-  })
-  if (status.error) {
-    return response.json({ error: status.error.details[0].message })
-  }
-  next()
-})
-.post(async (request, response) => {
-  try {
-    const status = joi.validate(request.body, {
-      eventid:joi.string().length(24)
+  .route('/:id/addTask')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
     })
     if (status.error) {
       return response.json({ error: status.error.details[0].message })
     }
-    
-    const proj = await Tasks.findByIdAndUpdate(request.params.id, { $push: { eventsAttended: request.body.task_id } }).exec()
-    return response.json({ data: proj })
-  } catch (err) {
-    return response.json({ error: err.message })
-  }
-})
-
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        taskid:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      
+      const proj = await Project.findByIdAndUpdate(request.params.id, { $push: { Tasks: request.body.taskid } }).exec()
+      return response.json({ data: proj })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 
 module.exports=router
