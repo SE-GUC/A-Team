@@ -2,10 +2,11 @@ const express= require('express');
 const router= express.Router();
 const moment= require('moment')
 const Task = require('../../models/Task') //mongo
+const mongoose = require('mongoose')
+const uuid= require('uuid')
 
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
-        id:1,
         name:"Octane",
         time_of_post: new Date('01.02.2012'),
         time_of_review:new Date('01.02.2012'),

@@ -4,10 +4,6 @@ const Schema = mongoose.Schema
 
 //Creating Schema
 const Tasks_schema=new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     name: {
         type: String,
         required: true
