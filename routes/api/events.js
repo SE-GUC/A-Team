@@ -1,47 +1,23 @@
+const joi = require('joi')
+const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
-const uuid = require('uuid');
 
+const Event = require('../../models/Event')
 
+// {
+//   "remaining_places": 12,
+//     "location": "123456789000000000000000",
+//     "about": "jjkgjgf",
+//     "price": 55,
+//     "speakers": ["ahmed"],
+//     "topics": ["ahmed"],
+//     "type": "eh feih eh",
+//     "partnerInitiated": "123456789000000000000000",
+//     "request":"123456789000000000000000",
+//     "attendees": ["123456789000000000000000","123456789000000000000000"]
 
-const events=[
-    {
-        id:1,
-        remaining_places:"12",
-        organizer:"Mohammed Mahrous",
-        location:"Mall of arabia hall 2, 6 october city, cairo, Egypt",
-        about:"event that helps ict startups",
-        price:"60",
-        speakers:["Elon Musk","Hassan Soubra"],
-        topics:["technology","Java","Programming"],
-        type:"hobba",
-        attendees_ids:["1","2"]
-    },
-    {
-        id:2,
-        remaining_places:"12",
-        organizer:"Mohammed Mahrous",
-        location:"Mall of arabia hall 2, 6 october city, cairo, Egypt",
-        about:"event that helps ict startups",
-        price:"60",
-        speakers:["Elon Musk","Hassan Soubra"],
-        topics:["technology","Java","Programming"],
-        type:"hobba",
-        attendees_ids:["1","2"]
-    }
-
-];
-
-
-
-router.get('/:id', (req,res) => {
-    const found = events.some(event => event.id == req.params.id);
-    if(found) {
-        res.json(events.filter(event => event.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
+// }
 
 router.get('/location/:location', (req,res) => {
     //const updateTask = req.body;
@@ -97,91 +73,170 @@ router.get('/topics/:topics', (req,res) => {
 
 
 
-//get all events in database
-router.get('/',(req,res)=> res.json({ data: events }));
 
 //get all events with a type "task 2.3"
-router.get('/:type',(req,res)=> {
-    const found= events.some(event =>event.type===req.params.type)
-    if (found){
-        res.json(events.filter(event => event.type===req.params.type));
-    }
-    else{
-      res.status(400).json({msg: 'No events with this type'})  
-    }
+router.route('/:type').get(async (request, response) => {
+  try {
+    const event = await Event.find({type:request.params.type}).exec()
+    return response.json({ data: event })
+  } catch (err) {
+    return response.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
 
-});
 
-//delete event
-router.delete('/delete/:id',(req,res)=> {
-    const found= events.some(event =>event.id===parseInt(req.params.id));
-    if (found){
-        res.json({msg:'Event deleted', 
-        events : events.filter(event=>event.id!==parseInt(req.params.id))});
-    }
-    else{
-      res.status(400).json({msg: 'No events with this type'})  
-    }
 
-});
+router
+  .route('/')
+  .post(async (request, response) => {
+    const status = joi.validate(request.body, {
+      remaining_places: joi.number().required(),
+      location: joi.string().length(24).required(),
+      about: joi.string().min(5).max(500).required(),
+      price: joi.number().required(),
+      speakers: joi.array().items(joi.string().min(4).max(70)),
+      topics: joi.array().items(joi.string().min(4).max(70)),
+      type: joi.string().min(5).max(20).required(),
+      partnerInitiated: joi.string().length(24).required(),
+      attendees: joi.array().items(joi.string().min(4).max(70)),
+      request: joi.string().length(24).required(),
+      feedbacks: joi.array().items(joi.object().keys({
+        user_id: joi.string().length(24).required(),
+        comment: joi.string().required()
+      })),
+      applicants: joi.array().items(joi.object().keys({
+        applicant_id: joi.string().length(24).required(),
+        isAccepted: joi.boolean().required()
+      }))
 
-//update event
-router.put('/update/:id',(req,res)=> {
-    const found= events.some(event =>event.id===parseInt(req.params.id));
-    if (found){
-        const updatedEvent=req.body;
-        events.forEach(event =>{
-            if (event.id===parseInt(req.params.id))
-            {
-                event.remaining_places= updatedEvent.remaining_places ? updatedEvent.remaining_places : event.remaining_places;
-                event.organizer= updatedEvent.organizer?updatedEvent.organizer:event.organizer;
-                event.location= updatedEvent.location?updatedEvent.location:event.location;
-                event.about= updatedEvent.about?updatedEvent.about:event.about;
-                event.price= updatedEvent.price?updatedEvent.price:event.price;
-                event.speakers= updatedEvent.speakers?updatedEvent.speakers:event.speakers;
-                event.topics=updatedEvent.topics?updatedEvent.topics:event.topics;
-                event.type=updatedEvent.type?updatedEvent.type:event.type;
-                event.attendees_ids=updatedEvent.attendees_ids?updatedEvent.attendees_ids:event.attendees_ids;
-                res.json({msg: 'event updated', event});
-            }
-        })
-    }
-    else{
-      res.status(400).json({msg: 'No events with this type'})  
-    }
-
-});
-
-//create event with post
-router.post('/addEvent',(req,res)=>
-    {
-          //event id
-        
-        const remaining_places= req.body.remaining_places
-        const organizer= req.body.organizer
-        const location= req.body.location
-        const about= req.body.about
-        const price= req.body.price
-        const speakers= req.body.speakers
-        const topics=req.body.topics
-        const type=req.body.type
-        const attendees_ids=[]
-        
-
-        const event1={
-            id:uuid.v4(),
-            remaining_places:remaining_places,
-            organizer:organizer,
-            location:location,
-            about:about,
-            price:price,
-            speakers:speakers,
-            topics:topics,
-            type:type,
-            attendees_ids:attendees_ids
-        }
-        events.push(event1)
-        res.send(events)
     })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    try {
+      const event = await new Event({
+        _id: mongoose.Types.ObjectId(),
+        remaining_places: request.body.remaining_places,
+        location: request.body.location,
+        about: request.body.about,
+        price: request.body.price,
+        speakers: request.body.speakers,
+        topics: request.body.topics,
+        type: request.body.type,
+        partnerInitiated: request.body.partnerInitiated,
+        attendees: request.body.attendees,
+        request: request.body.request,
+        feedbacks: request.body.ratings || [],
+        applicants: request.body.ratings || []
+      }).save()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't create a new book with the following data` })
+    }
+  })
+  .get(async (request, response) => {
+    try {
+      const allEvents = await Event.find({}).exec()
+      return response.json({ data: allEvents })
+    } catch (err) {
+      return response.json({ error: `Error, Couldn't fetch the list of all events from the database` })
+    }
+  })
+
+
+router
+  .route('/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const event = await Event.findById(request.params.id).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't find a event given the following id` })
+    }
+  })
+  .put(async (request, response) => {
+    Event.findByIdAndUpdate(request.params.id, request.body, { new: true }, (err, model) => {
+      if (!err) {
+        return response.json({ data: model })
+      } else {
+        return response.json({ error: `Error, couldn't update a event given the following data` })
+      }
+    })
+  })
+  .delete((request, response) => {
+    Event.findByIdAndDelete(request.params.id, (err, model) => {
+      if (!err) {
+        return response.json({ data: null })
+      } else {
+        return response.json({ error: `Error, couldn't delete a event given the following data` })
+      }
+    })
+  })
+
+    router
+  .route('/:id/feedback')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        user_id: joi.string().length(24).required(),
+        comment: joi.string().required()
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const feedback = {
+        _id: mongoose.Types.ObjectId(),
+        user_id: request.body.user_id,
+        comment: request.body.comment
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+    }
+  })
+  .put(async (request,response)=>{
+    try {
+      const status = joi.validate(request.body, {
+        user_id: joi.string().length(24).required(),
+        comment: joi.string().required()
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const feedback = {
+        _id: mongoose.Types.ObjectId(),
+        user_id: request.body.user_id,
+        comment: request.body.comment
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $set: { feedbacks: feedback } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+    }
+
+  })
+
+
+
+
 
 module.exports=router 

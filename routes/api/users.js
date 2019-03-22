@@ -75,15 +75,6 @@ router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
 
-
-//to get a specific user
-router.get('/:id', (req, res) => {
-    User.findById({_id:req.params.id}).then(user=>res.send(user))
-    });
-
-
-
-
 //Create user
 // router.post('/', (req, res) =>{
 //     const newuser = {
@@ -123,6 +114,7 @@ router.post('/register', async (req,res) => {
             dob,
             phone,
             location,
+            eventsAttended: [],
             account_open_on
         })
     newUser
@@ -131,45 +123,72 @@ router.post('/register', async (req,res) => {
     .catch(err => res.json({error: 'Can not create user'}))
 })
 
-
-//Update user
-// router.put('/:id', (req, res) => {
-//     const found = users.some(user =>user.id === parseInt(req.params.id));
-//     if(found){
-//         const upduser = req.body;
-//         users.forEach(user => {
-//             if(user.id === parseInt(req.params.id)){
-//                 user.first_name=upduser.first_name? upduser.first_name : user.first_name;
-//                 user.middle_name=upduser.middle_name? upduser.middle_name : user.middle_name;
-//                 user.last_name=upduser.last_name? upduser.last_name : user.last_name;
-//                 user.dob=upduser.dob? upduser.dob : user.dob;
-//                 user.email=upduser.email? upduser.email : user.email;
-//                 user.password=upduser.password? upduser.password : user.password;
-//                 user.phone=upduser.phone? upduser.phone : user.phone;
-//                 user.country=upduser.country? upduser.country : user.country;
-//                 user.city=upduser.city? upduser.city : user.city; 
-        
-
-//                  res.json({ msg:'user updated', user});
-//             } 
-//         });
-//     } else {
-//         res.status(400).json({msg:'user not found'});
-//     }
-// });
-
-
-//update user
-router.put('/:id', (req, res) => {
-    User.findByIdAndUpdate({_id:req.params.id},req.body).then(function(){
-        User.findOne({_id:req.params.id}).then(user => res.send(user))
+router
+  .route('/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
     })
-});
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const user = await User.findById(request.params.id).exec()
+      return response.json({ data: user })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't find a user given the following id` })
+    }
+  })
+  .put(async (request, response) => {
+    User.findByIdAndUpdate(request.params.id, request.body, { new: true }, (err, model) => {
+      if (!err) {
+        return response.json({ data: model })
+      } else {
+        return response.json({ error: `Error, couldn't update a user given the following data` })
+      }
+    })
+  })
+  .delete((request, response) => {
+    User.findByIdAndDelete(request.params.id, (err, model) => {
+      if (!err) {
+        return response.json({ data: null })
+      } else {
+        return response.json({ error: `Error, couldn't delete a user given the following data` })
+      }
+    })
+  })
 
-//Delete user
-router.delete('/:id', (req, res) => {
-    User.findByIdAndDelete({_id:req.params.id}).then(user => res.send(user))
-});
+
+  router
+  .route('/:id/addEvent')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        eventid:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      
+      const user = await User.findByIdAndUpdate(request.params.id, { $push: { eventsAttended: request.body.eventid } }).exec()
+      return response.json({ data: user })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
 
 module.exports=router
     

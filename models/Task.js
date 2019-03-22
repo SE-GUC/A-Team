@@ -2,8 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
+
 //Creating Schema
+
 const Tasks_schema=new Schema({
+   
     name: {
         type: String,
         required: true
@@ -74,6 +77,7 @@ const Tasks_schema=new Schema({
         required:false
     },
     applicants:[{
+    type:Number,
     type:Schema.Types.ObjectId, //object
     required:false
     }]

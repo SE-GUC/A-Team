@@ -3,8 +3,9 @@ const Schema = mongoose.Schema
 
 
 const feedbackSchema = new Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     user_id: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required:true
     },
     comment: {
@@ -14,8 +15,9 @@ const feedbackSchema = new Schema({
 })
 
 const applicationSchema = new Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     applicant_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required:true
     },
     isAccepted: {
@@ -27,17 +29,17 @@ const applicationSchema = new Schema({
 // Create the schema
 const EventSchema = new Schema({
     _id: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     remaining_places: {
         type: Number,
         required: true
     },
-    organizer: {
-        type: String,
-        required: true
-    },
+    // organizer: {
+    //     type: String,
+    //     required: true
+    // },
     location: {
         type: Schema.Types.ObjectId,
         ref: 'Location',
@@ -70,8 +72,9 @@ const EventSchema = new Schema({
     attendees: [{
         type: Schema.Types.ObjectId
     }],
+    request: mongoose.Schema.Types.ObjectId,
     feedbacks: [feedbackSchema],
     applicants: [applicationSchema]
 })
 
-module.exports = Event = mongoose.model('events', EventSchema)
+module.exports = Event = mongoose.model('Event', EventSchema)
