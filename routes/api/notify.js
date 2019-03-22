@@ -2,6 +2,8 @@ const router= express.Router();
 const joi = require('joi');
 const app = express();
 app.use(express.json());
+const Member = require('../../models/Member')
+
 
 router
   .route('/:id/notifyMember')
@@ -23,9 +25,10 @@ router
         return response.json({ error: status.error.details[0].message })
       }
       
-      const user = await User.findByIdAndUpdate(request.params.id, { $push: { tasksAssigned: request.body.taskid } }).exec()
-      return response.json({ data: user })
+      const member = await Member.findByIdAndUpdate(request.params.id, { $push: { notifications: request.body.taskid } }).exec()
+      return response.json({ data: member })
     } catch (err) {
       return response.json({ error: err.message })
     }
-  })
+  });
+  module.exports=router

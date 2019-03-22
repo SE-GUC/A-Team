@@ -1,7 +1,11 @@
 const router= express.Router();
 const joi = require('joi');
 const app = express();
+const mongoose = require('mongoose')
 app.use(express.json());
+
+const Task = require('../../models/Task')
+
 
 router
   .route('/:id/assignMember')
@@ -26,6 +30,7 @@ router
       const task = await Task.findByIdAndUpdate(request.params.id, { $push: { assignedMember: request.body.memberid } }).exec()
       return response.json({ data: task })
     } catch (err) {
-      return response.json({ error: err.message })
+      return response.json({ error: `Error` })
     }
-  })
+  });
+  module.exports=router
