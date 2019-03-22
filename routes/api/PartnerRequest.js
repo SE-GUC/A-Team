@@ -1,21 +1,22 @@
 const express = require('express');
 const router= express.Router();
+const eventrequest= require('../../models/EventRequests')
 
-    var eventrequest=[
-        {
-            id: 1,
-            organizer: "",
-            isAccepted: "False"
-        },{
-            id: 2,
-            organizer: "",
-            isAccepted: "False"
-        },{
-            id: 3,
-            organizer: "",
-            isAccepted: "False"
-        }
-    ]
+    // var eventrequest=[
+    //     {
+    //         id: 1,
+    //         organizer: "",
+    //         isAccepted: "False"
+    //     },{
+    //         id: 2,
+    //         organizer: "",
+    //         isAccepted: "False"
+    //     },{
+    //         id: 3,
+    //         organizer: "",
+    //         isAccepted: "False"
+    //     }
+    // ]
 
     router.get('/geteventrequest',(req,res) =>
     {

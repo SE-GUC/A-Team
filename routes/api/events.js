@@ -19,6 +19,17 @@ const Event = require('../../models/Event')
 
 // }
 
+
+// {
+// 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
+// 	"isAccepted":true
+// }
+
+// {
+// 	"applicant_id":"ahmedasdfghlololololasdg",
+// 	"isAccepted":true
+// }
+
 router.get('/location/:location', (req,res) => {
     //const updateTask = req.body;
     //const foundlocation=updateTask.id?true:false; 
@@ -74,7 +85,7 @@ router.get('/topics/:topics', (req,res) => {
 
 
 
-//get all events with a type "task 2.3"
+//get all events with a type "task 2.3"         na2sa testing
 router.route('/:type').get(async (request, response) => {
   try {
     const event = await Event.find({type:request.params.type}).exec()
@@ -182,7 +193,60 @@ router
     })
   })
 
-    router
+  router
+  .route('/:id/apply')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        applicant_id: joi.string().length(24).required(),
+        isAccepted: joi.boolean().required()
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const applicant = {
+        _id: mongoose.Types.ObjectId(),
+        applicant_id: request.body.applicant_id,
+        isAccepted: request.body.isAccepted
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't find application for a event given the following data` })
+    }
+  })
+  .put(async (request,response)=>{
+    try {
+      const status = joi.validate(request.body, {
+        applicant_id: joi.string().length(24).required(),
+        isAccepted: joi.boolean().required()
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const applicant = {
+        _id: mongoose.Types.ObjectId(),
+        applicant_id: request.body.applicant_id,
+        isAccepted: request.body.isAccepted
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $set: { applicants: applicant } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't find application for a event given the following data` })
+    }
+
+  })
+
+  router
   .route('/:id/feedback')
   .all(async (request, response, next) => {
     const status = joi.validate(request.params, {
@@ -235,8 +299,5 @@ router
 
   })
 
-
-
-
-
+  
 module.exports=router 
