@@ -1,11 +1,25 @@
-class ConsultancyAgency
-{
-    constructor(consultancy_agency_id,info,field_of_work,board_members,reports){
-        this.consultancy_agency_id=consultancy_agency_id;
-        this.info=info;
-        this.field_of_work=field_of_work;
-        this.board_members=board_members;
-        this.reports=reports;
-    }
-} 
-module.exports=ConsultancyAgency
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+// Create the schema
+const cosultancyAgencySchema = new Schema({
+    
+    info: {
+        type: String,
+        required: true
+    },
+    field_of_work: {
+        type: String,
+        required: true
+    },
+    board_members: [{
+        type: String,
+        required: true
+    }],
+    reports: [{
+        type: String,
+        required: true
+    }]
+})
+
+module.exports = ConsultancyAgency = mongoose.model('ConsultancyAgency', cosultancyAgencySchema)

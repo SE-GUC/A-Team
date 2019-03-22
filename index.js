@@ -13,6 +13,7 @@ const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
 const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
+const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 //const tasks_objects= require('./routes/api/tasks_objects')
 
 const db = require('./config/keys').mongoURI
@@ -64,7 +65,7 @@ app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/tasks',tasks)
-//app.use('/api/tasks',tasks_objects)
+app.use('/api/consultancy_agencies',ConsultancyAgency)
 
 
 
