@@ -65,7 +65,11 @@ app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/tasks',tasks)
+<<<<<<< HEAD
 //app.use('/api/tasks',tasks_objects)
+=======
+// app.use('/api/tasks',tasks_objects)
+>>>>>>> origin/Hooda
 
 
 
