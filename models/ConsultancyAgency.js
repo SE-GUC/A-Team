@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 // Create the schema
 const cosultancyAgencySchema = new Schema({
-    //removed the ID from here, it's redundant since it's generated on it own -Amr
+    //removed the ID from here, it's redundant since it's generated on it own d-Amr
     info: {
         type: String,
         required: true

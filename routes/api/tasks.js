@@ -358,6 +358,7 @@ router.post('/notif',(req,res) => {
     if(!newNotif.memID || !newNotif.taskID) {
         return res.status(400).json({msg: `Erorr`});
     }
+    //asd
     notif.push(newNotif);
     res.json(notif);
 });

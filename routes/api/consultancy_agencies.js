@@ -4,7 +4,7 @@ const ConsultancyAgency = require('../../models/ConsultancyAgency')
 const moment= require('moment')
 
 //asd
-//Amr's CRUD for consult. agency
+//Amr's CRUD for conssult. agency
 router.post('/', async(req,res) => {
     try {
         
