@@ -5,6 +5,19 @@ const router = express.Router()
 
 const Event = require('../../models/Event')
 
+// {
+//   "remaining_places": 12,
+//     "location": "123456789000000000000000",
+//     "about": "jjkgjgf",
+//     "price": 55,
+//     "speakers": ["ahmed"],
+//     "topics": ["ahmed"],
+//     "type": "eh feih eh",
+//     "partnerInitiated": "123456789000000000000000",
+//     "request":"123456789000000000000000",
+//     "attendees": ["123456789000000000000000","123456789000000000000000"]
+
+// }
 
 
 // {
@@ -123,6 +136,7 @@ router
         type: request.body.type,
         partnerInitiated: request.body.partnerInitiated,
         attendees: request.body.attendees,
+        request: request.body.request,
         feedbacks: request.body.ratings || [],
         applicants: request.body.ratings || []
       }).save()
