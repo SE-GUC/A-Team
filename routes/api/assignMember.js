@@ -1,3 +1,8 @@
+const router= express.Router();
+const joi = require('joi');
+const app = express();
+app.use(express.json());
+
 router
   .route('/:id/assignMember')
   .all(async (request, response, next) => {
@@ -18,8 +23,8 @@ router
         return response.json({ error: status.error.details[0].message })
       }
       
-      const user = await User.findByIdAndUpdate(request.params.id, { $push: { assignedMember: request.body.memberid } }).exec()
-      return response.json({ data: user })
+      const task = await Task.findByIdAndUpdate(request.params.id, { $push: { assignedMember: request.body.memberid } }).exec()
+      return response.json({ data: task })
     } catch (err) {
       return response.json({ error: err.message })
     }
