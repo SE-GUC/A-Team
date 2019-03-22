@@ -435,6 +435,18 @@ router.get('/view_tasks', async (req,res) => {
     const tasking = await Tasks.find()
     res.json({data: tasking})
 })
+//STORY 1.3, READ TASK'S DESC
+router.get('/view_tasks/:id', async (req,res) => {
+    const t = await Tasks.findById(req.params.id)
+    res.json({data: t.description})
+})
+//STORY 1.3, UPDATE TASK'S RESPONSE FROM ADMIN
+router.put('/update_task/:id', async(req,res) => {
+    const tasking = await Tasks.findById(req.params.id)
+
+})
+//UPDATING TASK'S DESC IS REPITITVE SINCE WE CAN ALREADY
+//UPDATE ANYTHING IN THE ENTIRE TASK
 //---------------------------------------------------------------------
 
 
