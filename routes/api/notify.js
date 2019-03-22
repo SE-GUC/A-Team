@@ -1,3 +1,8 @@
+const router= express.Router();
+const joi = require('joi');
+const app = express();
+app.use(express.json());
+
 router
   .route('/:id/notifyMember')
   .all(async (request, response, next) => {
