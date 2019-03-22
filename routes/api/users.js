@@ -4,9 +4,7 @@ const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const joi = require('joi');
-const session= require('express-session');
 
-app.use(session({secret:"jK47hge2", resave:false, saveUninitialized:true}));
 //to get every User
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
@@ -16,7 +14,9 @@ router.get('/', (req, res) => {
 router.post('/login', function(req, res){
   const email= req.body.email;
   const password= req.body.password;
-
+  const salt = bcrypt.genSaltSync(10)
+  const hashedPassword = bcrypt.hashSync(password,salt)
+ 
   User.findOne({email: email, password: password}, function(err, user){
       if(err){
           console.log(err);

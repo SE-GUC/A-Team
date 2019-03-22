@@ -10,7 +10,7 @@ const http= require('http')
 const events=require('./routes/api/events')
 const users=require('./routes/api/users')
 const applications = require('./routes/api/applications')
-const locations = require('./routes/api/locations')
+//const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
 const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
@@ -56,22 +56,17 @@ app.get('/',(req,res)=>{
 
 
 
+const session= require('express-session');
 
 
 app.use('/api/events', events)
 app.use('/api/users', users)
-app.use('/api/locations', locations)
+//app.use('/api/locations', locations)
 app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/tasks',tasks)
-<<<<<<< HEAD
-//app.use('/api/tasks',tasks_objects)
-=======
-// app.use('/api/tasks',tasks_objects)
->>>>>>> origin/Hooda
-
-
+app.use(session({secret:"jK47hge2", resave:false, saveUninitialized:true}));
 
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
