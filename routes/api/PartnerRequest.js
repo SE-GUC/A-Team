@@ -84,27 +84,45 @@ const mongoose = require('mongoose')
 
 
 
+    // router.delete('/deleterequest/:id', (req,res) =>
+    // {
+    //     const found= eventrequest.some(event =>event.id===parseInt(req.params.id));
+    //     if (found){
+    //         res.json({msg:'Event deleted', 
+    //         eventrequest : eventrequest.filter(event=>event.id!==parseInt(req.params.id))});
+    //     }
+    //     else{
+    //         res.status(400).json({msg: 'No eventrequests with this id'})  
+    //     }
+    // }
+    // )
     router.delete('/deleterequest/:id', (req,res) =>
     {
-        const found= eventrequest.some(event =>event.id===parseInt(req.params.id));
-        if (found){
-            res.json({msg:'Event deleted', 
-            eventrequest : eventrequest.filter(event=>event.id!==parseInt(req.params.id))});
-        }
-        else{
-            res.status(400).json({msg: 'No eventrequests with this id'})  
-        }
-    }
-    )
-
-    router.put('/update/:id',(req,res) =>
-    {
-        const p_id= req.params.id
-        const updateis= req.body.isAccepted
-        const eventreq= eventrequest.find(eventreq => eventreq.id===p_id)
-        eventreq.isAccepted= updateis
-        res.send(eventrequest)
+        eventrequest.findByIdAndDelete(req.params.id,(err,e)=>{
+            if(err){
+                res.json(error, `can't delete` )
+            }else{
+                return res.json({ data: null })
+            }
+        })
     })
+    router.put('/update/:id',(req,res) =>{
+        eventrequest.findByIdAndUpdate(req.params.id,req.body,{new : true}, (err,e)=>{
+            if(err){
+                return res.json({ error: `cannot update this request` })
+            }else{
+                return res.json({data:e})
+            }
+        })
+    })
+    // router.put('/update/:id',(req,res) =>
+    // {
+    //     const p_id= req.params.id
+    //     const updateis= req.body.isAccepted
+    //     const eventreq= eventrequest.find(eventreq => eventreq.id===p_id)
+    //     eventreq.isAccepted= updateis
+    //     res.send(eventrequest)
+    // })
     
 module.exports=router
     
