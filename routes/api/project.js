@@ -21,9 +21,53 @@ router.post('/create',async (req,res)=>{
         console.log(err.message)
         return res.json({ error: `Error, couldn't create a new Project with the following data` })
     }
-
-
 });
+
+router
+.route('/crud')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.body, {
+      id: joi.string().length(24).required(),
+      update: joi.allow()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+})
+.get(async(request,response)=>{
+    try {
+        const project = await Project.findById(request.body.id).exec()
+        return response.json({ data: project })
+      } catch (err) {
+        return response.json({ error: `Error, couldn't find a Project given the following id` })
+  }
+})
+.put(async(request,response)=>{
+    //update by id
+    Project.findByIdAndUpdate(request.body.id,request.body.update,{new:true},(err,model)=>{
+        if(!err){
+            return response.json({updated:model})
+        }
+        else{
+            return response.json({error:'Could not Update'})
+        }
+    })
+})    
+.delete(async(request,response)=>{
+    //delete by id
+    Project.findByIdAndDelete(request.body.id,(err,model)=>{
+        if(!err){
+            return response.json({message:'The Project Was Deleted Successfuly'})
+        }
+        else{
+            return response.json({message:'Deletion failed!'})
+        }
+    })
+});
+
+
+
 
 router
   .route('/:id/addTask')
