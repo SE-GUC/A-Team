@@ -14,8 +14,8 @@ router.get('/', (req, res) => {
 
 //login
 router.post('/login', function(req, res){
-  var email= req.body.email;
-  var password= req.body.password;
+  const email= req.body.email;
+  const password= req.body.password;
 
   User.findOne({email: email, password: password}, function(err, user){
       if(err){
@@ -30,6 +30,15 @@ router.post('/login', function(req, res){
       return res.status(200).send();
   })
 });
+
+//dashboard
+router.get('/dashboard', function(req,res){
+  if(!req.session.user){
+    return res.status(401).send();
+
+  }
+  return res.status(200).send("Welcome!");
+})
 
 //register new user
 router.post('/register', async (req,res) => {
