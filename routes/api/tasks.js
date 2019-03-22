@@ -4,39 +4,10 @@ const moment= require('moment')
 const Task = require('../../models/Task') //mongo
 const mongoose = require('mongoose')
 const uuid= require('uuid')
-const joi = require('joi')
-
-router.post('/add_task', async (req,res) => {
-    const newTask = new Task({
-        name:"First Task!!",
-        time_of_post: new Date(),
-        time_of_review:'',
-        monetary_compensation: 2000,
-        price:898989,
-        time_of_assingment:'',
-        is_assigned:false,
-        assigned_id:undefined,
-        time_expected:"3 days",
-        level_of_comitment:"High",
-        is_reviewed:false,
-        experience_needed:"6 months",
-        description:"This is not a request",
-        p_id:undefined,
-        skills:["Mongo","Express","React","Node.js"],
-        response_from_admin:'',
-        admin_id: mongoose.Types.ObjectId(),
-        applicants:[] 
-        })
-    newTask
-    .save()
-    .then(task => res.json({data: task}))
-    
-})
-    
+const joi = require('joi')    
 //Show All Tasks/
 
 //Youssef Shalaby
-
 router.post('/add',async (req,res)=>{
     //adding a task ith appropriate parenthesis
     const status= joi.validate(req.body,{
