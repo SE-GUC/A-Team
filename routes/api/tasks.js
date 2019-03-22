@@ -1,6 +1,7 @@
 const express= require('express');
 const router= express.Router();
 const moment= require('moment')
+<<<<<<< HEAD
 const Tasks = require('../../models/Task') //mongo
 const uuid = require('uuid')
 
@@ -177,6 +178,38 @@ router.post('/add_task', async (req,res) => {
     newTask
     .save()
     .then(task => res.json({data: task}))
+=======
+const Task = require('../../models/Task') //mongo
+const mongoose = require('mongoose')
+const uuid= require('uuid')
+
+router.post('/add_task', async (req,res) => {
+    const newTask = new Task({
+        name:"Octane",
+        time_of_post: new Date('01.02.2012'),
+        time_of_review:new Date('01.02.2012'),
+        monetary_compensation: 2000,
+        price:898989,
+        time_of_assingment:new Date('01.02.2012'),
+        is_assigned:false,
+        assigned_id:'',
+        time_expected:"3 days",
+        level_of_comitment:"High",
+        is_reviewed:false,
+        experience_needed:"6 yrs",
+        description:"Be aware of the new kill leader",
+        p_id:'',
+        skills:["Apex Legends"],
+        response_from_admin:'',
+        admin_id:1,
+        applicants:[1,2,3] 
+        })
+    newTask
+    .save()
+    .then(task => res.json({data: task}))
+    
+})
+>>>>>>> Shalaby
     
 })
 //Show All Tasks/

@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> Shalaby
 //Creating Schema
 
 const Tasks_schema=new Schema({
