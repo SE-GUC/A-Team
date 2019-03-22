@@ -1,7 +1,7 @@
 const express= require('express');
 const router= express.Router();
 const moment= require('moment')
-<<<<<<< HEAD
+
 const Tasks = require('../../models/Task') //mongo
 const uuid = require('uuid')
 
@@ -178,7 +178,6 @@ router.post('/add_task', async (req,res) => {
     newTask
     .save()
     .then(task => res.json({data: task}))
-=======
 const Task = require('../../models/Task') //mongo
 const mongoose = require('mongoose')
 const uuid= require('uuid')
@@ -209,7 +208,34 @@ router.post('/add_task', async (req,res) => {
     .then(task => res.json({data: task}))
     
 })
->>>>>>> Shalaby
+
+
+router.post('/add_task', async (req,res) => {
+    const newTask = new Task({
+        name:"First Task!!",
+        time_of_post: new Date(),
+        time_of_review:'',
+        monetary_compensation: 2000,
+        price:898989,
+        time_of_assingment:'',
+        is_assigned:false,
+        assigned_id:undefined,
+        time_expected:"3 days",
+        level_of_comitment:"High",
+        is_reviewed:false,
+        experience_needed:"6 months",
+        description:"This is not a request",
+        p_id:undefined,
+        skills:["Mongo","Express","React","Node.js"],
+        response_from_admin:'',
+        admin_id: mongoose.Types.ObjectId(),
+        applicants:[] 
+        })
+    newTask
+    .save()
+    .then(task => res.json({data: task}))
+    
+})
     
 })
 //Show All Tasks/
@@ -227,6 +253,7 @@ const level_of_comitment= req.body.level_of_comitment
 const experience_needed= req.body.experience_needed
 const description= req.body.description
 const skills= req.body.skills
+
 
 const task={
     id: Task.length+1,
@@ -349,7 +376,6 @@ router.post('/', async(req,res) => {
     try{
     const {name, time_of_post, time_of_review, monetary_compensation, price, time_of_assingment, is_assigned, assigned_id, time_expected, level_of_comitment, is_reviewed, experience_needed, description,p_id,response_from_admin, admin_id, applicants } = req.body
     const new_task = new Task({
-        id: uuid.v4(),
         name,
         time_of_post,
         time_of_review, 
@@ -377,31 +403,31 @@ router.post('/', async(req,res) => {
         
 })
 //UPDATE TASK MONGO
-router.put('/:name', async(req,res) => {
-    try {
-        const name = req.params.name
-        const tsk = await Tasks.findOne({name})
-        if(!tsk) return res.status(404).send({error: 'Task does not exist'})
-        const updatedTsk = await Tasks.updateOne(req.body)
-        res.json({msg:`Updated Task ${name}`,data: updatedTsk})
-    } catch(error) {
-        console.log("cant update")
-        res.json({msg: 'cant update'})
-    }
+router.put('/:id', async(req,res) => {
+        Tasks.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
+            if(!err) {
+                return res.json({data:model})
+            } else {
+                return res.data({error: `Can't find task`})
+            }
+        } )
+      
 })
 
 //DELETE TASK MONGO
 //Manga
-router.delete('/:name', async(req,res) => {
-    try {
+router.delete('/:id', async(req,res) => {
         const name = req.params.name
-        const deletedTask = await Tasks.findOneAndRemove({name})
+        Tasks.findByIdAndDelete(req.params.id, (err,model) => {
+            if(!err) {
+                return res.json({data:null})
+            } else {
+                return res.json({error: 'Error, cant delete'})
+            }
+        })
         if(!deletedTask) return res.status(404).send({error: 'Task doesnt exist'})
         res.json({msg: `Task ${name} deleted`, data: deletedTask})
-    } catch(error) {
-        console.log(error)
-        res.json({msg: 'cant delete'})
-    }
+    
 }) 
 //READ TASK MONGO
 router.get('/view_tasks', async (req,res) => {
