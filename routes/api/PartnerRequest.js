@@ -18,11 +18,10 @@ const eventrequest= require('../../models/EventRequests')
     //     }
     // ]
 
-    router.get('/geteventrequest',(req,res) =>
-    {
-        res.send(eventrequest)
-    })
-    
+    router.get('/', (req, res) => {
+        eventrequest.find().then(eventrequest=>res.send(eventrequest))
+    });
+        
     router.post('/addrequest',(req,res)=>
     {
         const organnizer= req.body.organizer

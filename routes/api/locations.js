@@ -2,7 +2,6 @@ const express = require('express');
 const Joi = require('joi');
 //const uuid = require('uuid');
 const router = express.Router();
-const validator = require('../../validations/locationvalidation')
 const Location = require('../../models/Location')
 // get all
 router.get('/', async (req,res) => {
