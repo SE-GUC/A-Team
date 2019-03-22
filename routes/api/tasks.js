@@ -4,9 +4,9 @@ const moment= require('moment')
 
 const Tasks = require('../../models/Task') //mongo
 
-const uuid = require('uuid')
 const joi = require('joi')
-const Partner= require('../../models/Partner');
+const mongoose = require('mongoose')
+const Task = require('../../models/Task') //mongo
 const mongoose = require('mongoose')
 
 /*
@@ -157,6 +157,7 @@ const event=[
     
     ]
     */
+
 //add random task
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
@@ -182,9 +183,8 @@ router.post('/add_task', async (req,res) => {
     newTask
     .save()
     .then(task => res.json({data: task}))
-const Task = require('../../models/Task') //mongo
-const mongoose = require('mongoose')
-const uuid= require('uuid')
+})
+
 
 
 router.post('/add_task', async (req,res) => {

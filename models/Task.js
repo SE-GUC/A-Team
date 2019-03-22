@@ -77,9 +77,8 @@ const Tasks_schema=new Schema({
         required:false
     },
     applicants:[{
-    type:Number,
-    type:Schema.Types.ObjectId, //object
-    required:false
+        type:Schema.Types.ObjectId, //object
+        required:false
     }]
 })
 
