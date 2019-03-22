@@ -4,6 +4,7 @@ const moment= require('moment')
 
 const Tasks = require('../../models/Task') //mongo
 const uuid = require('uuid')
+const joi = require('joi')
 
 /*
 const users=[
@@ -182,6 +183,7 @@ const Task = require('../../models/Task') //mongo
 const mongoose = require('mongoose')
 const uuid= require('uuid')
 
+
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
         name:"Octane",
@@ -238,44 +240,70 @@ router.post('/add_task', async (req,res) => {
 })
     
 })
+
+    
+
 //Show All Tasks/
 
 //Youssef Shalaby
-router.get('/',(req,res)=> res.json(Task)) //show all tasks
-
-router.post('/add',(req,res)=>{
+router.post('/add',async (req,res)=>{
     //adding a task ith appropriate parenthesis
-const monetary_compensation=req.body.monetary_compensation
-const p_id=req.body.p_id //Partner's ID
-const price=req.body.price
-const time_expected= req.body.time_expected
-const level_of_comitment= req.body.level_of_comitment
-const experience_needed= req.body.experience_needed
-const description= req.body.description
-const skills= req.body.skills
-
-
-const task={
-    id: Task.length+1,
-    time_of_post:moment().format("DD/MM/YYYY h:mm:ss a"),
-    time_of_review: "",
-    monetary_compensation:monetary_compensation,
-    price:price,
-    time_of_assingment:"",
+    const status= joi.validate(req.body,{
+        name:joi.string().max(40).required(),
+        time_of_post: joi.date(),
+        time_of_review: joi.date(),
+        monetary_compensation: joi.number().required(),
+        price:joi.number().required(),
+        time_of_assingment:joi.date(),
+        is_assigned:joi.boolean(),
+        assigned_id:joi.string().length(24),
+        time_expected:  joi.string().required(),
+        level_of_comitment:joi.string().required(),
+        is_reviewed:joi.boolean(),
+        experience_needed:joi.string().required(),
+        description:joi.string().min(10).required(),
+        p_id:joi.string().length(24),
+        skills: joi.array().items(joi.string()),
+        response_from_admin:joi.string().allow('').optional(),
+        admin_id: joi.string().length(24),
+        applicants:joi.array().items(joi.string().length(24))
+    })
+    if (status.error) {
+        return res.json({ error: status.error.details[0].message })
+  }
+  try{
+  const new_task= await new Task({
+    _id:mongoose.Types.ObjectId(),  
+    name:req.body.name,
+    time_of_post: new Date(),
+    time_of_review:'',
+    monetary_compensation: req.body.monetary_compensation,
+    price:req.body.price,
+    time_of_assingment:'',
     is_assigned:false,
-    assigned_id:'',
-    time_expected:time_expected,
-    level_of_comitment:level_of_comitment,
-    is_reviewed: false,
-    experience_needed:experience_needed,
-    description:description,
-    p_id: p_id,
-    skills:skills,
-    response_from_admin:"",
-    admin_id:'1' //Assume it is assigned for youssef the admin
+    assigned_id:undefined,
+    time_expected:req.body.time_expected,
+    level_of_comitment:req.body.level_of_comitment,
+    is_reviewed:false,
+    experience_needed:req.body.experience_needed,
+    description:req.body.description,
+    p_id:undefined,
+    skills:req.body.skills,
+    response_from_admin:'',
+    admin_id: mongoose.Types.ObjectId(),
+    applicants:[] 
+  }).save()
+  return res.json({data:new_task})
 }
-    Task.push(task)
-    res.send(Task);
+catch(err){
+    console.log(err.message)
+    return res.json({ error: `Error, couldn't create a new Task with the following data` })
+}
+
+
+
+
+    
 
 })
 router.put('/edit/:id', (req, res) => {
