@@ -1,4 +1,5 @@
 const express=require('express');
+const mongoose = require('mongoose')
 
 const app = express();
 app.use(express.json())
@@ -6,13 +7,24 @@ app.use(express.json())
 
 const http= require('http')
 const events=require('./routes/api/events')
+const users=require('./routes/api/users')
 const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
 const feedbacks=require ('./routes/api/feedbacks')
+const tasks= require('./routes/api/tasks')
+
+const ConsultancyAgency = require('./routes/api/consultancy_agencies')
+
+//const tasks_objects= require('./routes/api/tasks_objects')
+
+const db = require('./config/keys').mongoURI
 
 
-
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
 
 
 
@@ -38,12 +50,28 @@ app.get('/',(req,res)=>{
 })
 
 
+app.get('/',(req,res)=>{
+    res.send(`
+    <h1>Hello</h1>
+    <a href="api/tasks" >Go to member page</a>`)
+})
+
+
+
+const session= require('express-session');
+
 
 app.use('/api/events', events)
+app.use('/api/users', users)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
 app.use('/api/feedbacks', feedbacks)
+app.use('/api/tasks',tasks)
+app.use(session({secret:"jK47hge2", resave:false, saveUninitialized:true}));
+
+app.use('/api/consultancy_agencies',ConsultancyAgency)
+//s
 
 
 app.use((req, res) => {
@@ -51,15 +79,3 @@ app.use((req, res) => {
  })
 const PORT = 4000;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
- 
-
-
-
-
-
-
-
-
-
-
-
