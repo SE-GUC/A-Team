@@ -85,7 +85,7 @@ router.get('/topics/:topics', (req,res) => {
 
 
 
-//get all events with a type "task 2.3"
+//get all events with a type "task 2.3"         na2sa testing
 router.route('/:type').get(async (request, response) => {
   try {
     const event = await Event.find({type:request.params.type}).exec()
