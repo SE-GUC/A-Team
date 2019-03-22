@@ -3,8 +3,11 @@ const router= express.Router();
 const moment= require('moment')
 
 const Tasks = require('../../models/Task') //mongo
+
 const uuid = require('uuid')
 const joi = require('joi')
+const Partner= require('../../models/Partner');
+const mongoose = require('mongoose')
 
 /*
 const users=[
@@ -212,6 +215,8 @@ router.post('/add_task', async (req,res) => {
 })
 
 
+
+
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
         name:"First Task!!",
@@ -236,12 +241,15 @@ router.post('/add_task', async (req,res) => {
     newTask
     .save()
     .then(task => res.json({data: task}))
-    
-})
-    
-})
 
     
+})
+    
+
+
+    
+
+
 
 //Show All Tasks/
 
@@ -511,27 +519,56 @@ router.put('/update/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+
+
+
 //Aly Zamzamy
 router.put('/review/:id', (req,res)=>{
     //accepting a task upload via id
-    const found = Task.some(task => task.id === (req.params.id));
+let id= req.params.id;
+    // check for req are valid
+ 
+Tasks.findOneAndUpdate({_id:id},{is_reviewed:true} ,function(err,result){
+if(err)
+{
 
-    if(found){
+res.status(500); // bad request is being sent
+res.json({'error':' internalServerErrorInReview '});;
+}
+else if(result ==null)
+{
+    res.status(404); // bad request is being sent
+    res.json({'error':'taskToBeReviewedIsNotFound'});;
+}
+else
+{
+    res.status(200);
+}
+    
+});   });
 
-        Task.forEach(t => {
-            if(t.id === (req.params.id)){
-            t.is_reviewed = true ;
-            res.json({msg: 'task updated', Task});
+
+
+
+
+router.put('/revvv/:id', async(req,res) => {
+            try{
+            const task = await Tasks.findOne({id})
+            if(!task) return res.status(404).send({error: 'Task does not exist'})
+            
+            task.is_reviewed=true;
+            res.json({msg:'Updated Task'})
+        
+        } catch(error) {
+            console.log("cant update")
+            res.json({msg: 'cant update'})
         }
-        });
-        }
-    else{
-      res.status(400).json({msg : 'no member with the id ${req.params.id} '} ) ;
-
-    }
+    })
 
 
-        });
+
+
+
 //Mohammed Islam
 router.get('/users/:id', (req,res) => {
     //getting a user with his id
