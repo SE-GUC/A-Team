@@ -1,9 +1,15 @@
 const express= require('express');
 const router= express.Router();
 const moment= require('moment')
+
 const Tasks = require('../../models/Task') //mongo
 
+const uuid = require('uuid')
+const joi = require('joi')
+const Partner= require('../../models/Partner');
+const mongoose = require('mongoose')
 
+/*
 const users=[
     {
         id:'1',
@@ -13,7 +19,7 @@ const users=[
         dob:"23/09/1998",
         email:"youshalaby@gmail.com",
         password:"allezleblues",
-        phone: '01119455455' ,
+        phone: '01119455455',
         country:"Egypt",
         city:"cairo",
         account_open_on:""
@@ -150,44 +156,162 @@ const event=[
         }
     
     ]
+    */
+//add random task
+router.post('/add_task', async (req,res) => {
+    const newTask = new Task({
+        name:"Octane",
+        time_of_post: new Date('01.02.2012'),
+        time_of_review:new Date('01.02.2012'),
+        monetary_compensation: 2000,
+        price:898989,
+        time_of_assingment:new Date('01.02.2012'),
+        is_assigned:false,
+        assigned_id:'',
+        time_expected:"3 days",
+        level_of_comitment:"High",
+        is_reviewed:false,
+        experience_needed:"6 yrs",
+        description:"Be aware of the new kill leader",
+        p_id:'',
+        skills:["Apex Legends"],
+        response_from_admin:'',
+        admin_id:1,
+        applicants:[1,2,3] 
+        })
+    newTask
+    .save()
+    .then(task => res.json({data: task}))
+const Task = require('../../models/Task') //mongo
+const mongoose = require('mongoose')
+const uuid= require('uuid')
+
+
+router.post('/add_task', async (req,res) => {
+    const newTask = new Task({
+        name:"Octane",
+        time_of_post: new Date('01.02.2012'),
+        time_of_review:new Date('01.02.2012'),
+        monetary_compensation: 2000,
+        price:898989,
+        time_of_assingment:new Date('01.02.2012'),
+        is_assigned:false,
+        assigned_id:'',
+        time_expected:"3 days",
+        level_of_comitment:"High",
+        is_reviewed:false,
+        experience_needed:"6 yrs",
+        description:"Be aware of the new kill leader",
+        p_id:'',
+        skills:["Apex Legends"],
+        response_from_admin:'',
+        admin_id:1,
+        applicants:[1,2,3] 
+        })
+    newTask
+    .save()
+    .then(task => res.json({data: task}))
     
+})
+
+
+
+
+router.post('/add_task', async (req,res) => {
+    const newTask = new Task({
+        name:"First Task!!",
+        time_of_post: new Date(),
+        time_of_review:'',
+        monetary_compensation: 2000,
+        price:898989,
+        time_of_assingment:'',
+        is_assigned:false,
+        assigned_id:undefined,
+        time_expected:"3 days",
+        level_of_comitment:"High",
+        is_reviewed:false,
+        experience_needed:"6 months",
+        description:"This is not a request",
+        p_id:undefined,
+        skills:["Mongo","Express","React","Node.js"],
+        response_from_admin:'',
+        admin_id: mongoose.Types.ObjectId(),
+        applicants:[] 
+        })
+    newTask
+    .save()
+    .then(task => res.json({data: task}))
+
+    
+})
+    
+
+
+    
+
+
+
 //Show All Tasks/
 
 //Youssef Shalaby
-router.get('/',(req,res)=> res.json(Task)) //show all tasks
-
-router.post('/add',(req,res)=>{
+router.post('/add',async (req,res)=>{
     //adding a task ith appropriate parenthesis
-const monetary_compensation=req.body.monetary_compensation
-const p_id=req.body.p_id //Partner's ID
-const price=req.body.price
-const time_expected= req.body.time_expected
-const level_of_comitment= req.body.level_of_comitment
-const experience_needed= req.body.experience_needed
-const description= req.body.description
-const skills= req.body.skills
-
-const task={
-    id: Task.length+1,
-    time_of_post:moment().format("DD/MM/YYYY h:mm:ss a"),
-    time_of_review: "",
-    monetary_compensation:monetary_compensation,
-    price:price,
-    time_of_assingment:"",
+    const status= joi.validate(req.body,{
+        name:joi.string().max(40).required(),
+        time_of_post: joi.date(),
+        time_of_review: joi.date(),
+        monetary_compensation: joi.number().required(),
+        price:joi.number().required(),
+        time_of_assingment:joi.date(),
+        is_assigned:joi.boolean(),
+        assigned_id:joi.string().length(24),
+        time_expected:  joi.string().required(),
+        level_of_comitment:joi.string().required(),
+        is_reviewed:joi.boolean(),
+        experience_needed:joi.string().required(),
+        description:joi.string().min(10).required(),
+        p_id:joi.string().length(24),
+        skills: joi.array().items(joi.string()),
+        response_from_admin:joi.string().allow('').optional(),
+        admin_id: joi.string().length(24),
+        applicants:joi.array().items(joi.string().length(24))
+    })
+    if (status.error) {
+        return res.json({ error: status.error.details[0].message })
+  }
+  try{
+  const new_task= await new Task({
+    _id:mongoose.Types.ObjectId(),  
+    name:req.body.name,
+    time_of_post: new Date(),
+    time_of_review:'',
+    monetary_compensation: req.body.monetary_compensation,
+    price:req.body.price,
+    time_of_assingment:'',
     is_assigned:false,
-    assigned_id:'',
-    time_expected:time_expected,
-    level_of_comitment:level_of_comitment,
-    is_reviewed: false,
-    experience_needed:experience_needed,
-    description:description,
-    p_id: p_id,
-    skills:skills,
-    response_from_admin:"",
-    admin_id:'1' //Assume it is assigned for youssef the admin
+    assigned_id:undefined,
+    time_expected:req.body.time_expected,
+    level_of_comitment:req.body.level_of_comitment,
+    is_reviewed:false,
+    experience_needed:req.body.experience_needed,
+    description:req.body.description,
+    p_id:undefined,
+    skills:req.body.skills,
+    response_from_admin:'',
+    admin_id: mongoose.Types.ObjectId(),
+    applicants:[] 
+  }).save()
+  return res.json({data:new_task})
 }
-    Task.push(task)
-    res.send(Task);
+catch(err){
+    console.log(err.message)
+    return res.json({ error: `Error, couldn't create a new Task with the following data` })
+}
+
+
+
+
+    
 
 })
 router.put('/edit/:id', (req, res) => {
@@ -270,6 +394,7 @@ router.post('/notif',(req,res) => {
     if(!newNotif.memID || !newNotif.taskID) {
         return res.status(400).json({msg: `Erorr`});
     }
+    //asd
     notif.push(newNotif);
     res.json(notif);
 });
@@ -277,7 +402,96 @@ router.get('/notif',(req,res) => {
     //showing a notification
     res.json(notif);
 });
+//---------------------------------------------
+//MONGO DB IMPLEMENTATION
 //Amr 'Manga' Nashaat
+
+
+
+//Create Task Mongo
+router.post('/', async(req,res) => {
+    try{
+    const {name, time_of_post, time_of_review, monetary_compensation, price, time_of_assingment, is_assigned, assigned_id, time_expected, level_of_comitment, is_reviewed, experience_needed, description,p_id,response_from_admin, admin_id, applicants } = req.body
+    const new_task = new Task({
+        name,
+        time_of_post,
+        time_of_review, 
+        monetary_compensation, 
+        price,
+        time_of_assingment, 
+        is_assigned, 
+        assigned_id,
+        time_expected,
+        level_of_comitment,
+        is_reviewed, 
+        experience_needed,
+        description,p_id,
+        response_from_admin,
+        admin_id, 
+        applicants 
+    })
+    new_task
+    .save()
+    //.then(Tasks => res.json({data: new_task}))
+    res.json({msg: 'Task added', data:new_task})
+} catch(error) {
+    console.log("oops")
+}
+        
+})
+//UPDATE TASK MONGO
+router.put('/:id', async(req,res) => {
+        Tasks.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
+            if(!err) {
+                return res.json({data:model})
+            } else {
+                return res.data({error: `Can't find task`})
+            }
+        } )
+      
+})
+
+//DELETE TASK MONGO
+//Manga
+router.delete('/:id', async(req,res) => {
+        const name = req.params.name
+        Tasks.findByIdAndDelete(req.params.id, (err,model) => {
+            if(!err) {
+                return res.json({data:null})
+            } else {
+                return res.json({error: 'Error, cant delete'})
+            }
+        })
+        if(!deletedTask) return res.status(404).send({error: 'Task doesnt exist'})
+        res.json({msg: `Task ${name} deleted`, data: deletedTask})
+    
+}) 
+//READ TASK MONGO
+router.get('/view_tasks', async (req,res) => {
+    const tasking = await Tasks.find()
+    res.json({data: tasking})
+})
+//STORY 1.3, READ TASK'S DESC
+router.get('/view_tasks/:id', async (req,res) => {
+    const t = await Tasks.findById(req.params.id)
+    res.json({data: t.description})
+})
+//STORY 1.3, UPDATE TASK'S RESPONSE FROM ADMIN
+router.put('/update_task/:id', async(req,res) => {
+    const tasking = await Tasks.findById(req.params.id)
+
+})
+//UPDATING TASK'S DESC IS REPITITVE SINCE WE CAN ALREADY
+//UPDATE ANYTHING IN THE ENTIRE TASK
+//---------------------------------------------------------------------
+
+
+
+
+
+
+
+//OLD DISPLAY ON TASK ID
 router.get('/get/:id', (req,res) => {
     //Getting a task via id
     const tasks=Task
@@ -288,6 +502,7 @@ router.get('/get/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+//NEW DISPLAY ON TASK ID
 router.put('/update/:id', (req,res) => {
     //updating a Task with the given inputs
     const tasks=Task
@@ -304,27 +519,56 @@ router.put('/update/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+
+
+
 //Aly Zamzamy
 router.put('/review/:id', (req,res)=>{
     //accepting a task upload via id
-    const found = Task.some(task => task.id === (req.params.id));
+let id= req.params.id;
+    // check for req are valid
+ 
+Tasks.findOneAndUpdate({_id:id},{is_reviewed:true} ,function(err,result){
+if(err)
+{
 
-    if(found){
+res.status(500); // bad request is being sent
+res.json({'error':' internalServerErrorInReview '});;
+}
+else if(result ==null)
+{
+    res.status(404); // bad request is being sent
+    res.json({'error':'taskToBeReviewedIsNotFound'});;
+}
+else
+{
+    res.status(200);
+}
+    
+});   });
 
-        Task.forEach(t => {
-            if(t.id === (req.params.id)){
-            t.is_reviewed = true ;
-            res.json({msg: 'task updated', Task});
+
+
+
+
+router.put('/revvv/:id', async(req,res) => {
+            try{
+            const task = await Tasks.findOne({id})
+            if(!task) return res.status(404).send({error: 'Task does not exist'})
+            
+            task.is_reviewed=true;
+            res.json({msg:'Updated Task'})
+        
+        } catch(error) {
+            console.log("cant update")
+            res.json({msg: 'cant update'})
         }
-        });
-        }
-    else{
-      res.status(400).json({msg : 'no member with the id ${req.params.id} '} ) ;
-
-    }
+    })
 
 
-        });
+
+
+
 //Mohammed Islam
 router.get('/users/:id', (req,res) => {
     //getting a user with his id
@@ -344,7 +588,7 @@ router.get('/Tasks/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
-router.put('/:id', (req,res) => {
+/*router.put('/:id', (req,res) => {
     //assigning a request to a member
     const found = Task.some(task => task.id === req.params.id);
     const updateTask = req.body; 
@@ -360,5 +604,6 @@ router.put('/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+*/
 
 module.exports=router
