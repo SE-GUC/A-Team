@@ -68,18 +68,11 @@ app.use('/api/applications',applications)
 app.use('/api/PartnerRequest',PartnerRequest)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/tasks',tasks)
-<<<<<<< HEAD
 app.use('/api/project',projects)
 app.use('/api/dummy',dummy)
 app.use('/api/consultancyAgencies',ConsultancyAgency)
 //app.use('/api/tasks',tasks_objects)
 
-=======
-app.use(session({secret:"jK47hge2", resave:false, saveUninitialized:true}));
-
-app.use('/api/consultancy_agencies',ConsultancyAgency)
-//s
->>>>>>> origin/development
 
 
 app.use((req, res) => {
