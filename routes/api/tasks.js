@@ -258,6 +258,13 @@ router.get('/read/:id', async (req,res) => {
     const t = await Tasks.findById(req.params.id)
     res.json({data: t.description})
 })
+//STORY 1.3, UPDATE TASK'S RESPONSE FROM ADMIN
+/*
+router.put('/error1/:id', async(req,res) => {
+    const tasking = await Tasks.findById(req.params.id)
+
+})
+*/
 //UPDATING TASK'S DESC IS REPITITVE SINCE WE CAN ALREADY
 //UPDATE ANYTHING IN THE ENTIRE TASK
 //---------------------------------------------------------------------
@@ -280,9 +287,6 @@ router.put('/update/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
-
-
-
 //Aly Zamzamy
 router.put('/review/:id', (req,res)=>{
     //accepting a task upload via id
@@ -345,4 +349,5 @@ router.get('/Tasks/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
+
 module.exports=router
