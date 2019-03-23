@@ -100,6 +100,7 @@ catch(err){
     
 
 })
+/*
 router.put('/edit/:id', (req, res) => {
     //editing a task with nullifying
     const time_of_post=req.body.time_of_post
@@ -154,6 +155,7 @@ router.delete('/remove/:id',(req,res)=>{
     Task.splice(index,1)
     res.send(Task)
 });
+*/
 //Farah Abdelsalam
 /*
 router.post('/inv',(req,res) => {
