@@ -78,5 +78,5 @@ app.use('/api/consultancyAgencies',ConsultancyAgency)
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
-const PORT = 4000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+const port = 4000 | process.env.PORT;
+app.listen(port, () => console.log(`Listening on port ${port}`));
