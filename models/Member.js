@@ -18,4 +18,4 @@ const MemberSchema = new Schema({
         required:true,
     }]
 })
-module.exports=members= mongoose.model('members', MemberSchema)
+module.exports=Members= mongoose.model('members', MemberSchema)
