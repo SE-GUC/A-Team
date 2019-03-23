@@ -8,6 +8,9 @@ const Task = require('../../models/Task') //mongo
 
 
 //add random task tester
+router.get('/',(req,res)=>{
+    res.json({message:"Sadly we dont have an untitled get request"})
+});
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
         name:"Octane",
@@ -266,7 +269,7 @@ router.put('/error1/:id', async(req,res) => {
 })
 */
 //UPDATING TASK'S DESC IS REPITITVE SINCE WE CAN ALREADY
-//UPDATE ANYTHING IN THE ENTIRE TASK
+//UPDATE ANYTHING IN THE ENTIRE TASK (see error1)
 //---------------------------------------------------------------------
 
 
