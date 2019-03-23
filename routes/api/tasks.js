@@ -2,6 +2,7 @@ const express= require('express');
 const router= express.Router();
 const moment= require('moment')
 const Tasks = require('../../models/Task') //mongo
+const Task=require('../../models/Task')
 const uuid = require('uuid')
 const joi = require('joi')
 const mongoose = require('mongoose')
@@ -338,7 +339,7 @@ router.put('/revvv/:id', async(req,res) => {
 //Mohammed Islam
 
 //getting a specfic task
-router.get('/Tasks/:id', async (req,res) => {
+router.get('/get/:id', async (req,res) => {
         const id = req.params.id
         const task = await Tasks.findOne({id})
         if(!task) return res.status(404).send({error: 'User does not exist'})
@@ -346,7 +347,7 @@ router.get('/Tasks/:id', async (req,res) => {
         res.json({data: task})
         });
 //assigning a request 
- router.put('/:id',async (req,res) => {
+ router.put('assign/:id',async (req,res) => {
             const id = req.params.id
             const task = await Tasks.findOne({id})
             const updateTask = req.body; 
@@ -358,5 +359,5 @@ router.get('/Tasks/:id', async (req,res) => {
            res.json({msg: `Task updated`, Tasks});
        }
         });
-]
+
 module.exports=router
