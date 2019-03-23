@@ -13,6 +13,8 @@ const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
 const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
+const projects= require('./routes/api/project')
+const dummy = require('./routes/api/dummy')
 
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
@@ -58,7 +60,7 @@ app.get('/',(req,res)=>{
 
 
 
-const session= require('express-session');
+
 
 
 app.use('/api/events', events)
