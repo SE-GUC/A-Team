@@ -23,11 +23,8 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 const db = require('./config/keys').mongoURI
 
 
-mongoose
-    .connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true')
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.log(err))
-
+mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true')
+    
 
 
 app.get('/',(req,res)=>{
