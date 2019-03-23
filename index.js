@@ -83,4 +83,4 @@ app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
 const port = 4000 | process.env.PORT;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log('Websire up and running'));
