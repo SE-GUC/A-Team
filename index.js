@@ -24,7 +24,7 @@ const db = require('./config/keys').mongoURI
 
 
 mongoose
-    .connect(db)
+    .connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true')
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
