@@ -2,9 +2,9 @@ const express= require('express');
 const router= express.Router();
 const moment= require('moment')
 const Tasks = require('../../models/Task') //mongo
+const uuid = require('uuid')
 const joi = require('joi')
 const mongoose = require('mongoose')
-const Task = require('../../models/Task') //mongo
 
 
 //add random task tester
@@ -336,23 +336,27 @@ router.put('/revvv/:id', async(req,res) => {
 
 
 //Mohammed Islam
-router.get('/users/:id', (req,res) => {
-    //getting a user with his id
-    const found = users.some(users => users.id == req.params.id);
-    if(found) {
-        res.json(users.filter(users => users.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
-router.get('/Tasks/:id', (req,res) => {
-    //getting a specfic task
-    const found = Task.some(tasks => tasks.id == req.params.id);
-    if(found) {
-        res.json(Task.filter(tasks => tasks.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
 
+//getting a specfic task
+router.get('/Tasks/:id', async (req,res) => {
+        const id = req.params.id
+        const task = await Tasks.findOne({id})
+        if(!task) return res.status(404).send({error: 'User does not exist'})
+        else
+        res.json({data: task})
+        });
+//assigning a request 
+ router.put('/:id',async (req,res) => {
+            const id = req.params.id
+            const task = await Tasks.findOne({id})
+            const updateTask = req.body; 
+            if(!task) return res.status(404).send({error: 'User does not exist'})
+        else
+       {
+           task.is_assigned=updateTask.is_assigned;
+           task.assigned_id = updateTask.assigned_id
+           res.json({msg: `Task updated`, Tasks});
+       }
+        });
+]
 module.exports=router
