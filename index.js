@@ -35,7 +35,9 @@ const db = require('./config/keys').mongoURI
 app.get('/',(req,res)=>{
     res.send(`
     <h1>Hello friend</h1>
-    <a href="/api/events" > to create an event</a>`)
+    <a href="/api/events" > to create an event</a>
+    <a href="api/tasks" >Go to member page</a>`
+    )
 })
 
 
