@@ -23,8 +23,13 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 const db = require('./config/keys').mongoURI
 
 
-mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true')
-    
+    mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+    mongoose.connection.once('open', function(){
+      console.log('Conection has been made!');
+    }).on('error', function(error){
+        console.log('Error is: ', error);
+    });
+
 
 
 app.get('/',(req,res)=>{
