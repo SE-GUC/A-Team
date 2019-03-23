@@ -189,12 +189,10 @@ router.get('/notif',(req,res) => {
 */
 //---------------------------------------------
 //MONGO DB IMPLEMENTATION
+
 //Amr 'Manga' Nashaat
-
-
-
 //Create Task Mongo
-router.post('/', async(req,res) => {
+router.post('/create', async(req,res) => {
     try{
     const {name, time_of_post, time_of_review, monetary_compensation, price, time_of_assingment, is_assigned, assigned_id, time_expected, level_of_comitment, is_reviewed, experience_needed, description,p_id,response_from_admin, admin_id, applicants } = req.body
     const new_task = new Task({
@@ -224,8 +222,13 @@ router.post('/', async(req,res) => {
 }
         
 })
+//READ TASK MONGO
+router.get('/read', async (req,res) => {
+    const tasking = await Tasks.find()
+    res.json({data: tasking})
+})
 //UPDATE TASK MONGO
-router.put('/:id', async(req,res) => {
+router.put('/update/:id', async(req,res) => {
         Tasks.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
             if(!err) {
                 return res.json({data:model})
@@ -235,9 +238,7 @@ router.put('/:id', async(req,res) => {
         } )
       
 })
-
 //DELETE TASK MONGO
-//Manga
 router.delete('/:id', async(req,res) => {
         const name = req.params.name
         Tasks.findByIdAndDelete(req.params.id, (err,model) => {
@@ -251,42 +252,17 @@ router.delete('/:id', async(req,res) => {
         res.json({msg: `Task ${name} deleted`, data: deletedTask})
     
 }) 
-//READ TASK MONGO
-router.get('/view_tasks', async (req,res) => {
-    const tasking = await Tasks.find()
-    res.json({data: tasking})
-})
+
 //STORY 1.3, READ TASK'S DESC
-router.get('/view_tasks/:id', async (req,res) => {
+router.get('/read/:id', async (req,res) => {
     const t = await Tasks.findById(req.params.id)
     res.json({data: t.description})
-})
-//STORY 1.3, UPDATE TASK'S RESPONSE FROM ADMIN
-router.put('/update_task/:id', async(req,res) => {
-    const tasking = await Tasks.findById(req.params.id)
-
 })
 //UPDATING TASK'S DESC IS REPITITVE SINCE WE CAN ALREADY
 //UPDATE ANYTHING IN THE ENTIRE TASK
 //---------------------------------------------------------------------
 
 
-
-
-
-
-
-//OLD DISPLAY ON TASK ID
-router.get('/get/:id', (req,res) => {
-    //Getting a task via id
-    const tasks=Task
-    const found = tasks.some(tasks => tasks.id == req.params.id);
-    if(found) {
-        res.json(tasks.filter(tasks => tasks.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
 //NEW DISPLAY ON TASK ID
 router.put('/update/:id', (req,res) => {
     //updating a Task with the given inputs
@@ -310,32 +286,28 @@ router.put('/update/:id', (req,res) => {
 //Aly Zamzamy
 router.put('/review/:id', (req,res)=>{
     //accepting a task upload via id
-let id= req.params.id;
+    let id= req.params.id;
     // check for req are valid
  
-Tasks.findOneAndUpdate({_id:id},{is_reviewed:true} ,function(err,result){
-if(err)
-{
+    Tasks.findOneAndUpdate({_id:id},{is_reviewed:true} ,function(err,result){
+    if(err)
+    {
 
-res.status(500); // bad request is being sent
-res.json({'error':' internalServerErrorInReview '});;
-}
-else if(result ==null)
-{
-    res.status(404); // bad request is being sent
-    res.json({'error':'taskToBeReviewedIsNotFound'});;
-}
-else
-{
-    res.status(200);
-}
+    res.status(500); // bad request is being sent
+    res.json({'error':' internalServerErrorInReview '});;
+    }
+    else if(result ==null)
+    {
+        res.status(404); // bad request is being sent
+        res.json('Task Was not found');;
+    }
+    else
+    {
+        res.status(200);
+        res.json('Task was found and reviewed')
+    }
     
-});   });
-
-
-
-
-
+});});
 router.put('/revvv/:id', async(req,res) => {
             try{
             const task = await Tasks.findOne({id})
