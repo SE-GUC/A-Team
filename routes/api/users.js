@@ -131,6 +131,19 @@ router
   })
 
 
+//Delete user
+router.delete('/:id', (req, res) => {
+    User.findByIdAndDelete({_id:req.params.id}).then(user => res.send(user))
+});
+//get specific user
+router.get('/users/:id',async (req,res) => {
+    const id = req.params.id
+    const user = await users.findOne({id})
+    if(!user) return res.status(404).send({error: 'User does not exist'})
+    else
+    res.json({data: user})
+    });
+
 module.exports=router
     
     

@@ -1,192 +1,17 @@
 const express= require('express');
 const router= express.Router();
 const moment= require('moment')
-
 const Tasks = require('../../models/Task') //mongo
-
+const Task=require('../../models/Task')
 const uuid = require('uuid')
 const joi = require('joi')
-const Partner= require('../../models/Partner');
 const mongoose = require('mongoose')
 
-/*
-const users=[
-    {
-        id:'1',
-        first_name:"Youssef",
-        middle_name:"Zaki",
-        last_name:"Shalaby",
-        dob:"23/09/1998",
-        email:"youshalaby@gmail.com",
-        password:"allezleblues",
-        phone: '01119455455',
-        country:"Egypt",
-        city:"cairo",
-        account_open_on:""
 
-
-
-    },
-    {
-        id:'2',
-        first_name:"Mesut",
-        middle_name:"AMin",
-        last_name:"Ozil",
-        dob:"23/09/1990",
-        email:"ozil@gmail.com",
-        password:"iamjd",
-        phone: '02222345455' ,
-        country:"England",
-        city:"London",
-        account_open_on:""
-
-
-
-    },
-    {
-        id:'3',
-        first_name:"Emily",
-        middle_name:"Olivia",
-        last_name:"Blunt",
-        dob:"23/02/1983",
-        email:"ms_blunt@gmail.com",
-        password:"holywood202",
-        phone: '9455667788' ,
-        country:"USA",
-        city:"New Jersey",
-        account_open_on:""
-
-
-
-    },
-    {
-        id:'4',
-        first_name:"Tessa",
-        middle_name:"Lyn",
-        last_name:"Thompson",
-        dob:"03/10/1983",
-        email:"lifeline@gmail.com",
-        password:"blackpanther",
-        phone: '0104840022' ,
-        country:"USA",
-        city:"New York",
-        account_open_on:""
-
-
-
-    }
-
-    ]
-const taskOrientation = [
-    {
-        memID: '2',
-        taskID: '1'
-    },
-    {
-        memID: '3',
-        taskID: '2'
-    }
-];
-const notif = [
-    {
-        memID: "2",
-        taskID: "1"
-    },
-    {
-        memID: "3",
-        taskID: "2"
-    }
-];
-const Task=[
-        {
-            id:'1', 
-            time_of_post:"21/02/2019 8:15 PM",
-            time_of_review:"",
-            monetary_compensation:'5678',
-            price:'20000',
-            time_of_assingment:"",
-            is_assigned:false,
-            assigned_id:'',
-            time_expected:"3 weeks",
-            level_of_comitment:"High",
-            is_reviewed: false,
-            experience_needed:'3',
-            description:"I need someone to Apply unit tests on my code",
-            p_id:'4',
-            skills:["Java","programming"],
-            response_from_admin:"",
-            admin_id:'1'
-    
-        },
-        {
-            id:'2',
-            time_of_post:"21/02/2019 7:15 PM",
-            time_of_review:"",
-            monetary_compensation:'58',
-            price:'200',
-            time_of_assingment:"",
-            is_assigned:false,
-            assigned_id:'',
-            time_expected:"3 days",
-            level_of_comitment:"low",
-            is_reviewed: false,
-            experience_needed:'2',
-            description:"Translation from Chinese to English Needed",
-            p_id:'4',
-            skills:["Chinese","English","Translation"],
-            response_from_admin:"",
-            admin_id:'1'
-    
-        }
-    
-    ];    
-const event=[
-        {
-            id:'4',
-            remaining_places:'12',
-            organizer:"Mohammed Mahrous",
-            location:"Mall of arabia hall 2, 6 october city, cairo, Egypt",
-            about:"event that helps ict startups",
-            price:'60',
-            speakers:["Elon Musk","Hassan Soubra"],
-            topics:["technology","Java","Programming"],
-            attendees_ids:['1','2']
-    
-    
-        }
-    
-    ]
-    */
-//add random task
-router.post('/add_task', async (req,res) => {
-    const newTask = new Task({
-        name:"Octane",
-        time_of_post: new Date('01.02.2012'),
-        time_of_review:new Date('01.02.2012'),
-        monetary_compensation: 2000,
-        price:898989,
-        time_of_assingment:new Date('01.02.2012'),
-        is_assigned:false,
-        assigned_id:'',
-        time_expected:"3 days",
-        level_of_comitment:"High",
-        is_reviewed:false,
-        experience_needed:"6 yrs",
-        description:"Be aware of the new kill leader",
-        p_id:'',
-        skills:["Apex Legends"],
-        response_from_admin:'',
-        admin_id:1,
-        applicants:[1,2,3] 
-        })
-    newTask
-    .save()
-    .then(task => res.json({data: task}))
-const Task = require('../../models/Task') //mongo
-const mongoose = require('mongoose')
-const uuid= require('uuid')
-
-
+//add random task tester
+router.get('/',(req,res)=>{
+    res.json({message:"Sadly we dont have an untitled get request"})
+});
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
         name:"Octane",
@@ -213,44 +38,6 @@ router.post('/add_task', async (req,res) => {
     .then(task => res.json({data: task}))
     
 })
-
-
-
-
-router.post('/add_task', async (req,res) => {
-    const newTask = new Task({
-        name:"First Task!!",
-        time_of_post: new Date(),
-        time_of_review:'',
-        monetary_compensation: 2000,
-        price:898989,
-        time_of_assingment:'',
-        is_assigned:false,
-        assigned_id:undefined,
-        time_expected:"3 days",
-        level_of_comitment:"High",
-        is_reviewed:false,
-        experience_needed:"6 months",
-        description:"This is not a request",
-        p_id:undefined,
-        skills:["Mongo","Express","React","Node.js"],
-        response_from_admin:'',
-        admin_id: mongoose.Types.ObjectId(),
-        applicants:[] 
-        })
-    newTask
-    .save()
-    .then(task => res.json({data: task}))
-
-    
-})
-    
-
-
-    
-
-
-
 //Show All Tasks/
 
 //Youssef Shalaby
@@ -314,6 +101,7 @@ catch(err){
     
 
 })
+/*
 router.put('/edit/:id', (req, res) => {
     //editing a task with nullifying
     const time_of_post=req.body.time_of_post
@@ -368,7 +156,9 @@ router.delete('/remove/:id',(req,res)=>{
     Task.splice(index,1)
     res.send(Task)
 });
+*/
 //Farah Abdelsalam
+/*
 router.post('/inv',(req,res) => {
     //posting an invite
     const newInv = {
@@ -402,14 +192,13 @@ router.get('/notif',(req,res) => {
     //showing a notification
     res.json(notif);
 });
+*/
 //---------------------------------------------
 //MONGO DB IMPLEMENTATION
+
 //Amr 'Manga' Nashaat
-
-
-
 //Create Task Mongo
-router.post('/', async(req,res) => {
+router.post('/create', async(req,res) => {
     try{
     const {name, time_of_post, time_of_review, monetary_compensation, price, time_of_assingment, is_assigned, assigned_id, time_expected, level_of_comitment, is_reviewed, experience_needed, description,p_id,response_from_admin, admin_id, applicants } = req.body
     const new_task = new Task({
@@ -439,8 +228,13 @@ router.post('/', async(req,res) => {
 }
         
 })
+//READ TASK MONGO
+router.get('/read', async (req,res) => {
+    const tasking = await Tasks.find()
+    res.json({data: tasking})
+})
 //UPDATE TASK MONGO
-router.put('/:id', async(req,res) => {
+router.put('/update/:id', async(req,res) => {
         Tasks.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
             if(!err) {
                 return res.json({data:model})
@@ -450,9 +244,7 @@ router.put('/:id', async(req,res) => {
         } )
       
 })
-
 //DELETE TASK MONGO
-//Manga
 router.delete('/:id', async(req,res) => {
         const name = req.params.name
         Tasks.findByIdAndDelete(req.params.id, (err,model) => {
@@ -466,42 +258,24 @@ router.delete('/:id', async(req,res) => {
         res.json({msg: `Task ${name} deleted`, data: deletedTask})
     
 }) 
-//READ TASK MONGO
-router.get('/view_tasks', async (req,res) => {
-    const tasking = await Tasks.find()
-    res.json({data: tasking})
-})
+
 //STORY 1.3, READ TASK'S DESC
-router.get('/view_tasks/:id', async (req,res) => {
+router.get('/read/:id', async (req,res) => {
     const t = await Tasks.findById(req.params.id)
     res.json({data: t.description})
 })
 //STORY 1.3, UPDATE TASK'S RESPONSE FROM ADMIN
-router.put('/update_task/:id', async(req,res) => {
+/*
+router.put('/error1/:id', async(req,res) => {
     const tasking = await Tasks.findById(req.params.id)
 
 })
+*/
 //UPDATING TASK'S DESC IS REPITITVE SINCE WE CAN ALREADY
-//UPDATE ANYTHING IN THE ENTIRE TASK
+//UPDATE ANYTHING IN THE ENTIRE TASK (see error1)
 //---------------------------------------------------------------------
 
 
-
-
-
-
-
-//OLD DISPLAY ON TASK ID
-router.get('/get/:id', (req,res) => {
-    //Getting a task via id
-    const tasks=Task
-    const found = tasks.some(tasks => tasks.id == req.params.id);
-    if(found) {
-        res.json(tasks.filter(tasks => tasks.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
 //NEW DISPLAY ON TASK ID
 router.put('/update/:id', (req,res) => {
     //updating a Task with the given inputs
@@ -519,38 +293,31 @@ router.put('/update/:id', (req,res) => {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
 });
-
-
-
 //Aly Zamzamy
 router.put('/review/:id', (req,res)=>{
     //accepting a task upload via id
-let id= req.params.id;
+    let id= req.params.id;
     // check for req are valid
  
-Tasks.findOneAndUpdate({_id:id},{is_reviewed:true} ,function(err,result){
-if(err)
-{
+    Tasks.findOneAndUpdate({_id:id},{is_reviewed:true} ,function(err,result){
+    if(err)
+    {
 
-res.status(500); // bad request is being sent
-res.json({'error':' internalServerErrorInReview '});;
-}
-else if(result ==null)
-{
-    res.status(404); // bad request is being sent
-    res.json({'error':'taskToBeReviewedIsNotFound'});;
-}
-else
-{
-    res.status(200);
-}
+    res.status(500); // bad request is being sent
+    res.json({'error':' internalServerErrorInReview '});;
+    }
+    else if(result ==null)
+    {
+        res.status(404); // bad request is being sent
+        res.json('Task Was not found');;
+    }
+    else
+    {
+        res.status(200);
+        res.json('Task was found and reviewed')
+    }
     
-});   });
-
-
-
-
-
+});});
 router.put('/revvv/:id', async(req,res) => {
             try{
             const task = await Tasks.findOne({id})
@@ -570,40 +337,27 @@ router.put('/revvv/:id', async(req,res) => {
 
 
 //Mohammed Islam
-router.get('/users/:id', (req,res) => {
-    //getting a user with his id
-    const found = users.some(users => users.id == req.params.id);
-    if(found) {
-        res.json(users.filter(users => users.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
-router.get('/Tasks/:id', (req,res) => {
-    //getting a specfic task
-    const found = Task.some(tasks => tasks.id == req.params.id);
-    if(found) {
-        res.json(Task.filter(tasks => tasks.id == req.params.id));
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
-/*router.put('/:id', (req,res) => {
-    //assigning a request to a member
-    const found = Task.some(task => task.id === req.params.id);
-    const updateTask = req.body; 
-    if(found) {
-        Task.forEach(task => {
-            if(task.id === req.params.id) {
-                task.is_assigned = updateTask.is_assigned ? updateTask.is_assigned : task.is_assigned;
-                task.assigned_id = updateTask.assigned_id ? updateTask.assigned_id : task.assigned_id;
-                res.json({msg: `Task updated`, Task});
-            }
+
+//getting a specfic task
+router.get('/get/:id', async (req,res) => {
+        const id = req.params.id
+        const task = await Tasks.findOne({id})
+        if(!task) return res.status(404).send({error: 'User does not exist'})
+        else
+        res.json({data: task})
         });
-    } else {
-        res.status(400).json({msg: `ID ${req.params.id} not found`});
-    }
-});
-*/
+//assigning a request 
+ router.put('assign/:id',async (req,res) => {
+            const id = req.params.id
+            const task = await Tasks.findOne({id})
+            const updateTask = req.body; 
+            if(!task) return res.status(404).send({error: 'User does not exist'})
+        else
+       {
+           task.is_assigned=updateTask.is_assigned;
+           task.assigned_id = updateTask.assigned_id
+           res.json({msg: `Task updated`, Tasks});
+       }
+        });
 
 module.exports=router
