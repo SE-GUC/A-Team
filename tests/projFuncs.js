@@ -8,14 +8,17 @@ const headers={
 const functions = {
         add: (x,y) => x+y,
         createProject:async()=>{
-                    const project= await axios.post('https://ateamse2.herokuapp.com/api/project/create',{
-                    project_name:'Running Jest on project CRUD',
-                    partner_responsible: '5c96352dd744db39e4940f23',
-                    consultancy_agency_sponsor:'5c9b331577541a0017be83de'
-                },{headers:headers})
-               return project 
-                      
-            },
+                return  axios({
+                          method: 'post',
+                          url: 'https://ateamse2.herokuapp.com/api/project/create',
+                          headers: {'Content-Type': 'application/json'}, 
+                          data: {
+                          project_name:'This project was created by jest',
+                          partner_responsible: '5c9b39236c59bf0017b4a442',
+                          consultancy_agency_sponsor:'5c9b39236c59bf0017b4a443'
+                          }
+                        });
+          },
             getproject:async()=>{
               return  axios({
                         method: 'get',
@@ -25,7 +28,32 @@ const functions = {
                         id:'5c9b3d2a6c59bf0017b4a481'
                         }
                       });
-        }
+        },
+        updateProject:async()=>{
+                return  axios({
+                          method: 'put',
+                          url: 'https://ateamse2.herokuapp.com/api/project/crud',
+                          headers: {'Content-Type': 'application/json'}, 
+                          data: {
+                          id:'5c9b396a6c59bf0017b4a445',
+                          update:{
+                                project_name:'This project was Updated by jest',
+                                partner_responsible: '5c9b39236c59bf0017b4a442'
+                          }
+
+                          }
+                        });
+          },
+          deleteProject:async()=>{
+                return  axios({
+                          method: 'delete',
+                          url: 'https://ateamse2.herokuapp.com/api/project/crud',
+                          headers: {'Content-Type': 'application/json'}, 
+                          data: {
+                                id:'5c9b396a6c59bf0017b4a445'
+                          }
+                        });
+          }
         
 };
 module.exports = functions;
