@@ -50,6 +50,13 @@ test("Delete a project",async()=>{
   }
   expect(result).toBeDefined()
   expect(result.data.message).toEqual(expectation.messsage)
-  
 })
+test("Added a Task", async()=>{
+  const result= await funcs.addTask()
+  const expectation={
+    taskid:'5c9b9bbf69bb9e0017b86e6f'
+  }
+  expect(result).toBeDefined()
+  expect(result.data.data.Tasks).toContain(expectation.taskid)
 
+})

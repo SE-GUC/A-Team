@@ -53,6 +53,17 @@ const functions = {
                                 id:'5c9b396a6c59bf0017b4a445'
                           }
                         });
+          },
+          addTask:async()=>{
+                return  axios({
+                          method: 'post',
+                          url: 'https://ateamse2.herokuapp.com/api/project/5c9b39236c59bf0017b4a441/addTask',
+                          headers: {'Content-Type': 'application/json'}, 
+                          data: {
+                                taskid:'5c9b9bbf69bb9e0017b86e6f'
+
+                          }
+                        });
           }
         
 };
