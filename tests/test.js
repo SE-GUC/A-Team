@@ -1,56 +1,18 @@
-//const express = require('express')
-//const router = express.Router()
-//const Tasks = require('../../A-Team/routes/api/tasks')
-//const mongoose = require('mongoose')
+
 const funcs = require('./functions')
 const axios = require('axios')
-// const people = [
-//     'Ammar',
-//     'Leo',
-//     'Barney',
-//     'Jaime',
-//     'Tywin',
-//   ];
-//   async function getTasksHere ()  {
-//     axios
-//         .get('https://ateamse.herokuapp.com/api/tasks/read')
-//         .then(response => {
-//             console.log(response.data)
-//             console.log("IM HERE BITCHES")
-//             return response
 
-
-//         })
-//         .catch(function(error) {
-//             console.log(error)
-//         });
-
-// }
-
-test('Add 2 numbers equals 3', () => {
-    expect(funcs.add(1,2)).toBe(3);
-});
-
-// test('task get request test', async () => {
-//     const response = getTasksHere()
-//     expect(getTasksHere.data[4]).toEqual('Its only over when its over')
-// });
-
-
-//TASK GET
+//AMR NASHAAT, Task's CRUD testing, and Story 1.3 testing(Viewing a task's specific desc)
 test('testing get request', async() => {
     expect.assertions(1)
     const response = await funcs.getTasks()
     expect(response.data[0].name).toEqual('OnePointThree')
 });
-//TASK UPDATE
 test('testing task put request', async() => {
-  //expect.assertions(1)
     const desc = 'TESTING UPDATE NOW'
     const response = await funcs.updateTaskDesc('5c9b9bbf69bb9e0017b86e6f',desc)
     expect(response.data.data.description).toEqual(desc)
 });
-//TASK DELETE
 test('testing task delete', async() => {
     const before = await funcs.getTasks() //4
     funcs.deleteTaskDesc('5c9bbb584b73cd0017ada9d6')
@@ -62,9 +24,12 @@ test('testing task post', async() => {
     funcs.postTask()
     const after = await funcs.getTasks()
     expect(before.data.length+1).toBe(after.data.length)
-})
+});
+test('testing viewing task desc, story1.3',async() => {
+    const desc = 'TESTING ONEP3'
+    const m = await funcs.getTaskDesc('5c9bca0bac225200175df711')
+    expect(m.data).toEqual(desc)
+});
 
 
 
-
-//Create, Read, Delete, Update

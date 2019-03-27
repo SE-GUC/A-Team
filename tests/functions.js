@@ -13,13 +13,11 @@ const functions = {
     },
     updateTaskDesc: async(id,desc) => {
         const m = await axios.put('https://ateamse.herokuapp.com/api/tasks/update/'+id, {description: desc})
-        console.log(m)
         return m
 
     },
     deleteTaskDesc: async(id) => {
         const manga = axios.delete('https://ateamse.herokuapp.com/api/tasks/'+id, {})
-        //console.log(manga.data)
         return manga
     }, 
     postTask: async() => {
@@ -47,35 +45,13 @@ const functions = {
 
         });
     },
+    getTaskDesc: async(id) => {
+        const manga = await axios.get('https://ateamse.herokuapp.com/api/tasks/read/'+id)
+        console.log(manga.data.data)
+        return manga.data
+    },
     
 
 }
-//functions.deleteTaskDesc()
-//functions.updateTaskDesc()
-//Testing PUT ID: 5c9ba3f269bb9e0017b86e73
 
-
-// async function getTasksHere() {
-//     const task = await axios.get('https://ateamse.herokuapp.com/api/tasks/read')
-//     console.log(task.data.data[1)
-//     return task
-// }
-// getTasksHere()
-// function getTasksTwo() {
-//     axios
-//         .get('https://ateamse.herokuapp.com/api/tasks/read')
-//         .then(response => {
-//             console.log('printing data now')
-//             console.log(response.data)
-//             console.log("IM HERE BITCHES")
-//             return response.data
-
-//         })
-//         .catch(function(error) {
-//             console.log(error)
-//         });
-
-// }
-// console.log(getTasksTwo())
 module.exports = functions;
-//require('make-runnable');
