@@ -19,6 +19,8 @@ router.route('/:title').get(async (request, response) => {
   }
 })
 
+//create location  
+
 router.post('/', async (req,res) => {
   const { title, location, capacity, booked }  = req.body
   const locations = await Location.findOne({title})
@@ -35,7 +37,7 @@ router.post('/', async (req,res) => {
 }) 
 
 
-
+// delete location 
 router.route('/:title').delete(async (request, response) => {
   try {
     const locations = await Location.findOneAndDelete({title:request.params.title}).exec()
@@ -46,6 +48,7 @@ router.route('/:title').delete(async (request, response) => {
   }
 })
 
+// edit location
 router.put('/:title', async(req,res) => {
   try {
       const title = req.params.title
