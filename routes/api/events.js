@@ -6,19 +6,18 @@ const router = express.Router()
 const Event = require('../../models/Event')
 
 // {
-//   "remaining_places": 12,
-//     "location": "123456789000000000000000",
-//     "about": "jjkgjgf",
+//   "remaining_places": 300,
+//     "location": "5c9bff7f569b9a001796d40a",
+//     "about": "MERN Programming Style",
 //     "price": 55,
-//     "speakers": ["ahmed"],
-//     "topics": ["ahmed"],
-//     "type": "eh feih eh",
-//     "partnerInitiated": "123456789000000000000000",
-//     "request":"123456789000000000000000",
-//     "attendees": ["123456789000000000000000","123456789000000000000000"]
+//     "speakers": ["Abdelraouf", "Steve Jobs"],
+//     "topics": ["MERN", "JavaScript"],
+//     "type": "Computer Science",
+//     "partnerInitiated": "5c93cd1f1c9fe35274d2f624",
+//     "request":"5c93cd1f1c9fe35274d2f624",
+//     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
-
 
 // {
 // 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
