@@ -31,7 +31,11 @@ const myFuncs = {
                         id:'5c93b78f1d4b8e5b48557ba0'
                     }
                }) 
-          }
+          },
+      geteventbytype: async(type)=>{
+            const event=axios.get('https://ateamse2.herokuapp.com/api/events/'+type+"", {type:type})
+            return event.data.data
+      }
         
 };
 myFuncs.createEvent();

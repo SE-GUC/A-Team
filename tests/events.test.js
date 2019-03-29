@@ -43,5 +43,11 @@ test('Updating an event in the database', async() => {
   expect(response.remaining_places).toEqual(remaining_places)
 });
 
+test('gets events by type' , async()=>{
+  const type= "eh feih eh"
+  const response= await funcs.geteventbytype(type)
+  expect(response.type).toEqual(type)
+})
+
 
 
