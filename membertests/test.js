@@ -18,14 +18,19 @@ const funcs = require('./memberfunctions')
     expect(x).toBeDefined()
  });
 
-  test('testing Member delete test', async() => {
-     const before = await funcs.getMember();
-     const v =  await funcs.deleteMember('5c9e4fc4885b2b068b5dc7b8');
-     const after = await funcs.getMember();
-     expect(before.length).toBe(after.length+1)});
+//   test('testing Member delete test', async() => {
+//      const before = await funcs.getMember();
+//      const v =  await funcs.deleteMember('5c9e4fc4885b2b068b5dc7b8');
+//      const after = await funcs.getMember();
+//      expect(before.length).toBe(after.length+1)});
 
- test('testing Member put request', async() => {
+ test('testing Member put request on years of experience', async() => {
  	const newData = 20
  	const res = await funcs.updateMember('5c9d590045d44777a0928fdf',newData)
      expect(res.data.info).toEqual(res.data.newData)
  });
+ test('testing Member put request on skills', async() => {
+    const newData = "update expert"
+    const res = await funcs.updateMemberSkills('5c9d590045d44777a0928fdf',newData)
+    expect(res.data.info).toEqual(res.data.newData)
+});

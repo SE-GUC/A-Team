@@ -31,6 +31,10 @@ const axios = require('axios')
             const member = await axios.put('http://localhost:4000/api/members/'+id, {years_of_experience: years_of_experienceup})
             return member
         },
+        updateMemberSkills: async(id,skillsup)  => {
+            const member = await axios.put('http://localhost:4000/api/members/'+id, {skills: skillsup})
+            return member
+        },
     }
 
 functions.deleteMember('5c9e423d3ed735040f9c4436')

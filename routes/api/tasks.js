@@ -249,7 +249,7 @@ router.delete('/:id', async(req,res) => {
         const name = req.params.name
         Tasks.findByIdAndDelete(req.params.id, (err,model) => {
             if(!err) {
-                return res.json({data:null})
+                return res.json({data:model})
             } else {
                 return res.json({error: 'Error, cant delete'})
             }
