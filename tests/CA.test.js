@@ -1,4 +1,4 @@
-const funcs = require('./functions')
+const funcs = require('./CAFuncs')
 const axios = require('axios')
 
 //AMR NASHAAT, Consultancy Agency CRUD testing
@@ -26,7 +26,7 @@ test('agency post test', async() => {
 
 test('agency delete test', async() => {
     const before = await funcs.getAgencies()
-    const v = funcs.deleteAgency('5c9bd7dbac225200175df723')
+    const v = funcs.deleteAgency('5c9bd6a4ac225200175df71e')
     const after = await funcs.getAgencies()
     expect(before.data.length-1).toBe(after.data.length)
 });
