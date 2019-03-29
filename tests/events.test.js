@@ -50,4 +50,11 @@ test('Creating a new feedback in the feedbacks array', async() =>{
 })
 
 
+test('Creating a new application in the applications array', async() =>{
+  const allEvents= await funcs.getEvents();
+  const response = await funcs.addNewApplication("5c93b78f1d4b8e5b48557ba0","5c9e33e5559ed00017ece5ea",true);
+  expect(allEvents.data.data[0].applicants.length).toEqual(response.data.data.applicants.length);
+})
+
+
 

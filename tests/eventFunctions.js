@@ -31,15 +31,23 @@ const myFuncs = {
                     }
                }) 
           },
-      addNewFeedback: async(id, user_id, comment)=>{
-        const newFeedback1={
-          user_id: user_id,
-          comment: comment
-        }
-        const newFeedback = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/feedback", newFeedback1)
-        return newFeedback
-      }
-        
+          addNewFeedback: async(id, user_id, comment)=>{
+            const newFeedback1={
+              user_id: user_id,
+              comment: comment
+            }
+            const newFeedback = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/feedback", newFeedback1)
+            return newFeedback
+          },
+          addNewApplication: async(id, user_id, isAccepted)=>{
+            const newApplication1={
+              applicant_id: user_id,
+              isAccepted: isAccepted
+            }
+            const newApplication = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/apply", newApplication1)
+            console.log(newApplication.data)
+            return newApplication
+          }
+             
 };
-myFuncs.addNewFeedback("5c9e33e5559ed00017ece5ea","5c9e33e5559ed00017ece5ea","comment");
 module.exports = myFuncs;
