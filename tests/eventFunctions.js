@@ -14,7 +14,6 @@ const myFuncs = {
                       request:"5c93cd1f1c9fe35274d2f624",
                       attendees: ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
                     })
-                    console.log(newEvent.data.data);
                     return newEvent.data.data;
           },
         getEvents: async () => {
@@ -31,8 +30,16 @@ const myFuncs = {
                         id:'5c93b78f1d4b8e5b48557ba0'
                     }
                }) 
-          }
+          },
+      addNewFeedback: async(id, user_id, comment)=>{
+        const newFeedback1={
+          user_id: user_id,
+          comment: comment
+        }
+        const newFeedback = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/feedback", newFeedback1)
+        return newFeedback
+      }
         
 };
-myFuncs.createEvent();
+myFuncs.addNewFeedback("5c9e33e5559ed00017ece5ea","5c9e33e5559ed00017ece5ea","comment");
 module.exports = myFuncs;
