@@ -171,7 +171,7 @@ router
       const event = await Event.findById(request.params.id).exec()
       return response.json({ data: event })
     } catch (err) {
-      return response.json({ error: `Error, couldn't find a event given the following id` })
+      return response.json({ error: err.message })
     }
   })
   .put(async (request, response) => {
