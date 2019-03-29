@@ -34,5 +34,4 @@ const functions = {
 
 }
 
-functions.deleteAgency('5c9bdb52ac225200175df73c')
 module.exports = functions;
