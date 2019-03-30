@@ -32,20 +32,7 @@ const functions = {
         });
     },
 
-    //user story 1.5
 
-    postNotification: async() =>{
-        return axios({
-            method:'post',
-            url: 'https://ateamse.herokuapp.com/api/notifyMember/',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                organizer:'Farah'
-
-            }
-
-        });
-    },
 }
 const desc = 'new description'
 const id = '5c9d053a9e6ebe00179d356c'

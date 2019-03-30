@@ -25,5 +25,5 @@ test('testing partner post', async() => {
     const after1 = await funcs.getPartner()
     expect(m).toBeDefined()
 });
-//1.5
+//partner pt2
 

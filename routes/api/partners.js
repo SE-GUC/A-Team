@@ -1,15 +1,24 @@
 const express = require('express')
 const router = express.Router()
+const Partner=require('../../models/Partner')
+const joi = require('joi')
+const mongoose = require('mongoose') 
 
-const partners=[
-    {
-        id:'3',
-        c_id:'1'
+router.get('/read', async (req,res) => {
+    const partners = await Partner.find()
+    res.json({data: partners})
+})
+
+// read a single partner 
+router.get('/:id', (req,res) => {
+    
+    const found = partners.some(partner => partner.id ===req.params.id);
+    if(found) {
+        res.json(partners.filter(partner => partner.id ===req.params.id));
+    } else {
+        res.status(400).json({msg: `id ${req.params.id} not found`});
     }
-];
-module.exports=router
-
-
+});
 
 // Create a new partner 
 router.post('/addpartner', (req, res) => {
@@ -19,18 +28,6 @@ router.post('/addpartner', (req, res) => {
     };
     partners.push(newpartner)
     res.send(partners)
-});
-
-
-
-// read a single partner 
-router.get('/:id', (req,res) => {
-    const found = partners.some(partner => partner.id ===req.params.id);
-    if(found) {
-        res.json(partners.filter(partner => partner.id ===req.params.id));
-    } else {
-        res.status(400).json({msg: `id ${req.params.id} not found`});
-    }
 });
 
 
