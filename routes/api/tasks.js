@@ -255,18 +255,72 @@ router.get('/get/:id', async (req,res) => {
         res.json({data: task})
         });
 //assigning a request 
- router.put('assign/:id',async (req,res) => {
-            const id = req.params.id
-            const task = await Tasks.findOne({id})
-            const updateTask = req.body; 
-            if(!task) return res.status(404).send({error: 'User does not exist'})
-        else
-       {
-           task.is_assigned=updateTask.is_assigned;
-           task.assigned_id = updateTask.assigned_id
-           res.json({msg: `Task updated`, Tasks});
-       }
-        });
+ router.put('uassign/:id',async (req,res) => {
+                Tasks.findByIdAndUpdate(req.params.id,{is_assigned:req.body.is_assigned,assigned_id:req.body.assigned_id}, {new: true}, (err, model) => {
+                    if(!err) {
+                        return res.json({data:model})
+                    } else {
+                        return res.data({error: `Can't find task`})
+                    }
+                } );
+              
+    
+            }); 
+
+router.get('/recommend',async(req,res)=>{
+    //Input: a skills array 
+    //Output: Tasks that could be recommended to Member
+    const status=joi.validate(req.body,{
+        skills:joi.array().items(joi.string().max(20))
+    })
+    if (status.error) {
+        return res.json({ error: status.error.details[0].message })
+      }
+    var myskills= req.body.skills
+    
+    myskills=myskills.sort()
+    
+    const filter= await Task.find({skills:myskills[0]})
+    const result ={data:[]}
+    var intersection=[]
+    
+    //loop
+    //console.log(filter[0])
+    for(var i=0; i<filter.length;i++){
+        intersection=myskills.filter(value => filter[i].skills.includes(value))
+        if(intersection.sort().toString()===filter[i].skills.sort().toString()){
+            result.data.push(filter[i])
+        }
+    }   
+     return res.json(result)
+});
+router.get('/apply/:id',async(req,res)=>{
+    const status = joi.validate(req.params, {
+        id: joi.string().length(24).required()
+      })
+      const status1=joi.validate(req.body,{
+        skills:joi.array().items(joi.string().max(20))
+    })
+    if (status.error || status1.error) {
+        if(status.error){
+            return res.json({ error: status.error.details[0].message })
+        }
+        else{
+            return res.json({ error: status1.error.details[0].message })
+        }
+      }
+    const content = await Tasks.findById(req.params.id)
+    var myskills= req.body.skills.sort()
+    var required=  content.skills.sort()
+    var intersection=  myskills.filter(value => required.includes(value)).sort()
+    if(intersection.toString()==required.toString()){
+        return res.json({msg:'You can apply on the task with id '+req.params.id})
+    }
+    else{
+        return res.json({msg:'You can NOT apply on the task with id '+req.params.id})
+    }
+    
+});
 
 router.get('/recommend',async(req,res)=>{
     //Input: a skills array 
