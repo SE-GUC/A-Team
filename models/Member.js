@@ -17,7 +17,7 @@ const MemberSchema = new Schema({
         required:true
     }],
     notifications:[{
-        type:Number,
+        type:String,
         required:true
     }]
 })

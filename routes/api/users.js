@@ -9,25 +9,29 @@ const joi = require('joi');
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
-
+//wait
 //login
 router.post('/login', function(req, res){
   const email= req.body.email;
   const password= req.body.password;
   const salt = bcrypt.genSaltSync(10)
   const hashedPassword = bcrypt.hashSync(password,salt)
- 
+
   User.findOne({email: email, password: password}, function(err, user){
       if(err){
           console.log(err);
+          console.log("bad manga");
           return res.status(500).send();
       }
       if(!user){
+          console.log("good manga"); //cuz not all manga is good..
           return res.status(404).send();
 
       }
-      req.session.user= user;
+      res.json({msg: `${email} logged in successfully`, data:user})
+      //req.session.user= user; //what is ""?
       return res.status(200).send();
+      
   })
 });
 

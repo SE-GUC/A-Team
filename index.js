@@ -15,6 +15,9 @@ const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
 const projects= require('./routes/api/project')
 const dummy = require('./routes/api/dummy')
+const members=require('./routes/api/members')
+const notify = require('./routes/api/notify')
+const assignMember = require('./routes/api/assignMember')
 
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
@@ -77,7 +80,8 @@ app.use('/api/tasks',tasks)
 app.use('/api/project',projects)
 app.use('/api/dummy',dummy)
 app.use('/api/consultancyAgencies',ConsultancyAgency)
-//app.use('/api/tasks',tasks_objects)
+app.use('/api/members',members)
+app.use('/api/notify',notify)
 
 
 
