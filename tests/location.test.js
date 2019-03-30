@@ -1,4 +1,4 @@
-const funcs = require('../tests/fn');
+const funcs = require('./Locationfunctions');
 const axios = require('axios')
 
 
@@ -11,7 +11,7 @@ test('Testing get req', async () => {
 
 test('Location delete test', async() => {
         const before = await funcs.getLocation();
-        const v =  await funcs.deleteLocation('mangaTwo');
+        const v =  await funcs.deleteLocation('mangaTwo3');
         const after = await funcs.getLocation();
         expect(before.data.length).toBe(after.data.length)
 
