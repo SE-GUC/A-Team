@@ -1,4 +1,4 @@
-const funcs = require('./functions')
+const funcs = require('./partner.functions')
 const axios = require('axios')
 
 //partner crud

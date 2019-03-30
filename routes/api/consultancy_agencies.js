@@ -65,7 +65,8 @@ router.get('/view_applicants', async(req,res) => {
                     } else {
                         return res.data({error: `Can't find task`})
                     }
-                } );
+                } )
+            })
 
 
 

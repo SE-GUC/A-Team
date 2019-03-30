@@ -35,18 +35,18 @@ const functions = {
            
         
         updateLocationInfo: async(id,titleup)  => {
-                const location = await axios.put('http://localhost:4000/api/locations/'+id, {title: titleup})
+                const location = await axios.put('https://ateamse2.herokuapp.com/api/locations/'+id, {title: titleup})
                 return location
             },
 
         updateLocationcapacity: async(id,capacityup)  => {
-                const location = await axios.put('http://localhost:4000/api/locations/'+id, {capacity: capacityup})
+                const location = await axios.put('https://ateamse2.herokuapp.com/api/locations/'+id, {capacity: capacityup})
                 return location
             },
             
          // for story 2.2 (as  member i should be able to book available locations)  
         updateLocationBooking: async(id,bookedup)  => {
-                const location = await axios.put('http://localhost:4000/api/locations/'+id, {booked:bookedup})
+                const location = await axios.put('https://ateamse2.herokuapp.com/api/locations/'+id, {booked:bookedup})
                 return location
             },  
 

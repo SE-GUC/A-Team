@@ -4,13 +4,13 @@ const functions = {
 //partnerrequests crud
     getPartner: async () => {
         const g = await axios.get('https://ateamse.herokuapp.com/api/PartnerRequest/geteventrequest/')
-        console.log(g)
+        //console.log(g)
         return g
     },
    
     updatePartner: async(id,organ) => {
         const m = await axios.put('https://ateamse.herokuapp.com/api/PartnerRequest/update/'+id, {organizer: organ})
-        console.log(m.data)
+        //console.log(m.data)
         return m.data
 
     },

@@ -1,12 +1,12 @@
 const axios = require('axios')
 const functions = {
     getAgencies: async() => {
-        const agent = await axios.get('https://ateamse.herokuapp.com/api/consultancyAgencies/view_agencies')
+        const agent = await axios.get('https://ateamse2.herokuapp.com/api/consultancyAgencies/view_agencies')
         return agent.data
     },
 
     updateAgencyInfo: async(id,infor)  => {
-        const n = await axios.put('https://ateamse.herokuapp.com/api/consultancyAgencies/'+id, {info: infor})
+        const n = await axios.put('https://ateamse2.herokuapp.com/api/consultancyAgencies/'+id, {info: infor})
         return n
     },
 
@@ -14,7 +14,7 @@ const functions = {
     postAgency: async() => {
         return axios({
             method:'post',
-            url: 'https://ateamse.herokuapp.com/api/consultancyAgencies/',
+            url: 'https://ateamse2.herokuapp.com/api/consultancyAgencies/',
             headers: {'Content-Type': 'application/json'},
             data: {
                 info:'testing post',
@@ -27,7 +27,7 @@ const functions = {
     },
     
     deleteAgency: async (id) => {
-        const n = await axios.delete('https://ateamse.herokuapp.com/api/consultancyAgencies/'+id, {})
+        const n = await axios.delete('https://ateamse2.herokuapp.com/api/consultancyAgencies/'+id, {})
         console.log(n.data.data)
         return n.data
     },
