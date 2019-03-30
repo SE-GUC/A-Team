@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const ConsultancyAgency = require('../../models/ConsultancyAgency')
 const moment= require('moment')
+const Tasks= require('../../models/Task')
 
 //asd
 //Amr's CRUD for conssult. agency
@@ -47,6 +48,24 @@ router.get('/view_agencies', async(req,res) => {
     const agent = await ConsultancyAgency.find()
     res.json({data:agent})
 })
+router.get('/view_applicants', async(req,res) => {
+    const tasks= await Tasks.find()
+    const a=[]
+    for (let i = 0; i < tasks.length; i++) {
+        const element = tasks[i].applicants;
+        a.push(element)
+    }
+    res.json({data: a})
+})
+/////decide to assign applicant
+  router.put('/:id',async (req,res) => {
+                Tasks.findByIdAndUpdate(req.params.id,{is_assigned:req.body.is_assigned,assigned_id:req.body.assigned_id}, {new: true}, (err, model) => {
+                    if(!err) {
+                        return res.json({data:model})
+                    } else {
+                        return res.data({error: `Can't find task`})
+                    }
+                } );
 
 
 
