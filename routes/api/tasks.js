@@ -256,17 +256,16 @@ router.get('/get/:id', async (req,res) => {
         });
 //assigning a request 
  router.put('assign/:id',async (req,res) => {
-            const id = req.params.id
-            const task = await Tasks.findOne({id})
-            const updateTask = req.body; 
-            if(!task) return res.status(404).send({error: 'User does not exist'})
-        else
-       {
-           task.is_assigned=updateTask.is_assigned;
-           task.assigned_id = updateTask.assigned_id
-           res.json({msg: `Task updated`, Tasks});
-       }
-        });
+                Tasks.findByIdAndUpdate(req.params.id,{is_assigned:req.body.is_assigned,assigned_id:req.body.assigned_id}, {new: true}, (err, model) => {
+                    if(!err) {
+                        return res.json({data:model})
+                    } else {
+                        return res.data({error: `Can't find task`})
+                    }
+                } );
+              
+    
+            }); 
 
 router.get('/recommend',async(req,res)=>{
     //Input: a skills array 
