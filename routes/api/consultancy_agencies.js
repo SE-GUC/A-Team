@@ -57,5 +57,14 @@ router.get('/view_applicants', async(req,res) => {
     }
     res.json({data: a})
 })
+/////decide to assign applicant
+  router.put('/:id',async (req,res) => {
+                Tasks.findByIdAndUpdate(req.params.id,{is_assigned:req.body.is_assigned,assigned_id:req.body.assigned_id}, {new: true}, (err, model) => {
+                    if(!err) {
+                        return res.json({data:model})
+                    } else {
+                        return res.data({error: `Can't find task`})
+                    }
+                } );
 
 module.exports=router
