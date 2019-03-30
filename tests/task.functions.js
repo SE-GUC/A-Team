@@ -51,13 +51,13 @@ const functions = {
         return manga.data
     },
      getapplicants: async () => {
-    const applicants = await axios.get('localhost:3000/api/tasks/view_applicants')
+    const applicants = await axios.get('https://ateamse2.herokuapp.com/api/tasks/view_applicants')
     return applicants
   },
     updateassignid: async () => {
     return await axios({
       method: 'put',
-      url: 'localhost:3000/api/tasks/uassign/5c9b9bbf69bb9e0017b86e6f',
+      url: 'https://ateamse2.herokuapp.com/api/tasks/uassign/5c9b9bbf69bb9e0017b86e6f',
       headers: {'Content-Type': 'application/json'}, 
       data: {
          is_assigned:'true',
