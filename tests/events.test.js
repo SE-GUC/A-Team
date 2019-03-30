@@ -7,7 +7,7 @@ const funcs = require('./eventFunctions');
 
 test('First event remaining places should equal 12', async () => {
     const response =  await funcs.getEvents()
-    expect(response.data.data[0].remaining_places).toBe(12)
+    expect(response.data.data[0].remaining_places).toBe(122)
 });
 test('Creating an event test',async ()=>{
   const result = await funcs.createEvent()
