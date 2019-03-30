@@ -1,5 +1,17 @@
 const axios = require('axios')
-const functions = {
+
+const functions={
+    login: async() => {
+        return axios({
+            method:'post',
+            url: 'https://ateamse.herokuapp.com/api/users/login/',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                email:'lifelianghje@gmail.com',
+                password:'$2a$10$HXZYAHvmB1DZxa0Mph7.X.nAeuognJstfvAxDA/RJDvwfrdHHOcPK'
+            }
+        });
+    },
     getNotifs: async(id) => {
         const notifs = await axios.get('http://localhost:4000/api/notify/'+id+'/notifyMember/')
         //console.log(notifs.data.notifications[0])
