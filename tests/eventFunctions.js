@@ -36,6 +36,23 @@ const myFuncs = {
             const event=await axios.get('https://ateamse2.herokuapp.com/api/events/'+type+"", {type:type})
             console.log(event.data.data)
             return event.data.data
+      },
+      addNewFeedback: async(id, user_id, comment)=>{
+        const newFeedback1={
+          user_id: user_id,
+          comment: comment
+        }
+        const newFeedback = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/feedback", newFeedback1)
+        return newFeedback
+      },
+      addNewApplication: async(id, user_id, isAccepted)=>{
+        const newApplication1={
+          applicant_id: user_id,
+          isAccepted: isAccepted
+        }
+        const newApplication = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/apply", newApplication1)
+        console.log(newApplication.data)
+        return newApplication
       }
         
 };
