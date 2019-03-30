@@ -43,6 +43,15 @@ test('Updating an event in the database', async() => {
   expect(response.remaining_places).toEqual(remaining_places)
 });
 
+test('gets events by type' , async()=>{
+  //const type= "eh feih eh"
+  const req={
+    type:"eh feih eh"
+}
+  const response= await funcs.geteventbytype(req.type)
+  //console.log(response.data.data)
+  expect(response[0].type).toEqual(req.type)
+})
 test('Creating a new feedback in the feedbacks array', async() =>{
   const allEvents= await funcs.getEvents();
   const response = await funcs.addNewFeedback("5c93b78f1d4b8e5b48557ba0","5c9e33e5559ed00017ece5ea","comment");
