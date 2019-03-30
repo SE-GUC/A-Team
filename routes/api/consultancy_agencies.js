@@ -48,4 +48,6 @@ router.get('/view_agencies', async(req,res) => {
     res.json({data:agent})
 })
 
+
+
 module.exports=router

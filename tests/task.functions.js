@@ -50,6 +50,25 @@ const functions = {
         console.log(manga.data.data)
         return manga.data
     },
+    shalabyCTask: async()=>{
+        return await axios({
+            method: 'post',
+            url: 'https://ateamse.herokuapp.com/api/tasks/add',
+            headers: {'Content-Type': 'application/json'}, 
+            data: {
+                name:'Trappin up the Bando',
+                monetary_compensation: '600',
+                price:'1233',
+                time_expected:'6 Days',
+                level_of_comitment:'High',
+                experience_needed:'3.5 Years',
+                description:'I feel most alive when im approaching my death',
+                p_id:undefined,
+                skills:["Bloodhound","Wraith","Octane"],
+                
+            }
+});
+    }
     
 
 }
