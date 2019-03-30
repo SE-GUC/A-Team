@@ -1,34 +1,30 @@
-const axios=require('axios')
+const axios = require('axios');
+
 const myFuncs = {
-    getUsers: async () => {
-      const users = await axios.get('https://ateamse2.herokuapp.com/api/users')
-      return users
-    }, 
-    deleteUser:async()=>{
-        const deletedUser=axios.delete('https://ateamse2.herokuapp.com/api/users', {
-                delete:{
-                    id:'5c93cd1f1c9fe35274d2f624'
-                }
-           }) 
-      },
-    createUser:async()=>{
-        const newUser=await axios.post('https://ateamse2.herokuapp.com/api/users/register', {                            
-        name: "Mohamed Mahrous",
-        email: "12lifelighbnne123123@gmail.com",
-        password: "wadasfeww",
-        dob: "1983-03-09T22:00:00.000Z",
-        phone: 6677889 ,
-        eventsAttended: ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"],
-        account_open_on: "ayeyo"
-        })
-        console.log(newUser.data)
-        return newUser.data.data;
-},
-updateUser: async(id,name) => {
-    const updatedUser = await axios.put('https://ateamse.herokuapp.com/api/users'+id, {name: name})
-    console.log(updatedUser.data.data)
-    return updatedUser.data.data
-},        
+        createEvent:async()=>{
+                    const newEvent=await axios.post('https://ateamse2.herokuapp.com/api/users', {                            
+                      remaining_places: 250,
+                      location: "5c9bff7f569b9a001796d40a",
+                      about: "MERN Programming Style",
+                      price: 55,
+                      speakers: ["Absalam", "Bill Gates"],
+                      topics: ["Python", "Java"],
+                      type: "Computer Engineering",
+                      partnerInitiated: "5c93cd1f1c9fe35274d2f624",
+                      request:"5c93cd1f1c9fe35274d2f624",
+                      attendees: ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
+                    })
+                    return newEvent.data.data;
+          },
+        getUsers: async () => {
+          const users = await axios.get('https://ateamse2.herokuapp.com/api/users')
+          console.log(users.data)
+          return users
+        },
+        updateEvent: async(id,name) => {
+          const updatedUser = await axios.put('https://ateamse.herokuapp.com/api/users/'+id+"", {name: name})
+          return updatedUser.data.data
+      }    
 };
-myFuncs.createUser();
+myFuncs.getUsers(); 
 module.exports = myFuncs;
