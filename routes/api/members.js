@@ -3,7 +3,7 @@ const router = express.Router()
 const uuid = require('uuid')
 const bcrypt = require('bcryptjs')
 const Member = require('../../models/Member')
-const joi = require('joi')
+
 
 
 
@@ -62,29 +62,15 @@ router
       }
     })
   })
-  // .delete(async (request, response) => {
-  //   Member.findByIdAndDelete(request.params.id, (err, model) => {
-  //     if (!err) {
-  //       return response.json({ data: model })
-  //     } else {
-  //       return response.json({ error: `Error, couldn't delete a member given the following data` })
-  //     }
-  //   })
-  //   res.json({msg: `deleted member`})
-  // })
-  router.delete('/:id', async(req,res) => {
-    //const name = req.params.name
-    Member.findByIdAndDelete(req.params.id, (err,model) => {
-        if(!err) {
-            return res.json({data:model})
-        } else {
-            return res.json({error: 'Error, cant delete'})
-        }
+  .delete((request, response) => {
+    Member.findByIdAndDelete(request.params.id, (err, model) => {
+      if (!err) {
+        return response.json({ data: null })
+      } else {
+        return response.json({ error: `Error, couldn't delete a member given the following data` })
+      }
     })
-    //if(!deletedTask) return res.status(404).send({error: 'Member doesnt exist'})
-    res.json({msg: `Mem deleted`, data: deletedTask})
-
-}) 
+  })
 
 
 module.exports=router

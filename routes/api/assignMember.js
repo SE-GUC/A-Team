@@ -1,7 +1,9 @@
-const express= require('express');
 const router= express.Router();
 const joi = require('joi');
-const mongoose = require('mongoose');
+const app = express();
+const mongoose = require('mongoose')
+app.use(express.json());
+
 const Task = require('../../models/Task')
 
 
