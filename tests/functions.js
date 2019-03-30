@@ -19,8 +19,5 @@ const functions = {
         return no
 
     },
-
-
 }
-functions.postNotif()
 module.exports = functions;
