@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const ConsultancyAgency = require('../../models/ConsultancyAgency')
 const moment= require('moment')
+const Tasks= require('../../models/Task')
 
 //asd
 //Amr's CRUD for conssult. agency
@@ -46,6 +47,15 @@ router.delete('/:id', async(req,res) => {
 router.get('/view_agencies', async(req,res) => {
     const agent = await ConsultancyAgency.find()
     res.json({data:agent})
+})
+router.get('/view_applicants', async(req,res) => {
+    const tasks= await Tasks.find()
+    const a=[]
+    for (let i = 0; i < tasks.length; i++) {
+        const element = tasks[i].applicants;
+        a.push(element)
+    }
+    res.json({data: a})
 })
 
 module.exports=router
