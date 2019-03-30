@@ -9,8 +9,10 @@ const mongoose = require('mongoose')
 
 
 //add random task tester
-router.get('/',(req,res)=>{
-    res.json({message:"Sadly we dont have an untitled get request"})
+router.get('/',async(req,res)=>{
+    const t =await Task.find()
+    res.json({data:t
+    })
 });
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
@@ -38,7 +40,6 @@ router.post('/add_task', async (req,res) => {
     .then(task => res.json({data: task}))
     
 })
-//Show All Tasks/
 
 //Youssef Shalaby
 router.post('/add',async (req,res)=>{
@@ -101,99 +102,6 @@ catch(err){
     
 
 })
-/*
-router.put('/edit/:id', (req, res) => {
-    //editing a task with nullifying
-    const time_of_post=req.body.time_of_post
-    const time_of_review=req.body.time_of_review
-    const monetary_compensation=req.body.monetary_compensation
-    const price=req.body.price
-    const time_of_assingment=req.body.time_of_assingment
-    const is_assigned=req.body.is_assigned
-    const assigned_id=req.body.assigned_id
-    const time_expected=req.body.time_expected
-    const level_of_comitment=req.body.level_of_comitment
-    const is_reviewed=req.body.is_reviewed
-    const experience_needed=req.body.experience_needed
-    const description=req.body.description
-    const p_id=req.body.p_id
-    const skills=req.body.skills
-    const response_from_admin= req.body.response_from_admin
-    const admin_id=req.body.admin_id
-    const task_id= req.params.id
-
-//add updates
-    const edit = Task.find(edit => edit.id === task_id)
-    if(edit){
-    edit.time_of_post=time_of_post
-    edit.time_of_review=time_of_review
-    edit.monetary_compensation=monetary_compensation
-    edit.price=price
-    edit.time_of_assingment=time_of_assingment
-    edit.is_assigned=is_assigned
-    edit.assigned_id=assigned_id
-    edit.time_expected=time_expected
-    edit.level_of_comitment=level_of_comitment
-    edit.is_reviewed=is_reviewed
-    edit.experience_needed=experience_needed
-    edit.description=description
-    edit.p_id=p_id
-    edit.skills=skills
-    edit.response_from_admin=response_from_admin
-    edit.admin_id=admin_id
-    res.send(Task)
-    }
-    else{
-        res.status(500).json({msg:'Member not found'})
-    }
-    
-})
-router.delete('/remove/:id',(req,res)=>{
-    //removing a task
-    const task_id = req.params.id 
-    const task = Task.find(task => task.id === task_id)
-    const index = Task.indexOf(task)
-    Task.splice(index,1)
-    res.send(Task)
-});
-*/
-//Farah Abdelsalam
-/*
-router.post('/inv',(req,res) => {
-    //posting an invite
-    const newInv = {
-        memID: req.body.memID,
-        taskID: req.body.taskID
-    }
-    if(!newInv.memID || !newInv.taskID) {
-        return res.status(400).json({msg: 'Error Occured'});
-    }
-    taskOrientation.push(newInv);
-    res.json(taskOrientation);
-});
-router.get('/inv',(req,res) => {
-    //getting an invite
-    res.json(taskOrientation);
-});
-router.post('/notif',(req,res) => {
-    //posting a notfication
-    const newNotif = {
-        memID: req.body.memID,
-        taskID: req.body.taskID
-    }
-    if(!newNotif.memID || !newNotif.taskID) {
-        return res.status(400).json({msg: `Erorr`});
-    }
-    //asd
-    notif.push(newNotif);
-    res.json(notif);
-});
-router.get('/notif',(req,res) => {
-    //showing a notification
-    res.json(notif);
-});
-*/
-//---------------------------------------------
 //MONGO DB IMPLEMENTATION
 
 //Amr 'Manga' Nashaat
@@ -347,17 +255,71 @@ router.get('/get/:id', async (req,res) => {
         res.json({data: task})
         });
 //assigning a request 
- router.put('assign/:id',async (req,res) => {
-            const id = req.params.id
-            const task = await Tasks.findOne({id})
-            const updateTask = req.body; 
-            if(!task) return res.status(404).send({error: 'User does not exist'})
-        else
-       {
-           task.is_assigned=updateTask.is_assigned;
-           task.assigned_id = updateTask.assigned_id
-           res.json({msg: `Task updated`, Tasks});
-       }
-        });
+ router.put('uassign/:id',async (req,res) => {
+                Tasks.findByIdAndUpdate(req.params.id,{is_assigned:req.body.is_assigned,assigned_id:req.body.assigned_id}, {new: true}, (err, model) => {
+                    if(!err) {
+                        return res.json({data:model})
+                    } else {
+                        return res.data({error: `Can't find task`})
+                    }
+                } );
+              
+    
+            }); 
+
+router.get('/recommend',async(req,res)=>{
+    //Input: a skills array 
+    //Output: Tasks that could be recommended to Member
+    const status=joi.validate(req.body,{
+        skills:joi.array().items(joi.string().max(20))
+    })
+    if (status.error) {
+        return res.json({ error: status.error.details[0].message })
+      }
+    var myskills= req.body.skills
+    
+    myskills=myskills.sort()
+    
+    const filter= await Task.find({skills:myskills[0]})
+    const result ={data:[]}
+    var intersection=[]
+    
+    //loop
+    //console.log(filter[0])
+    for(var i=0; i<filter.length;i++){
+        intersection=myskills.filter(value => filter[i].skills.includes(value))
+        if(intersection.sort().toString()===filter[i].skills.sort().toString()){
+            result.data.push(filter[i])
+        }
+    }   
+     return res.json(result)
+});
+router.get('/apply/:id',async(req,res)=>{
+    const status = joi.validate(req.params, {
+        id: joi.string().length(24).required()
+      })
+      const status1=joi.validate(req.body,{
+        skills:joi.array().items(joi.string().max(20))
+    })
+    if (status.error || status1.error) {
+        if(status.error){
+            return res.json({ error: status.error.details[0].message })
+        }
+        else{
+            return res.json({ error: status1.error.details[0].message })
+        }
+      }
+    const content = await Tasks.findById(req.params.id)
+    var myskills= req.body.skills.sort()
+    var required=  content.skills.sort()
+    var intersection=  myskills.filter(value => required.includes(value)).sort()
+    if(intersection.toString()==required.toString()){
+        return res.json({msg:'You can apply on the task with id '+req.params.id})
+    }
+    else{
+        return res.json({msg:'You can NOT apply on the task with id '+req.params.id})
+    }
+    
+});
 
 module.exports=router
