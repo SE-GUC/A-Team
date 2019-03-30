@@ -23,7 +23,7 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
 //const tasks_objects= require('./routes/api/tasks_objects')
 
-const db = require('./config/keys').mongoURI
+//const db = require('./config/keys').mongoURI
 
 
     mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
