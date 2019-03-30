@@ -22,7 +22,7 @@ const funcs= {
     deleteeventrequest: async()=>{
      return axios({
         method: 'delete',
-        url: 'https://ateamse.herokuapp.com/api/PartnerRequest/deleterequest/5c9d0f059e6ebe00179d357c',
+        url: 'https://ateamse.herokuapp.com/api/PartnerRequest/deleterequest/5c9d0eef9e6ebe00179d357b',
         headers: {'Content-Type': 'application/json'}
      });
  },
