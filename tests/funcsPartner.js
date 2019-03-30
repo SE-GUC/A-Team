@@ -9,7 +9,7 @@ const funcs ={
     },
    
     getpartnerByID: async () => {
-        const g = await axios.get('https://ateamse.herokuapp.com/api/partners/read/'+ id)
+        const g = await axios.get('https://ateamse.herokuapp.com/api/partners/'+ id)
         console.log(g)
         return g
     },
