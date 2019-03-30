@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-const funcs= require('./tests')
+const funcs= require('./partnerreqs')
 const axios = require('axios')
 //main
 test('adds 1 + 2 to be 3 quik maths', () => {
@@ -20,12 +20,12 @@ test('updates organizer', async()=>{
     // expect(response.data.data._id).toBe('5c9d053a9e6ebe00179d356c')
     expect(response.data.data.organizer).toBe('youssef shalaby')
 });
-// test('deletes ', async()=>{
-//     const beforedeletion= await funcs.geteventrequests()
-//     const deletion= await funcs.deleteeventrequest()
-//     const afterdeletion= await funcs.geteventrequests()
-//     expect(beforedeletion.data.length-1).toBe(afterdeletion.data.length)
-// })
+ test('deletes ', async()=>{
+     const beforedeletion= await funcs.geteventrequests()
+     const deletion= await funcs.deleteeventrequest()
+     const afterdeletion= await funcs.geteventrequests()
+     expect(beforedeletion.data.length-1).toBe(afterdeletion.data.length)
+ })
 test('adds request', async()=>{
     //const beforeaddition= await funcs.geteventrequests()
     const addition= await funcs.testa()
