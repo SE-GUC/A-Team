@@ -50,6 +50,24 @@ const functions = {
         console.log(manga.data.data)
         return manga.data
     },
+     getapplicants: async () => {
+    const applicants = await axios.get('localhost:3000/api/tasks/view_applicants')
+    return applicants
+  },
+    updateassignid: async () => {
+    return await axios({
+      method: 'put',
+      url: 'localhost:3000/api/tasks/uassign/5c9b9bbf69bb9e0017b86e6f',
+      headers: {'Content-Type': 'application/json'}, 
+      data: {
+         is_assigned:'true',
+         assign_id:'5c9b9bbf69bb9e0017b86e6f'
+      },
+
+});
+
+    
+  },
     shalabyCTask: async()=>{
         return await axios({
             method: 'post',
