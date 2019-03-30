@@ -322,4 +322,20 @@ router.get('/apply/:id',async(req,res)=>{
     
 });
 
+router.get('/recommend',async(req,res)=>{
+    //Input: a skills array 
+    //Output: Tasks that could be recommended to Member
+    const status=joi.validate(req.body,{
+        skills:joi.array().items(joi.string().max(20))
+    })
+    if (status.error) {
+        return res.json({ error: status.error.details[0].message })
+      }
+    const skills= req.body.skills
+    const tasks= await Task
+    .find({skills:{
+        $all: skills
+    }})  
+    return res.json({data:tasks})
+});  
 module.exports=router
