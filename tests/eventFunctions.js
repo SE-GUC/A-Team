@@ -33,10 +33,11 @@ const myFuncs = {
                }) 
           },
       geteventbytype: async(type)=>{
-            const event=axios.get('https://ateamse2.herokuapp.com/api/events/'+type+"", {type:type})
+            const event=await axios.get('https://ateamse2.herokuapp.com/api/events/'+type+"", {type:type})
+            console.log(event.data.data)
             return event.data.data
       }
         
 };
-myFuncs.createEvent();
+myFuncs.geteventbytype('eh feih eh');
 module.exports = myFuncs;

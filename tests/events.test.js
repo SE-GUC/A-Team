@@ -44,9 +44,13 @@ test('Updating an event in the database', async() => {
 });
 
 test('gets events by type' , async()=>{
-  const type= "eh feih eh"
-  const response= await funcs.geteventbytype(type)
-  expect(response.type).toEqual(type)
+  //const type= "eh feih eh"
+  const req={
+    type:"eh feih eh"
+}
+  const response= await funcs.geteventbytype(req.type)
+  //console.log(response.data.data)
+  expect(response[0].type).toEqual(req.type)
 })
 test('Creating a new feedback in the feedbacks array', async() =>{
   const allEvents= await funcs.getEvents();
