@@ -1,3 +1,3 @@
 # A-Team
-WE LIT ON   https://ateamse.herokuapp.com/
-Also ON https://ateamse2.herokuapp.com/ (inclues late submissions)
+SPRINT 3 Submisson on: https://ateamse2.herokuapp.com/ 
+I Added The Backlogs in a folder to make the repo more clean 

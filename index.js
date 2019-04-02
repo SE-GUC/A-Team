@@ -8,6 +8,7 @@ app.use(express.json())
 const http= require('http')
 const events=require('./routes/api/events')
 const users=require('./routes/api/users')
+const partner=require('./routes/api/partners')
 const applications = require('./routes/api/applications')
 const locations = require('./routes/api/locations')
 const PartnerRequest= require('./routes/api/PartnerRequest')
@@ -20,7 +21,7 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
 //const tasks_objects= require('./routes/api/tasks_objects')
 
-//const db = require('./config/keys').mongoURI
+
 
 
     mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
@@ -77,6 +78,7 @@ app.use('/api/tasks',tasks)
 app.use('/api/project',projects)
 app.use('/api/dummy',dummy)
 app.use('/api/consultancyAgencies',ConsultancyAgency)
+app.use('/api/partners',partner)
 //app.use('/api/tasks',tasks_objects)
 
 
