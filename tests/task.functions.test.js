@@ -31,6 +31,16 @@ test('testing viewing task desc, story1.3',async() => {
     const m = await funcs.getTaskDesc('5c9bca0bac225200175df711')
     expect(m.data).toEqual(desc)
 });
+test('testing to update assign_id',async()=>{
+  const result= await funcs.updateassignid();
+  expect(result.is_assigned).toBe("true");
+  expect(result.assigned_id).toBe("5c9b9bbf69bb9e0017b86e6f");
+});
+test('testing view  all applicants',async() => {
+  const applicants = '[ ]'
+  const m = await funcs.getTaskDesc('5c9bca0bac225200175df711')
+  expect(m.data[0]).toEqual(applicants)
+});
 test("Shalaby's 1.1 - Create Method", async()=>{
     const result= await funcs.shalabyCTask();
     const expec={

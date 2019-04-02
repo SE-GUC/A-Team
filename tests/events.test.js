@@ -59,7 +59,7 @@ test('Creating a new feedback in the feedbacks array', async() =>{
 })
 
 test("Deletes an event",async()=>{
-  const result = await funcs.deleteProject()
+  const result = await funcs.deleteEvent()
   
   expect(result.data.data).toBe(null)
 })
