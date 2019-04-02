@@ -6,19 +6,18 @@ const router = express.Router()
 const Event = require('../../models/Event')
 
 // {
-//   "remaining_places": 12,
-//     "location": "123456789000000000000000",
-//     "about": "jjkgjgf",
+//   "remaining_places": 300,
+//     "location": "5c9bff7f569b9a001796d40a",
+//     "about": "MERN Programming Style",
 //     "price": 55,
-//     "speakers": ["ahmed"],
-//     "topics": ["ahmed"],
-//     "type": "eh feih eh",
-//     "partnerInitiated": "123456789000000000000000",
-//     "request":"123456789000000000000000",
-//     "attendees": ["123456789000000000000000","123456789000000000000000"]
+//     "speakers": ["Abdelraouf", "Steve Jobs"],
+//     "topics": ["MERN", "JavaScript"],
+//     "type": "Computer Science",
+//     "partnerInitiated": "5c93cd1f1c9fe35274d2f624",
+//     "request":"5c93cd1f1c9fe35274d2f624",
+//     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
-
 
 // {
 // 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
@@ -171,7 +170,7 @@ router
       const event = await Event.findById(request.params.id).exec()
       return response.json({ data: event })
     } catch (err) {
-      return response.json({ error: `Error, couldn't find a event given the following id` })
+      return response.json({ error: err.message })
     }
   })
   .put(async (request, response) => {
@@ -261,7 +260,8 @@ router
     try {
       const status = joi.validate(request.body, {
         user_id: joi.string().length(24).required(),
-        comment: joi.string().required()
+        comment: joi.string().required(),
+        rate: joi.number()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
@@ -269,7 +269,8 @@ router
       const feedback = {
         _id: mongoose.Types.ObjectId(),
         user_id: request.body.user_id,
-        comment: request.body.comment
+        comment: request.body.comment,
+        rate: request.body.rate
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
       return response.json({ data: event })
@@ -281,7 +282,8 @@ router
     try {
       const status = joi.validate(request.body, {
         user_id: joi.string().length(24).required(),
-        comment: joi.string().required()
+        comment: joi.string().required(), 
+        rate: joi.number()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
@@ -289,15 +291,19 @@ router
       const feedback = {
         _id: mongoose.Types.ObjectId(),
         user_id: request.body.user_id,
-        comment: request.body.comment
+        comment: request.body.comment,
+        rate: request.body.rate
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $set: { feedbacks: feedback } }).exec()
+      console.log('walla hena??')
       return response.json({ data: event })
     } catch (err) {
       return response.json({ error: `Error, couldn't vote for a event given the following data` })
     }
 
   })
+
+
 
   
 module.exports=router 
