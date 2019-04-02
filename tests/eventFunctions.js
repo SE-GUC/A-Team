@@ -22,7 +22,7 @@ const myFuncs = {
           return events
         },
         updateEvent: async(id,remaining_places) => {
-          const updatedEvent = await axios.put('https://ateamse.herokuapp.com/api/events/'+id+"", {remaining_places: remaining_places})
+          const updatedEvent = await axios.put('https://ateamse2.herokuapp.com/api/events/'+id+"", {remaining_places: remaining_places})
           return updatedEvent.data.data
       },         
       deleteEvent:async(id)=>{

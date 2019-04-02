@@ -33,7 +33,7 @@ const functions = {
                 rate: ratee
               }
               
-              const k = await axios.put('https://ateamse2.herokuapp.com/api/events/'+id+"/feedback", newFeedback )
+              const k = await axios.put('https://localhost:4000/api/events/'+id+"/feedback", newFeedback )
             console.log(k.data)
             return k.data 
             } catch(e) {

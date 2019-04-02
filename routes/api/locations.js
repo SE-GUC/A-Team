@@ -19,6 +19,8 @@ router.route('/:title').get(async (request, response) => {
   }
 })
 
+//create location  
+
 router.post('/', async (req,res) => {
   const { title, location, capacity, booked }  = req.body
   const locations = await Location.findOne({title})
@@ -35,7 +37,7 @@ router.post('/', async (req,res) => {
 }) 
 
 
-
+// delete location 
 router.route('/:title').delete(async (request, response) => {
   try {
     const locations = await Location.findOneAndDelete({title:request.params.title}).exec()
@@ -46,17 +48,29 @@ router.route('/:title').delete(async (request, response) => {
   }
 })
 
-router.put('/:title', async(req,res) => {
-  try {
-      const title = req.params.title
-      const locations = await Location.findOne({title})
-      if(!locations) return res.status(404).send({error: 'Location does not exist'})
-      const updatedlocations = await Location.updateOne(req.body)
-      res.json({msg:`Updated Task ${title}`,data: updatedlocations})
-  } catch(error) {
-      console.log("cant update")
-      res.json({msg: 'cant update'})
-  }
+
+
+// router.put('/:title', async(req,res) => {
+//   try {
+//       const title = req.params.title
+//       const locations = await Location.findOne({title})
+//       if(!locations) return res.status(404).send({error: 'Location does not exist'})
+//       const updatedlocations = await Location.updateOne(req.body)
+//       res.json({msg:`Updated Task ${title}`,data: updatedlocations})
+//   } catch(error) {
+//       console.log("cant update")
+//       res.json({msg: 'cant update'})
+//   }
+// })
+
+router.put('/:id', async(req,res) => { 
+  Location.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
+    if(!err) {
+      return res.json({data:model})
+    } else {
+      return res.data({error: `Location not found`})
+    }
+  })
 })
  
 
