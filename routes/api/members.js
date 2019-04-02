@@ -11,6 +11,7 @@ const Member = require('../../models/Member')
 
 //to get every Member
 router.get('/', (req, res) => {
+  
     Member.find().then(member=>res.send(member))
 });
 
