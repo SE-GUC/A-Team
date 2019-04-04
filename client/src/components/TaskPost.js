@@ -25,7 +25,6 @@ class TaskPost extends Component {
             skills:[""],
             response_from_admin:""
         };
-    
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -49,6 +48,7 @@ class TaskPost extends Component {
             skills:this.state.skills,
             response_from_admin:this.state.response_from_admin
         };
+        window.alert("Added Task Successfully");
             return axios({
                 method:'post',
                 url: 'http://localhost:4000/api/tasks/create/',
@@ -71,6 +71,7 @@ class TaskPost extends Component {
                 }
     
             });
+            
     };
     renderLoading() {
         return <div>Loading...</div>
@@ -82,18 +83,6 @@ class TaskPost extends Component {
             </div>
         )
     }
-    renderTasks() {
-        if(this.state.error) {
-            return this.renderError();
-        }
-        return(
-        <ul>
-            {this.state.tasks.map(task =>
-                <li key={task._id}>{task.name}</li>
-                )}
-        </ul>
-        )
-    };
 
     
     render() {

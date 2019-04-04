@@ -18,12 +18,11 @@ class TaskStoryOneThreeOne extends Component {
            done:false
         };
     
-    // onChange = (e) => {
-    //     this.setState({id: e.target.id})
-    // }
+ 
     handleChange = event => {
         this.setState({ id: event.target.value })
     }
+    
     handleSubmit = event => {
         event.preventDefault(); //prevents page from reloading
         const tasking = {
@@ -37,6 +36,7 @@ class TaskStoryOneThreeOne extends Component {
                 console.log(res.data.data)
 
             })
+
    
     };
     renderLoading() {
@@ -51,11 +51,21 @@ class TaskStoryOneThreeOne extends Component {
     }
     renderDone() {
         return(
-        <ul>
+             <div>
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Task ID:
+                    <input type="text" name="id" onChange={this.handleChange} />
+                </label>
+                <button type="submit">Get Task's Desc</button>
+                <ul>
             <li>
                 {this.state.desc}
             </li>
         </ul>
+        </form>
+            </div>
+        
         )
     }
 
@@ -68,7 +78,7 @@ class TaskStoryOneThreeOne extends Component {
             return this.renderDone()
         }
         return(
-
+            <div>
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Task ID:
@@ -78,6 +88,7 @@ class TaskStoryOneThreeOne extends Component {
                 
                 <button type="submit">Get Task's Desc</button>
             </form>
+            </div>
             
             
         )

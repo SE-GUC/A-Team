@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TaskList from'./TaskList';
 //Our app's navigation bar
 import {
     Collapse,
@@ -11,11 +12,12 @@ import {
     Container
 } from 'reactstrap';
 
+
 class AppNavbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false //defining navBar state
+            isOpen: false, //defining navBar state
         }
     }
     toggle = () => {
@@ -23,6 +25,9 @@ class AppNavbar extends Component {
             isOpen: !this.state.isOpen
         })
     }
+    
+    
+   
     render() {
         return(
             <div>
@@ -33,10 +38,11 @@ class AppNavbar extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navBar>
                             <NavItem>
-                                <NavLink href="https://google.com">
-                                Google
+                                <NavLink href="http://localhost:4000/api/tasks/read">
+                                Tasks List
                                 </NavLink>
                             </NavItem>
+
                         </Nav>
                     </Collapse>
                 </Container>

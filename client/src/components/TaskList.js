@@ -63,7 +63,11 @@ class TaskList extends Component {
         }
         return(
             
-            <ul>{this.state.tasks.map(task => <li key = {task.id}>{task.name}</li>)}</ul>
+            <ul>{this.state.tasks.map(task =>
+                 <li key = {task.id}>
+                 <b>Task Name: </b> {task.name}
+                 
+                 </li>)}</ul>
         )
 
 
