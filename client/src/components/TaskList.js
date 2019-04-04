@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 import axios from 'axios';
+import Table1 from './Table1';
 
 
 class TaskList extends Component {
@@ -62,12 +63,13 @@ class TaskList extends Component {
             return this.renderLoading()
         }
         return(
+            <div className="m">
+            <p className="Table-header" align="center">Tasks</p>
+            <Table1 data={this.state.tasks}/>
             
-            <ul>{this.state.tasks.map(task =>
-                 <li key = {task.id}>
-                 <b>Task Name: </b> {task.name}
-                 
-                 </li>)}</ul>
+            </div>
+
+           
         )
 
 
