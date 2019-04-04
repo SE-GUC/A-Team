@@ -154,7 +154,7 @@ router.put('/update/:id', async(req,res) => {
             if(!err) {
                 return res.json({data:model})
             } else {
-                return res.data({error: `Can't find task`})
+                return res.json({error: `Can't find task`})
             }
         } )
     }catch(err){res.data('Request Erorr')}
