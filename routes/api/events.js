@@ -304,6 +304,28 @@ router
   })
 
 
+  router
+  .route('/:id/feedback')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const event = await Event.findById(request.params.id).exec()
+      const feedbacks=event.feedbacks
+      return response.json({ data: feedbacks })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
+
 
   
 module.exports=router 

@@ -12,4 +12,4 @@ const partnerSchema = new Schema({
 //partnerSchema.plugin(autoIncrement.plugin, 'Partner');
 //bookSchema.plugin(autoIncrement.plugin, { model: 'Partner', field: 'consultancy_agency_id' });
 
-module.exports= Partner = connection.model("Partner", partnerSchema);
+module.exports= Partner = mongoose.model('Partner', partnerSchema);
