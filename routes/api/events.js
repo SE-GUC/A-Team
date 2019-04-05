@@ -102,6 +102,7 @@ router
     const status = joi.validate(request.body, {
       remaining_places: joi.number().required(),
       location: joi.string().length(24).required(),
+      name: joi.string().min(6).max(30).required(),
       about: joi.string().min(5).max(500).required(),
       price: joi.number().required(),
       speakers: joi.array().items(joi.string().min(4).max(70)),
@@ -128,6 +129,7 @@ router
         _id: mongoose.Types.ObjectId(),
         remaining_places: request.body.remaining_places,
         location: request.body.location,
+        name: request.body.name,
         about: request.body.about,
         price: request.body.price,
         speakers: request.body.speakers,

@@ -39,6 +39,10 @@ const EventSchema = new Schema({
         type: Number,
         required: true
     },
+    name :{
+        type: String,
+        required: true
+    },
     // organizer: {
     //     type: String,
     //     required: true
