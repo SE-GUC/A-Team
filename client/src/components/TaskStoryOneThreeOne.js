@@ -64,22 +64,27 @@ class TaskStoryOneThreeOne extends Component {
         if(this.state.loading) {
             return this.renderLoading()
         }
-        if(this.state.done) {
-            return this.renderDone()
-        }
+        
         return(
 
+            <div>
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Task ID:
                     <input type="text" name="id" onChange={this.handleChange} />
                 </label>
-                
-                
                 <button type="submit">Get Task's Desc</button>
-            </form>
-            
-            
+                <br/>
+                <div>
+                <ul>
+            <li>
+                {this.state.desc}
+            </li>
+        </ul>
+        </div>
+        </form>
+            </div>
+        
         )
 
 

@@ -4,10 +4,11 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 import axios from 'axios';
+import Table1 from './Table1';
 
 
 class TaskList extends Component {
-    
+
     constructor(props) {
         super(props)
         this.state = {
@@ -56,36 +57,24 @@ class TaskList extends Component {
         )
     };
 
-    
+
     render() {
         if(this.state.loading) {
             return this.renderLoading()
         }
         return(
-            
-            <ul>{this.state.tasks.map(task => <li key = {task.id}>{task.name}</li>)}</ul>
+            <div className="m">
+
+            <p className="Table-header" align="center">Tasks</p>
+            <Table1 data={this.state.tasks}/> {/*
+            As you can see, and bas bdkhl guwa hena el array el gebto men TaskList, mgm3 hena?ahh ana i mean fel app.cs i dont know how to viok stoepw
+            */}
+
+            </div>
+
+
         )
 
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
     }
 }
 ReactDOM.render(
@@ -93,4 +82,4 @@ ReactDOM.render(
     document.getElementById('root')
 )
 
-export default TaskList;
+export default TaskList; 
