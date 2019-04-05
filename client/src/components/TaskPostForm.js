@@ -6,37 +6,20 @@ import TaskCommitment from './TaskCommitment'
 
 
 export class Form extends Component {
-    data={
-        name: '',   
-        time_of_post:'',
-        time_of_review:"",
-        monetary_compensation: '',
-        price:'',
-        is_assigned:'',
-        time_expected:"",
-        level_of_comitment:'',
-        is_reviewed:'',
-        experience_needed:'',
-        description:"",
-        skills:[],
-        response_from_admin:''
-    }
     state={
+        
             name: '',   
-            time_of_post:'',
-            time_of_review:"",
-            monetary_compensation: '',
-            price:'',
+            monetary_compensation: '0',
+            price:'1',
             is_assigned:'',
-            time_expected:"",
-            level_of_comitment:'',
-            is_reviewed:'',
-            experience_needed:'',
+            time_expected:'1 Day(s)',
+            level_of_comitment:'Moderate',
+            experience_needed:'1 Day(s)',
             description:"",
-            skills:[],
-            response_from_admin:''
+            skills:[]
            // skills:['Mongo','Express','React','Node']
     }
+    //Will be used Later on
     addSkill=(newskill)=>{
         var update=this.state.skills.push(newskill)
         this.setState({skills:update})
@@ -51,10 +34,7 @@ export class Form extends Component {
         }
         this.setState({skills:uskills})
     }
-    handleSubmit=(e)=>{
-        e.preventDefault();
-        console.log('holla senior')
-    }
+    //Setters
     setname=(new_name)=>{
         this.setState({name:new_name})
     }
@@ -72,6 +52,36 @@ export class Form extends Component {
     }
     setTime=(t)=>{
         this.setState({time_expected:t})
+    }
+    setExperience=(e)=>{
+        this.setState({experience_needed:e})
+    }
+    //Result
+    handleSubmit=(e)=>{
+        e.preventDefault();
+        console.log(this.state)
+        return axios({
+            method:'post',
+            url: 'http://localhost:4000/api/tasks/create/',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                name: this.state.name,
+                time_of_post: this.state.time_of_post,
+                time_of_review: this.state.time_of_review,
+                monetary_compensation: this.state.monetary_compensation,
+                price: this.state.price,
+                is_assigned: this.state.is_assigned,
+                time_expected: this.state.time_expected,
+                level_of_comitment:this.state.level_of_comitment,
+                is_reviewed:this.state.is_reviewed,
+                experience_needed:this.state.experience_needed,
+                description:this.state.description,
+                skills:this.state.skills,
+                response_from_admin:this.state.response_from_admin
+
+            }
+
+        });
     }
   render() {
       //console.log(this.props.forms)
@@ -94,10 +104,9 @@ export class Form extends Component {
            <h1>Requierements:</h1>
             <table>
                 <tr><TaskCommitment func={this.setCommitment} /></tr>
-                <tr><TaskDatePack id='2' fieldname="Experience required"/></tr>
+                <tr><TaskDatePack id='2' fieldname="Experience required"  func={this.setExperience} /></tr>
              
             </table>
-            <br></br>
             <input type='submit' value='submit'/>
            
 
