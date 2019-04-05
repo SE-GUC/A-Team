@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import TaskBasicField from './TaskBasicField'
 import TaskDatePack from './TaskDatePack'
 import TaskCommitment from './TaskCommitment'
+import axios from 'axios'
+import '../'
 
 
 export class Form extends Component {
+    
     state={
-        
             name: '',   
             monetary_compensation: '0',
             price:'1',
@@ -57,32 +59,50 @@ export class Form extends Component {
         this.setState({experience_needed:e})
     }
     //Result
-    handleSubmit=(e)=>{
+    async handleSubmit(e){
         e.preventDefault();
-        console.log(this.state)
-        return axios({
+        try{
+            
+        const response= await axios({
             method:'post',
-            url: 'http://localhost:4000/api/tasks/create/',
+            url: 'http://localhost:4000/api/tasks/add/',
             headers: {'Content-Type': 'application/json'},
             data: {
                 name: this.state.name,
-                time_of_post: this.state.time_of_post,
-                time_of_review: this.state.time_of_review,
                 monetary_compensation: this.state.monetary_compensation,
                 price: this.state.price,
-                is_assigned: this.state.is_assigned,
                 time_expected: this.state.time_expected,
                 level_of_comitment:this.state.level_of_comitment,
-                is_reviewed:this.state.is_reviewed,
                 experience_needed:this.state.experience_needed,
                 description:this.state.description,
-                skills:this.state.skills,
-                response_from_admin:this.state.response_from_admin
-
-            }
-
-        });
+                skills:this.state.skills
+            }   })
+            console.log(response)
+        }
+        catch(error){
+            
+        }
+            
     }
+    renderLoading() {
+        return <div>Loading...</div>
+    }
+    renderError() {
+        return (
+            <div>
+                Ooops, : {this.state.error.message}
+            </div>
+        )
+    }
+    renderTasks() {
+        if(this.state.error) {
+            return this.renderError();
+        }
+        return(
+        <h1>The Bluetooth devive is knktec suksuly</h1>
+        )
+    };
+
   render() {
       //console.log(this.props.forms)
       
@@ -107,11 +127,7 @@ export class Form extends Component {
                 <tr><TaskDatePack id='2' fieldname="Experience required"  func={this.setExperience} /></tr>
              
             </table>
-            <input type='submit' value='submit'/>
-           
-
-
-    
+            <input type='submit' value='Submit'/>
         </form>
     )
        
