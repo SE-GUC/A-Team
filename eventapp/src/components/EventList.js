@@ -40,20 +40,6 @@ class EventList extends Component {
             </div>
         )
     }
-    // renderEvents() {
-    //     if(this.state.error) {
-    //         return this.renderError();
-    //     }
-    //     return(
-    //     <ul>
-    //         {this.state.events.map(event =>
-    //             <li key={event._id}>{event.remaining_places}</li>
-    //             )}
-    //     </ul>
-    //     )
-    // };
-
-    
     render() {
         if(this.state.loading) {
             return this.renderLoading()

@@ -6,14 +6,14 @@ class App extends Component {
     show:false,
   }
   
-  renderStory() {
-    return(
-      <div>
-    <h1>Events</h1>
-    <button type="submit" onClick={this.booleanShow}>Show Events</button>
-    </div>
-      )
-  }
+  // renderStory() {
+  //   return(
+  //     <div>
+  //   <h1>Events</h1>
+  //   <button type="submit" onClick={this.booleanShow}>Show Events</button>
+  //   </div>
+  //     )
+  // }
   booleanShow = event => {
     event.preventDefault();
     this.setState({

@@ -1,9 +1,9 @@
 const express=require('express');
 const mongoose = require('mongoose')
-
+var cors = require('cors');
 const app = express();
 app.use(express.json())
-
+app.use(cors());
 
 const http= require('http')
 const events=require('./routes/api/events')
