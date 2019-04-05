@@ -1,85 +1,74 @@
-import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import ReactDOM from 'react-dom';
-import uuid from 'uuid';
-import axios from 'axios';
-import Table1 from './Table1';
-
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
+import Table1 from './Table1'
 
 class TaskList extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            tasks:[],
-            loading:true,
-            error:null
-        }
+  constructor (props) {
+    super(props)
+    this.state = {
+      tasks: [],
+      loading: true,
+      error: null
     }
-    componentDidMount() {
-        axios.get(`http://localhost:4000/api/tasks/read/`)
+  }
+  componentDidMount () {
+    axios.get(`http://localhost:4000/api/tasks/read/`)
             .then(res => {
-                console.log(res)
-                this.setState({tasks: res.data.data});
-                this.setState({loading: false})
-
-
+              console.log(res)
+              this.setState({tasks: res.data.data})
+              this.setState({loading: false})
             })
             .catch(err => {
-                this.setState({
-                    loading: false,
-                    error: err
-                });
-            });
-
-    }
-    renderLoading() {
-        return <div>Loading...</div>
-    }
-    renderError() {
-        return (
-            <div>
+              this.setState({
+                loading: false,
+                error: err
+              })
+            })
+  }
+  renderLoading () {
+    return <div>Loading...</div>
+  }
+  renderError () {
+    return (
+      <div>
                 Ooops, : {this.state.error.message}
-            </div>
-        )
+      </div>
+    )
+  }
+  renderTasks () {
+    if (this.state.error) {
+      return this.renderError()
     }
-    renderTasks() {
-        if(this.state.error) {
-            return this.renderError();
-        }
-        return(
-        <ul>
-            {this.state.tasks.map(task =>
-                <li key={task._id}>{task.name}</li>
+    return (
+      <ul>
+        {this.state.tasks.map(task =>
+          <li key={task._id}>{task.name}</li>
                 )}
-        </ul>
-        )
-    };
+      </ul>
+    )
+  };
 
+  render () {
+    if (this.state.loading) {
+      return this.renderLoading()
+    }
+    return (
+      <div className='m'>
 
-    render() {
-        if(this.state.loading) {
-            return this.renderLoading()
-        }
-        return(
-            <div className="m">
-
-            <p className="Table-header" align="center">Tasks</p>
-            <Table1 data={this.state.tasks}/> {/*
+        <p className='Table-header' align='center'>Tasks</p>
+        <Table1 data={this.state.tasks} /> {/*
             As you can see, and bas bdkhl guwa hena el array el gebto men TaskList, mgm3 hena?ahh ana i mean fel app.cs i dont know how to viok stoepw
             */}
 
-            </div>
+      </div>
 
-
-        )
-
-    }
+    )
+  }
 }
 ReactDOM.render(
-    <TaskList subreddit="reactjs"/>,
+  <TaskList subreddit='reactjs' />,
     document.getElementById('root')
 )
 
-export default TaskList; 
+export default TaskList

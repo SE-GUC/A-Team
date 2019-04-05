@@ -6,7 +6,7 @@ import TaskList from './components/TaskList';
 import TaskStoryOneThreeOne from './components/TaskStoryOneThreeOne';
 import TaskStoryOneThreeTwo from './components/TaskStoryOneThreeTwo';
 
-class App extends Component {
+class TaskControl extends Component {
   render() {
     return (
       <div>
@@ -18,4 +18,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default TaskControl;
