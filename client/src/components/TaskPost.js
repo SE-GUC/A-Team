@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ReactDOM from 'react-dom';
+import TaskPostForm from '../css/TaskPostForm.css'
 import uuid from 'uuid';
 import axios from 'axios';
 
@@ -91,39 +92,57 @@ class TaskPost extends Component {
         }
         return(
             <form onSubmit={this.handleSubmit}>
-                <label>
+                <label for="taskName">
                     Task Name:
-                    <input type="text" name="name" onChange={this.handleChange} />
+                    <input placeholder="Enter task name.." type="text" name="name" onChange={this.handleChange} />
                 </label>
+                <br/>
                 <label>
-                    Task Monetar Compensation:
-                    <input type="number" name="monetary_compensation" onChange={this.handleChange} />
+                    Task Monetary Compensation:
+                    <br/>
+
+                    <input placeholder="Enter Monetary Compensation.." type="number" name="monetary_compensation" onChange={this.handleChange} />
                 </label>
+                <br/>
+
                 <label>
                     Task Price:
-                    <input type="number" name="price" onChange={this.handleChange} />
+                    <br/>
+                    <input placeholder="Enter task price.." type="number" name="price" onChange={this.handleChange} />
                 </label>
+                <br/>
+
                 <label>
                     Task Time Expected:
-                    <input type="text" name="time_expected" onChange={this.handleChange} />
+                    <input placeholder="YY/MM/DD" type="text" name="time_expected" onChange={this.handleChange} />
                 </label>
+                <br/>
+
                 <label>
                     Task Level of Commitment:
-                    <input type="text" name="level_of_comitment" onChange={this.handleChange} />
+                    
+                    <input  placeholder="1/2/3" type="text" name="level_of_comitment" onChange={this.handleChange} />
                 </label>
+                <br/>
+
                 <label>
                     Task Experience Needed:
-                    <input type="text" name="experience_needed" onChange={this.handleChange} />
+                    <input placeholder="Enter required experience" type="text" name="experience_needed" onChange={this.handleChange} />
                 </label>
+                <br/>
+
                 <label>
                     Task Description:
-                    <input type="text" name="description" onChange={this.handleChange} />
+                    <input placeholder="Enter task description.." type="text" name="description" onChange={this.handleChange} />
                 </label>
+                <br/>
+
                 <label>
                     Task Skills:
-                    <input type="text" name="skills" onChange={this.handleChange} />
+                    <input placeholder="Enter task skills.." type="text" name="skills" onChange={this.handleChange} />
                 </label>
-                
+                <br/>
+
                 <button type="submit">Add Task</button>
             </form>
         )
