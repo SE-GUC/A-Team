@@ -10,20 +10,30 @@ export class NumberSlider extends Component {
   handlechange=(e)=>{
     this.props.func(e.target.value) // number + days
     console.log(e.target.value)
+    console.log('in Slider')
   }
   refresh=()=>{
    var status= document.getElementById('textInput'+this.props.cid).innerText+ ' '+document.getElementById('ddl_date'+this.props.cid).value
    console.log(status)
+   this.props.func(status)
+  if(this.props.fieldname==='Time Expected'){
+    this.setState({time_expected:status})
+    console.log('wololo')
+  }
+  else{
+    this.setState({experience_needed:status})
+  }
+
   } 
   render() {
     
       
     return (
-        <div onChange={this.refresh}>
+        <div onChange={this.refresh} >
         <table>
-            <tr><td>{this.props.fieldname}: <label  id={'textInput'+this.props.cid} >1</label></td>
+            <tr><td>{this.props.fieldname}: <label ref={this.number} id={'textInput'+this.props.cid} >1</label></td>
                 <td>
-                  <select id={'ddl_date'+this.props.cid}>
+                  <select id={'ddl_date'+this.props.cid} refs={this.dur}>
                     <option value="Hour(s)">Hour(s)</option>   
                     <option selected value="Day(s)">Day(s)</option>
                     <option value="Week(s)">Week(s)</option>
