@@ -10,9 +10,6 @@ class Table extends Component {
     return (
       <div>
         <BootstrapTable data={this.props.data}>
-          {/* <TableHeaderColumn isKey dataField='name'>
-            Name
-          </TableHeaderColumn> */}
           <TableHeaderColumn isKey={true} dataField='_id'>
             ID
           </TableHeaderColumn>
@@ -28,12 +25,6 @@ class Table extends Component {
           <TableHeaderColumn dataField='price'>
             Price
           </TableHeaderColumn>
-          {/* <TableHeaderColumn dataField='speakers'>
-            Speakers
-          </TableHeaderColumn> */}
-          {/* <TableHeaderColumn dataField='topics'>
-            Topics
-          </TableHeaderColumn> */}
           <TableHeaderColumn dataField='type'>
             Type
           </TableHeaderColumn>
@@ -43,19 +34,9 @@ class Table extends Component {
           <TableHeaderColumn dataField='partnerInitiated'>
             Partner Initiated
           </TableHeaderColumn>
-          {/* <TableHeaderColumn dataField='attendees'>
-            Attendees
-          </TableHeaderColumn> */}
           <TableHeaderColumn dataField='request'>
             Request
-          </TableHeaderColumn>
-          {/* <TableHeaderColumn dataField='feedbacks'>
-            Feedbacks
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField='applicants'>
-            Applicants
-          </TableHeaderColumn> */}
-   
+          </TableHeaderColumn>   
         </BootstrapTable>
       </div>
     );
