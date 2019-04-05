@@ -1,5 +1,5 @@
-//THIS IS THE TASK'S 1.3 STORY COMPONONENT, BELOW WE CAN UPDATE ANY TASKS'S "RESPONSE FROM ADMIN", 
-//AND VIEW TASKS' DESCRIPTIONS
+//THIS IS THE TASK'S 2.2 STORY COMPONONENT, BELOW WE CAN BOOK ANY AVAILABLE LOCATION , 
+
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -7,35 +7,39 @@ import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 import axios from 'axios';
 
-var today = new Date();
 
-class TaskStoryOneThreeOne extends Component {
+
+class LocationStoryTwoTwo extends Component {
     
     
         state = {
            id:'',
-           desc:'',
+           booked:'',
            done:false
         };
     
- 
     handleChange = event => {
         this.setState({ id: event.target.value })
     }
-    
+    handleAnotherChange = event => {
+        this.setState({ booked: event.target.value })
+    }
     handleSubmit = event => {
         event.preventDefault(); //prevents page from reloading
-        const tasking = {
-            id: this.state.id
+        const locationing = {
+            id: this.state.id,
+            booked: this.state.booked
         };
-        const url = 'http://localhost:4000/api/tasks/read/'+tasking.id
-        axios.get(url)
+        console.log(locationing.id)
+        console.log(locationing.booked)
+        const url = 'http://localhost:4000/api/locations/'+locationing.id
+        axios.put(url, {booked: locationing.booked})
             .then(res => {
-                this.setState({desc: res.data.data})
-                this.setState({ done:true })
-                console.log(res.data.data)
+                this.setState({ booked: res.data })
+                // this.setState({ done:true })
 
             })
+            window.alert("Booked Location ");
 
    
     };
@@ -51,21 +55,12 @@ class TaskStoryOneThreeOne extends Component {
     }
     renderDone() {
         return(
-             <div>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Task ID:
-                    <input type="text" name="id" onChange={this.handleChange} />
-                </label>
-                <button type="submit">Get Task's Desc</button>
-                <ul>
+        <ul>
             <li>
-                {this.state.desc}
+                <label>Done</label>
+                {this.state.booked}
             </li>
         </ul>
-        </form>
-            </div>
-        
         )
     }
 
@@ -78,17 +73,20 @@ class TaskStoryOneThreeOne extends Component {
             return this.renderDone()
         }
         return(
-            <div>
+
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Task ID:
+                    Location ID:
                     <input type="text" name="id" onChange={this.handleChange} />
                 </label>
+                <label>
+                    Location booking Update:
+                    <input type="text" name="booked" onChange={this.handleAnotherChange} />
+                </label>
                 
-                <br/>
-                <button type="submit">Get Task's Desc</button>
+                
+                <button type="submit">Book Location</button>
             </form>
-            </div>
             
             
         )
@@ -116,8 +114,8 @@ class TaskStoryOneThreeOne extends Component {
     }
 }
 ReactDOM.render(
-    <TaskStoryOneThreeOne subreddit="reactjs"/>,
+    <LocationStoryTwoTwo subreddit="reactjs"/>,
     document.getElementById('root')
 )
 
-export default TaskStoryOneThreeOne;
+export default LocationStoryTwoTwo;

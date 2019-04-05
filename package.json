@@ -31,7 +31,12 @@
     "passport-jwt": "^4.0.0",
     "react": "^16.8.6",
     "react-bootstrap-table": "^4.3.1",
+<<<<<<< HEAD
+=======
+    "react-dom": "^16.8.6",
+>>>>>>> c40913c83a5d7d292365aaaae990548213c9b9aa
     "react-horizontal-scrolling-menu": "^0.5.7",
+    "table": "^5.2.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
