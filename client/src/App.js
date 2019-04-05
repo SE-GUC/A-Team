@@ -6,6 +6,7 @@ import TaskPost from './components/TaskPost';
 import TaskList from './components/TaskList';
 import TaskStoryOneThreeOne from './components/TaskStoryOneThreeOne';
 import TaskStoryOneThreeTwo from './components/TaskStoryOneThreeTwo';
+import TaskStoryOnepointTwo from './components/TaskStoryOnepointTwo';
 class App extends Component {
   state = {
     clickedShowTasks:false,
@@ -50,6 +51,7 @@ class App extends Component {
     <AppNavbar/>
     <TaskStoryOneThreeOne/>
     <TaskStoryOneThreeTwo/>
+    <TaskStoryOnepointTwo/>
     </div>
       )
   }

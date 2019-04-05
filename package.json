@@ -29,6 +29,8 @@
     "mongoose": "^5.4.21",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react": "^16.8.6",
+    "react-bootstrap-table": "^4.3.1",
     "react-horizontal-scrolling-menu": "^0.5.7",
     "uuid": "^3.3.2"
   },
