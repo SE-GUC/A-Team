@@ -10,9 +10,11 @@ const mongoose = require('mongoose')
 
 //add random task tester
 router.get('/',async(req,res)=>{
+    try{
     const t =await Task.find()
     res.json({data:t
     })
+    }catch(err){res.data('Request Erorr')}
 });
 router.post('/add_task', async (req,res) => {
     const newTask = new Task({
@@ -132,30 +134,38 @@ router.post('/create', async(req,res) => {
     //.then(Tasks => res.json({data: new_task}))
     res.json({msg: 'Task added', data:new_task})
 } catch(error) {
+    res.data('Request Erorr')
     console.log("oops")
 }
         
 })
 //READ TASK MONGO
 router.get('/read', async (req,res) => {
+    try{
     const tasking = await Tasks.find()
     res.json({data: tasking})
+    }
+    catch(err){res.data('Request Erorr')}
 })
 //UPDATE TASK MONGO
 router.put('/update/:id', async(req,res) => {
+        try{
         Tasks.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
             if(!err) {
                 return res.json({data:model})
             } else {
-                return res.data({error: `Can't find task`})
+                return res.json({error: `Can't find task`})
             }
         } )
+    }catch(err){res.data('Request Erorr')}
+
       
 })
 //DELETE TASK MONGO
 router.delete('/:id', async(req,res) => {
+    try{
         const name = req.params.name
-        Tasks.findByIdAndDelete(req.params.id, (err,model) => {
+        const deletedTask=Tasks.findByIdAndDelete(req.params.id, (err,model) => {
             if(!err) {
                 return res.json({data:null})
             } else {
@@ -164,13 +174,19 @@ router.delete('/:id', async(req,res) => {
         })
         if(!deletedTask) return res.status(404).send({error: 'Task doesnt exist'})
         res.json({msg: `Task ${name} deleted`, data: deletedTask})
+    }
+    catch(err){res.data("Request Error")}
     
 }) 
 
 //STORY 1.3, READ TASK'S DESC
 router.get('/read/:id', async (req,res) => {
+    try{
     const t = await Tasks.findById(req.params.id)
     res.json({data: t.description})
+    }
+    catch(err){res.data('Request Error')
+}
 })
 //STORY 1.3, UPDATE TASK'S RESPONSE FROM ADMIN
 /*
@@ -187,6 +203,7 @@ router.put('/error1/:id', async(req,res) => {
 //NEW DISPLAY ON TASK ID
 router.put('/update/:id', (req,res) => {
     //updating a Task with the given inputs
+    try{
     const tasks=Task
     const found = tasks.some(tasks => tasks.id == req.params.id);
     const updateTask = req.body; //getting response_From_admin
@@ -200,10 +217,13 @@ router.put('/update/:id', (req,res) => {
     } else {
         res.status(400).json({msg: `ID ${req.params.id} not found`});
     }
+}
+catch(err){res.data('Request Error')}
 });
 //Aly Zamzamy
 router.put('/review/:id', (req,res)=>{
     //accepting a task upload via id
+    try{
     let id= req.params.id;
     // check for req are valid
  
@@ -225,7 +245,10 @@ router.put('/review/:id', (req,res)=>{
         res.json('Task was found and reviewed')
     }
     
-});});
+});
+
+}catch(err){res.data('Request Error')}
+});
 router.put('/revvv/:id', async(req,res) => {
             try{
             const task = await Tasks.findOne({id})
@@ -239,23 +262,21 @@ router.put('/revvv/:id', async(req,res) => {
             res.json({msg: 'cant update'})
         }
     })
-
-
-
-
-
 //Mohammed Islam
-
 //getting a specfic task
 router.get('/get/:id', async (req,res) => {
         const id = req.params.id
+        try{
         const task = await Tasks.findOne({id})
         if(!task) return res.status(404).send({error: 'User does not exist'})
         else
         res.json({data: task})
+        }
+        catch(err){res.data('Request Error')}
         });
 //assigning a request 
  router.put('uassign/:id',async (req,res) => {
+                try{
                 Tasks.findByIdAndUpdate(req.params.id,{is_assigned:req.body.is_assigned,assigned_id:req.body.assigned_id}, {new: true}, (err, model) => {
                     if(!err) {
                         return res.json({data:model})
@@ -263,6 +284,8 @@ router.get('/get/:id', async (req,res) => {
                         return res.data({error: `Can't find task`})
                     }
                 } );
+            }
+            catch(err){res.data('Request Error')}
               
     
             }); 
@@ -279,13 +302,10 @@ router.get('/recommend',async(req,res)=>{
     var myskills= req.body.skills
     
     myskills=myskills.sort()
-    
+    try{
     const filter= await Task.find({skills:myskills[0]})
     const result ={data:[]}
     var intersection=[]
-    
-    //loop
-    //console.log(filter[0])
     for(var i=0; i<filter.length;i++){
         intersection=myskills.filter(value => filter[i].skills.includes(value))
         if(intersection.sort().toString()===filter[i].skills.sort().toString()){
@@ -293,6 +313,11 @@ router.get('/recommend',async(req,res)=>{
         }
     }   
      return res.json(result)
+    }
+    catch(err){
+        res.json('Error While running')
+    }
+    
 });
 router.get('/apply/:id',async(req,res)=>{
     const status = joi.validate(req.params, {
@@ -309,6 +334,7 @@ router.get('/apply/:id',async(req,res)=>{
             return res.json({ error: status1.error.details[0].message })
         }
       }
+      try{
     const content = await Tasks.findById(req.params.id)
     var myskills= req.body.skills.sort()
     var required=  content.skills.sort()
@@ -319,7 +345,10 @@ router.get('/apply/:id',async(req,res)=>{
     else{
         return res.json({msg:'You can NOT apply on the task with id '+req.params.id})
     }
+    }
+    catch(err){res.json('Request Error')}
     
 });
+
 
 module.exports=router
