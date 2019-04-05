@@ -14,7 +14,7 @@ class Table extends Component {
             ID
           </TableHeaderColumn>
           <TableHeaderColumn dataField='remaining_places'>
-            Remaining Places
+            Remaining Places    
           </TableHeaderColumn>
           <TableHeaderColumn dataField='location'>
             Location

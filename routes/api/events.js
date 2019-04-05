@@ -308,7 +308,6 @@ router
     try {
       const event = await Event.findById(request.params.id).exec()
       const feedbacks=event.feedbacks
-
       return response.json({ data: feedbacks })
     } catch (err) {
       return response.json({ error: err.message })

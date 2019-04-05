@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import EventList from './components/EventList';
+import ShowFeedbacks from './components/ShowFeedbacks';
 import GetEventsByType from './components/GetEventsByType';
 class App extends Component {
   state = {
     show:false,
+    showFeedbacks:false,
     showByType:false
   }
   
@@ -20,14 +22,27 @@ class App extends Component {
     event.preventDefault();
     this.setState({
       show:true,
+      showFeedbacks:false,
+      showByType:false
+
     })
   }
-  
-  booleanShowByType =event => {
+  booleanShowFeedbacks = event => {
     event.preventDefault();
     this.setState({
       show:false,
+      showFeedbacks:true,    
+      showByType:false
+    })
+  }
+
+  booleanShowByType = event => {
+    event.preventDefault();
+    this.setState({
+      show:false,
+      showFeedbacks:false,    
       showByType:true
+
     })
   }
 
@@ -36,36 +51,55 @@ class App extends Component {
     return(
     <div>
     <h1>Events</h1>
-    <button type="ShowEvents" onClick={this.booleanShow}>Show Events</button>
-    <GetEventsByType/>
+    <button type="ShowEvents" onClick={this.booleanShow}>Show Events</button> 
+    <button type="ShowEvents" onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</button> 
+    <button type="ShowEvents" onClick={this.booleanShowByType}>Show Events by Type</button> 
+    <EventList/>
     </div>
       )
   }
 
-  renderEventsByType() {
+  renderFeedbacks() {
     return(
       <div>
       <h1>Events</h1>
-      <button type="ShowEvents" onClick={this.booleanShow}>Show Events</button>
-      <EventList/>
+      <button type="ShowEvents" onClick={this.booleanShow}>Show Events</button> 
+      <button type="ShowEvents" onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</button> 
+      <button type="ShowEvents" onClick={this.booleanShowByType}>Show Events by Type</button> 
+      <ShowFeedbacks/>
       </div>
         )
   
   }
-
+  renderByType() {
+    return(
+      <div>
+      <h1>Events</h1>
+      <button type="ShowEvents" onClick={this.booleanShow}>Show Events</button> 
+      <button type="ShowEvents" onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</button> 
+      <button type="ShowEvents" onClick={this.booleanShowByType}>Show Events by Type</button> 
+      <GetEventsByType/>
+      </div>
+        )
+  
+  }
   render() {
     if(this.state.show) {
       return this.renderEvents()
     }
-    if(this.state.showByType) {
-      return this.renderEventsByType()
+    if (this.state.showFeedbacks) {
+      return this.renderFeedbacks();
+    }
+    if (this.state.showByType) {
+      return this.renderByType();
     }
     return (
       <div>
       <h1>Events</h1>
       <button type="submit" onClick={this.booleanShow}>Show Events</button>
-      <button type="submit" onClick={this.booleanShowByType}>Show Events By Type</button>      
-      </div>
+      <button type="ShowEvents" onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</button> 
+      <button type="ShowEvents" onClick={this.booleanShowByType}>Show Events by Type</button> 
+        </div>
     )
   }
 }

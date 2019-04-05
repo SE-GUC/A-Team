@@ -3,12 +3,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Table from './Table'
 
 
 class GetEventsByType extends Component {
     
     
         state = {
+            events:[],
            type:'',
            done:false,
            error:''
@@ -27,7 +29,8 @@ class GetEventsByType extends Component {
         const url = 'http://localhost:4000/api/events/'+types.type
         axios.get(url)
             .then(res => {
-                this.setState({type: res.data.data})
+                this.setState({events: res.data.data})
+                this.setState({done: true})
                 console.log(res.data.data)
 
             })
@@ -49,13 +52,13 @@ class GetEventsByType extends Component {
              <div>
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Task ID:
+                    Type:
                     <input type="text" name="type" onChange={this.handleChange} />
                 </label>
                 <button type="submit">Search Events by type</button>
                 <ul>
             <li>
-                {this.state.type}
+            <Table data={this.state.events}/>             
             </li>
         </ul>
         </form>
@@ -71,11 +74,12 @@ class GetEventsByType extends Component {
         if(this.state.done) {
             return this.renderDone()
         }
+        else
         return(
             <div>
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Task ID:
+                    Type
                     <input type="text" name="type" onChange={this.handleChange} />
                 </label>
                 
