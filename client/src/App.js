@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import './App.css';
 import AppNavbar from './components/AppNavbar'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import LocationList from "./components/LocationList";
+import LocationPost from "./components/LocationPost";
 import TaskPost from './components/TaskPost';
 import TaskList from './components/TaskList';
 import TaskStoryOneThreeOne from './components/TaskStoryOneThreeOne';
 import TaskStoryOneThreeTwo from './components/TaskStoryOneThreeTwo';
+
+
 class App extends Component {
   state = {
     clickedShowTasks:false,
     clickedShowStory:false,
     clickedPostTask:false
+    
   }
   
   handleStuff = event => {
@@ -19,8 +24,9 @@ class App extends Component {
       clickedShowTasks:true,
       clickedShowStory:false,
       clickedPostTask:false
+      
 
-
+      
     })
   }
   handleMoreStuff = event => {
@@ -29,6 +35,7 @@ class App extends Component {
       clickedShowTasks:false,
       clickedShowStory:true,
       clickedPostTask:false
+      
         })
   }
   handleEvenMoreStuff = event => {
@@ -47,6 +54,8 @@ class App extends Component {
     <button type="submit" onClick={this.handleStuff}>Show Tasks</button>
     <button type="submit" onClick={this.handleMoreStuff}>Back to Story Componenets</button>
     <button type="submit" onClick={this.handleEvenMoreStuff}>Task Post</button>
+    
+    
     <AppNavbar/>
     <TaskStoryOneThreeOne/>
     <TaskStoryOneThreeTwo/>
@@ -54,6 +63,7 @@ class App extends Component {
       )
   }
   renderTasks() {
+    
     return(
     <div>
     <h1>Tasks Control Panel</h1>
@@ -61,6 +71,7 @@ class App extends Component {
     <button type="submit" onClick={this.handleStuff}>Show Tasks</button>
     <button type="submit" onClick={this.handleMoreStuff}>Back to Story Componenets</button>
     <button type="submit" onClick={this.handleEvenMoreStuff}>Task Post</button>
+    
     <AppNavbar/>
     <TaskList/>
     </div>
@@ -74,15 +85,16 @@ class App extends Component {
       <button type="submit" onClick={this.handleStuff}>Show Tasks</button>
       <button type="submit" onClick={this.handleMoreStuff}>Back to Story Componenets</button>
       <button type="submit" onClick={this.handleEvenMoreStuff}>Task Post</button>
+      
       <AppNavbar/>
       <TaskPost/>
       </div>
         )
 
   }
+  
   render() {
     if(this.state.clickedShowTasks) {
-      
       return this.renderTasks()
     }
     if(this.state.clickedShowStory) {
@@ -98,8 +110,9 @@ class App extends Component {
       <h1>Tasks Control Panel</h1>
       <p>Right now, you can enter a task's ID and recieve its desc, or change a task's repsonse from admin as dictated by Story 1.3, to get the list of tasks, simply click on the "Task List" on the navar</p>
       <button type="submit" onClick={this.handleStuff}>Show Tasks</button>
-      <button type="submit" onClick={this.handleMoreStuff}>Back to Story Componenets</button>
-      <button type="submit" onClick={this.handleEvenMoreStuff}>Task Post</button>
+      <button type="submit" onClick={this.handleMoreStuff}>I dont know what this does</button>
+      <button type="submit" onClick={this.handleEvenMoreStuff}>Post Tasks</button>
+    
       <AppNavbar/>
       </div>
     )

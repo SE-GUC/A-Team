@@ -5,23 +5,24 @@ import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 import axios from 'axios';
 import Table1 from './Table1';
+import LocationTable from './LocationTable';
 
 
-class TaskList extends Component {
+class LocationList extends Component {
     
     constructor(props) {
         super(props)
         this.state = {
-            tasks:[],
+            locations:[],
             loading:true,
             error:null
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/tasks/read/`)
+        axios.get(`http://localhost:4000/api/locations/`)
             .then(res => {
                 console.log(res)
-                this.setState({tasks: res.data.data});
+                this.setState({locations: res.data.data});
                 this.setState({loading: false})
 
 
@@ -50,8 +51,8 @@ class TaskList extends Component {
         }
         return(
         <ul>
-            {this.state.tasks.map(task =>
-                <li key={task._id}>{task.name}</li>
+            {this.state.locations.map(location =>
+                <li key={location._id}>{location.title}</li>
                 )}
         </ul>
         )
@@ -65,8 +66,8 @@ class TaskList extends Component {
         return(
             <div className="m">
             
-            <p className="Table-header" align="center">Tasks</p>
-            <Table1 data={this.state.tasks}/> {/*
+            <p className="Table-header" align="center">Locations</p>
+            <LocationTable data={this.state.locations}/> {/*
             As you can see, and bas bdkhl guwa hena el array el gebto men TaskList, mgm3 hena?ahh ana i mean fel app.cs i dont know how to viok stoepw
             */}
             
@@ -98,8 +99,8 @@ class TaskList extends Component {
     }
 }
 ReactDOM.render(
-    <TaskList subreddit="reactjs"/>,
+    <LocationList subreddit="reactjs"/>,
     document.getElementById('root')
 )
 
-export default TaskList;
+export default LocationList;
