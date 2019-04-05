@@ -43,6 +43,8 @@ class TaskStoryOneThreeTwo extends Component {
                 // this.setState({ done:true })
 
             })
+            window.alert("Edited Task's Response from Admin Successfully");
+
    
     };
     renderLoading() {
