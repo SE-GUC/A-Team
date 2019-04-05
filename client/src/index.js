@@ -1,9 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import Dummy from './components/Dummy'
+import TaskPostForm from './components/TaskPostForm'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const routing=(
+    <Router>
+    <div>
+      <Route path="/App" component={App} />
+      <Route path="/dummy" component={Dummy} />
+      <Route path='/submit_task' component={TaskPostForm}/>
+    </div>
+  </Router>
+)
+ReactDOM.render(routing, document.getElementById('root'));
 
 
-serviceWorker.unregister();
+
