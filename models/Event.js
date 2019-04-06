@@ -25,7 +25,7 @@ const applicationSchema = new Schema({
     },
     isAccepted: {
         type: Boolean,
-        required: true
+        required: false
     }
 })
 

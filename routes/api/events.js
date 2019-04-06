@@ -116,8 +116,7 @@ router
         comment: joi.string().required()
       })),
       applicants: joi.array().items(joi.object().keys({
-        applicant_id: joi.string().length(24).required(),
-        isAccepted: joi.boolean().required()
+        applicant_id: joi.string().length(24).required()
       }))
 
     })
@@ -169,7 +168,8 @@ router
   })
   .get(async (request, response) => {
     try {
-      const event = await Event.findById(request.params.id).exec()
+      const event = await Event.findById(request.params.id)
+      console.log(event)
       return response.json({ data: event })
     } catch (err) {
       return response.json({ error: err.message })
@@ -209,7 +209,6 @@ router
     try {
       const status = joi.validate(request.body, {
         applicant_id: joi.string().length(24).required(),
-        isAccepted: joi.boolean().required()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
@@ -217,7 +216,7 @@ router
       const applicant = {
         _id: mongoose.Types.ObjectId(),
         applicant_id: request.body.applicant_id,
-        isAccepted: request.body.isAccepted
+        isAccepted: false
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
       return response.json({ data: event })
