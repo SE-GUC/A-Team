@@ -7,9 +7,15 @@ export class Skills extends Component {
   render() {
     
     return (
+      
+      
         <div>
-            <AddSkill addSkill={this.props.addSkill} skills={this.props.skills} delSkill={this.props.delSkill}/>
-            <TaskSkills skills={this.props.skills} delSkill={this.props.delSkill}/>
+            <table>
+              <tr>
+                <td><AddSkill addSkill={this.props.addSkill} skills={this.props.skills} state={this.props.state}/></td>
+                <td><TaskSkills skills={this.props.skills} delSkill={this.props.delSkill} state={this.props.state}/></td>
+                </tr>
+            </table>
         </div>
     )
   }
