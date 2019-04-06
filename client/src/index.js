@@ -14,6 +14,7 @@ import Review from './components/StoryOnepointTwo';
 import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
+import Locationcomps from './components/Locationcomps'
 
 const routing=(
     <Router>
@@ -31,6 +32,7 @@ const routing=(
       <Route path="/view_applicants" component={Taskviewapplicants} />
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
+      <Route path="/locations" component={Locationcomps} />
     
       
     </div>
