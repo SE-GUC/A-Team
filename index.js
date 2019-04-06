@@ -1,9 +1,9 @@
 const express=require('express');
 const mongoose = require('mongoose')
-const cors= require('cors')
+const cors = require('cors');
 const app = express();
 app.use(express.json())
-
+app.use(cors());
 
 const http= require('http')
 const events=require('./routes/api/events')
@@ -24,7 +24,7 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
 
 
-    mongoose.connect('mongodb+srv://mohamedhooda:!Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+    mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
     }).on('error', function(error){

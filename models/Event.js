@@ -25,7 +25,7 @@ const applicationSchema = new Schema({
     },
     isAccepted: {
         type: Boolean,
-        required: true
+        required: false
     }
 })
 
@@ -37,6 +37,10 @@ const EventSchema = new Schema({
     },
     remaining_places: {
         type: Number,
+        required: true
+    },
+    name :{
+        type: String,
         required: true
     },
     // organizer: {

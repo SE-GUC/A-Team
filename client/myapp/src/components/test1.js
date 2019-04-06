@@ -2,14 +2,14 @@ import React , {Component} from 'react';
 import uuid from 'uuid';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import {
-    Container, 
-    ListGroup,
-    ListGroupItem,
-    Button
-} from "reactstrap";
-import {CSSTransition , TransitionGroup} from 'react-transition-group';
-import test2 from './test2'
+// import {
+//     Container, 
+//     ListGroup,
+//     ListGroupItem,
+//     Button
+// } from "reactstrap";
+// import {CSSTransition , TransitionGroup} from 'react-transition-group';
+// import test2 from './test2'
 
 class PartnerRequestget extends Component{
     state={

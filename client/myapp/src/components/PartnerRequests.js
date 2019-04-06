@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import uuid from 'uuid';
 import axios from 'axios';
+import RequestsTable from './RequestsTable'
 import {
     Container, 
     ListGroup,
@@ -13,30 +14,33 @@ import {CSSTransition , TransitionGroup} from 'react-transition-group';
 
 class PartnerRequesget extends Component{
     state={
-        requests:[
-            {_id: uuid(), organizer:'hoss', isAccepted:false},
-            {_id: uuid(), organizer:'hosstany', isAccepted:false}
-        ]
+        requests:[],
+        loading:true
     }
     componentDidMount()
+    {    
+         axios.get('http://localhost:4000/api/PartnerRequest/geteventrequest')
+         .then(response => {
+             this.setState({requests:response.data.data})
+             console.log(response.data.data);
+         })
+         .catch(error => {
+             console.log(error);
+         }) 
+    }
+    h()
     {
-        
-        //  axios.get('https://ateamse2.herokuapp.com/api/PartnerRequest/geteventrequest')
-        //  .then(response => {
-        //      console.log(response.data.data);
-        //  })
-        //  .catch(error => {
-        //      console.log(error);
-        //  }) 
+        return(
+            <RequestsTable data={this.state.requests}/> 
+        )   
     }
     render() 
     {
         return(
         <Container>
-            <Button color="primary" > 
-                Get requests
-            </Button>
-            <ListGroup>
+            <RequestsTable data={this.state.requests}/>             
+
+            {/* <ListGroup>
                 <TransitionGroup>
                     {this.state.requests.map(({_id,organizer,isAccepted}) => (
                         <CSSTransition key={_id} timeout={500} classNames="fade">
@@ -51,7 +55,7 @@ class PartnerRequesget extends Component{
                         </CSSTransition>
                      ))}
                 </TransitionGroup>
-            </ListGroup>
+            </ListGroup> */}
         </Container>
         )
     }
