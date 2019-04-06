@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import AppNavbar from './components/AppNavbar'
+import EventNavbar from './components/EventNavbar'
 import PartnerRequests from './components/PartnerRequests';
 import Events from './components/Events';
 
@@ -33,7 +33,7 @@ toggle2=() =>
     if (this.state.isOpen) {
       return (
           <div>
-              <AppNavbar/>
+              <EventNavbar/>
               <PartnerRequests/>
           </div>
       )
@@ -41,7 +41,7 @@ toggle2=() =>
   if(this.state.isOpen2) {
       return(
       <div>
-          <AppNavbar/>
+          <EventNavbar/>
           <Events/>
       </div>            
       )
@@ -49,7 +49,7 @@ toggle2=() =>
   else
     return (
       <div className="App">
-        <AppNavbar/>
+        <EventNavbar/>
       </div>
     );
   }
