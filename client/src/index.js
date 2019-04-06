@@ -6,6 +6,7 @@ import Dummy from './components/Dummy'
 import TaskList from './components/TaskList'
 import TaskPostForm from './components/TaskPostForm'
 import Recommend from './components/Recommend';
+import Review from './components/StoryOnepointTwo';
 
 const routing=(
     <Router>
@@ -15,7 +16,7 @@ const routing=(
       <Route path="/dummy" component={Dummy} />
       <Route path='/submit_task' component={TaskPostForm}/>
       <Route path="/recommend" component={Recommend} />
-
+      <Route path="/Review" component={Review} />
       
     </div>
   </Router>
