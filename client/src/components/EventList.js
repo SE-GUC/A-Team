@@ -47,8 +47,6 @@ class EventList extends Component {
         else
         return(
             <div className="m">
-            
-            <p className="Table-header" align="center">Events</p>
             <Table data={this.state.events}/>             
             </div>
 

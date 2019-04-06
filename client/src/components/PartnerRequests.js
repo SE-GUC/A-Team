@@ -22,24 +22,24 @@ class PartnerRequesget extends Component{
          axios.get('http://localhost:4000/api/PartnerRequest/geteventrequest')
          .then(response => {
              this.setState({requests:response.data.data})
+             this.setState({loading:false})
              console.log(response.data.data);
          })
          .catch(error => {
              console.log(error);
          }) 
     }
-    h()
-    {
-        return(
-            <RequestsTable data={this.state.requests}/> 
-        )   
+    renderLoading() {
+        return <div>Requests are fetching from database...</div>
     }
     render() 
     {
+        if(this.state.loading){
+            this.renderLoading();    
+        }
         return(
         <Container>
-            <RequestsTable data={this.state.requests}/>             
-
+            <RequestsTable data={this.state.requests}/> 
             {/* <ListGroup>
                 <TransitionGroup>
                     {this.state.requests.map(({_id,organizer,isAccepted}) => (

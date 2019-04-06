@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import App from '../App'
 import {
     Collapse,
   Navbar,
@@ -17,31 +18,45 @@ import {
 class AppNavbar extends Component {
     
     state={
-        isOpen: false
+        isOpen: false,
+        isOpen2:false
     }
-
+    
     toggle=() =>
     {
-        this.setState({isOpen:!this.state.isOpen})
+        this.setState({
+            isOpen:true,
+            isOpen2:false
+        })
     }
+    toggle2=() =>
+    {
+        this.setState({
+            isOpen:false,
+            isOpen2:true
+        })
+    }
+        
     render(){
         return(
+            
             <div>
+                
             <Navbar color="dark" dark expand="sm" className="mb-5">
                <Container>
-                   <NavbarBrand href="/">
-                       Partner Requests
-                   </NavbarBrand>
-                   <NavbarToggler onClick={this.toggle}/>
-                   <Collapse isOpen={this.state.isOpen} navbar>
+               <NavbarBrand href="/partnerrequests" >
+                    Partner Requests
+                </NavbarBrand>
+                <NavbarBrand href="/events" >
+                   Events
+                </NavbarBrand>
                        <Nav className="ml-auto" navbar>
                            <NavItem>
-                               <NavLink href="https://www.google.com/">
-                                   google
+                               <NavLink href="https://www.github.com/se-guc/a-team">
+                                   github bta3na
                                </NavLink>
                            </NavItem>
                        </Nav>
-                   </Collapse>  
                </Container>
             </Navbar>
         </div>   
