@@ -5,6 +5,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import Dummy from './components/Dummy'
 import TaskList from './components/TaskList'
 import TaskPostForm from './components/TaskPostForm'
+import Recommend from './components/Recommend';
 
 const routing=(
     <Router>
@@ -13,6 +14,8 @@ const routing=(
       <Route path="/get_tasks" component={TaskList}/>
       <Route path="/dummy" component={Dummy} />
       <Route path='/submit_task' component={TaskPostForm}/>
+      <Route path="/recommend" component={Recommend} />
+
       
     </div>
   </Router>

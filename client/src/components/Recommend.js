@@ -7,60 +7,26 @@ import axios from 'axios';
 import RecommendStyle from '../css/RecommendStyle.css'
 
 class Recommend extends Component {
+    state = {
+        id: "",
+        result: []
+      };
+    
+      handleChange = event => {
+        this.setState({ id: event.target.value });
+      };
+      handleSubmit = event => {
+        event.preventDefault(); //prevents page from reloading
+        const tasking = {
+          id: this.state.id
+        };
+        const url = "http://localhost:4000/api/tasks/recommend/" + tasking.id;
+        axios.get(url).then(res => {
+          this.setState({ result: res.data.data });
+          console.log(res.data.data);
+        });
+      };
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            skills:["Wraith","Octane","Bloodhound"],
-            loading:true,
-            error:null,
-            result:''
-        }
-    }
-
-    // onChange = (e) => {
-    //     this.setState({ [e.target.name]: e.target.value })
-    // }
-    handleChange = (e) => {
-        // this.setState({ [e.target.name]: e.target.value});
-        this.setState({
-            skills:e.target.value
-        })
-    }
-    handleSubmit = event => {
-        event.preventDefault();
-        console.log(this.state.skills);
-
-
-        
-
-        
-
-
-        // const url = 'http://localhost:4000/api/tasks/recommend/'
-        //             const m = axios({
-        //                 method:'get',
-        //                 url: 'http://localhost:4000/api/tasks/recommend',
-        //                 headers: {'Content-Type': 'application/json'},
-        //                 data:{
-        //                     skills: this.state.skills
-        //                 }
-                        
-        //             }).then(res => {
-        //                 console.log(res.data)
-        //                 this.setState({result:res.data.data})
-        //             }).catch(error => console.log(error))
-        //             console.log(this.state.result)
-                    // axios.get({
-                    //     method:"get",
-                    //     url: 'http://localhost:4000/api/tasks/recommend/',
-                    //     headers: {'Content-Type': 'application/json'},
-
-                    //     data: {
-                    //         skills:this.state.skills
-                    //     }
-                    // }).then(res=> console.log(res.data))
-                };
                 renderLoading() {
                     return <div>Loading...</div>
                 }
@@ -80,10 +46,10 @@ class Recommend extends Component {
                     return(
                         <form onSubmit={this.handleSubmit}>
                             <label for="skills">
-                                Skills:
-                                <input placeholder="Enter available skills" type="text" name="name" onChange={this.handleChange} />
+                               <h1>Recommend tasks</h1> 
+                                <input placeholder="Member id" type="text" name="name" onChange={this.handleChange} />
                             </label>
-                            
+                            <p></p>
                             <button type="submit">Get recommendations</button>
                             <ul>
                             <li>
