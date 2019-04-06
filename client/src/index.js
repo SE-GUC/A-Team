@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Events from './components/Events'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 import PartnerRequests from './components/PartnerRequests'
 import TaskControl from './TaskControl';
 import Dummy from './components/Dummy'
@@ -12,6 +12,8 @@ import TaskPostForm from './components/TaskPostForm'
 import Recommend from './components/Recommend';
 import Review from './components/StoryOnepointTwo';
 import Taskviewapplicants from './components/Tasksviewapplicants'
+import Event from './components/Events'
+import Partnerreq from './components/PartnerRequests'
 
 const routing=(
     <Router>
@@ -27,6 +29,8 @@ const routing=(
       <Route path="/recommend" component={Recommend} />
       <Route path="/Review" component={Review} />
       <Route path="/view_applicants" component={Taskviewapplicants} />
+      <Route path="/Event" component={Event} />
+      <Route path="/Partner_Requests" component={Partnerreq} />
     
       
     </div>
