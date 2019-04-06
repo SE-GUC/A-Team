@@ -12,18 +12,15 @@ export class TaskCommitment extends Component {
   } 
   render() {
     return (
-    <div>
-      <table>
-        <tr><td><p>Level Of Commitment:</p></td>
-            <td>
-        <select onChange={this.handlechange}>
+    <div className={{fontsize:'17px',padding:'5px'}}>
+        Level of Commitment:
+        <select onChange={this.handlechange} >
             <option value="Very High"> Very High</option>   
             <option  value="High">High</option>
             <option selected value="Moderate">Moderate</option>
             <option value='Low'>Low</option>
-        </select></td>
-        </tr>
-      </table>
+        </select>
+        
     </div>
     )
   }

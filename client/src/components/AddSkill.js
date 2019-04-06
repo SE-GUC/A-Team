@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-
+import '../css/box_css.css'
 export class AddSkill extends Component {
   state={
         newSkill:''
   }
-  onChange=(e)=> this.setState({newSkill:e.target.value});    
+
+  onChange=(e)=> {
+    this.setState({newSkill:e.target.value})
+    
+}
   onSubmit=(e)=>{
       e.preventDefault()
       this.props.addSkill(this.state.newSkill)
@@ -14,16 +18,19 @@ export class AddSkill extends Component {
     
     return (
             <div>
-            <form onSubmit={this.onSubmit}>
+           
             <input type='text' 
-            name='skill'
-             placeholder='Add a Skil..' 
+              className='skillip'
+             name='skill'
+             placeholder='Type a Skill to add..' 
              style={{flex:'10',padding:'5px'}}
-             value={this.state.newSkill}
              onChange={this.onChange}
              />
-            <input type='submit' value='submit'className='btn'style={{flex:'1'}}/>
-            </form>
+            <input
+             type='submit' 
+             className='skillbtn' 
+             onClick={this.onSubmit}></input>
+            
             </div>
     )
   }
