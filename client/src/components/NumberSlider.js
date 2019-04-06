@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TaskDateField from './TaskDateField';
+import  '../css/box_css.css'
 export class NumberSlider extends Component {
   constructor(props){
     super(props)
@@ -26,32 +27,25 @@ export class NumberSlider extends Component {
 
   } 
   render() {
-    
-      
     return (
-        <div onChange={this.refresh} >
-        <table>
-            <tr><td>{this.props.fieldname}: <label ref={this.number} id={'textInput'+this.props.cid} >1</label></td>
-                <td>
-                  <select id={'ddl_date'+this.props.cid} refs={this.dur}>
+        <div onChange={this.refresh} className='datepack' >
+        <br></br>
+           {this.props.fieldname}: <label ref={this.number} id={'textInput'+this.props.cid} className='L34' >28</label>
+           
+           <select id={'ddl_date'+this.props.cid} refs={this.dur}>
                     <option value="Hour(s)">Hour(s)</option>   
                     <option selected value="Day(s)">Day(s)</option>
                     <option value="Week(s)">Week(s)</option>
                     <option  value="Month(s)">Month(s)</option>
                     <option value="Year(s)">Year(s)</option>
                   </select>
-                  </td>
-            </tr>
-            <tr><td><input id={'slider'+this.props.cid} type='range' min='1' max='31'  step='1'onChange={
+      <br></br>
+           <input className='slider' id={'slider'+this.props.cid} type='range' min='1' max='31'  step='1'onChange={
             ()=>{
                 document.getElementById('textInput'+this.props.cid).innerText=document.getElementById('slider'+this.props.cid).value
-            }
-        
-        } ></input></td></tr>
+            }} ></input>
 
-        </table>
-        
-        
+                    
        
         </div>
     ) 

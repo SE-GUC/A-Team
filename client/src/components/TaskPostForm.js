@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import TaskBasicField from './TaskBasicField'
 import TaskDatePack from './TaskDatePack'
 import TaskCommitment from './TaskCommitment'
+import Skills from './Skills'
 import axios from 'axios'
-import '../'
+import  '../css/box_css.css'
 
 
 export class Form extends Component {
@@ -18,12 +19,14 @@ export class Form extends Component {
             level_of_comitment:'Moderate',
             experience_needed:'1 Day(s)',
             description:"",
-            skills:[]
+            skills:['Hi Ammar']
            // skills:['Mongo','Express','React','Node']
     }
     //Will be used Later on
     addSkill=(newskill)=>{
-        var update=this.state.skills.push(newskill)
+        var update=this.state.skills
+        update.push(newskill)
+        
         this.setState({skills:update})
     }
     delSkill=(skill)=>{
@@ -59,28 +62,27 @@ export class Form extends Component {
         this.setState({experience_needed:e})
     }
     //Result
-    async handleSubmit(e){
+    handleSubmit=(e)=>{
         e.preventDefault();
         try{
-            
-        const response= await axios({
-            method:'post',
-            url: 'http://localhost:4000/api/tasks/add/',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                name: this.state.name,
-                monetary_compensation: this.state.monetary_compensation,
-                price: this.state.price,
-                time_expected: this.state.time_expected,
-                level_of_comitment:this.state.level_of_comitment,
-                experience_needed:this.state.experience_needed,
-                description:this.state.description,
-                skills:this.state.skills
-            }   })
-            console.log(response)
+            const data={
+                 name: this.state.name,
+                 monetary_compensation: this.state.monetary_compensation,
+                 price: this.state.price,
+                 time_expected : this.state.time_expected,
+                 level_of_comitment :this.state.level_of_comitment,
+                 experience_needed :this.state.experience_needed,
+                 description :this.state.description,
+                 skills:this.state.skills
+            }
+          axios.post('http://localhost:4000/api/tasks/add',data)
+          .then(res => {
+            console.log(res);
+            return res.data
+          })
         }
         catch(error){
-            
+            console.log('error')
         }
             
     }
@@ -104,31 +106,39 @@ export class Form extends Component {
     };
 
   render() {
-      //console.log(this.props.forms)
+      
       
     return(
-        <form onSubmit={this.handleSubmit}>
-            <h1>Task Details:</h1>
-            <table>
-                <tr><TaskBasicField state={this.state} fieldname='Task Name' type='text' func={this.setname}/> {/*Could Add placeholder to make it modern*/}</tr>
-                <tr><TaskDatePack id='1' fieldname='Time Expected' func={this.setTime}/></tr>
-                <tr><TaskBasicField fieldname='Task Description' type='bigtext' func={this.setDescription}/></tr>
-            </table>
-           
-           <h1>Pricing:</h1>
-           <table>
-               <tr><TaskBasicField fieldname='Price' type='number' func={this.setPrice}/> {/*Could Add placeholder to make it modern*/}</tr>
-               <tr> <TaskBasicField fieldname='Compensation' type='number' func={this.setCompensation}/> {/*Could Add Info Overlap here*/}</tr>
-           </table>
-           
-           <h1>Requierements:</h1>
-            <table>
-                <tr><TaskCommitment func={this.setCommitment} /></tr>
-                <tr><TaskDatePack id='2' fieldname="Experience required"  func={this.setExperience} /></tr>
-             
-            </table>
-            <input type='submit' value='Submit'/>
+        <form onSubmit={this.handleSubmit} className='form' >
+                 <div className='fill'>
+                 <h1>Task Details:</h1>
+                 <div className='TaskDetails'>
+                <TaskBasicField className='text' state={this.state} fieldname='Task Name' type='text' func={this.setname}/> 
+                <TaskDatePack id='1' fieldname='Time Expected' func={this.setTime}/>
+                <TaskBasicField fieldname='Task Description' type='bigtext' func={this.setDescription}/>
+                </div>
+                <div className='Pricing'>
+                <h1>Pricing:</h1>
+                <tr>
+                    <td><TaskBasicField classname='money'fieldname='Price' type='number' func={this.setPrice}/></td>
+                    <td><TaskBasicField classname='money' fieldname='Compensation' type='number' func={this.setCompensation}/></td>
+                </tr>
+                 {/*Could Add placeholder to make it modern*/}
+                 {/*Could Add Info Overlap here*/}
+                </div>
+               <div className='Requirements'>
+               <h1>Requierements:</h1>
+                <TaskCommitment func={this.setCommitment} />
+                <TaskDatePack id='2' fieldname="Experience required"  func={this.setExperience} />
+                <br></br>
+                <Skills addSkill={this.addSkill} delSkill={this.delSkill} skills={this.state.skills} state={this.state}/>
+               </div>
+            
+            <input type='submit' value='Submit' className='button1' state={this.state}/>
+                 </div>
+                 
         </form>
+        
     )
        
       
