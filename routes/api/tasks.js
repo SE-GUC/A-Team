@@ -300,15 +300,26 @@ router.get('/recommend',async(req,res)=>{
         return res.json({ error: status.error.details[0].message })
       }
     var myskills= req.body.skills
-    
+    var sorted=[]
+    for (var i = 0; i < myskills.length; i++) {
+        sorted.push(myskills[i].toLowerCase());
+    }
     myskills=myskills.sort()
+
     try{
     const filter= await Task.find({skills:myskills[0]})
+    myskills=sorted.sort()
     const result ={data:[]}
     var intersection=[]
     for(var i=0; i<filter.length;i++){
+        var sortedfltr =[]
+        var current=filter[i].skills
+        for (var j = 0; j < current.length; j++) {
+            sortedfltr.push(current[j].toLowerCase());
+        }
+        filter[i].skills=sortedfltr.sort();
         intersection=myskills.filter(value => filter[i].skills.includes(value))
-        if(intersection.sort().toString()===filter[i].skills.sort().toString()){
+        if(intersection.sort().toString().toLowerCase()===filter[i].skills.sort().toString().toLowerCase()){
             result.data.push(filter[i])
         }
     }   
