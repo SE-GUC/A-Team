@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TaskControl from './TaskControl';
+import './index.css';
+import App from './App';
+import Events from './components/Events'
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import PartnerRequests from './components/PartnerRequests'
+import TaskControl from './TaskControl';
 import Dummy from './components/Dummy'
 import TaskList from './components/TaskList'
 import TaskPostForm from './components/TaskPostForm'
 import Recommend from './components/Recommend';
 import Review from './components/StoryOnepointTwo';
-import Taskviewapplicants from './components/Taskviewapplicants'
+import Taskviewapplicants from './components/Tasksviewapplicants'
 
 const routing=(
     <Router>
     <div>
+    <Route path="/" component={App} />
+      <Route path="/Events" component={Events} />
+      <Route path="/PartnerRequests" component={PartnerRequests}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
