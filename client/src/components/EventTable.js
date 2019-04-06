@@ -5,7 +5,7 @@ import '../css/Table.css';
 import '../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css'
  
  
-class Table extends Component {
+class EventTable extends Component {
   render() {
     return (
       <div>
@@ -43,4 +43,4 @@ class Table extends Component {
   }
 }
  
-export default Table;
+export default EventTable;

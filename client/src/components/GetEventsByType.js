@@ -1,9 +1,8 @@
-//THIS IS THE TASK'S 1.3 STORY COMPONONENT, BELOW WE CAN UPDATE ANY TASKS'S "RESPONSE FROM ADMIN", 
-//AND VIEW TASKS' DESCRIPTIONS
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Table from './Table'
+import Table from './EventTable'
 
 
 class GetEventsByType extends Component {
