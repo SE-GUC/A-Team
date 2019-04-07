@@ -8,7 +8,7 @@ const Task = require('../../models/Task')
 
 
 router
-  .route('/:id/assignMember')
+  .route('/assignMember/:id')
   .all(async (request, response, next) => {
     const status = joi.validate(request.params, {
       id: joi.string().length(24).required()

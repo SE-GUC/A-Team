@@ -6,6 +6,7 @@ import Dummy from './components/Dummy'
 import TaskList from './components/TaskList'
 import TaskPostForm from './components/TaskPostForm'
 import Recommend from './components/Recommend';
+import AssignMember from './components/AssignMember';
 
 const routing=(
     <Router>
@@ -15,6 +16,7 @@ const routing=(
       <Route path="/dummy" component={Dummy} />
       <Route path='/submit_task' component={TaskPostForm}/>
       <Route path="/recommend" component={Recommend} />
+      <Route path="/assign" component={AssignMember} />
 
       
     </div>

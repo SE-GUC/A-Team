@@ -7,27 +7,29 @@ import axios from 'axios';
 import RecommendStyle from '../css/RecommendStyle.css'
 
 
-class Recommend extends Component {
+class AssignMember extends Component {
     state = {
-        id: "",
-        result: []
+        member_id: "",
+        id: ""
       };
     
       handleChange = event => {
-        this.setState({ id: event.target.value });
+        this.setState({ member_id: event.target.value });
       };
       handleSubmit = event => {
         event.preventDefault(); //prevents page from reloading
         const tasking = {
           id: this.state.id
         };
-        const url = "http://localhost:4000/api/tasks/recommend/" + tasking.id;
-        axios.get(url).then(res => {
-          this.setState({ result: res.data.data });
-          console.log(res.data.data);
-        });
-      };
-
+        return axios({
+            method:'post',
+            url: 'http://localhost:4000/api/assignMember/' +tasking.id,
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                member_id: this.state.member_id
+      }
+    });
+      }
                 renderLoading() {
                     return <div>Loading...</div>
                 }
@@ -47,11 +49,11 @@ class Recommend extends Component {
                     return(
                         <form onSubmit={this.handleSubmit}>
                             <label for="skills">
-                               <h1>Recommend tasks</h1> 
+                               <h1>Assign member</h1> 
                                 <input placeholder="Member id" type="text" name="name" onChange={this.handleChange} />
                             </label>
                             <p></p>
-                            <button type="submit">Get recommendations</button>
+                            <button type="submit">Assign</button>
                             <ul>
                             <li>
                                 {this.state.result}
@@ -63,9 +65,9 @@ class Recommend extends Component {
                 }
             }
             ReactDOM.render(
-                <Recommend subreddit="reactjs"/>,
+                <AssignMember subreddit="reactjs"/>,
                 document.getElementById('root')
             )
  
            
-export default Recommend; 
+export default AssignMember; 
