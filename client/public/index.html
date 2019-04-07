@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+            .iul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      .ili {
+        text-decoration: none;
+        float: left;
+        color:aliceblue;
+        margin: 5px;
+        padding: 10px;
+        border-right: aliceblue 2px solid;
+        opacity: 0.7;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+      .ili:hover{
+        opacity: 1;
+        text-decoration: none;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+      .githublogo{
+        text-decoration: none;
+        float: left;
+        color:transparent;
+        margin: 5px;
+        padding: 10px;
+        border-right: aliceblue 2px solid;
+        opacity: 0.7;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background: url(https://git-scm.com/images/logos/downloads/Git-Logo-White.png) no-repeat left center ;
+        background-size: 90%;
+
+      }
+      .githublogo:hover{
+        color:transparent;
+        opacity: 1;
+      }
+      .homebtn{
+        text-decoration: none;
+        float: left;
+        color:transparent;
+        margin: 5px;
+        padding: 10px;
+        border-right: aliceblue 2px solid;
+        opacity: 0.7;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background: url(https://www.indiaretailing.com/wp-content/uploads/2016/02/Home-Button.png) no-repeat left center ;
+        background-size: 90%;
+        margin-right: 5px;
+        margin-left: 5px;
+      }
+      .homebtn:hover{
+        color:transparent;
+        opacity: 1;
+      }
+
+      
+
+      
+    </style>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+   <title>React App</title>
+  </head>
+  <nav><ul class="iul">
+      <li><a class='homebtn' href='/'title='Home Button' >Home</a></li>
+      <li><a class='githublogo' href='https://github.com/SE-GUC/A-Team' title="Go to ATEAM repo">Github</a></li>
+      <li><a class='ili' href='/submit_task'>Post a Task</a></li>
+      <li><a class='ili'href='/recommend'>Recommend Tasks</a></li>
+      <li><a  class='ili' href='/task_control_panel'>Task Control Panel</a></li>
+      <li><a  class='ili' href='/get_tasks'>Get Tasks</a></li>
+      <li><a class='ili' href='/Review'>Review task</a></li>
+      <li><a class='ili' href='/Event'>Events</a></li>
+      <li><a class='ili' href='/Partner_Requests'>Partner Requests</a></li>
+      <li><a class='ili' href='/locations'>locations</a></li>
+      
+    </ul></nav>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <div id="root"></div>
+    
+    </body>
+</html>
