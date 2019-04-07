@@ -18,12 +18,12 @@ const projects= require('./routes/api/project')
 const dummy = require('./routes/api/dummy')
 const member =require('./routes/api/members')
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
-
+const path = require('path');
 //const tasks_objects= require('./routes/api/tasks_objects')
 
 
 
-
+app.use(express.static(path.join(__dirname, 'build')));
     mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
@@ -32,36 +32,10 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
     });
 
 
+    app.get('/', function(req, res) {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+      });
 
-app.get('/',(req,res)=>{
-    res.send(`
-    <h1>Hello friend</h1>
-    <a href="/api/events" > to create an event</a>
-    <a href="api/tasks" >Go to member page</a>`
-    )
-})
-
-
-app.get('/', (req, res) => {
-    res.send(`<h1>Freelancer </h1>
-    <a href="/api/locations">Locations</a>
-       `);
-})
-
-
-
-app.get('/',(req,res)=>{
-    res.send(`
-    <h1>Hello</h1>
-    <a href="/api/PartnerRequest" > to initiate a request to organize an event</a>`)
-})
-
-
-app.get('/',(req,res)=>{
-    res.send(`
-    <h1>Hello</h1>
-    <a href="api/tasks" >Go to member page</a>`)
-})
 
 
 
