@@ -1,9 +1,9 @@
 const express=require('express');
 const mongoose = require('mongoose')
-
+var cors = require('cors');
 const app = express();
 app.use(express.json())
-
+app.use(cors());
 
 const http= require('http')
 const events=require('./routes/api/events')
@@ -16,7 +16,7 @@ const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
 const projects= require('./routes/api/project')
 const dummy = require('./routes/api/dummy')
-
+const member =require('./routes/api/members')
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
 //const tasks_objects= require('./routes/api/tasks_objects')
@@ -79,6 +79,7 @@ app.use('/api/project',projects)
 app.use('/api/dummy',dummy)
 app.use('/api/consultancyAgencies',ConsultancyAgency)
 app.use('/api/partners',partner)
+app.use('/api/members',member)
 //app.use('/api/tasks',tasks_objects)
 
 
