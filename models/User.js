@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const interests =require('./Type')
 
 // Create the schema
 const UserSchema = new Schema({
@@ -35,7 +34,7 @@ const UserSchema = new Schema({
         type: Boolean,
         required:true
     },
-    interests: interests,
+    // interests: ,
 
     //stuff of CA
     info: {
