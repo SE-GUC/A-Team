@@ -50,15 +50,15 @@ router.post('/add_task', async (req, res) => {
 })
 
 //Youssef Shalaby
-router.post('/addSkill', async (req, res) => { //Admin Access only
-    const newSkill = req.body.skill
-    var skills = Task.schema.path('skills').emumValues
-    console.log(skills)
-    skills = skills.push(newSkill)
-    Task.schema.path('skills').emumValues = skills
-    return res.json({
-        skills: skills
-    })
+router.put('/addSkill',async(req,res)=>{ //Admin Access only
+    var skills=Task.schema.path('skills').caster.enumValues
+    console.log('Before: ',skills)
+    skills.push(req.body.skill)
+    console.log('After Pushing',skills)
+    Task.schema.path('skills').caster.enumValues=skills
+    Task.
+    console.log('Updated Version',Task.schema.path('skills').caster.enumValues)
+    return res.json({skills:Task.schema.path('skills').caster.enumValues})
 })
 router.post('/add', async (req, res) => {
     //adding a task ith appropriate parenthesis
