@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LocationList from'./LocationList';
 //Our app's navigation bar
 import {
     Collapse,
@@ -11,11 +12,12 @@ import {
     Container
 } from 'reactstrap';
 
-class AppNavbar extends Component {
+
+class AppLocNavbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false //defining navBar state
+            isOpen: false, //defining navBar state
         }
     }
     toggle = () => {
@@ -23,20 +25,24 @@ class AppNavbar extends Component {
             isOpen: !this.state.isOpen
         })
     }
+    
+    
+   
     render() {
         return(
             <div>
             <Navbar color="dark" dark expand="sm" className="mb-5">
                 <Container>
-                    <NavbarBrand href="/">Task Navbar</NavbarBrand>
+                    <NavbarBrand href="/">Location Navbar</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navBar>
                             <NavItem>
-                                <NavLink href="http://localhost:4000/api/tasks/read/">
-                                Server Task List
+                                <NavLink href="http://localhost:4000/api/locations/">
+                                Location List
                                 </NavLink>
                             </NavItem>
+
                         </Nav>
                     </Collapse>
                 </Container>
@@ -51,4 +57,4 @@ class AppNavbar extends Component {
 
 
 
-export default AppNavbar;
+export default AppLocNavbar;
