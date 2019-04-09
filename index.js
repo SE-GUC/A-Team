@@ -7,6 +7,7 @@ app.use(cors());
 
 const http= require('http')
 const events=require('./routes/api/events')
+const admins=require('./routes/api/admins')
 const users=require('./routes/api/users')
 const partner=require('./routes/api/partners')
 const applications = require('./routes/api/applications')
@@ -25,6 +26,7 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
 
     mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+   //lazm nsheel el 5ara da
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
     }).on('error', function(error){
@@ -69,6 +71,7 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/events', events)
+app.use('/api/admins', admins)
 app.use('/api/users', users)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)

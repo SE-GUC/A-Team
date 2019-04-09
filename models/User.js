@@ -6,7 +6,6 @@ const interests =require('./Type')
 const UserSchema = new Schema({
     type: {
         //dunno lessa
-
     },
     name: {
         type: String,
@@ -28,22 +27,15 @@ const UserSchema = new Schema({
         type: Number,
         required: true
     },
-    location: { //place of birth w mayeb2ash OBJECTID aslun
-        type: Schema.Types.ObjectId, //String 
-        ref: 'Location', //eh el 5ara da
-        required: false //true tab3an
-    },
     events_attended: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: false
     }],
     is_private: {
         type: Boolean,
         required:true
     },
-    interests: {
-        interests
-    },
+    interests: interests,
 
     //stuff of CA
     info: {
@@ -54,7 +46,7 @@ const UserSchema = new Schema({
         type: String,
         required: false
     }],
-    board_members: [{
+    board_members: [{ //that's shared between partners and CAs
         name: String,
         email: String,
         job_title:String
@@ -87,10 +79,6 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref:'Project'
-    }],
-    board_members:[{
-        type: String,
-        required: false
     }],
     events_created:[{
         type: mongoose.Schema.Types.ObjectId,

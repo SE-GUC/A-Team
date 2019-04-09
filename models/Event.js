@@ -32,7 +32,7 @@ const responseSchema = new Schema({
     }
 })
 
-responseSchema
+
 
 const applicationSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -40,7 +40,7 @@ const applicationSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required:true
     },
-    isAccepted: {
+    is_accepted: {
         type: Boolean,
         required: false
     }
