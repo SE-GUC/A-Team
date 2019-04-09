@@ -299,14 +299,13 @@ router.get('/recommend',async(req,res)=>{
     if (status.error) {
         return res.json({ error: status.error.details[0].message })
       }
+      try{
     var myskills= req.body.skills
     var sorted=[]
     for (var i = 0; i < myskills.length; i++) {
         sorted.push(myskills[i].toLowerCase());
     }
     myskills=myskills.sort()
-
-    try{
     const filter= await Task.find({skills:myskills[0]})
     myskills=sorted.sort()
     const result ={data:[]}
