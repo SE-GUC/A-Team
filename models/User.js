@@ -1,8 +1,18 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const interests =require('./Type')
 
 // Create the schema
 const UserSchema = new Schema({
+    type: {
+        type:[String],
+        enum:['CA','P','M'],
+        required:false
+    },
+    user_name:{
+        type:String,
+        required:false
+    },
     name: {
         type: String,
         required: true
@@ -15,29 +25,72 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    dob: {
-        type: Date,
+    date_of_birth: {
+        type: String, //Moment in Back end or Handle as a Calendar in front end
         required: true
     },
     phone: {
-        type: Number,
+        type: String, //3shan mafrood y2ba feeh zero dek awal
         required: true
     },
-    location: { //place of birth w mayeb2ash OBJECTID aslun
-        type: Schema.Types.ObjectId, //String 
-        ref: 'Location', //eh el 5ara da
-        required: false //true tab3an
-    },
-    eventsAttended: [{
+    events_attended: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: false
     }],
-    account_open_on: { //whats that?
+    is_private: {
+        type: Boolean,
+        required:true
+    },
+    interests: interests,
+
+    //stuff of CA
+    info: {
         type: String,
         required: false
-    }
-    // lazm privacy of user
-    // type of user 3ashan n3raf n recomend events
+    },
+    field_of_work: [{ //that's shared between partners and CAs
+        type: String,
+        required: false
+    }],
+    board_members: [{ //that's shared between partners and CAs
+        name: String,
+        email: String,
+        job_title:String
+    }],
+    reports: [{
+        type: String,
+        required: false
+    }],
+
+
+
+    //stuff of member
+    years_of_experience:{
+        type:Number,
+        required: false
+    },
+    skills:[{
+        type:String,
+        required: false
+    }],
+    notifications:[{
+        type:Number,
+        required: false 
+    }],
+
+
+
+    //partner stuff
+    past_projects:[{
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref:'Project'
+    }],
+    events_created:[{
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref:'Event'
+    }]    
 })
 
 module.exports = User = mongoose.model('User', UserSchema)

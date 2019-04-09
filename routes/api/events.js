@@ -21,12 +21,12 @@ const Event = require('../../models/Event')
 
 // {
 // 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
-// 	"isAccepted":true
+// 	"is_accepted":true
 // }
 
 // {
 // 	"applicant_id":"ahmedasdfghlololololasdg",
-// 	"isAccepted":true
+// 	"is_accepted":true
 // }
 
 router.get('/location/:location', (req,res) => {
@@ -216,7 +216,7 @@ router
       const applicant = {
         _id: mongoose.Types.ObjectId(),
         applicant_id: request.body.applicant_id,
-        isAccepted: false
+        is_accepted: false
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
       return response.json({ data: event })
@@ -228,7 +228,7 @@ router
     try {
       const status = joi.validate(request.body, {
         applicant_id: joi.string().length(24).required(),
-        isAccepted: joi.boolean().required()
+        is_accepted: joi.boolean().required()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
@@ -236,7 +236,7 @@ router
       const applicant = {
         _id: mongoose.Types.ObjectId(),
         applicant_id: request.body.applicant_id,
-        isAccepted: request.body.isAccepted
+        is_accepted: request.body.is_accepted
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $set: { applicants: applicant } }).exec()
       return response.json({ data: event })
@@ -312,6 +312,41 @@ router
       return response.json({ error: err.message })
     }
   })
+
+
+  router
+  .route('/:id/adminResponse')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        admin_id: joi.string().length(24).required(),
+        response: joi.string().min(6).required(),
+        is_accepted: joi.boolean().required()  
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const response = {
+        _id: mongoose.Types.ObjectId(),
+        admin_id: request.body.admin_id,
+        is_accepted: request.body.is_accepted
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { responses_from_admin: response } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't find application for a event given the following data` })
+    }
+  })
+
 
 
 

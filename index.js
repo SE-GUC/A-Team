@@ -7,6 +7,7 @@ app.use(cors());
 
 const http= require('http')
 const events=require('./routes/api/events')
+const admins=require('./routes/api/admins')
 const users=require('./routes/api/users')
 const partner=require('./routes/api/partners')
 const applications = require('./routes/api/applications')
@@ -69,6 +70,7 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/events', events)
+app.use('/api/admins', admins)
 app.use('/api/users', users)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
