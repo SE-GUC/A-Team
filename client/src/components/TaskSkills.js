@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import SingleSkill from './SingleSkill'
 export class TaskSkills extends Component {
-  constructor(props){
-    super(props)
-  }
+  
 
   render() {
     

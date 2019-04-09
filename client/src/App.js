@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import EventNavbar from './components/EventNavbar'
 import PartnerRequests from './components/PartnerRequests';
 import Events from './components/Events';
 
-import axios from 'axios';
+
 
 class App extends Component {
 
@@ -33,7 +32,7 @@ toggle2=() =>
     if (this.state.isOpen) {
       return (
           <div>
-              <EventNavbar/>
+              
               <PartnerRequests/>
           </div>
       )
@@ -41,7 +40,6 @@ toggle2=() =>
   if(this.state.isOpen2) {
       return(
       <div>
-          <EventNavbar/>
           <Events/>
       </div>            
       )
@@ -49,7 +47,6 @@ toggle2=() =>
   else
     return (
       <div className="App">
-        <EventNavbar/>
       </div>
     );
   }
