@@ -191,6 +191,16 @@ router.get('/read', async (req, res) => {
         res.data('Request Erorr')
     }
 })
+router.get('/read/applicants/', async(req,res) => {
+    try {
+        const app = await Tasks.find({status:"Pending"},{applicants:1})
+        res.json ({
+            data: app
+        })
+    } catch (err) {
+        res.json(err)
+    }
+})
 //UPDATE TASK MONGO
 router.put('/update/:id', async (req, res) => {
     try {
