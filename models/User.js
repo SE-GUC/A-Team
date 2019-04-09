@@ -5,7 +5,13 @@ const interests =require('./Type')
 // Create the schema
 const UserSchema = new Schema({
     type: {
-        //dunno lessa
+        type:[String],
+        enum:['CA','P','M'],
+        required:false
+    },
+    user_name:{
+        type:String,
+        required:false
     },
     name: {
         type: String,
@@ -19,12 +25,12 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    dob: {
-        type: Date,
+    date_of_birth: {
+        type: String, //Moment in Back end or Handle as a Calendar in front end
         required: true
     },
     phone: {
-        type: Number,
+        type: String, //3shan mafrood y2ba feeh zero dek awal
         required: true
     },
     events_attended: [{
