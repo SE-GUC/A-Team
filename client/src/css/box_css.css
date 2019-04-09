@@ -1,0 +1,173 @@
+h1{
+    background: #45ACA8;
+    font-size:32px;
+    height: 43px; 
+    border-radius: 8%;
+    margin: 8px;
+    
+}
+.form{
+    height:100%;
+    width:100%;
+    background-image: url('https://www.digitalorganics.com.au/wp-content/uploads/2018/02/webbackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    overflow: scroll;
+}
+.fill{
+    background-color:#D4F4FD;
+    text-align: center;
+    align-content: center;
+    margin: 35px 500px;
+    border-radius: 4%;
+    border: lightblue 5px solid;
+    
+}
+.basic{
+    text-align: center;
+    align-content: center;
+}
+.TaskDetails{
+    text-align: center;
+    align-content: center;
+    
+}
+.Requirements{
+    text-align: center;
+    align-content: center;   
+}
+.input[type=text]{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color:cadetblue;
+}
+.datepack{
+    text-align: center;
+    align-content: center;  
+    padding: 5px;
+    font-size:17px
+}
+
+.money {
+    position: absolute;
+    cursor: default;
+    z-index: 2;
+    background-color: rgb(201, 211, 211);
+    width: 14.5px;
+    text-align: center;
+    margin: 0px;
+    pointer-events: none;
+    height: 10px;
+    line-height: 10px;
+    border-radius: 5%;
+  }
+ select{
+    padding: 5px 5px;
+    margin: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    border-radius: 4px;
+    background-color: azure;
+    border-radius: 5%;
+ } 
+ option{
+    padding: 5px 5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    border-radius: 4px;
+    background-color: azure;
+    border-radius: 5%;
+ }
+td{
+    padding-left:40px;
+    padding-bottom: 10px;
+    padding-top:10px;
+}
+.text{
+    padding: 5px;
+    border-radius: 5%;
+}
+.L34{
+    padding:5px;
+}
+.slider{
+    height:15px;
+    background: #6694C6;
+    opacity: 0.75;
+}
+.slider:hover{
+    opacity: 1;
+}
+.slider::-moz-range-thumb{
+    background:#E5E5E5;
+    cursor:pointer;
+
+}
+.button1{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    background-color:#6694C6;
+    color:#E5E5E5;
+    text-align:center;
+    transition: all 0.2s;
+    }
+    .button1:hover{
+    color:#6694C6;
+    background-color:#E5E5E5;
+    }
+    @media all and (max-width:30em){
+        .button1{
+            display:block;
+            margin:4em
+        }
+    }
+.skillip{
+    width:150px;
+    height:30px;
+    border-radius: 5%;
+
+}
+.skillbtn{
+    background-color: #6694C6;
+    flex:1;
+    background: url(https://cdn1.iconfinder.com/data/icons/ui-colored-1/100/UI__2-512.png) no-repeat left center ;
+    background-size: 20px;
+    width:22px;
+    height:22px;
+    border-radius: 50%;
+    border:transparent;
+    color:transparent;
+   
+
+}
+.delete{
+    background: url(https://img.icons8.com/cotton/2x/cancel--v1.png) no-repeat left center ;
+    background-size: 23px;
+    width:26px;
+    height:26px;
+    color:#ffffff;
+    border:none;
+    padding:10px;
+    border-radius:50%;
+    cursor:pointer;
+    float:right;
+}
+.delele{
+    background:#f4f4f4;
+    border:black solid 2px;
+    border-radius:10%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: left;
+    width:150px;
+    height:30px;
+    margin-top: 20px;
+    margin-left:90px;
+} 
+        

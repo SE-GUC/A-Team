@@ -1,15 +1,36 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
-
-//autoIncrement.initialize(connection);
-
 const partnerSchema = new Schema({
-  consultancy_agency_id: { type: Schema.Types.ObjectId }
+  consultancy_agency_id: { 
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  partners:[{
+    type: String,
+    required: true
+  }],
+  field_of_work:{
+    type: String,
+    required: true
+  },
+  past_projects:[{
+    type: String,
+    required: false
+  }],
+  board_members:[{
+    type: String,
+    required: false
+  }],
+  events:[{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  }],
+  feedback:[{
+    type: String,
+    required: false
+  }],
+
 });
 
-//partnerSchema.plugin(autoIncrement.plugin, 'Partner');
-//bookSchema.plugin(autoIncrement.plugin, { model: 'Partner', field: 'consultancy_agency_id' });
-
-module.exports= Partner = connection.model("Partner", partnerSchema);
+module.exports= Partner = mongoose.model('partners', partnerSchema);
