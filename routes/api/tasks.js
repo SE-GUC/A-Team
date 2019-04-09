@@ -73,10 +73,10 @@ router.post('/add',async (req,res)=>{
   try {
      user = await User.findById(req.body.partner_id).exec()
      if(user===null){
-        return response.json({ error: `The partner_id you entered does not belong to a user` })
+        return res.json({ error: `The partner_id you entered does not belong to a user` })
      }
   } catch (err) {
-    return response.json({ error: `Error, couldn't find a user given the following id` })
+    return res.json({ error: `Error, couldn't find a user given the following id` })
   }
   
   try{
