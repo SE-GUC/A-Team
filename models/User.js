@@ -40,8 +40,10 @@ const UserSchema = new Schema({
         type: Boolean,
         required:true
     },
-    // interests: ,
-
+    interests: {
+        type: String,
+        required: true,
+    },
     //stuff of CA
     info: {
         type: String,

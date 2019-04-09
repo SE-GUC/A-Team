@@ -2,12 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-const typeSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-})
 
 const feedbackSchema = new Schema({
     user_id: {
@@ -87,7 +81,10 @@ const EventSchema = new Schema({
         type: String,
         required: true
     }],
-    type: [typeSchema],
+    type: [{
+        type:String,
+        required:true
+    }],
     partnerInitiated:{
         type: Schema.Types.ObjectId,
         required: true
