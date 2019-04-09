@@ -25,7 +25,7 @@ const applicationSchema = new Schema({
     },
     isAccepted: {
         type: Boolean,
-        required: true
+        required: false
     }
 })
 
@@ -37,6 +37,10 @@ const EventSchema = new Schema({
     },
     remaining_places: {
         type: Number,
+        required: true
+    },
+    name :{
+        type: String,
         required: true
     },
     // organizer: {
@@ -65,7 +69,7 @@ const EventSchema = new Schema({
         required: true
     }],
     type: {
-        type: String,
+        type: String, //schema  type 3ashan msh ay 7ad yshoof ay event "filer" 
         required: true
     },
     partnerInitiated:{
@@ -77,7 +81,8 @@ const EventSchema = new Schema({
     }],
     request: mongoose.Schema.Types.ObjectId,
     feedbacks: [feedbackSchema],
-    applicants: [applicationSchema]
+    applicants: [applicationSchema],
+    // privacy of Event msh ay 7ad yshoof ay 7aga 3ashan msh lazm
 })
 
 module.exports = Event = mongoose.model('Event', EventSchema)
