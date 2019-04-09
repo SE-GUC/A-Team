@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Task= require('./Task')
-const task_schema=mongoose.model('tasks').schema
 
 const ProjectSchema = new Schema({
     project_name:{
+        type:String,
+        required:true
+    },
+    description:{
         type:String,
         required:true
     },
@@ -14,17 +16,29 @@ const ProjectSchema = new Schema({
     },
     partner_responsible:{
         type: Schema.Types.ObjectId, //make object 5ara
-        required:true
+        required:true,
+        ref:'User'
     },
-    consultancy_agency_sponsor:{
+    consultancy_agency_assinged:{
         type:Schema.Types.ObjectId,
-        required:false
-        
+        required:false,
+        ref:'User'    
     },
-    Tasks:{
+    skills:[{
+        type: String,
+        required: true,
+        enum:['Java','Html5','Css']
+        //will be changed to objects later on
+    }],
+    consultancy_agency_applicants:{
+        type:[Schema.Types.ObjectId],
+        required:false,
+        ref:'User'
+    },
+    tasks:{
         type: [Schema.Types.ObjectId], 
         ref: 'tasks',
-        required:true
+        required:false
     
     }
 
