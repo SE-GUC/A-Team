@@ -64,6 +64,7 @@ router.route('/:title').delete(async (request, response) => {
 // })
 
 router.put('/:id', async(req,res) => { 
+  try{
   Location.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
     if(!err) {
       return res.json({data:model})
@@ -71,6 +72,10 @@ router.put('/:id', async(req,res) => {
       return res.data({error: `Location not found`})
     }
   })
+}
+catch(e){
+  return res.data({error: `Request Error`})
+}
 })
  
 
