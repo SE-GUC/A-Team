@@ -23,10 +23,10 @@ const UserSchema = new Schema({
         type: Number,
         required: true
     },
-    location: {
-        type: Schema.Types.ObjectId,
-        ref: 'Location',
-        required: false
+    location: { //place of birth w mayeb2ash OBJECTID aslun
+        type: Schema.Types.ObjectId, //String 
+        ref: 'Location', //eh el 5ara da
+        required: false //true tab3an
     },
     eventsAttended: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -36,6 +36,8 @@ const UserSchema = new Schema({
         type: String,
         required: false
     }
+    // lazm privacy of user
+    // type of user 3ashan n3raf n recomend events
 })
 
 module.exports = User = mongoose.model('User', UserSchema)
