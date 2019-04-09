@@ -6,6 +6,7 @@ const Task=require('../../models/Task')
 const uuid = require('uuid')
 const joi = require('joi')
 const mongoose = require('mongoose')
+const User = require('../../models/User')
 
 
 //add random task tester
@@ -44,51 +45,59 @@ router.post('/add_task', async (req,res) => {
 })
 
 //Youssef Shalaby
+router.post('/addSkill',async(req,res)=>{ //Admin Access only
+    const newSkill=req.body.skill
+    var skills=Task.schema.path('skills').emumValues
+    console.log(skills)
+    skills=skills.push(newSkill)
+    Task.schema.path('skills').emumValues=skills
+    return res.json({skills:skills})
+})
 router.post('/add',async (req,res)=>{
     //adding a task ith appropriate parenthesis
     const status= joi.validate(req.body,{
         name:joi.string().max(40).required(),
-        time_of_post: joi.date(),
-        time_of_review: joi.date(),
         monetary_compensation: joi.number().required(),
-        price:joi.number().required(),
-        time_of_assingment:joi.date(),
-        is_assigned:joi.boolean(),
-        assigned_id:joi.string().length(24),
         time_expected:  joi.string().required(),
         level_of_comitment:joi.string().required(),
-        is_reviewed:joi.boolean(),
         experience_needed:joi.string().required(),
         description:joi.string().min(10).required(),
-        p_id:joi.string().length(24),
+        partner_id:joi.string().length(24),
         skills: joi.array().items(joi.string()),
-        response_from_admin:joi.string().allow('').optional(),
         admin_id: joi.string().length(24),
         applicants:joi.array().items(joi.string().length(24))
     })
     if (status.error) {
         return res.json({ error: status.error.details[0].message })
   }
+  try {
+     user = await User.findById(req.body.partner_id).exec()
+     if(user===null){
+        return response.json({ error: `The partner_id you entered does not belong to a user` })
+     }
+  } catch (err) {
+    return response.json({ error: `Error, couldn't find a user given the following id` })
+  }
+  
   try{
   const new_task= await new Task({
     _id:mongoose.Types.ObjectId(),  
     name:req.body.name,
-    time_of_post: new Date(),
+    time_of_post: moment().format('MMMM Do YYYY, h:mm:ss a'),
     time_of_review:'',
     monetary_compensation: req.body.monetary_compensation,
     price:req.body.price,
     time_of_assingment:'',
-    is_assigned:false,
+    status: 'Pending',
     assigned_id:undefined,
     time_expected:req.body.time_expected,
     level_of_comitment:req.body.level_of_comitment,
-    is_reviewed:false,
     experience_needed:req.body.experience_needed,
     description:req.body.description,
-    p_id:undefined,
+    partner_id:req.body.partner_id,
     skills:req.body.skills,
-    response_from_admin:'',
-    admin_id: mongoose.Types.ObjectId(),
+    response_from_admin:[],
+    admin_id: undefined, //for now
     applicants:[] 
   }).save()
   return res.json({data:new_task})
