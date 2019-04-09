@@ -1,14 +1,9 @@
 import React , {Component} from 'react';
-import uuid from 'uuid';
 import axios from 'axios';
 import RequestsTable from './RequestsTable'
 import {
-    Container, 
-    ListGroup,
-    ListGroupItem,
-    Button
+    Container
 } from "reactstrap";
-import {CSSTransition , TransitionGroup} from 'react-transition-group';
 
 
 

@@ -1,13 +1,12 @@
 //THIS IS THE TASK'S 1.3 STORY COMPONONENT, BELOW WE CAN UPDATE ANY TASKS'S "RESPONSE FROM ADMIN",
 //AND VIEW TASKS' DESCRIPTIONS
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+
 import ReactDOM from "react-dom";
-import uuid from "uuid";
+
 import axios from "axios";
 
-var today = new Date();
+
 
 class TaskStoryOneThreeOne extends Component {
   state = {

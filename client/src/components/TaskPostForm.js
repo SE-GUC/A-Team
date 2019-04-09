@@ -78,6 +78,7 @@ export class Form extends Component {
           axios.post('http://localhost:4000/api/tasks/add',data)
           .then(res => {
             console.log(res);
+            window.alert("Posted Task ");
             return res.data
           })
         }

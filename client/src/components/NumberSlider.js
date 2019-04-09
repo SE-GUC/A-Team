@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TaskDateField from './TaskDateField';
 import  '../css/box_css.css'
 export class NumberSlider extends Component {
   constructor(props){

@@ -6,8 +6,6 @@ import GetEventsByType from './GetEventsByType';
 import ApplyForEvent from './ApplyForEvent';
 import {
     Container, 
-    ListGroup,
-    ListGroupItem,
     Button
 } from "reactstrap";
 

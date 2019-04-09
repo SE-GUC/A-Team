@@ -8,7 +8,6 @@ export class TaskSkills extends Component {
     onSubmit=()=>{
         console.log('I want to Delete Task:'+this.props.skill+ 'The State is '+this.props.state.skills)
         var skill=this.props.skill
-        var uskills=this.props.state.skills
         this.props.delSkill(skill)
         
     }
@@ -28,17 +27,6 @@ export class TaskSkills extends Component {
     )
   }
 }
-const row={
-    background:'#f4f4f4'
-}
-const btnStyle={
-    background:'#ff0000',
-    color:'#ffffff',
-    border:'none',
-    padding:'5px 8px',
-    borderRadius:'50%',
-    cursor:'pointer',
-    float:'right'
-}
+
 
 export default TaskSkills;

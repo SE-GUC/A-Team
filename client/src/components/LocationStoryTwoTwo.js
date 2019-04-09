@@ -1,10 +1,7 @@
 //THIS IS THE TASK'S 2.2 STORY COMPONONENT, BELOW WE CAN BOOK ANY AVAILABLE LOCATION , 
 
 import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ReactDOM from 'react-dom';
-import uuid from 'uuid';
 import axios from 'axios';
 
 
