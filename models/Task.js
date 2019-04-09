@@ -57,8 +57,7 @@ const Tasks_schema=new Schema({
     },
     skills:[{
         type: String,
-        required: true,
-        enum:['Java','Html5','Css']
+        required: false,
         //will be changed to objects later on
     }],
     response_from_admin:[{
