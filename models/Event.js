@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const typeSchema =require('./Type')
 
 
 const feedbackSchema = new Schema({
@@ -16,6 +17,22 @@ const feedbackSchema = new Schema({
         required:true //da msh 3ala heroku
     }
 })
+const responseSchema = new Schema({
+    admin_id: {
+        type: Schema.Types.ObjectId,
+        required:true
+    },
+    response: {
+        type: String,
+        required: true
+    },
+    is_accepted: {
+        type: Boolean,
+        required:true //da msh 3ala heroku
+    }
+})
+
+responseSchema
 
 const applicationSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -43,10 +60,6 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
-    // organizer: {
-    //     type: String,
-    //     required: true
-    // },
     location: {
         type: Schema.Types.ObjectId,
         ref: 'Location',
@@ -56,10 +69,10 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
-    price: {
+    price: [{//array 
         type: Number,
         required: true
-    },
+    }],
     speakers: [{
         type: String,
         required: true
@@ -68,21 +81,28 @@ const EventSchema = new Schema({
         type: String,
         required: true
     }],
-    type: {
-        type: String, //schema  type 3ashan msh ay 7ad yshoof ay event "filer" 
-        required: true
-    },
+    type: [typeSchema],
     partnerInitiated:{
         type: Schema.Types.ObjectId,
         required: true
     },
+    is_accepted_by_admin: { //gedeeda
+        type: Boolean,
+        required:true
+    },
+    is_private :{
+        type:Boolean,
+        required:true
+    },
     attendees: [{
         type: Schema.Types.ObjectId
     }],
-    request: mongoose.Schema.Types.ObjectId,
+    time_of_edit:{
+        type:String
+    },
     feedbacks: [feedbackSchema],
-    applicants: [applicationSchema],
-    // privacy of Event msh ay 7ad yshoof ay 7aga 3ashan msh lazm
+    responses_from_admin:[responseSchema], //crud mat3amalsh
+    applicants: [applicationSchema]
 })
 
 module.exports = Event = mongoose.model('Event', EventSchema)
