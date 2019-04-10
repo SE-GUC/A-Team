@@ -25,7 +25,7 @@ const Tasks_schema=new Schema({
     },
     status:{
         type:String,    //Pending means just submitted, approved means admin 
-        enum:['Pending','Approved','Accepting','Assinged','Closed','Finished'],
+        enum:['Pending','Approved','Accepting','Assigned','Closed','Finished'],
         default:'Pending',
         required:false,
 

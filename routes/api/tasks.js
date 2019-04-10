@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const User = require('../../models/User')
 
 
+
 //add random task tester
 router.get('/', async (req, res) => {
     try {
@@ -193,7 +194,7 @@ router.get('/read', async (req, res) => {
 })
 router.get('/read/applicants/', async(req,res) => {
     try {
-        const app = await Tasks.find({status:"Pending"},{applicants:1})
+        const app = await Tasks.find({status:"Accepting"},{applicants:1})
         res.json ({
             data: app
         })
@@ -280,6 +281,21 @@ router.put('/update_admin_response/:id', async (req,res) => {
             )
     
 })
+router.post('remove_applicant/:id', async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        user_id:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      
+      const Tasks = await Task.findByIdAndUpdate(request.params.id, { $pop: { applicants: request.body.user_id } }).exec()
+      return response.json({ data: Tasks })
+    } catch (err) {
+      return response.json({ error: `Error` })  
+    }
+  }); 
 
 
 
