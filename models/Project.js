@@ -26,8 +26,8 @@ const ProjectSchema = new Schema({
     },
     skills: [{
         type: String,
-        required: false
-                //will be changed to objects later on 
+        required: true
+        //will be changed to objects later on 
     }],
     consultancy_agency_applicants:{
         type:[Schema.Types.ObjectId],

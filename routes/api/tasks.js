@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const User = require('../../models/User')
 
 
+
 //add random task tester
 router.get('/', async (req, res) => {
     try {
@@ -193,7 +194,7 @@ router.get('/read', async (req, res) => {
 })
 router.get('/read/applicants/', async(req,res) => {
     try {
-        const app = await Tasks.find({status:"Pending"},{applicants:1})
+        const app = await Tasks.find({status:"Accepting"},{applicants:1})
         res.json ({
             data: app
         })
@@ -280,6 +281,21 @@ router.put('/update_admin_response/:id', async (req,res) => {
             )
     
 })
+router.post('remove_applicant/:id', async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        user_id:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      
+      const Tasks = await Task.findByIdAndUpdate(request.params.id, { $pop: { applicants: request.body.user_id } }).exec()
+      return response.json({ data: Tasks })
+    } catch (err) {
+      return response.json({ error: `Error` })  
+    }
+  }); 
 
 
 
@@ -364,8 +380,68 @@ router.put('/revvv/:id', async (req, res) => {
         })
     }
 })
+
+router.put('/accept/:tid/:pid', async(req, res) => {
+//accepting task upload via task is and partner id
+
+try {
+    const exists = await Task.findOne({ _id: req.params.tid });
+    if (exists === null) {
+      return res.json({ message: "Task id is invalid" });
+    }
+    console.log(exists);
+    const prtid = exists.partner_id._id;
+    const st = exists.status;
+    if(prtid == req.params.pid && st=='Approved'){
+
+        Tasks.findByIdAndUpdate(req.params.tid, {
+           
+            status: "Accepting",
+            
+        }, {
+            new: true
+        }, (err, model) => {
+            if (!err) {
+                return res.json({
+                    data: model
+                })
+            } else {
+                return res.data({
+                    error: `Can't acc task`
+                })
+            }
+        });
+
+      //exists.status="Accepting";
+       return res.json({
+            msg: `Task accepted`,
+            Task
+        });
+    }
+    else{
+       return res.json({
+            msg: `You are only allowed to update your own approved taks!`,
+            
+        });
+    }
+} catch (error) {
+    console.log(error)
+   // res.json({
+        //msg: 'cant accept'
+    //})
+    }
+});
+
+
+
+
+
+
+
+
 //Mohammed Islam
 //getting a specfic task
+
 router.get('/get/:id', async (req, res) => {
     const id = req.params.id
     try {
@@ -409,10 +485,10 @@ router.put('uassign/:id', async (req, res) => {
 
 });
 
-router.get('/recommend', async (req, res) => {
+router.get('/recommend/:member_id', async (req, res) => {
     //Input: a skills array 
     //Output: Tasks that could be recommended to Member
-    const status = joi.validate(req.body, {
+    var status = joi.validate(req.body, {
         skills: joi.array().items(joi.string().max(20))
     })
     if (status.error) {
@@ -420,8 +496,22 @@ router.get('/recommend', async (req, res) => {
             error: status.error.details[0].message
         })
     }
+    status = joi.validate(req.params, {
+        member_id: joi.string().length(24)
+    })
+    if (status.error) {
+        return res.json({
+            error: status.error.details[0].message
+        })
+    }
     try {
-        var myskills = req.body.skills
+        const found= await User.findById(req.params.member_id)
+        if(!found){
+            return res.json({error:"Member does not exist"})
+        }
+
+        var myskills = found.skills //5aleeh member skills
+        console.log(myskills)
         var sorted = []
         for (var i = 0; i < myskills.length; i++) {
             sorted.push(myskills[i].toLowerCase());
@@ -455,25 +545,23 @@ router.get('/recommend', async (req, res) => {
 });
 router.get('/apply/:id', async (req, res) => {
     const status = joi.validate(req.params, {
-        id: joi.string().length(24).required()
+        id: joi.string().length(24).required(),
+        member_id:joi.string().length(24).required()
     })
-    const status1 = joi.validate(req.body, {
-        skills: joi.array().items(joi.string().max(20))
-    })
-    if (status.error || status1.error) {
-        if (status.error) {
+    if (status.error) {
             return res.json({
                 error: status.error.details[0].message
             })
-        } else {
-            return res.json({
-                error: status1.error.details[0].message
-            })
-        }
+        
     }
     try {
+        const found= await User.findById(req.params.member_id)
+        if(!found){
+            return res.json({error:"Member does not exist"})
+        }
+        var skills=found.skills
         const content = await Tasks.findById(req.params.id)
-        var myskills = req.body.skills.sort()
+        var myskills = skills.sort() 
         var required = content.skills.sort()
         var intersection = myskills.filter(value => required.includes(value)).sort()
         if (intersection.toString() == required.toString()) {
