@@ -5,6 +5,7 @@ const router = express.Router()
 const moment = require('moment')
 
 const Event = require('../../models/Event')
+const Type = require('../../models/Type')
 
 // {
 //   "remaining_places": 300,
@@ -19,7 +20,22 @@ const Event = require('../../models/Event')
 //     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
-
+router.post('/createType', async (request, response) => {
+  const status = joi.validate(request.body, {
+      name: joi.string().required(),
+    })
+    if (status.error) {
+      return response.json({ error: status })
+    }
+    try {
+      const newType = await new Type({
+        name: request.body.name
+      }).save()
+      return response.json({ data: newType })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't create a new Type with the following data` })
+    }
+  })
 
 //get all events with a type "task 2.3" na2sa testing
 router.route('/:type').get(async (request, response) => {
@@ -289,6 +305,13 @@ router
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
   })
+
+
+
+
+
+
+
 
 
 
