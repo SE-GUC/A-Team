@@ -10,15 +10,11 @@ import Dummy from './components/Dummy'
 import TaskList from './components/TaskList'
 import TaskPostForm from './components/TaskPostForm'
 import Recommend from './components/Recommend';
-<<<<<<< HEAD
-import AssignMember from './components/AssignMember';
-=======
 import Review from './components/StoryOnepointTwo';
 import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
->>>>>>> bcfdb30ab8843686f30689d5bb9a44132d32452b
 
 const routing=(
     <Router>
@@ -32,17 +28,12 @@ const routing=(
       <Route path="/dummy" component={Dummy} />
       <Route path='/submit_task' component={TaskPostForm}/>
       <Route path="/recommend" component={Recommend} />
-<<<<<<< HEAD
-      <Route path="/assign" component={AssignMember} />
-
-=======
       <Route path="/Review" component={Review} />
       <Route path="/view_applicants" component={Taskviewapplicants} />
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
     
->>>>>>> bcfdb30ab8843686f30689d5bb9a44132d32452b
       
     </div>
   </Router>
