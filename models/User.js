@@ -1,17 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const interests =require('./Type')
 
 // Create the schema
 const UserSchema = new Schema({
     type: {
         type:[String],
         enum:['CA','P','M'],
-        required:false
+        required:true
     },
-    user_name:{
+    username:{
         type:String,
-        required:false
+        required:true
     },
     name: {
         type: String,
@@ -41,8 +40,10 @@ const UserSchema = new Schema({
         type: Boolean,
         required:true
     },
-    interests: interests,
-
+    interests: {
+        type: String,
+        required: true,
+    },
     //stuff of CA
     info: {
         type: String,

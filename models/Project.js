@@ -24,7 +24,7 @@ const ProjectSchema = new Schema({
         required:false,
         ref:'User'    
     },
-    skills:[{
+    skills: [{
         type: String,
         required: true,
         enum:['Java','Html5','Css']

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const typeSchema =require('./Type')
+
 
 
 const feedbackSchema = new Schema({
@@ -81,17 +81,17 @@ const EventSchema = new Schema({
         type: String,
         required: true
     }],
-    type: [typeSchema],
-    partnerInitiated:{
+    type: [{
+        type:String,
+        required:true
+    }],
+    partner_initiated:{
         type: Schema.Types.ObjectId,
         required: true
     },
-    is_accepted_by_admin: { //gedeeda
-        type: Boolean,
-        required:true
-    },
-    is_private :{
-        type:Boolean,
+    status :{
+        type:String,
+        enum:['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED'],
         required:true
     },
     attendees: [{

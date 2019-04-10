@@ -4,6 +4,8 @@ const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const joi = require('joi');
+const moment = require('moment')
+
 
 //to get every User
 router.get('/', (req, res) => {
@@ -42,26 +44,133 @@ router.get('/dashboard', function(req,res){
 
 //register new user
 router.post('/register', async (req,res) => {
-    const { email, dob, name, password, phone, location, account_open_on }  = req.body
-    const user = await User.findOne({email})
-    if(user) return res.status(400).json({error: 'Email already exists'})
+    const {type, email, username, date_of_birth, name, password, phone, is_private, interests, info, field_of_work,board_members,reports,years_of_experience,skills }  = req.body
+    const status = joi.validate(req.body, {
+      name: joi.string().min(2).max(30).required(),
+      email: joi.string().email().required(),
+      password: joi.string().required(),
+      age: joi.number(),
+      type: joi.array().items(joi.string().min(1).max(2)).required(),
+      username: joi.string().min(8).max(50).required(),
+      date_of_birth: joi.string().required(),
+      phone: joi.string().required(),
+      is_private: joi.boolean().required(),
+      interests: joi.array().items(joi.string()).required(),
+      info:joi.allow(),
+      field_of_work:joi.allow(),
+      board_members: joi.allow(),
+      reports:joi.allow(),
+      years_of_experience:joi.allow(),
+      skills:joi.allow()
+      })
+      if (status.error) {
+        return res.json({ error: status.error.details[0].message })
+      }
+
+      const statusCA =joi.validate(req.body, {
+        name: joi.allow(),
+        email: joi.allow(),
+        password: joi.allow(),
+        age: joi.allow(),
+        type: joi.allow(),
+        username: joi.allow(),
+        date_of_birth: joi.allow(),
+        phone: joi.allow(),
+        is_private: joi.allow(),
+        interests: joi.allow(),
+  
+        info: joi.string().required(), 
+        field_of_work: joi.array().items(joi.string()).required(),
+        board_members: joi.array().items(joi.string()).required(),
+        reports: joi.array().items(joi.string()).required(),
+      })
+
+    const statusM = joi.validate(req.body, {
+      name: joi.allow(),
+      email: joi.allow(),
+      password: joi.allow(),
+      age: joi.allow(),
+      type: joi.allow(),
+      username: joi.allow(),
+      date_of_birth: joi.allow(),
+      phone: joi.allow(),
+      is_private: joi.allow(),
+      interests: joi.allow(),
+      years_of_experience: joi.number().required(),
+      skills: joi.array().items(joi.string()).required(),
+
+    })
+
+    const statusP= joi.validate(req.body, {
+      name: joi.allow(),
+      email: joi.allow(),
+      password: joi.allow(),
+      age: joi.allow(),
+      type: joi.allow(),
+      username: joi.allow(),
+      date_of_birth: joi.allow(),
+      phone: joi.allow(),
+      is_private: joi.allow(),
+      interests: joi.allow(),
+      field_of_work: joi.array().items(joi.string()).required(),
+      board_members: joi.array().items(joi.string()).required(),
+    })
+
+    if (req.body.type.includes('CA')) {
+      if (statusCA.error) {
+        return res.json({ error: statusCA.error })
+      }
+    }
+    if (req.body.type.includes('P')) {
+      if (statusP.error) {
+        return res.json({ error: statusP.error })
+      }
+    }
+    if (req.body.type.includes('M')) {
+      if (statusM.error) {
+        return res.json({ error: statusM.error })
+      }
+    }
+    const useremail = await User.findOne({email})
+    const usernamef = await User.findOne({username})
+    if(useremail||usernamef){
+      if(useremail)
+       return res.status(400).json({error: 'Email already exists'})
+       else 
+       return res.status(400).json({error: 'username already exists'})
+
+      }
+
+
     
     const salt = bcrypt.genSaltSync(10)
     const hashedPassword = bcrypt.hashSync(password,salt)
+
     const newUser = new User({
+            type,
+            username,
             name,
             email,
             password: hashedPassword ,
-            dob,
+            date_of_birth,
             phone,
-            location,
             eventsAttended: [],
-            account_open_on
+            is_private,
+            interests,
+            info, 
+            field_of_work,
+            board_members,
+            reports,
+            years_of_experience,
+            skills,
+            notifications:[],
+            past_projects:[],
+            events_created:[]
         })
     newUser
     .save()
     .then(user => res.json({data: user}))
-    .catch(err => res.json({error: 'Can not create user'}))
+    .catch(err => res.json({error: err.message}))
 }) 
 
 router

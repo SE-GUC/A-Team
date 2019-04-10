@@ -5,6 +5,7 @@ import axios from "axios";
 class LocationPost extends Component {
   state = {
     title: "",
+    subtitle:"",
     location: "",
     capacity: null,
     booked: ""
@@ -17,15 +18,20 @@ class LocationPost extends Component {
   };
   handleChangeTwo = e => {
     this.setState({
-      location: e.target.value
+      subtitle: e.target.value
     });
   };
   handleChangeThree = e => {
     this.setState({
-      capacity: e.target.value
+      location: e.target.value
     });
   };
   handleChangeFour = e => {
+    this.setState({
+      capacity: e.target.value
+    });
+  };
+  handleChangeFive = e => {
     this.setState({
       booked: e.target.value
     });
@@ -39,6 +45,7 @@ class LocationPost extends Component {
       headers: { "Content-Type": "application/json" },
       data: {
         title: this.state.title,
+        subtitle: this.state.subtitle,
         location: this.state.location,
         capacity: this.state.capacity,
         booked: this.state.booked
@@ -63,10 +70,17 @@ class LocationPost extends Component {
           Location Title:
           <input type="text" name="title" onChange={this.handleChangeOne} />
         </label>
+        
+        <label>
+          Location SUBTitle:
+          <input type="text" name="subtitle" onChange={this.handleChangeOne} />
+        </label>
+        
         <label>
           Location :
           <input type="text" name="location" onChange={this.handleChangeTwo} />
         </label>
+        
         <label>
           Location Capacity:
           <input
