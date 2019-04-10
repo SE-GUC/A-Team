@@ -133,7 +133,7 @@ router
       const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
       return response.json({ data: project })
     } catch (err) {
-      return response.json({ error: `Error` })
+      return response.json({ error: `Error` })  
     }
   });  
 
