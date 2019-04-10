@@ -11,7 +11,7 @@ const ProjectSchema = new Schema({
         required:true
     },
     date_Posted:{
-        type:Date,
+        type:String,
         required:true
     },
     partner_responsible:{
@@ -19,16 +19,15 @@ const ProjectSchema = new Schema({
         required:true,
         ref:'User'
     },
-    consultancy_agency_assinged:{
+    consultancy_agency_assigned:{
         type:Schema.Types.ObjectId,
         required:false,
         ref:'User'    
     },
     skills: [{
         type: String,
-        required: true,
-        enum:['Java','Html5','Css']
-        //will be changed to objects later on
+        required: false
+                //will be changed to objects later on 
     }],
     consultancy_agency_applicants:{
         type:[Schema.Types.ObjectId],
@@ -41,6 +40,7 @@ const ProjectSchema = new Schema({
         required:false
     
     }
+
 
 })
 module.exports=project= mongoose.model('Project', ProjectSchema)
