@@ -4,6 +4,8 @@ const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const joi = require('joi');
+const validator = require('../../validations/userValidations');
+
 
 //to get every User
 router.get('/', (req, res) => {
@@ -42,26 +44,48 @@ router.get('/dashboard', function(req,res){
 
 //register new user
 router.post('/register', async (req,res) => {
-    const { email, dob, name, password, phone, location, account_open_on }  = req.body
-    const user = await User.findOne({email})
-    if(user) return res.status(400).json({error: 'Email already exists'})
+  // const isValidated = validator.registerValidation(req.body);
+	// 	if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+    const {type, email, username, date_of_birth, name, password, phone, is_private, interests, info, field_of_work,board_members,reports,years_of_experience,skills }  = req.body
+    const useremail = await User.findOne({email})
+    const usernamef = await User.findOne({username})
+    if(useremail||usernamef){
+      if(useremail)
+       return res.status(400).json({error: 'Email already exists'})
+       else 
+       return res.status(400).json({error: 'username already exists'})
+
+      }
+
     
     const salt = bcrypt.genSaltSync(10)
     const hashedPassword = bcrypt.hashSync(password,salt)
+
     const newUser = new User({
+            type,
+            username,
             name,
             email,
             password: hashedPassword ,
-            dob,
+            date_of_birth,
             phone,
-            location,
             eventsAttended: [],
-            account_open_on
+            is_private,
+            interests,
+            info, 
+            field_of_work,
+            board_members,
+            reports,
+            years_of_experience,
+            skills,
+            notifications:[],
+            past_projects:[],
+            events_created:[]
         })
     newUser
     .save()
     .then(user => res.json({data: user}))
-    .catch(err => res.json({error: 'Can not create user'}))
+    .catch(err => res.json({error: err.message}))
 }) 
 
 router

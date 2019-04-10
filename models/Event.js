@@ -89,12 +89,13 @@ const EventSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true
     },
-    is_accepted_by_admin: { //gedeeda
+    status: { //gedeeda
         type: Boolean,
         required:true
     },
     is_private :{
-        type:Boolean,
+        type:[String],
+        enum:['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED'],
         required:true
     },
     attendees: [{

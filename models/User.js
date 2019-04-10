@@ -6,11 +6,11 @@ const UserSchema = new Schema({
     type: {
         type:[String],
         enum:['CA','P','M'],
-        required:false
+        required:true
     },
-    user_name:{
+    username:{
         type:String,
-        required:false
+        required:true
     },
     name: {
         type: String,
