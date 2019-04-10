@@ -7,6 +7,7 @@ app.use(cors());
 
 const http= require('http')
 const events=require('./routes/api/events')
+const admins=require('./routes/api/admins')
 const users=require('./routes/api/users')
 const partner=require('./routes/api/partners')
 const applications = require('./routes/api/applications')
@@ -16,20 +17,22 @@ const feedbacks=require ('./routes/api/feedbacks')
 const tasks= require('./routes/api/tasks')
 const projects= require('./routes/api/project')
 const dummy = require('./routes/api/dummy')
-
+const member =require('./routes/api/members')
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
+const skills= require('./routes/api/skills')
 
 //const tasks_objects= require('./routes/api/tasks_objects')
 
 
 
 
-    mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@databaselirten-ld3hs.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+    mongoose.connect('mongodb+srv://youshalaby:Youssef98%2E@ateamdev-xqxau.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
     }).on('error', function(error){
         console.log('Error is: ', error);
     });
+
 
 
 
@@ -69,6 +72,7 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/events', events)
+app.use('/api/admins', admins)
 app.use('/api/users', users)
 app.use('/api/locations', locations)
 app.use('/api/applications',applications)
@@ -79,6 +83,8 @@ app.use('/api/project',projects)
 app.use('/api/dummy',dummy)
 app.use('/api/consultancyAgencies',ConsultancyAgency)
 app.use('/api/partners',partner)
+app.use('/api/members',member)
+app.use('/api/skills',skills)
 //app.use('/api/tasks',tasks_objects)
 
 

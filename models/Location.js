@@ -8,10 +8,15 @@ const LOCSchema = new Schema({
         type: String,
         required: true
     },
+    subtitle: {
+        type: String,
+        required: true
+    },
     location: {
         type: String,
         required: true
     },
+    
     capacity: {
         type: Number,
         required: true
@@ -23,17 +28,3 @@ const LOCSchema = new Schema({
 })
 
 module.exports = Location = mongoose.model('Location', LOCSchema)
-
-
-
-//class LOC {
-//    constructor(title, location, capacity, booked) {
-//        this.title = title;
-//        this.location = location;
-//        this.capacity = capacity;
-//        this.booked = booked;
-//        
-//    };
-//}
-
-//module.exports = LOC

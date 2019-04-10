@@ -22,11 +22,13 @@ router.route('/:title').get(async (request, response) => {
 //create location  
 
 router.post('/', async (req,res) => {
-  const { title, location, capacity, booked }  = req.body
-  const locations = await Location.findOne({title})
-  if(locations) return res.status(400).json({error: 'Title already exists'})
+  const { title, subtitle, location, capacity, booked }  = req.body
+  const locations = await Location.findOne({title}).findOne({subtitle}) 
+  
+  if (locations ) return res.status(400).json({error: 'Location already exists'})
   const newLOC = new Location({
     title,
+    subtitle,
     location,
     capacity,
     booked        })
@@ -38,9 +40,9 @@ router.post('/', async (req,res) => {
 
 
 // delete location 
-router.route('/:title').delete(async (request, response) => {
+router.route('/:id').delete(async (request, response) => {
   try {
-    const locations = await Location.findOneAndDelete({title:request.params.title}).exec()
+    const locations = await Location.findByIdAndDelete(request.params.id).exec()
     
     return response.json({ data: locations })
   } catch (err) {
@@ -64,6 +66,7 @@ router.route('/:title').delete(async (request, response) => {
 // })
 
 router.put('/:id', async(req,res) => { 
+  try{
   Location.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, model) => {
     if(!err) {
       return res.json({data:model})
@@ -71,6 +74,10 @@ router.put('/:id', async(req,res) => {
       return res.data({error: `Location not found`})
     }
   })
+}
+catch(e){
+  return res.data({error: `Request Error`})
+}
 })
  
 

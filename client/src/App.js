@@ -1,19 +1,52 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import AppNavbar from './Decide.js/AppNavbar'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import TaskList from './Decide.js/TaskList';
-import Recommend from './Decide.js/Recommend';
+import PartnerRequests from './components/PartnerRequests';
+import Events from './components/Events';
 
 
 
 class App extends Component {
+
+  state={
+    isOpen: false,
+    isOpen2:false
+}
+
+toggle=() =>
+{
+    this.setState({
+        isOpen:true,
+        isOpen2:false
+    })
+}
+toggle2=() =>
+{
+    this.setState({
+        isOpen:false,
+        isOpen2:true
+    })
+}
+
   render() {
-    return (
+    if (this.state.isOpen) {
+      return (
+          <div>
+              
+              <PartnerRequests/>
+          </div>
+      )
+  }
+  if(this.state.isOpen2) {
+      return(
       <div>
-        <AppNavbar/>
-        <Recommend/>
-        
+          <Events/>
+      </div>            
+      )
+  } 
+  else
+    return (
+      <div className="App">
       </div>
     );
   }
