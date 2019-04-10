@@ -6,6 +6,7 @@ const moment = require('moment')
 
 const Event = require('../../models/Event')
 const Type = require('../../models/Type')
+const User= require('../../models/User')
 
 // {
 //   "remaining_places": 300,
@@ -37,6 +38,24 @@ router.post('/createType', async (request, response) => {
     }
   })
 
+  router.get('/getTypes', async (request, response) => {
+    try {
+      const types = await Type.find({}).exec()
+      return response.json({ data: types })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+  router.delete('/deleteTypes/:id', async (request, response) => {
+    Type.findByIdAndDelete(request.params.id, (err, model) => {
+      if (!err) {
+        return response.json({ data: null })
+      } else {
+        return response.json({ error: `Error, couldn't delete a Type given the following data` })
+      }
+    })
+  })
+  
 //get all events with a type "task 2.3" na2sa testing
 router.route('/:type').get(async (request, response) => {
   try {
@@ -107,9 +126,22 @@ router
   .get(async (request, response) => {
     try {
       const allEvents = await Event.find({}).exec()
+      console.log(allEvents)
       return response.json({ data: allEvents })
     } catch (err) {
       return response.json({ error: `Error, Couldn't fetch the list of all events from the database` })
+    }
+  })
+
+  router.get('/getEligible/:id', async(req,res)=> {
+    const user = await User.findById(request.params.id).exec()
+
+    const allEvents = await Event.find({}).exec()
+    console.log(allEvents)
+    for(const i=0;i<allEvents.length;i++) {
+      if(allEvents[i].type.includes()){
+        
+      }
     }
   })
 

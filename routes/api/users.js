@@ -253,6 +253,12 @@ router.get('/users/:id',async (req,res) => {
     res.json({data: user})
     });
 
+
+    router.get('/', passport.authenticate('jwt', {session: false}),  async (req, res) => {
+      const users = await User.find()
+      res.json({ data: users })
+    });
+
 module.exports=router
     
     
