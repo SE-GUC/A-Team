@@ -26,7 +26,13 @@ const ProjectSchema = new Schema({
         ref: 'tasks',
         required:true
     
-    }
+    },
+    consultancy_agency_applicants:[{
+        type: Number,
+        required:false
+    }]
+
+
 
 })
 module.exports=project= mongoose.model('Project', ProjectSchema)
