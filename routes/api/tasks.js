@@ -364,8 +364,68 @@ router.put('/revvv/:id', async (req, res) => {
         })
     }
 })
+
+router.put('/accept/:tid/:pid', async(req, res) => {
+//accepting task upload via task is and partner id
+
+try {
+    const exists = await Task.findOne({ _id: req.params.tid });
+    if (exists === null) {
+      return res.json({ message: "Task id is invalid" });
+    }
+    console.log(exists);
+    const prtid = exists.partner_id._id;
+    const st = exists.status;
+    if(prtid == req.params.pid && st=='Approved'){
+
+        Tasks.findByIdAndUpdate(req.params.tid, {
+           
+            status: "Accepting",
+            
+        }, {
+            new: true
+        }, (err, model) => {
+            if (!err) {
+                return res.json({
+                    data: model
+                })
+            } else {
+                return res.data({
+                    error: `Can't acc task`
+                })
+            }
+        });
+
+      //exists.status="Accepting";
+       return res.json({
+            msg: `Task accepted`,
+            Task
+        });
+    }
+    else{
+       return res.json({
+            msg: `You are only allowed to update your own approved taks!`,
+            
+        });
+    }
+} catch (error) {
+    console.log(error)
+   // res.json({
+        //msg: 'cant accept'
+    //})
+    }
+});
+
+
+
+
+
+
+
+
 //Mohammed Islam
 //getting a specfic task
+
 router.get('/get/:id', async (req, res) => {
     const id = req.params.id
     try {
