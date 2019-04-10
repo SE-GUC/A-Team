@@ -8,10 +8,15 @@ const LOCSchema = new Schema({
         type: String,
         required: true
     },
+    subtitle: {
+        type: String,
+        required: true
+    },
     location: {
         type: String,
         required: true
     },
+    
     capacity: {
         type: Number,
         required: true
