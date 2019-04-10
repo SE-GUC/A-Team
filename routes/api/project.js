@@ -114,35 +114,40 @@ router
     });
   });
 
-router
-  .route("/:id/addTask")
-  .all(async (request, response, next) => {
-    const status = joi.validate(request.params, {
-      id: joi
-        .string()
-        .length(24)
-        .required()
-    });
-    if (status.error) {
-      return response.json({ error: status.error.details[0].message });
-    }
-    next();
-  })
-  .post(async (request, response) => {
+router.put('/AddTask',async (req, res) => {
     try {
-      const status = joi.validate(request.body, {
-        taskid: joi.string().length(24)
+      const status = joi.validate(req.body, {
+        project_id:joi.string().length(24).required(),
+        task_id: joi.string().length(24).required()
       });
       if (status.error) {
-        return response.json({ error: status.error.details[0].message });
+        return res.json({ error: status.error.details[0].message });
+      }
+      const task_id=req.body.task_id
+      const project_id=req.body.project_id
+      try {
+        task = await Task.findById(task_id).exec();
+        if (task === null) {
+          return res.json({
+            error: `The task_id you entered does not belong to a user`
+          });
+        }
+      } catch (err) {
+        return res.json({
+          error: `Error, couldn't find a user given the following id`
+        });
+      }
+      //Checking if he Already Applied
+      const checker= await Project.find({ _id:project_id,tasks: [task_id] })
+      if(checker){
+        return res.json({ error: "You Already Added This Task" });
       }
 
-      const proj = await Project.findByIdAndUpdate(request.params.id, {
-        $push: { Tasks: request.body.taskid }
-      }).exec();
-      return response.json({ data: proj });
+      const proj = await Project.findByIdAndUpdate(project_id, { $push: { tasks: task_id} }).exec()
+      console.log(project_id)
+      return res.json({ data: proj });
     } catch (err) {
-      return response.json({ error: err.message });
+      return res.json({ error: "Request Error" });
     }
   });
 
@@ -180,9 +185,6 @@ router
       return response.json({ error: `Error` });
     }
   });
-
-
- 
    router
   .route('/applyProj/:id')
   .all(async (request, response, next) => {
