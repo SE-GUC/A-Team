@@ -85,16 +85,12 @@ const EventSchema = new Schema({
         type:String,
         required:true
     }],
-    partnerInitiated:{
+    partner_initiated:{
         type: Schema.Types.ObjectId,
         required: true
     },
-    status: { //gedeeda
-        type: Boolean,
-        required:true
-    },
-    is_private :{
-        type:[String],
+    status :{
+        type:String,
         enum:['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED'],
         required:true
     },

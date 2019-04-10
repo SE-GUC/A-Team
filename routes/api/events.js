@@ -2,6 +2,7 @@ const joi = require('joi')
 const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
+const moment = require('moment')
 
 const Event = require('../../models/Event')
 
@@ -18,70 +19,6 @@ const Event = require('../../models/Event')
 //     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
-
-// {
-// 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
-// 	"is_accepted":true
-// }
-
-// {
-// 	"applicant_id":"ahmedasdfghlololololasdg",
-// 	"is_accepted":true
-// }
-
-router.get('/location/:location', (req,res) => {
-    //const updateTask = req.body;
-    //const foundlocation=updateTask.id?true:false; 
-    
-    events.forEach(event => {
-        if(event.location === req.params.location) {
-            res.json(event);
-        }
-    });
-
-});
-router.get('/basedescription/:des', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.description === req.params.des) {
-            res.json(event);
-        }
-    });
-});
-router.get('/registerationprice/:price', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.price === req.params.price) {
-            res.json(event);
-        }
-    });
-});
-router.get('/places/:place', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.remaining_places === req.params.place) {
-            res.json(event);
-        }
-    });
-});
-router.get('/speakers/:speakers', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.speakers === req.params.speakers) {
-            res.json(event);
-        }
-    });
-});
-router.get('/topics/:topics', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.topics === req.params.topics) {
-            res.json(event);
-        }
-    });
-});
-
-
 
 
 //get all events with a type "task 2.3" na2sa testing
@@ -100,28 +37,33 @@ router
   .route('/')
   .post(async (request, response) => {
     const status = joi.validate(request.body, {
-      remaining_places: joi.number().required(),
+      price: joi.array().items(joi.number().required()),
       location: joi.string().length(24).required(),
       name: joi.string().min(6).max(30).required(),
       about: joi.string().min(5).max(500).required(),
-      price: joi.number().required(),
+      remaining_places: joi.number().required(),
       speakers: joi.array().items(joi.string().min(4).max(70)),
       topics: joi.array().items(joi.string().min(4).max(70)),
-      type: joi.string().min(5).max(20).required(),
-      partnerInitiated: joi.string().length(24).required(),
-      attendees: joi.array().items(joi.string().min(4).max(70)),
-      request: joi.string().length(24).required(),
+      type: joi.array().items(joi.string().min(5).max(20)).required(),
+      partner_initiated: joi.string().length(24).required(),
+      attendees: joi.array().items(joi.string().length(24)),
+      status: joi.string(),
       feedbacks: joi.array().items(joi.object().keys({
         user_id: joi.string().length(24).required(),
         comment: joi.string().required()
       })),
       applicants: joi.array().items(joi.object().keys({
         applicant_id: joi.string().length(24).required()
+      })),
+      responses_from_admin: joi.array().items(joi.object().keys({
+        admin_id: joi.string().length(24).required(),
+        response: joi.string(),
+        is_accepted: joi.boolean()
       }))
 
     })
     if (status.error) {
-      return response.json({ error: status.error.details[0].message })
+      return response.json({ error: status })
     }
     try {
       const event = await new Event({
@@ -134,11 +76,12 @@ router
         speakers: request.body.speakers,
         topics: request.body.topics,
         type: request.body.type,
-        partnerInitiated: request.body.partnerInitiated,
-        attendees: request.body.attendees,
-        request: request.body.request,
-        feedbacks: request.body.ratings || [],
-        applicants: request.body.ratings || []
+        partner_initiated: request.body.partner_initiated,
+        status:'PENDING_APPROVAL',
+        time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        attendees: [],
+        feedbacks: [],
+        applicants: []
       }).save()
       return response.json({ data: event })
     } catch (err) {
@@ -346,6 +289,8 @@ router
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
   })
+
+
 
 
 

@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const joi = require('joi');
-const validator = require('../../validations/userValidations');
+const moment = require('moment')
 
 
 //to get every User
