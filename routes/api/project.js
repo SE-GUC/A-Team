@@ -181,4 +181,58 @@ router
     }
   });
 
-module.exports = router;
+
+ 
+   router
+  .route('/applyProj/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        consultancy_agency_id:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      
+      const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
+      return response.json({ data: project })
+    } catch (err) {
+      return response.json({ error: `Error` })  
+    }
+  });  
+  router
+  .route('/cancelApp/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        consultancy_agency_id:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      
+      const project = await Project.findByIdAndUpdate(request.params.id, { $pop: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
+      return response.json({ data: project })
+    } catch (err) {
+      return response.json({ error: `Error` })  
+    }
+  }); 
+module.exports=router
