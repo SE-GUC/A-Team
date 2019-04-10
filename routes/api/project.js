@@ -6,15 +6,28 @@ const mongoose = require('mongoose')
 const Tasks = require('../../models/Task') 
 const Project= require('../../models/Project') 
 
+
+router.get('/',async(req,res)=>{
+  try{
+  const t =await Project.find()
+  res.json({data:t
+  })
+  }catch(err){res.data('Request Erorr')}
+});
 router.post('/create',async (req,res)=>{
     try{
     const proj= await new Project({
         _id:mongoose.Types.ObjectId(),
         project_name: req.body.project_name,
-        date_Posted: new Date(),
+        description:req.body.description,
+        date_Posted: req.body.date_Posted,
         partner_responsible: mongoose.Types.ObjectId(),
+        consultancy_agency_assigned:req.body.consultancy_agency_assigned,
+        skills: [],
         consultancy_agency_sponsor:mongoose.Types.ObjectId(),
-        Tasks:[]
+        tasks:[],
+        consultancy_agency_applicants:[]
+
     }).save()
     return res.json({proj})
     }catch(err){
@@ -97,14 +110,25 @@ router
   })
 
   //(Consultancy Agency) I can Apply on a project
+  router
+  .route('/applyProj/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
   .post(async (request, response) => {
     try {
-      const status = joi.validate(request.body, {
-        consultancy_agency_id:joi.string().length(24)
-      })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
-      }
+      // const status = joi.validate(request.body, {
+      //   consultancy_agency_id:joi.string().length(24)
+      // })
+      // if (status.error) {
+      //   return response.json({ error: status.error.details[0].message })
+      // }
       
       const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
       return response.json({ data: project })

@@ -8,30 +8,40 @@ const ProjectSchema = new Schema({
         type:String,
         required:true
     },
+    description:{
+        type:String,
+        required:true
+    },
     date_Posted:{
-        type:Date,
+        type:String,
         required:true
     },
     partner_responsible:{
         type: Schema.Types.ObjectId, //make object 5ara
-        required:true
+        required:true,
+        ref:'User'
     },
-    consultancy_agency_sponsor:{
+    consultancy_agency_assigned:{
         type:Schema.Types.ObjectId,
-        required:false
-        
+        required:false,
+        ref:'User'    
     },
-    Tasks:{
+    skills: [{
+        type: String,
+        required: false
+                //will be changed to objects later on 
+    }],
+    consultancy_agency_applicants:{
+        type:[Schema.Types.ObjectId],
+        required:false,
+        ref:'User'
+    },
+    tasks:{
         type: [Schema.Types.ObjectId], 
         ref: 'tasks',
-        required:true
-    
-    },
-    consultancy_agency_applicants:[{
-        type: Number,
         required:false
-    }]
-
+    
+    }
 
 
 })
