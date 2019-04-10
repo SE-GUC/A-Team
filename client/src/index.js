@@ -15,11 +15,15 @@ import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
+import CardTest from './components/CardTest';
+import 'materialize-css/dist/css/materialize.min.css';
+
 
 const routing=(
     <Router>
     <div>
     <Route path="/" component={App} />
+    <Route path="/test" component={CardTest} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
     
