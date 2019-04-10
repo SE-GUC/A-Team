@@ -123,12 +123,12 @@ router
   })
   .post(async (request, response) => {
     try {
-      // const status = joi.validate(request.body, {
-      //   consultancy_agency_id:joi.string().length(24)
-      // })
-      // if (status.error) {
-      //   return response.json({ error: status.error.details[0].message })
-      // }
+      const status = joi.validate(request.body, {
+        consultancy_agency_id:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
       
       const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
       return response.json({ data: project })
