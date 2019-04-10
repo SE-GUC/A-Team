@@ -28,7 +28,7 @@ const ProjectSchema = new Schema({
         type: String,
         required: true,
         enum:['Java','Html5','Css']
-        //will be changed to objects later on
+        //will be changed to objects later on 
     }],
     consultancy_agency_applicants:{
         type:[Schema.Types.ObjectId],
