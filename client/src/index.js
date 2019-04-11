@@ -15,6 +15,7 @@ import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
+import EventCard from './components/EventCard'
 
 const routing=(
     <Router>
@@ -22,6 +23,7 @@ const routing=(
     <Route path="/" component={App} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
+      <Route path="/card" component={EventCard}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>

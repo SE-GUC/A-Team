@@ -3,10 +3,6 @@ import axios from 'axios';
 import 'materialize-css/dist/css/materialize.min.css';
 
 
-const dumb = {
-    id:1,   
-    name:"manga"
-}
 
 class EventCard extends Component {
     constructor(props) {
@@ -66,7 +62,7 @@ class EventCard extends Component {
 			<div class="card blue-grey darken-1">
 				<div class="card-content white-text">
 					<div class="card__meta">
-						<a href="#">Tasks Card Example</a>
+						<a href='/'>Events Card</a>
 						<time>{}</time>
 					</div>
 					<span class="card-title">{this.state.name}</span>
@@ -77,11 +73,22 @@ class EventCard extends Component {
                     <p><b>Speakers:</b> {this.state.speakers}</p>
                     <p><b>Topics:</b> {this.state.topics}</p>
                     <p><b>Type:</b> {this.state.type}</p>
-
+                    <div class="row">
+                        <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                            <i  class="material-icons prefix"></i>
+                            <textarea placeholder="message" id="icon_prefix2" class="materialize-textarea"></textarea>
+                            <label for="icon_prefix2"></label>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <a class="waves-effect waves-light btn">Submit</a>
 				</div>
-				<div class="card-action">
+		<div class="card-action">
 
-				</div>
+	</div>
 			</div>
 		</div>
 	</div>
