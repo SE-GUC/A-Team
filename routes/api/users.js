@@ -3,6 +3,7 @@ const router = express.Router();
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
+const Event = require('../../models/Event');
 const joi = require('joi');
 const moment = require('moment')
 const passport = require('passport')
@@ -34,6 +35,30 @@ const tokenKey = require('../../config/keys').secretOrKey
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
+
+router.get('/getEvents/:id', async(req,res)=>{
+  const user = await User.findById(req.params.id).exec()
+  const events = await user.events_attended
+  var result= []
+  events.forEach(async(id) => {
+    const nextEvent=await Event.findById(id).exec()
+    result.push(nextEvent)
+  });
+  return res.json({ data: result })
+})
+
+ 
+
+router.get('/getCreatedEvents/:id', async(req,res)=>{
+  const user = await User.findById(req.params.id).exec()
+  const events = await user.events_created
+  var result= []
+  events.forEach(async (id) => {
+    const nextEvent=await Event.findById(id).exec()
+    result.push(nextEvent)
+  });
+  return res.json({ data: result })
+})
 
 router.post('/login', async (req, res) => {
 	try {
@@ -274,6 +299,7 @@ router.get('/users/:id',async (req,res) => {
     else
     res.json({data: user})
     });
+
 
 
 
