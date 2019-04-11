@@ -104,7 +104,7 @@ router.post('/add', async (req, res) => {
             price: req.body.price,
             time_of_assingment: '',
             status: 'Pending',
-            assigned_id: undefined,
+            assigned_id: req.body.assigned_id,
             time_expected: req.body.time_expected,
             level_of_comitment: req.body.level_of_comitment,
             experience_needed: req.body.experience_needed,
