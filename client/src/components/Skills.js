@@ -5,14 +5,14 @@ export class Skills extends Component {
   
 
   render() {
-    
+    console.log('From SKills Component',this.props.col)
     return (
       
       
         <div>
             <table>
               <tr>
-                <td><AddSkill addSkill={this.props.addSkill} skills={this.props.skills} state={this.props.state}/></td>
+                <td><AddSkill addSkill={this.props.addSkill} skills={this.props.skills} state={this.props.state} col={this.props.col}/></td>
                 <td><TaskSkills skills={this.props.skills} delSkill={this.props.delSkill} state={this.props.state}/></td>
                 </tr>
             </table>
