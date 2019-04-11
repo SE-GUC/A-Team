@@ -1,16 +1,7 @@
 import React, {Component} from 'react';
-import { Container, ListGroup, ListGroupItem } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import ReactDOM from 'react-dom';
-import uuid from 'uuid';
 import axios from 'axios';
-import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Dummy from './Dummy';
+// import 'materialize-css/dist/css/materialize.min.css';
+import '../css/CardTest.css'
 
 const dumb = {
     id:1,
@@ -26,7 +17,7 @@ class CardTest extends Component {
             monetary_compensation:'',
             status:'',
             skills:[],
-
+            _id:'',
             time_of_post:'',
             time_expected:'',
             level_of_commitment:'',
@@ -41,6 +32,7 @@ class CardTest extends Component {
             .then(res => {
                 this.setState({tasks:res.data.data})
                 this.setState({name:res.data.data[0].name})
+                this.setState({_id:res.data.data[0]._id})
                 this.setState({description:res.data.data[0].description})
                 this.setState({monetary_compensation:res.data.data[0].monetary_compensation})
                 this.setState({status:res.data.data[0].status})
@@ -68,40 +60,38 @@ class CardTest extends Component {
 
     render() {
         return (
-        
-<div>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<div class="row">
-		<div class="col s12 m6">
-			<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
-					<div class="card__meta">
-						<a href="#">Tasks Card Example</a>
-						<time>{}</time>
-					</div>
-					<span class="card-title">{this.state.name}</span>
-					<p><b>Description:</b> {this.state.description}</p>
-                    <p><b>Monetary Compensation:</b> {this.state.monetary_compensation}</p>
-                    <p><b>Status:</b> {this.state.status}</p>
-                    <p><b>Skills:</b> {this.state.skills}</p>
-                    <p><b>Time Posted:</b> {this.state.time_of_post}</p>
-                    <p><b>Expected Time:</b> {this.state.time_expected}</p>
-                    <p><b>Commtment Level Required:</b> {this.state.level_of_commitment}</p>
-                    <p><b>Experience Needed:</b> {this.state.experience_needed}</p>
+            <div>
 
-				</div>
-				<div class="card-action">
+    <div class="card middle">
+        <div class="front">
+            <img src="https://dummyimage.com/701x876/000/fff&text=Task" alt="" />
+        </div>
+        <div class="back">
+            <div class="back-content middle">
+                <br/>
+                <br/>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                <h2>{this.state.name}</h2>
+                <p><b>Description:</b> {this.state.description}</p>
+                <p><b>Monetary Compensation:</b> {this.state.monetary_compensation}</p>
+                <p><b>Status:</b> {this.state.status}</p>
+                <p><b>Skills:</b> {this.state.skills}</p>
+                <p><b>Time Posted:</b> {this.state.time_of_post}</p>
+                <p><b>Expected Time:</b> {this.state.time_expected}</p>
+                <p><b>Commtment Level Required:</b> {this.state.level_of_commitment}</p>
+                <p><b>Experience Needed:</b> {this.state.experience_needed}</p>
+                <div class="sm">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+			
         )
     }
 }

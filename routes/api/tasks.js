@@ -578,6 +578,30 @@ router.get('/apply/:id', async (req, res) => {
     }
 
 });
-
+router
+  .route('/assignMember/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .put(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        memberid:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const task = await Tasks.findByIdAndUpdate(request.params.id, { assigned_id: request.body.memberid } ).exec()
+      return response.json({ data: task })
+    } catch (err) {
+      return response.json({ error: `Error` })
+    }
+  });
 
 module.exports = router

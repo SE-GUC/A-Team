@@ -18,7 +18,6 @@ import Locationcomps from './components/Locationcomps'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import CardTest from './components/CardTest';
-import 'materialize-css/dist/css/materialize.min.css';
 
 
 const routing=(
