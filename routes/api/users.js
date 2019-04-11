@@ -5,32 +5,54 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const joi = require('joi');
 const moment = require('moment')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
 
+
+
+// {
+	
+//   "type":["P"],
+//     "username":"mohamedhooda",
+//     "name":"Mohamed Mahmoud",
+//     "email": "mohamedhooda@lirten.com",
+//     "password": "hashedPassword" ,
+//     "date_of_birth":"balooza",
+//     "phone": "01005599171",
+//     "is_private": false,
+//     "interests":["Computer Science"],
+//     "field_of_work": [],
+//     "board_members":[]
+// }
 //to get every User
+    // router.get('/', passport.authenticate('jwt', {session: false}),  async (req, res) => {
+    //   const users = await User.find()
+    //   res.json({ data: users })
+    // });
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
 
-//login
-router.post('/login', function(req, res){
-  const email= req.body.email;
-  const password= req.body.password;
-  const salt = bcrypt.genSaltSync(10)
-  const hashedPassword = bcrypt.hashSync(password,salt)
- 
-  User.findOne({email: email, password: password}, function(err, user){
-      if(err){
-          console.log(err);
-          return res.status(500).send();
-      }
-      if(!user){
-          return res.status(404).send();
-
-      }
-      req.session.user= user;
-      return res.status(200).send();
-  })
+router.post('/login', async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const user = await User.findOne({ email });
+		if (!user) return res.status(404).json({ email: 'Email does not exist' });
+		const match = bcrypt.compareSync(password, user.password);
+		if (match) {
+            const payload = {
+                id: user.id,
+                name: user.name,
+                email: user.email, 
+                type:user.type
+            }
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            return res.json({token: `Bearer ${token}`})
+        }
+		else return res.status(400).send({ password: 'Wrong password' });
+	} catch (e) {}
 });
 
 //dashboard
@@ -254,10 +276,7 @@ router.get('/users/:id',async (req,res) => {
     });
 
 
-    router.get('/', passport.authenticate('jwt', {session: false}),  async (req, res) => {
-      const users = await User.find()
-      res.json({ data: users })
-    });
+
 
 module.exports=router
     
