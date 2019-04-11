@@ -8,32 +8,41 @@ class CancelApp extends Component {
 
 
         state = {
-           id:'',
-           applicantid:'',
+           project_id:'',
+           consultancy_agency_id:'',
+           consultancy_agency_applicants:[],
            error:''
         };
+      
 
 
     handleChange = project => {
-        this.setState({ id: project.target.value })
+        this.setState({ project_id: project.target.value })
     }
 
 
-    handleChange1 = project => {
-        this.setState({ applicantid: project.target.value })
+    handleAnotheChange = project => {
+        this.setState({ consultancy_agency_id: project.target.value })
     }
 
-
+    apply=(consultancy_agency_id)=>{
+        var update=this.state.consultancy_agency_applicants
+        update.push(consultancy_agency_id)
+        
+        this.setState({consultancy_agency_applicants:update})
+    }
     handleSubmit = project => {
         project.preventDefault(); //prevents page from reloading
-        const application = {
-            id: this.state.id
-        };
-        const url = 'http://localhost:4000/api/project/cancelApp/'+application.id
-        const newApplication1={
-            applicant_id: this.state.applicantid,
-        }
-        axios.post(url, newApplication1)
+    
+        const url = 'http://localhost:4000/api/project/cancelApp/'+this.state.project_id
+      
+
+        axios.put(url,{consultancy_agency_id: this.state.consultancy_agency_id })
+        .then(res => {
+            console.log(res);
+            window.alert("Posted FML ");
+            return res.data
+          })
         this.setState({done:true})
     };
     renderLoading() {
@@ -48,16 +57,13 @@ class CancelApp extends Component {
     }
     renderDone() {
         return(
-             <div>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Task ID:
-                    <input type="text" placeholder="write projectID" name="id" onChange={this.handleChange} />
-                    <input type="text" placeholder="write applicantID" name="id" onChange={this.handleChange1} />
-                </label>
-                <button type="submit">Apply</button>
-        </form>
-            </div>
+            <ul>
+            <li>
+                <label>Done</label>
+                
+                {this.state.response}
+            </li>
+        </ul>
 
         )
     }
@@ -77,11 +83,11 @@ class CancelApp extends Component {
                     <input type="text" name="id" onChange={this.handleChange} />
                 </label>
             <label>
-                Applicant id:
-                <input type="text" name="id" onChange={this.handleChange1} />
+                Consultancy Agency id:
+                <input type="text" name="id" onChange={this.handleAnotheChange} />
             </label>
                 <br/>
-                <button type="submit">Apply</button>
+                <button type="submit">Cancel</button>
             </form>
             </div>
         )

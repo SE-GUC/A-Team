@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     const t = await Project.find();
     res.json({ data: t });
   } catch (err) {
-    res.data("Request Erorr");
+    res.json("Request Erorr");
   }
 });
 router.post("/create", async (req, res) => {
@@ -152,39 +152,8 @@ router.put('/AddTask',async (req, res) => {
   });
 
 //(Consultancy Agency) I can Apply on a project
-router
-  .route("/applyProj/:id")
-  .all(async (request, response, next) => {
-    const status = joi.validate(request.params, {
-      id: joi
-        .string()
-        .length(24)
-        .required()
-    });
-    if (status.error) {
-      return response.json({ error: status.error.details[0].message });
-    }
-    next();
-  })
-  .post(async (request, response) => {
-    try {
-      const status = joi.validate(request.body, {
-        consultancy_agency_id: joi.string().length(24)
-      });
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message });
-      }
+// router
 
-      const project = await Project.findByIdAndUpdate(request.params.id, {
-        $push: {
-          consultancy_agency_applicants: request.body.consultancy_agency_id
-        }
-      }).exec();
-      return response.json({ data: project });
-    } catch (err) {
-      return response.json({ error: `Error` });
-    }
-  });
    router
   .route('/applyProj/:id')
   .all(async (request, response, next) => {
@@ -196,7 +165,7 @@ router
     }
     next()
   })
-  .post(async (request, response) => {
+  .put(async (request, response) => {
     try {
       const status = joi.validate(request.body, {
         consultancy_agency_id:joi.string().length(24)
@@ -204,7 +173,10 @@ router
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
       }
-      
+      // const checker= await Project.find({ _id:id,consultancy_agency_applicants: [consultancy_agency_id] })
+      // if(checker){
+      //   return res.json({ error: "You already applied to this project " });
+      // }
       const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
       return response.json({ data: project })
     } catch (err) {
@@ -222,7 +194,7 @@ router
     }
     next()
   })
-  .post(async (request, response) => {
+  .put(async (request, response) => {
     try {
       const status = joi.validate(request.body, {
         consultancy_agency_id:joi.string().length(24)
