@@ -71,10 +71,14 @@ router.get("/getSkill", async (req, res) => {
 });
 router.get("/getSkillCollection", async (req, res) => {
   try {
-    const t = await Skills.find().toArray();
-    console.log(t);
+    const t = await Skills.find()
+    const array =[]
+    for(var i=0;i<t.length;i++){
+      array.push(t[i].skill)
+    }
+
     return res.json({
-      data: t
+      data: array
     });
   } catch (err) {
       console.log(err)
