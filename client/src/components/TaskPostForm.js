@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import Formdetails from './Formdetails'
+import Formdetails from './Formdetails'
 import TaskBasicField from './TaskBasicField'
 import TaskDatePack from './TaskDatePack'
 import TaskCommitment from './TaskCommitment'

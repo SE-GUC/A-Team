@@ -9,6 +9,28 @@ const Type = require('../../models/Type')
 const User= require('../../models/User')
 
 
+router
+  .route('/getID/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const event = await Event.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
+
 // {
 //   "remaining_places": 300,
 //     "location": "5c9bff7f569b9a001796d40a",
@@ -142,7 +164,6 @@ router
   .get(async (request, response) => {
     try {
       const allEvents = await Event.find({}).exec()
-      console.log(allEvents)
       return response.json({ data: allEvents })
     } catch (err) {
       return response.json({ error: `Error, Couldn't fetch the list of all events from the database` })

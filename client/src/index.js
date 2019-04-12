@@ -15,7 +15,7 @@ import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
-import EventCard from './components/EventCard'
+import EventCard from './components/EventsCardContainer'
 
 const routing=(
     <Router>
