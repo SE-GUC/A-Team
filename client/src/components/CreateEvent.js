@@ -41,7 +41,8 @@ class CreateEvent extends Component {
             remaining_places:'',
             speakers:[],
             topics:[],
-            type:''
+            type:'', 
+            chosen:''
         }
     }
     componentDidMount(){
@@ -124,6 +125,10 @@ setspeakers=(new_speakers)=>{
 settype=(new_type)=>{
   this.setState({type:new_type})
 }
+handleChange = event => {
+  this.setState({chosen:event.target.value})
+  console.log(this.state.chosen)
+  }
     handleClick=event=>
     {
       event.preventDefault();
@@ -148,7 +153,7 @@ settype=(new_type)=>{
       })
     }
     
-
+    
     render()
     {
         return(
@@ -198,11 +203,11 @@ settype=(new_type)=>{
                   </div>
               </div>
 
-                  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Select Location</a>
-                  <ul id='dropdown1' class='dropdown-content'>
+                  <a class='dropdown-trigger btn' href='#' data-target='dropdown1' >Select Location</a>
+                  <ul id='dropdown1' class='dropdown-content'  state={this.state} onselect={this.handleChange}>
                   {this.state.location}
                   </ul>
-                  <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Corresponding Rooms</a>
+                  <a  class='dropdown-trigger btn' href='#' data-target='dropdown2'>Corresponding Rooms</a>
                   <ul id='dropdown2' class='dropdown-content'>
                   {this.state.sublocation}
                   </ul>
