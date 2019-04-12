@@ -66,7 +66,6 @@ router.post('/add', async (req, res) => {
     const status = joi.validate(req.body, {
         name: joi.string().max(40).required(),
         monetary_compensation: joi.number().required(),
-        assigned_id: joi.string().required(),
         time_expected: joi.string().required(),
         level_of_comitment: joi.string().required(),
         experience_needed: joi.string().required(),
@@ -114,7 +113,7 @@ router.post('/add', async (req, res) => {
             partner_id: req.body.partner_id,
             skills: req.body.skills,
             response_from_admin: [],
-            admin_id: undefined, //for now
+            admin_id: req.body.admin_id, //for now
             applicants: []
         }).save()
         return res.json({
