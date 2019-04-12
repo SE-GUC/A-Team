@@ -75,7 +75,6 @@ router.post('/add', async (req, res) => {
     const status = joi.validate(req.body, {
         name: joi.string().max(40).required(),
         monetary_compensation: joi.number().required(),
-        assigned_id: joi.string().required(),
         time_expected: joi.string().required(),
         level_of_comitment: joi.string().required(),
         experience_needed: joi.string().required(),
@@ -115,7 +114,7 @@ router.post('/add', async (req, res) => {
             price: req.body.price,
             time_of_assingment: '',
             status: 'Pending',
-            assigned_id: req.body.assigned_id,
+            assigned_id: undefined,
             time_expected: req.body.time_expected,
             level_of_comitment: req.body.level_of_comitment,
             experience_needed: req.body.experience_needed,
