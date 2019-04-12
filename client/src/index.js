@@ -19,6 +19,7 @@ import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
+import ViewTApplicants from './components/ViewTaskApplicants';
 
 
 const routing=(
@@ -41,6 +42,7 @@ const routing=(
       <Route path="/locations" component={Locationcomps} />
       <Route path="/applyproj" component={ApplyProject} />
       <Route path="/cancelapp" component={CancelApp} />
+      <Route path="/ViewTaskApplicants" component={ViewTApplicants} />
 
     
       
