@@ -206,11 +206,12 @@ router.get('/read', async (req, res) => {
 })
 router.get('/read/applicants/', async(req,res) => {
     try {
-        const app = await Tasks.find({status:"Accepting"},{applicants:1})
+        const app = await Tasks.find({status:"Pending"},{applicants:1})
         res.json ({
             data: app
         })
     } catch (err) {
+        console.log(err)
         res.json(err)
     }
 })

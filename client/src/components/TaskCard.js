@@ -74,13 +74,12 @@ class TaskCard extends Component {
     <br/>
     <br/>
     <br/>
-
-    <div class="card">
-        <div class="col s12 m6">
+    {/* <div class="container" width="120"> */}
+    <div class="">
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <div class="card__meta">
-                        <a href="card">Task</a>
+                        <a href="card">{this.state.name}</a>
                         <time>{}</time>
                     </div>
                         <p><b>Description:</b> {this.state.description}</p>
@@ -98,7 +97,6 @@ class TaskCard extends Component {
                 </div>
             </div>
         </div>
-    </div>
 </div>
         )
     }

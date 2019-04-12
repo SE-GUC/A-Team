@@ -1,7 +1,7 @@
 import Card from './TaskCard';
 import React from 'react';
 import axios from 'axios'
-
+import '../css/TaskCardContainer.css'
 class TaskCardContainer extends React.Component {
     constructor(props) {
         super(props)
@@ -43,13 +43,17 @@ class TaskCardContainer extends React.Component {
             for(var i = 0;i < this.state.elements.length;i++) {
                 console.log(tasks[i]._id)
                 elements1.push(<Card value={tasks[i]._id}/>)
+               
+                
             }
             
-        
+        //pushed
         return( 
-            <div>
-                {elements1}
-            </div>
+                <div class="container">
+                <div class="row">
+                    <div class="row s2">{elements1}</div>
+                </div>
+                </div>
         );
         } else {
             return(
