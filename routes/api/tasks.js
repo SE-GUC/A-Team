@@ -21,6 +21,20 @@ router.get('/', async (req, res) => {
         res.data('Request Erorr')
     }
 });
+router.get('/get_my_tasks/:assigned_id', async (request, response) => {
+    try {
+        const allTasks = await Task.find({}).exec()
+        var result=[]
+        allTasks.forEach(task =>{
+          if (task.assigned_id == (request.params.assigned_id)){
+            result.push(task)
+          }
+        })
+        return response.json({ data: result })
+      } catch (err) {
+        return response.json({ error: `Error, you haven't applied for any tasks` })
+      }
+    });
 router.post('/add_task', async (req, res) => {
     const newTask = new Task({
         name: "Octane",
@@ -122,7 +136,7 @@ router.post('/add', async (req, res) => {
             partner_id: req.body.partner_id,
             skills: req.body.skills,
             response_from_admin: [],
-            admin_id: undefined, //for now
+            admin_id: req.body.admin_id, //for now
             applicants: []
         }).save()
         return res.json({
@@ -205,11 +219,12 @@ router.get('/read', async (req, res) => {
 })
 router.get('/read/applicants/', async(req,res) => {
     try {
-        const app = await Tasks.find({status:"Accepting"},{applicants:1})
+        const app = await Tasks.find({status:"Pending"},{applicants:1})
         res.json ({
             data: app
         })
     } catch (err) {
+        console.log(err)
         res.json(err)
     }
 })
@@ -264,7 +279,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 //STORY 1.3, READ TASK'S DESC
-router.get('/read/:id', async (req, res) => {
+router.get('/read_desc/:id', async (req, res) => {
     try {
         const t = await Tasks.findById(req.params.id)
         res.json({
@@ -471,7 +486,7 @@ router.get('/get/:id', async (req, res) => {
     }
 });
 //assigning a request 
-router.put('uassign/:id', async (req, res) => {
+router.put('assign/:id', async (req, res) => {
     try {
         Tasks.findByIdAndUpdate(req.params.id, {
             is_assigned: req.body.is_assigned,

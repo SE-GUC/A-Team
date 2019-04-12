@@ -20,6 +20,7 @@ import CancelApp from './components/CancelApp'
 import ProjectPostForm from './components/ProjectPostForm'
 import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
+import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 
 const routing=(
     <Router>
@@ -30,6 +31,8 @@ const routing=(
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
       <Route path="/card" component={EventCard}/>    
       <Route path="/post_project" component={ProjectPostForm}/>  
+      <Route path="/adminContainer" component={AdminViewEvents}/>    
+    
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
       <Route path="/dummy" component={Dummy} />

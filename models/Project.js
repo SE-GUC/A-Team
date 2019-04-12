@@ -15,31 +15,32 @@ const ProjectSchema = new Schema({
         required:true
     },
     partner_responsible:{
-        type: Schema.Types.ObjectId, //make object 5ara
+        type: Schema.Types.ObjectId, 
         required:true,
-        ref:'User'
+        // ref:'User'
     },
     consultancy_agency_assigned:{
         type:Schema.Types.ObjectId,
         required:false,
-        ref:'User'    
+        // ref:'User'    
     },
     skills: [{
         type: String,
         required: true
         //will be changed to objects later on 
     }],
-    consultancy_agency_applicants:{
-        type:[Schema.Types.ObjectId],
+    consultancy_agency_applicants:[{
+        consultancy_agency_id:Schema.Types.ObjectId,
+        is_accepted:Boolean,
         required:false,
-        ref:'User'
-    },
-    tasks:{
-        type: [Schema.Types.ObjectId], 
-        ref: 'tasks',
+        // ref:'User'
+    }],
+    tasks:[{
+        type: Schema.Types.ObjectId, 
+        // ref: 'tasks',
         required:false
     
-    }
+    }]
 
 
 })
