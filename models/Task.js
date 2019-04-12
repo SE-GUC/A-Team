@@ -55,7 +55,7 @@ const Tasks_schema=new Schema({
     partner_id:{
         type:Schema.Types.ObjectId, //object 5ara
         required:false,
-        ref:'User' //can add the whole partner here
+    //    ref:'User' //can add the whole partner here
     },
     skills:[{
         type: String,
@@ -74,9 +74,10 @@ const Tasks_schema=new Schema({
         //to refer to admin entity later on
     },
     applicants:[{
-        type:Schema.Types.ObjectId, //object
+        applicant_id:Schema.Types.ObjectId, //object
+        is_accepted:Boolean, //default false
         required:false,
-        ref:'User'
+        // ref:'User'
     }]
     //do we need to add a category?
 })
