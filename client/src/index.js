@@ -15,6 +15,7 @@ import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
+import CreateEvent from './components/CreateEvent'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 
@@ -47,6 +48,7 @@ const routing=(
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
+      <Route path="/Create_Events" component={CreateEvent} />
       <Route path="/applyproj" component={ApplyProject} />
       <Route path="/cancelapp" component={CancelApp} />
 
