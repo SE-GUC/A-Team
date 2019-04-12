@@ -73,6 +73,8 @@ router.post('/add', async (req, res) => {
         partner_id: joi.string().length(24),
         skills: joi.array().items(joi.string()),
         admin_id: joi.string().length(24),
+        assigned_id: joi.string().length(24),
+
         applicants: joi.array().items(joi.string().length(24))
     })
     if (status.error) {
@@ -103,7 +105,7 @@ router.post('/add', async (req, res) => {
             price: req.body.price,
             time_of_assingment: '',
             status: 'Pending',
-            assigned_id: undefined,
+            assigned_id: req.body.assigned_id,
             time_expected: req.body.time_expected,
             level_of_comitment: req.body.level_of_comitment,
             experience_needed: req.body.experience_needed,

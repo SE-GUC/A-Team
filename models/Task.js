@@ -23,7 +23,7 @@ const Tasks_schema=new Schema({
         type:Date,
         required:false
     },
-    status:{
+    status:{ //admin
         type:String,    //Pending means just submitted, approved means admin 
         enum:['Pending','Approved','Accepting','Assigned','Closed','Finished'],
         default:'Pending',
@@ -32,7 +32,9 @@ const Tasks_schema=new Schema({
     },
     assigned_id:{
         type:Schema.Types.ObjectId, //Assigned State
-        required:false
+        required:false,
+        ref:'User'
+
     },
     time_expected:{
         type:String,               // x years/months/days/hours
