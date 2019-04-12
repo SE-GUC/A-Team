@@ -1,4 +1,4 @@
-#v1 {
+.card {
     width:400px;
     height: 400px;
     padding:20px;
@@ -6,7 +6,7 @@
 
 }
 
-#c1 {
+.container {
     justify-items: center;
     /* grid-gap: 20px 5000px; */
     grid-column-gap:100px;
