@@ -15,13 +15,28 @@ router.get("/", async (req, res) => {
     res.json("Request Erorr");
   }
 });
+router.get('/get_my_projects/:consultancy_agency_assigned', async (request, response) => {
+  try {
+      const allProjects = await Project.find({}).exec()
+      var result=[]
+      allProjects.forEach(project =>{
+        if (project.consultancy_agency_assigned == (request.params.consultancy_agency_assigned)){
+          result.push(project)
+        }
+      })
+      return response.json({ data: result })
+    } catch (err) {
+      return response.json({ error: `Error, you haven't been assigned to any projects` })
+    }
+  });
 router.post("/create", async (req, res) => {
   const status = joi.validate(req.body, {
     project_name: joi.string().max(40).required(),
     description: joi.string().min(10).required(),
-    partner_responsible: joi.string().length(24),
     skills: joi.array().items(joi.string()),
-    partner_responsible: joi.string().length(24) //Need to Handle That this id belongs to a partner
+    partner_responsible: joi.string().length(24), //Need to Handle That this id belongs to a partner
+    tasks: joi.array().items(joi.string().length(24)),
+    consultancy_agency_applicants:joi.array().items(joi.string().length(24))
 })
 if (status.error) {
     return res.json({
@@ -47,9 +62,9 @@ try {
       description: description,
       date_Posted: moment().format("MMMM Do YYYY, h:mm:ss a"),
       partner_responsible: partner_responsible,
-      consultancy_agency_assigned: undefined,
       skills: skills,
       consultancy_agency_applicants: [],
+      consultancy_agency_assigned: undefined,
       tasks: []
     }).save();
     return res.json({ proj });
@@ -207,6 +222,31 @@ router.put('/AddTask',async (req, res) => {
       return response.json({ data: project })
     } catch (err) {
       return response.json({ error: `Error` })  
+    }
+  });
+  router
+  .route('/assign_consultancy_agency/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .put(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        consultancy_agency_id:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const project = await Project.findByIdAndUpdate(request.params.id, { consultancy_agency_assigned: request.body.consultancy_agency_id } ).exec()
+      return response.json({ data: project })
+    } catch (err) {
+      return response.json({ error: `Error` })
     }
   }); 
 module.exports=router

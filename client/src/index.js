@@ -19,6 +19,7 @@ import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 
 import TaskCardContainer from './components/TaskCardContainer';
+import EventCard from './components/EventCards/EventsCardContainer'
 
 const routing=(
     <Router>
@@ -27,6 +28,7 @@ const routing=(
     <Route path="/task_card" component={TaskCardContainer} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
+      <Route path="/card" component={EventCard}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
