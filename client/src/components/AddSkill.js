@@ -22,27 +22,7 @@ export class AddSkill extends Component {
     return (
             
             <div>
-           <script>
-             {console.log("have a",this.props.col)}
-           </script>
-            <input type='text' 
-              className='skillip'
-             name='skill'
-             placeholder='Type a Skill to add..' 
-             style={{flex:'10',padding:'5px'}}
-             onChange={this.onChange}
-             id='myInput'
-             />
-            <input
-             type='submit' 
-             className='skillbtn' 
-             onClick={this.onSubmit}></input>
-            <Autocomplete suggestions={this.props.col.data} />
-            
-            
-       
-
-
+            <Autocomplete suggestions={this.props.col.data} addSkill={this.props.addSkill} />
             </div>
     )
     
