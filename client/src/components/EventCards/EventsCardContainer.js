@@ -1,7 +1,7 @@
 import Card from './EventCard'
 import React from 'react'
 import axios from 'axios'
-
+import '../../css/TaskCardContainer.css'
 class EventsCardContainer extends React.Component {  
 
     constructor(props) {
@@ -42,8 +42,12 @@ class EventsCardContainer extends React.Component {
             elements1.push(<Card data ={events[i]}/>);
         }
         return (
-            <div> 
-            {elements1}
+            <div class="container">
+                <div class="row">
+                    <div class = "row s2">  
+                        {elements1}
+                    </div>
+                </div>
             </div>
         );
         }

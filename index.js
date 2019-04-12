@@ -26,7 +26,7 @@ const skills= require('./routes/api/skills')
 
 
 
-    mongoose.connect('mongodb+srv://youshalaby:Youssef98%2E@ateamdev-xqxau.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+    mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@lirtennewschema-ld7fm.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
     }).on('error', function(error){
