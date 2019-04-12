@@ -1,23 +1,15 @@
 import React, { Component } from "react";
 //import Formdetails from './Formdetails'
 import TaskBasicField from "./TaskBasicField";
-import TaskDatePack from "./TaskDatePack";
-import TaskCommitment from "./TaskCommitment";
 import Skills from "./Skills";
 import axios from "axios";
 import "../css/box_css.css";
 import "materialize-css/dist/css/materialize.min.css";
 
-export class Form extends Component {
+export class PostForm extends Component {
   state = {
     name: "",
-    monetary_compensation: "0",
-    price: "1",
-    is_assigned: "",
-    partner_id: "5cacccc7b62d5618bc0fff21", //Assuming Session
-    time_expected: "1 Day(s)",
-    level_of_comitment: "Moderate",
-    experience_needed: "1 Day(s)",
+    partner_responsible: "5cacccc7b62d5618bc0fff21", //Assuming Session
     description: "",
     skills: [],
     all_skills: []
@@ -53,52 +45,34 @@ export class Form extends Component {
   setDescription = nd => {
     this.setState({ description: nd });
   };
-  setCompensation = c => {
-    this.setState({ monetary_compensation: c });
-  };
-  setPrice = p => {
-    this.setState({ price: p });
-  };
-  setCommitment = c => {
-    this.setState({ level_of_comitment: c });
-  };
-  setTime = t => {
-    this.setState({ time_expected: t });
-  };
-  setExperience = e => {
-    this.setState({ experience_needed: e });
-  };
   //Result
 
   handleSubmit = e => {
     e.preventDefault();
     try {
-      if(this.state.skills.length===0){
-        window.alert('You Have To Enter At Least one Skill')
-        return
-      }
+        if(this.state.skills.length===0){
+            window.alert('You Have To Enter At Least one Skill')
+            return
+          }
       const data = {
-        name: this.state.name,
-        monetary_compensation: this.state.monetary_compensation,
-        partner_id:this.state.partner_id,
+        project_name: this.state.name,
         time_expected: this.state.time_expected,
-        level_of_comitment: this.state.level_of_comitment,
-        experience_needed: this.state.experience_needed,
+        partner_responsible:this.state.partner_responsible,
         description: this.state.description,
         skills: this.state.skills
       };
-      axios.post("http://localhost:4000/api/tasks/add", data).then(res => {
+      axios.post("http://localhost:4000/api/project/create", data).then(res => {
         console.log(res);
-        window.alert("Posted Task ");
+        window.alert("Posted Project ");
         return res.data;
       });
     } catch (error) {
       console.log("error");
     }
   };
-  getSkillFromDB = () => {
+  getSkillFromDB = async () => {
     try {
-      axios
+    await  axios
         .get("http://localhost:4000/api/skills/getSkillCollection")
         .then(res => {
           this.setState({ all_skills: res.data });
@@ -109,8 +83,9 @@ export class Form extends Component {
     }
   };
   componentDidMount(){
-    this.getSkillFromDB();
+      this.getSkillFromDB()
   }
+
   renderLoading() {
     return <div>Loading...</div>;
   }
@@ -132,64 +107,29 @@ export class Form extends Component {
             <div className="container">
               <form onSubmit={this.handleSubmit} className="cols12">
                 <div className="section">
-                  <h4>Task Details:</h4>
+                  <h4>Project Details:</h4>
                   <div className="row">
                     <div className="input-field col s6">
                       <TaskBasicField
                         className="text"
                         state={this.state}
-                        fieldname="Task Name"
+                        fieldname="Porject Name"
                         type="text"
                         func={this.setname}
                       />
                     </div>
                   </div>
 
-                  <div className="row">
-                    <TaskDatePack
-                      id="1"
-                      fieldname="Time Expected"
-                      func={this.setTime}
-                    />
-                  </div>
-
                   <div className="input-field col s12">
                     <TaskBasicField
-                      fieldname="Task Description"
+                      fieldname="Project Description"
                       type="bigtext"
                       func={this.setDescription}
                     />
                   </div>
                 </div>
 
-                <h4>Pricing:</h4>
-                <div className="section">
-                  <tr>
-                    <td>
-                      <TaskBasicField
-                        classname="money"
-                        fieldname="Compensation"
-                        type="number"
-                        func={this.setCompensation}
-                      />
-                    </td>
-                    <td>Your Price Offer for the Task in EGP</td>
-                  </tr>
-                </div>
-
-                <h4>Requierements:</h4>
-                <div className="row">
-                  <TaskDatePack
-                    id="2"
-                    fieldname="Experience required"
-                    func={this.setExperience}
-                  />
-                </div>
-                <div className="row">
-                  <TaskCommitment func={this.setCommitment} />
-                </div>
-
-                <br />
+                <h4>Skill Requierements:</h4>
                 
                 <Skills
                   addSkill={this.addSkill}
@@ -220,4 +160,4 @@ export class Form extends Component {
   }
 }
 
-export default Form;
+export default PostForm;

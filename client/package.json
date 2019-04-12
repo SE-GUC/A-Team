@@ -8,6 +8,7 @@
     "material-ui": "^0.20.2",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.8.6",
+    "react-autocomplete": "^1.8.1",
     "react-bootstrap-table": "^4.3.1",
     "react-dom": "^16.8.6",
     "react-materialize": "^3.0.4",

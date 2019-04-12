@@ -18,7 +18,7 @@ router
     }
     next()
   })
-  .post(async (request, response) => {
+  .put(async (request, response) => {
     try {
       const status = joi.validate(request.body, {
         memberid:joi.string().length(24)
