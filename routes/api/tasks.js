@@ -569,7 +569,7 @@ router.get('/recommend/:member_id', async (req, res) => {
     }
 
 });
-router.get('/apply/:id', async (req, res) => {
+router.get('/apply/:id/:member_id', async (req, res) => {
     const status = joi.validate(req.params, {
         id: joi.string().length(24).required(),
         member_id:joi.string().length(24).required()
