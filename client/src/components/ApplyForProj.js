@@ -1,49 +1,53 @@
 
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 
-class AssignMember extends Component {
+class ApplyForProj extends Component {
 
 
         state = {
-            id:'',
-            assigned_id:'',
+           project_id:'',
+           consultancy_agency_id:'',
+           consultancy_agency_applicants:[],
            error:''
         };
       
 
 
-    handleChange = task => {
-        this.setState({ id: task.target.value })
+    handleChange = project => {
+        this.setState({ project_id: project.target.value })
     }
 
 
-    handleAnotheChange = task => {
-        this.setState({ assigned_id: task.target.value })
+    handleAnotheChange = project => {
+        this.setState({ consultancy_agency_id: project.target.value })
     }
 
-    // apply=(member_id)=>{
-    //     var update=this.state.consultancy_agency_applicants
-    //     update.push(consultancy_agency_id)
+    apply=(consultancy_agency_id)=>{
+        var update=this.state.consultancy_agency_applicants
+        update.push(consultancy_agency_id)
         
-    //     this.setState({consultancy_agency_applicants:update})
-    // }
+        this.setState({consultancy_agency_applicants:update})
+    }
     handleSubmit = project => {
-        task.preventDefault(); //prevents page from reloading
-        // const t = {
-        //     assigned_id: this.state.assigned_id
-       
+        project.preventDefault(); //prevents page from reloading
+        // const application = {
+        //     id: this.state.project_id
         // };
-        const url = 'http://localhost:4000/api/project/tasks/assignMember'+this.state.id
-      
+        const url = 'http://localhost:4000/api/project/applyProj/'+this.state.project_id
+        // const applyCons=(consultancy_agency_id)=>{
+        //     var update=this.state.consultancy_agency_applicants
+        //     update.push(consultancy_agency_id)
+            
+        //     this.setState({consultancy_agency_applicants:update})
+        // }
 
-        axios.put(url,{assigned_id: this.state.assigned_id })
+        axios.put(url,{consultancy_agency_id: this.state.consultancy_agency_id })
         .then(res => {
             console.log(res);
-            window.alert("Assigned Member! ");
+            window.alert("Posted FML ");
             return res.data
           })
         this.setState({done:true})
@@ -82,24 +86,23 @@ class AssignMember extends Component {
             <div>
             <form onSubmit={this.handleSubmit}>
             <label>
-                    Task id:
+                    Project id:
                     <input type="text" name="id" onChange={this.handleChange} />
                 </label>
             <label>
-                Member id:
+                Consultancy Agency id:
                 <input type="text" name="id" onChange={this.handleAnotheChange} />
             </label>
                 <br/>
-                <button type="submit">Assign</button>
+                <button type="submit">Apply</button>
             </form>
             </div>
         )
     }
 }
 ReactDOM.render(
-    <AssignMember subreddit="reactjs"/>,
+    <ApplyForProj subreddit="reactjs"/>,
     document.getElementById('root')
 )
 
-
-export default AssignMember; 
+export default ApplyForProj;

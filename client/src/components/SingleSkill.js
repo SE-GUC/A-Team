@@ -13,8 +13,7 @@ export class TaskSkills extends Component {
     }
     
   render() {
-      const name=this.props.skill
-      console.log(name)
+      
     return(
         
         <div>

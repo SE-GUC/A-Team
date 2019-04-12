@@ -17,23 +17,29 @@ export class TaskBasicField extends Component {
       
      if(this.props.type==='number') {
     return (
-        <div>
-        <span>$</span>
-        <input  required title={this.props.fieldname} type={this.props.type} placeholder={this.props.fieldname}  min='0'  onChange={this.handlechange} />
-        </div>
+        
+        
+        <input className='validate' required title={this.props.fieldname} type={this.props.type} placeholder={this.props.fieldname}  min='0'  onChange={this.handlechange} />
+        
     )
      }
      if(this.props.type==='bigtext'){
        return(
-         <div>
-           <textarea  required title={this.props.fieldname} maxLength='150' cols='25' placeholder={this.props.fieldname+' MIN 10 characters'} style={textarea} 
+        
+        <div class="input-field col s12">
+        <textarea  required title={this.props.fieldname} maxLength='150' cols='25' placeholder={this.props.fieldname+' MIN 10 characters'} style={textarea} 
            onChange={this.handlechange}/>
-         </div>
+        </div>
+      
+         
        )
      }
      else{
       return (
-        <input required title={this.props.fieldname} type={this.props.type} name={this.props.fieldname} placeholder={this.props.fieldname} onChange={this.handlechange} />   
+        
+        <input className='validate' required title={this.props.fieldname} type={this.props.type} name={this.props.fieldname} placeholder={this.props.fieldname} onChange={this.handlechange} />
+        
+           
     )
      }
 

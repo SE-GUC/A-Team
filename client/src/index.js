@@ -15,6 +15,10 @@ import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
+import ApplyProject from './components/ApplyForProj'
+import CancelApp from './components/CancelApp'
+
+import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 
@@ -22,6 +26,7 @@ const routing=(
     <Router>
     <div>
     <Route path="/" component={App} />
+    <Route path="/task_card" component={TaskCardContainer} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
       <Route path="/card" component={EventCard}/>    
@@ -37,6 +42,9 @@ const routing=(
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
+      <Route path="/applyproj" component={ApplyProject} />
+      <Route path="/cancelapp" component={CancelApp} />
+
     
       
     </div>
