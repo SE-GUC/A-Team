@@ -7,6 +7,7 @@ import '../css/Table.css';
  
 class EventTable extends Component {
   render() {
+    console.log(this.props.data)
     return (
       <div>
         <BootstrapTable data={this.props.data}>

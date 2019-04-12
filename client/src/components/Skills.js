@@ -5,7 +5,7 @@ export class Skills extends Component {
   
 
   render() {
-    console.log('From SKills Component',this.props.col)
+    
     return (
       
       
