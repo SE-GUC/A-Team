@@ -21,6 +21,7 @@ import CancelApp from './components/CancelApp'
 import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
+import Feedback from './components/EventCards/FeedbackCardContainer'
 
 const routing=(
     <Router>
@@ -31,6 +32,7 @@ const routing=(
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
       <Route path="/card" component={EventCard}/>    
       <Route path="/adminContainer" component={AdminViewEvents}/>    
+      <Route path="/feedback" component={Feedback}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
