@@ -29,7 +29,7 @@ export class NumberSlider extends Component {
     return (
         <div onChange={this.refresh} className='datepack' >
         <br></br>
-           {this.props.fieldname}: <label ref={this.number} id={'textInput'+this.props.cid} className='L34' >28</label>
+           {this.props.fieldname}: <label ref={this.number} id={'textInput'+this.props.cid} className='L34' >1</label>
            
            <select id={'ddl_date'+this.props.cid} refs={this.dur}>
                     <option value="Hour(s)">Hour(s)</option>   

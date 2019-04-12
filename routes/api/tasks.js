@@ -66,6 +66,7 @@ router.post('/add', async (req, res) => {
     const status = joi.validate(req.body, {
         name: joi.string().max(40).required(),
         monetary_compensation: joi.number().required(),
+        assigned_id: joi.string().required(),
         time_expected: joi.string().required(),
         level_of_comitment: joi.string().required(),
         experience_needed: joi.string().required(),

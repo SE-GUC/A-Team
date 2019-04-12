@@ -15,11 +15,13 @@ export class Form extends Component {
             monetary_compensation: '0',
             price:'1',
             is_assigned:'',
+            partner_id:'5cacccc7b62d5618bc0fff21' , //Assuming Session
             time_expected:'1 Day(s)',
             level_of_comitment:'Moderate',
             experience_needed:'1 Day(s)',
             description:"",
-            skills:['Hi Ammar']
+            skills:['Hi Ammar'],
+            all_skills:[]
            // skills:['Mongo','Express','React','Node']
     }
     //Will be used Later on
@@ -62,6 +64,7 @@ export class Form extends Component {
         this.setState({experience_needed:e})
     }
     //Result
+   
     handleSubmit=(e)=>{
         e.preventDefault();
         try{
@@ -87,7 +90,21 @@ export class Form extends Component {
         }
             
     }
+    getSkillFromDB=()=>{
+        try{
+            axios.get('http://localhost:4000/api/skills/getSkillCollection')
+            .then(res => {
+              this.setState({all_skills:res.data})
+              return res.data
+            })
+          }
+          catch(error){
+              console.log('error')
+          }
+    }
+    
     renderLoading() {
+        
         return <div>Loading...</div>
     }
     renderError() {
@@ -107,8 +124,7 @@ export class Form extends Component {
     };
 
   render() {
-      
-      
+    
     return(
         <form onSubmit={this.handleSubmit} className='form' >
                  <div className='fill'>
@@ -121,8 +137,8 @@ export class Form extends Component {
                 <div className='Pricing'>
                 <h1>Pricing:</h1>
                 <tr>
-                    <td><TaskBasicField classname='money'fieldname='Price' type='number' func={this.setPrice}/></td>
                     <td><TaskBasicField classname='money' fieldname='Compensation' type='number' func={this.setCompensation}/></td>
+                    <td>Your Price Offer for the Task</td>
                 </tr>
                  {/*Could Add placeholder to make it modern*/}
                  {/*Could Add Info Overlap here*/}
@@ -132,7 +148,8 @@ export class Form extends Component {
                 <TaskCommitment func={this.setCommitment} />
                 <TaskDatePack id='2' fieldname="Experience required"  func={this.setExperience} />
                 <br></br>
-                <Skills addSkill={this.addSkill} delSkill={this.delSkill} skills={this.state.skills} state={this.state}/>
+                {this.getSkillFromDB()}
+                <Skills addSkill={this.addSkill} delSkill={this.delSkill} skills={this.state.skills} state={this.state} col={this.state.all_skills}/>
                </div>
             
             <input type='submit' value='Submit' className='button1' state={this.state}/>
