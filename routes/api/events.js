@@ -44,6 +44,7 @@ router
 //     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
+
 router.get('/getPending', async (req,res)=>{
   var allEvents = await Event.find({}).exec()
   allEvents.filter(lessa_pending)
@@ -400,6 +401,16 @@ router
     } catch (err) {
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
+  })
+
+  router.get('/getMyEvents/:id', async(req,res)=>{
+    try{
+    const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+    return res.json({ data: eventsPartnerCreated })
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find application for a event given the following data` })
+  }
+
   })
   
 

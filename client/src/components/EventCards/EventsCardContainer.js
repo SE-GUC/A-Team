@@ -39,7 +39,7 @@ class EventsCardContainer extends React.Component {
         const events=this.state.elements
         for(var i=0;i<this.state.elements.length;i++){
             console.log(events[i]._id)
-            elements1.push(<Card value ={events[i]._id}/>);
+            elements1.push(<Card data ={events[i]}/>);
         }
         return (
             <div> 

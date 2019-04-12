@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-import axios from 'axios'
 
 
-class EventCard extends Component {
+class ApplicationCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -24,27 +23,17 @@ class EventCard extends Component {
         }
     }
     componentDidMount() {
-        this.setState({id:this.props.value})
-        console.log(this.props.value)
-        const url='http://localhost:4000/api/events/getID/'+this.props.value
-        console.log(url)
-        axios.get(url)
-        .then(res => {
-            console.log(res.data.data)
-            // this.setState({events: res.data.data})
-            this.setState({name:res.data.data.name})
-            this.setState({remaining_places:res.data.data.remaining_places})
-            this.setState({location:res.data.data.location})
-            this.setState({about:res.data.data.about})
-            this.setState({price:res.data.data.price})
-            this.setState({speakers:res.data.data.speakers})
-            this.setState({topics:res.data.data.topics})
-            this.setState({type:res.data.data.type})
-            this.setState({partner_initiated:res.data.data.partner_initiated})
-            })
-        .catch(err => {
-            console.log("oislijdlijSfiz")
-        })
+        console.log(this.props.data)
+        this.setState({id:this.props.data})
+            this.setState({name:this.props.data.name})
+            this.setState({remaining_places:this.props.data.remaining_places})
+            this.setState({location:this.props.data.location})
+            this.setState({about:this.props.data.about})
+            this.setState({price:this.props.data.price})
+            this.setState({speakers:this.props.data.speakers})
+            this.setState({topics:this.props.data.topics})
+            this.setState({type:this.props.data.type})
+            this.setState({partner_initiated:this.props.data.partner_initiated})
 
 
     }
@@ -69,7 +58,7 @@ class EventCard extends Component {
 						<time>{}</time>
 					</div>
 					<span class="card-title">{this.state.name}</span>
-					<p><b>Remaining:</b> {this.state.remaining_places}</p>
+					<p><b>Remaining Places:</b> {this.state.remaining_places}</p>
                     <p><b>Location:</b> {this.state.location}</p>
                     <p><b>About:</b> {this.state.about}</p>
                     <p><b>About:</b> {this.state.events}</p>
@@ -92,4 +81,4 @@ class EventCard extends Component {
 
 
 
-export default EventCard;
+export default ApplicationCard;
