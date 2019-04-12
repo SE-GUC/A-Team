@@ -17,7 +17,7 @@ import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
-
+import ProjectPostForm from './components/ProjectPostForm'
 import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
 
@@ -29,7 +29,7 @@ const routing=(
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
       <Route path="/card" component={EventCard}/>    
-    
+      <Route path="/post_project" component={ProjectPostForm}/>  
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
       <Route path="/dummy" component={Dummy} />
