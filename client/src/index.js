@@ -16,6 +16,7 @@ import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
 import EventCard from './components/EventCards/EventsCardContainer'
+import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 
 const routing=(
     <Router>
@@ -24,6 +25,7 @@ const routing=(
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
       <Route path="/card" component={EventCard}/>    
+      <Route path="/adminContainer" component={AdminViewEvents}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
