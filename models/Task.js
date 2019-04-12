@@ -23,16 +23,18 @@ const Tasks_schema=new Schema({
         type:Date,
         required:false
     },
-    status:{
+    status:{ //admin
         type:String,    //Pending means just submitted, approved means admin 
-        enum:['Pending','Approved','Accepting','Assinged','Closed','Finished'],
+        enum:['Pending','Approved','Accepting','Assigned','Closed','Finished'],
         default:'Pending',
         required:false,
 
     },
     assigned_id:{
         type:Schema.Types.ObjectId, //Assigned State
-        required:false
+        required:false,
+        ref:'User'
+
     },
     time_expected:{
         type:String,               // x years/months/days/hours
@@ -53,7 +55,7 @@ const Tasks_schema=new Schema({
     partner_id:{
         type:Schema.Types.ObjectId, //object 5ara
         required:false,
-        ref:'User' //can add the whole partner here
+    //    ref:'User' //can add the whole partner here
     },
     skills:[{
         type: String,
@@ -72,9 +74,10 @@ const Tasks_schema=new Schema({
         //to refer to admin entity later on
     },
     applicants:[{
-        type:Schema.Types.ObjectId, //object
+        applicant_id:Schema.Types.ObjectId, //object
+        is_accepted:Boolean, //default false
         required:false,
-        ref:'User'
+        // ref:'User'
     }]
     //do we need to add a category?
 })

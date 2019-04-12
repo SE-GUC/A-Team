@@ -4,9 +4,16 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
+<<<<<<< HEAD
     "bootstrap": "^4.3.1",
+=======
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "material-ui": "^0.20.2",
+>>>>>>> eb279804c944b2f8f074174f11f90f2350f17f52
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.8.6",
+    "react-autocomplete": "^1.8.1",
     "react-bootstrap-table": "^4.3.1",
     "react-dom": "^16.8.6",
     "react-materialize": "^3.0.4",

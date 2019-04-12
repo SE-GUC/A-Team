@@ -78,6 +78,14 @@ const UserSchema = new Schema({
         type:Number,
         required: false 
     }],
+    tasks_applied_for:[{
+        type:mongoose.Schema.Types.ObjectId,
+        required:false,
+        default:[],
+        ref:'tasks'
+
+    }],
+
 
 
 

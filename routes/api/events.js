@@ -9,6 +9,28 @@ const Type = require('../../models/Type')
 const User= require('../../models/User')
 
 
+router
+  .route('/getID/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const event = await Event.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
+
 // {
 //   "remaining_places": 300,
 //     "location": "5c9bff7f569b9a001796d40a",
@@ -22,6 +44,7 @@ const User= require('../../models/User')
 //     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
+
 router.get('/getPending', async (req,res)=>{
   var allEvents = await Event.find({}).exec()
   allEvents.filter(lessa_pending)
@@ -142,7 +165,6 @@ router
   .get(async (request, response) => {
     try {
       const allEvents = await Event.find({}).exec()
-      console.log(allEvents)
       return response.json({ data: allEvents })
     } catch (err) {
       return response.json({ error: `Error, Couldn't fetch the list of all events from the database` })
@@ -379,6 +401,16 @@ router
     } catch (err) {
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
+  })
+
+  router.get('/getMyEvents/:id', async(req,res)=>{
+    try{
+    const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+    return res.json({ data: eventsPartnerCreated })
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find application for a event given the following data` })
+  }
+
   })
   
 

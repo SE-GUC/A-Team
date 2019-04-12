@@ -15,14 +15,28 @@ import Taskviewapplicants from './components/Tasksviewapplicants'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
+<<<<<<< HEAD
 import CreateEvent from './components/CreateEvent'
+=======
+import ApplyProject from './components/ApplyForProj'
+import CancelApp from './components/CancelApp'
+
+import TaskCardContainer from './components/TaskCardContainer';
+import EventCard from './components/EventCards/EventsCardContainer'
+import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
+import Feedback from './components/EventCards/FeedbackCardContainer'
+>>>>>>> eb279804c944b2f8f074174f11f90f2350f17f52
 
 const routing=(
     <Router>
     <div>
     <Route path="/" component={App} />
+    <Route path="/task_card" component={TaskCardContainer} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
+      <Route path="/card" component={EventCard}/>    
+      <Route path="/adminContainer" component={AdminViewEvents}/>    
+      <Route path="/feedback" component={Feedback}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
@@ -34,7 +48,13 @@ const routing=(
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
+<<<<<<< HEAD
       <Route path="/Create_Events" component={CreateEvent} />
+=======
+      <Route path="/applyproj" component={ApplyProject} />
+      <Route path="/cancelapp" component={CancelApp} />
+
+>>>>>>> eb279804c944b2f8f074174f11f90f2350f17f52
     
       
     </div>
