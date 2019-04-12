@@ -49,6 +49,15 @@ router.post('/add_task', async (req, res) => {
         }))
 
 })
+router.get('/read/:id', async(req,res) => {
+    try{
+    const tsk = await Task.findById(req.params.id)
+    console.log(tsk)
+    return res.json({ data: tsk })
+    } catch (err) {
+        return res.json({error: err.message})
+    }
+})
 
 //Youssef Shalaby
 router.put('/addSkill',async(req,res)=>{ //Admin Access only
