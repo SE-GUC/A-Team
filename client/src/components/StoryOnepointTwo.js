@@ -36,7 +36,7 @@ class TaskStoryOnepointTwo extends Component {
             //this.setState({ done:true })
             console.log(res.data.data)
             
-            alert(res.data);
+            alert('done');
         })
 
     };
