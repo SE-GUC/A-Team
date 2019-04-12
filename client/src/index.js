@@ -21,11 +21,12 @@ import ProjectPostForm from './components/ProjectPostForm'
 import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
+import Home from './components/HomePage'
 
 const routing=(
     <Router>
     <div>
-    <Route path="/" component={App} />
+    <Route path="/" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
