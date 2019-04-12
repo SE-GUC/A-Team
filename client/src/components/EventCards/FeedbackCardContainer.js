@@ -1,7 +1,7 @@
 import Card from './FeedbackCard'
 import React from 'react'
 import axios from 'axios'
-// import './css/Events.css'
+import '../../css/yaracard.css'
 
 
 class FeedbackCardContainer extends React.Component {  
