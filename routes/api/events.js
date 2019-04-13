@@ -117,8 +117,8 @@ router
       about: joi.string().min(5).max(500).required(),
       remaining_places: joi.number().required(),
       speakers: joi.array().items(joi.string().min(4).max(70)),
-      topics: joi.array().items(joi.string().min(4).max(70)),
-      type: joi.array().items(joi.string().min(5).max(20)).required(),
+      topics: joi.array().items(joi.string().min(3).max(70)),
+      type: joi.array().items(joi.string().min(3).max(20)).required(),
       partner_initiated: joi.string().length(24).required(),
       attendees: joi.array().items(joi.string().length(24)),
       status: joi.string(),
@@ -413,18 +413,5 @@ router
 
   })
   
-
-
-
-
-
-
-
-
-
-
-
-
-
   
 module.exports=router 

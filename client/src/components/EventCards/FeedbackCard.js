@@ -19,7 +19,7 @@ class FeedbackCard extends Component {
             type:[],
             partner_initiated:'',
             message:'',
-            range:0, 
+            range:5, 
             submitState:false
 
 
@@ -28,16 +28,25 @@ class FeedbackCard extends Component {
     }
     componentDidMount() {
         console.log(this.props.data)
-        this.setState({id:this.props.data._id})
-            this.setState({name:this.props.data.name})
-            this.setState({remaining_places:this.props.data.remaining_places})
-            this.setState({location:this.props.data.location})
-            this.setState({about:this.props.data.about})
-            this.setState({price:this.props.data.price})
-            this.setState({speakers:this.props.data.speakers})
-            this.setState({topics:this.props.data.topics})
-            this.setState({type:this.props.data.type})
-            this.setState({partner_initiated:this.props.data.partner_initiated})
+        this.setState({id:this.props.data})
+            const url = 'http://localhost:4000/api/events/getid/' + this.props.data
+            console.log(url)
+            axios.get(url)
+                .then(res => {
+                    this.setState({name:res.data.data.name})
+                    this.setState({remaining_places:res.data.data.remaining_places})
+                    this.setState({location:res.data.data.location})
+                    this.setState({about:res.data.data.about})
+                    this.setState({price:res.data.data.price})
+                    this.setState({speakers:res.data.data.speakers})
+                    this.setState({topics:res.data.data.topics})
+                    this.setState({type:res.data.data.type})
+                    this.setState({partner_initiated:res.data.data.partner_initiated})
+                        })
+                .catch(err => {
+                    console.log(err)
+                })
+    
 
 
     }

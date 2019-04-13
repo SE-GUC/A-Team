@@ -24,6 +24,8 @@ import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
+import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
+import EventsPartner from './components/EventCards/EventsPartnerContainer'
 
 const routing=(
     <Router>
@@ -31,12 +33,13 @@ const routing=(
     <Route path="/" component={App} />
     <Route path="/task_card" component={TaskCardContainer} />
       <Route path="/Events" component={Events} />
-      <Route path="/PartnerRequests" component={PartnerRequests}/>    
+      {/* <Route path="/PartnerRequests" component={PartnerRequests}/>     */}
       <Route path="/card" component={EventCard}/>    
       <Route path="/adminContainer" component={AdminViewEvents}/>    
       <Route path="/feedback" component={Feedback}/>    
       <Route path="/appcard" component={ApplicationCard}/>    
-      
+      {/* <Route path='/partnerrequests' component={ApplicantsCard}/> */}
+      <Route path='/partnerrequests' component={EventsPartner}/>
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>

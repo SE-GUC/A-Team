@@ -39,25 +39,16 @@ router.get('/', (req, res) => {
 router.get('/getEvents/:id', async(req,res)=>{
   const user = await User.findById(req.params.id).exec()
   const events = await user.events_attended
-  var result= []
-  events.forEach(async(id) => {
-    const nextEvent=await Event.findById(id).exec()
-    result.push(nextEvent)
-  });
-  return res.json({ data: result })
+  return res.json({ data: events })
 })
+
 
  
 
 router.get('/getCreatedEvents/:id', async(req,res)=>{
   const user = await User.findById(req.params.id).exec()
   const events = await user.events_created
-  var result= []
-  events.forEach(async (id) => {
-    const nextEvent=await Event.findById(id).exec()
-    result.push(nextEvent)
-  });
-  return res.json({ data: result })
+  return res.json({ data: events })
 })
 
 router.post('/login', async (req, res) => {
