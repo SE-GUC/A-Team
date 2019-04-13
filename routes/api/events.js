@@ -25,6 +25,21 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
   }
 })
 
+router.get('/getByRemainginPlaces/:places', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.remaining_places<parseInt(req.params.places)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
 router.get('/getByTopics/:topic', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
