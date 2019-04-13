@@ -9,6 +9,39 @@ const Type = require('../../models/Type')
 const User= require('../../models/User')
 
 
+
+router.get('/getBySpeakers/:speaker', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.speakers.includes(req.params.speaker)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
+router.get('/getByTopics/:topic', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.topics.includes(req.params.topic)){
+        result.push(event)
+      }
+    })
+    // const event = await Event.find({type:request.params.type}).exec()
+    console.log(result)
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
 router
   .route('/getID/:id')
   .all(async (request, response, next) => {
@@ -51,6 +84,29 @@ router.get('/getPending', async (req,res)=>{
   console.log(allEvents)
   return res.json({ data: allEvents })
 })
+//not tested lesa
+router
+  .route('/getPendingId/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      var allEvents = await Event.find({}).exec()
+      allEvents.filter(lessa_pending)
+      const event = allEvents.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 
 router.post('/createType', async (request, response) => {
   const status = joi.validate(request.body, {
@@ -117,8 +173,8 @@ router
       about: joi.string().min(5).max(500).required(),
       remaining_places: joi.number().required(),
       speakers: joi.array().items(joi.string().min(4).max(70)),
-      topics: joi.array().items(joi.string().min(4).max(70)),
-      type: joi.array().items(joi.string().min(5).max(20)).required(),
+      topics: joi.array().items(joi.string().min(3).max(70)),
+      type: joi.array().items(joi.string().min(3).max(20)).required(),
       partner_initiated: joi.string().length(24).required(),
       attendees: joi.array().items(joi.string().length(24)),
       status: joi.string(),
@@ -405,26 +461,13 @@ router
 
   router.get('/getMyEvents/:id', async(req,res)=>{
     try{
-    const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
-    return res.json({ data: eventsPartnerCreated })
+      const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+      return res.json({ data: eventsPartnerCreated })
   } catch (err) {
     return res.json({ error: `Error, couldn't find application for a event given the following data` })
   }
 
   })
   
-
-
-
-
-
-
-
-
-
-
-
-
-
   
 module.exports=router 

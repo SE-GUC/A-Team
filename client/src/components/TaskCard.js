@@ -16,7 +16,8 @@ class TaskCard extends Component {
             time_of_post: '',
             time_expected: '',
             level_of_commitment: '',
-            experience_needed: ''
+            experience_needed: '',
+            assume_memberID:'5caccda0b62d5618bc0fff24'
         }
     }
     componentDidMount() {
@@ -64,6 +65,19 @@ class TaskCard extends Component {
             })
 
     }
+    applyTask=(e)=>{
+        const task_id=this.state._id
+        const member_id=this.state.assume_memberID
+        const getURL='http://localhost:4000/api/tasks/apply/'+task_id+'/'+member_id
+        axios.get(getURL)
+        .then(result=>{
+        var message=result.data.msg
+        message=message.substring(0,message.length-33)
+        window.alert(message)
+        })
+        
+
+    }
 
     render() {
         return (
@@ -79,7 +93,7 @@ class TaskCard extends Component {
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <div class="card__meta">
-                        <a href="card">{this.state.name}</a>
+                        <h5><a href="card">{this.state.name}</a></h5>
                         <time>{}</time>
                     </div>
                         <p><b>Description:</b> {this.state.description}</p>
@@ -90,6 +104,12 @@ class TaskCard extends Component {
                         <p><b>Expected Time:</b> {this.state.time_expected}</p>
                         <p><b>Commtment Level Required:</b> {this.state.level_of_commitment}</p>
                         <p><b>Experience Needed:</b> {this.state.experience_needed}</p>
+                        <div style={{paddingTop:'10px'}}>
+                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.applyTask}>Do I have the Required Skills?
+                        </button>
+                        </div>    
+
+        
 
                 </div>
                 <div class="card-action">
