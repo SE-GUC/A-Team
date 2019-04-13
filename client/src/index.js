@@ -11,7 +11,7 @@ import TaskList from './components/TaskList'
 import TaskPostForm from './components/TaskPostForm'
 import Recommend from './components/Recommend';
 import Review from './components/StoryOnepointTwo';
-import Taskviewapplicants from './components/Tasksviewapplicants'
+import StoryOnePointEleven from './components/StoryOnePointEleven'
 import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
@@ -23,14 +23,26 @@ import TaskCardContainer from './components/TaskCardContainer';
 //import EventCard from './components/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 
+import CardTest from './components/CardTest';
+import 'materialize-css/dist/css/materialize.min.css';
+import ViewTApplicants from './components/ViewTaskApplicants';
+
+import ProjectPostForm from './components/ProjectPostForm'
+import TaskCardContainer from './components/TaskCardContainer';
+import EventCard from './components/EventCards/EventsCardContainer'
+import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
+import Home from './components/HomePage'
 
 const routing=(
     <Router>
     <div>
-    <Route path="/" component={App} />
+    <Route path="/" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
       <Route path="/Events" component={Events} />
       <Route path="/PartnerRequests" component={PartnerRequests}/>    
+      <Route path="/card" component={EventCard}/>    
+      <Route path="/post_project" component={ProjectPostForm}/>  
+      <Route path="/adminContainer" component={AdminViewEvents}/>    
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
@@ -38,7 +50,7 @@ const routing=(
       <Route path='/submit_task' component={TaskPostForm}/>
       <Route path="/recommend" component={Recommend} />
       <Route path="/Review" component={Review} />
-      <Route path="/view_applicants" component={Taskviewapplicants} />
+     
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
@@ -47,6 +59,12 @@ const routing=(
       <Route path="/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/viewallevents" component={ViewAllEventsContainer} />
       <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
+
+
+
+
+      
+      <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
 
     
       

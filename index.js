@@ -20,6 +20,7 @@ const dummy = require('./routes/api/dummy')
 const member =require('./routes/api/members')
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 const skills= require('./routes/api/skills')
+const notif=require('./routes/api/notification')
 
 //const tasks_objects= require('./routes/api/tasks_objects')
 
@@ -85,6 +86,7 @@ app.use('/api/consultancyAgencies',ConsultancyAgency)
 app.use('/api/partners',partner)
 app.use('/api/members',member)
 app.use('/api/skills',skills)
+app.use('/api/notifications',notif)
 //app.use('/api/tasks',tasks_objects)
 
 

@@ -465,6 +465,31 @@ try {
 
 
 
+//STORY 1.11  MEMBERS CAN VIEW TASKS THEY APPLIED ON
+router.get('/viewapplied/:id', async(req, res) => {
+
+    try {
+        const exists = await User.findOne({ _id: req.params.id });
+        if (exists === null) {
+          return res.json({ message: "Please enter a valid member id" });
+        }
+        console.log(exists);
+
+            const u = await User.findById(req.params.id)
+            res.json({
+                data: u.tasks_applied_for
+            })
+        
+
+}catch (error) {
+    console.log(error)
+  
+    }
+});
+
+
+
+
 
 
 
@@ -572,7 +597,7 @@ router.get('/recommend/:member_id', async (req, res) => {
     }
 
 });
-router.get('/apply/:id', async (req, res) => {
+router.get('/apply/:id/:member_id', async (req, res) => {
     const status = joi.validate(req.params, {
         id: joi.string().length(24).required(),
         member_id:joi.string().length(24).required()
