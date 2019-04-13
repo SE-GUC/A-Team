@@ -221,7 +221,7 @@ router.get('/read', async (req, res) => {
     }
 })
 //Amr Story 1.7
-router.get('/read/applicants/', async(req,res) => {
+router.get('/applicants/', async(req,res) => {
     try {
         const app = await Tasks.find({status:"Accepting"},{applicants:1})
         res.json ({
