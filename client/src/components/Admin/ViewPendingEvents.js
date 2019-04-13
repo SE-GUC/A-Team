@@ -3,7 +3,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import axios from 'axios';
 
 
-class ViewAllEventsCard extends Component {
+class ViewPendingEvents extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -33,7 +33,7 @@ class ViewAllEventsCard extends Component {
         })
         
         
-        axios.get('http://localhost:4000/api/events/getID/'+this.props.value)
+        axios.get('http://localhost:4000/api/events/getPendingId/'+this.props.value)
             .then(res => {
                 this.setState({
                     remaining_places: res.data.data.remaining_places
@@ -90,6 +90,24 @@ class ViewAllEventsCard extends Component {
             })
            
     }
+    sbmtbtn() {
+        this.setState({submitState:true})
+        const url='http://localhost:4000/api/events/'+this.state.id +'/feedback'
+        axios.post(url,{
+            user_id:"5cae2d049cd95a5754daa7e4", //da ghalat, admin id hayethat hena
+            comment:this.state.message,
+            rate:this.state.range
+
+        })
+    }
+    accept(){
+        this.setState({submitState:true})
+     
+        axios.put('http://localhost:4000/api/events/' + this.props.value, {
+            state: 'ACCEPTED'
+        })
+    }
+
 
     render() {
 
@@ -131,11 +149,12 @@ class ViewAllEventsCard extends Component {
 				<div class="card-action">
                 <p>
                     <label>
-                    <a class="waves-effect waves-light btn">Accept</a>
-                    <a class="waves-effect waves-light btn">Reject</a>
-                        <span>Accept</span>
+                    <input onChange={this.handleChangeText} placeholder="Enter Feedback" id="feedback" type="text" class="validate"/>
+                                    <a onClick={()=>this.sbmtbtn()} class="waves-effect waves-light btn">Submit</a>
+                   
                     </label>
                 </p>
+            <a onClick={this.accept} class="waves-effect waves-light btn">Accept</a>
 				</div>
 			</div>
 		</div>
@@ -147,4 +166,4 @@ class ViewAllEventsCard extends Component {
 
 
 
-export default ViewAllEventsCard;
+export default ViewPendingEvents;

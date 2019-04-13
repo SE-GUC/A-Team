@@ -3,7 +3,7 @@ const router = express.Router()
 const ConsultancyAgency = require('../../models/ConsultancyAgency')
 const moment= require('moment')
 const Tasks= require('../../models/Task')
-
+const joi= require('joi')
 //asd
 //Amr's CRUD for conssult. agency
 router.post('/', async(req,res) => {
@@ -48,6 +48,28 @@ router.get('/view_agencies', async(req,res) => {
     const agent = await ConsultancyAgency.find()
     res.json({data:agent})
 })
+
+
+router
+  .route('/view_agency/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const consultancy_agency = await ConsultancyAgency.findById(request.params.id)
+//      console.log(consultancy_agency)
+      return response.json({ data: consultancy_agency })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 router.get('/view_applicants', async(req,res) => {
     const tasks= await Tasks.find()
     const a=[]

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 //import Formdetails from './Formdetails'
 import TaskBasicField from "./TaskBasicField";
-import TaskDatePack from "./TaskDatePack";
-import TaskCommitment from "./TaskCommitment";
 import Skills from "./Skills";
 import axios from "axios";
 import "../css/box_css.css";
@@ -11,9 +9,9 @@ import "materialize-css/dist/css/materialize.min.css";
 export class PostForm extends Component {
   state = {
     name: "",
-    partner_responsible: "5cacccc7b62d5618bc0fff21", //Assuming Session
+    partner_responsible: "5cae373eaea50e48600c8483", //Assuming Session
     description: "",
-    skills: ["Hi Ammar"],
+    skills: [],
     all_skills: []
     // skills:['Mongo','Express','React','Node']
   };
@@ -52,6 +50,10 @@ export class PostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     try {
+        if(this.state.skills.length===0){
+            window.alert('You Have To Enter At Least one Skill')
+            return
+          }
       const data = {
         project_name: this.state.name,
         time_expected: this.state.time_expected,
@@ -61,16 +63,16 @@ export class PostForm extends Component {
       };
       axios.post("http://localhost:4000/api/project/create", data).then(res => {
         console.log(res);
-        window.alert("Posted Task ");
+        window.alert("Posted Project ");
         return res.data;
       });
     } catch (error) {
       console.log("error");
     }
   };
-  getSkillFromDB = () => {
+  getSkillFromDB = async () => {
     try {
-      axios
+    await  axios
         .get("http://localhost:4000/api/skills/getSkillCollection")
         .then(res => {
           this.setState({ all_skills: res.data });
@@ -80,6 +82,9 @@ export class PostForm extends Component {
       console.log("error");
     }
   };
+  componentDidMount(){
+      this.getSkillFromDB()
+  }
 
   renderLoading() {
     return <div>Loading...</div>;
@@ -125,7 +130,7 @@ export class PostForm extends Component {
                 </div>
 
                 <h4>Skill Requierements:</h4>
-                {this.getSkillFromDB()}
+                
                 <Skills
                   addSkill={this.addSkill}
                   delSkill={this.delSkill}

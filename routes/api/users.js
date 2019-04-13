@@ -42,8 +42,26 @@ router.get('/getEvents/:id', async(req,res)=>{
   return res.json({ data: events })
 })
 
+//Amr Story 1.15
+router.get('/get_tasks/:id',async(req,res) => {
+  const users = await User.findById(req.params.id).exec()
+  const tasksApplied = await users.tasks_applied_for
+  return res.json({data: tasksApplied})
+})
+// router.put('/remove_application/:id', function(req,res)=> {
+//   User.update({_id:req.params.id}, { $pull: {tasks_applied_for: {_id:req.body.id} } }
+//     )
+// })
+// .put(async (request, response) => {
+//   User.findByIdAndUpdate(request.params.id, request.body, { new: true }, (err, model) => {
+//     if (!err) {
+//       return response.json({ data: model })
+//     } else {
+//       return response.json({ error: `Error, couldn't update a user given the following data` })
+//     }
+//   })
+// })
 
- 
 
 router.get('/getCreatedEvents/:id', async(req,res)=>{
   const user = await User.findById(req.params.id).exec()
@@ -79,6 +97,7 @@ router.get('/dashboard', function(req,res){
   }
   return res.status(200).send("Welcome!");
 })
+
 
 //register new user
 router.post('/register', async (req,res) => {

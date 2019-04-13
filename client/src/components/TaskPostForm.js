@@ -14,7 +14,7 @@ export class Form extends Component {
     monetary_compensation: "0",
     price: "1",
     is_assigned: "",
-    partner_id: "5cacccc7b62d5618bc0fff21", //Assuming Session
+    partner_id: "5cae373eaea50e48600c8483", //Assuming Session
     time_expected: "1 Day(s)",
     level_of_comitment: "Moderate",
     experience_needed: "1 Day(s)",
@@ -73,7 +73,7 @@ export class Form extends Component {
   handleSubmit = e => {
     e.preventDefault();
     try {
-      if(this.state.skills===[]){
+      if(this.state.skills.length===0){
         window.alert('You Have To Enter At Least one Skill')
         return
       }
@@ -108,7 +108,9 @@ export class Form extends Component {
       console.log("error");
     }
   };
-
+  componentDidMount(){
+    this.getSkillFromDB();
+  }
   renderLoading() {
     return <div>Loading...</div>;
   }
@@ -188,7 +190,7 @@ export class Form extends Component {
                 </div>
 
                 <br />
-                {this.getSkillFromDB()}
+                
                 <Skills
                   addSkill={this.addSkill}
                   delSkill={this.delSkill}

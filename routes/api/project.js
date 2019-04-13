@@ -36,7 +36,12 @@ router.post("/create", async (req, res) => {
     skills: joi.array().items(joi.string()),
     partner_responsible: joi.string().length(24), //Need to Handle That this id belongs to a partner
     tasks: joi.array().items(joi.string().length(24)),
-    consultancy_agency_applicants:joi.array().items(joi.string().length(24))
+    consultancy_agency_applicants: joi.array().items(joi.object().keys({
+      consultancy_agency_id: joi.string().length(24).required(),
+      is_accepted: joi.boolean()
+    })),
+    status:joi.string().min(10).allow()
+
 })
 if (status.error) {
     return res.json({
@@ -65,7 +70,9 @@ try {
       skills: skills,
       consultancy_agency_applicants: [],
       consultancy_agency_assigned: undefined,
-      tasks: []
+      tasks: [],
+      status:'PENDING_APPROVAL'
+
     }).save();
     return res.json({ proj });
   } catch (err) {
@@ -75,6 +82,16 @@ try {
     });
   }
 });
+
+router.get('/read/:id', async(req,res) => {
+  try{
+  const tsk = await Project.findById(req.params.id)
+  console.log(tsk)
+  return res.json({ data: tsk })
+  } catch (err) {
+      return res.json({error: err.message})
+  }
+})
 
 router
   .route("/crud")

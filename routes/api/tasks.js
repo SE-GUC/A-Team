@@ -97,8 +97,11 @@ router.post('/add', async (req, res) => {
         skills: joi.array().items(joi.string()),
         admin_id: joi.string().length(24),
         assigned_id: joi.string().length(24),
-
-        applicants: joi.array().items(joi.string().length(24))
+        applicants: joi.array().items(joi.object().keys({
+            applicant_id: joi.string().length(24).required(),
+            is_accepted: joi.boolean()
+          }))
+ 
     })
     if (status.error) {
         return res.json({
@@ -217,9 +220,10 @@ router.get('/read', async (req, res) => {
         res.data('Request Erorr')
     }
 })
+//Amr Story 1.7
 router.get('/read/applicants/', async(req,res) => {
     try {
-        const app = await Tasks.find({status:"Pending"},{applicants:1})
+        const app = await Tasks.find({status:"Accepting"},{applicants:1})
         res.json ({
             data: app
         })
@@ -462,6 +466,31 @@ try {
 
 
 
+//STORY 1.11  MEMBERS CAN VIEW TASKS THEY APPLIED ON
+router.get('/viewapplied/:id', async(req, res) => {
+
+    try {
+        const exists = await User.findOne({ _id: req.params.id });
+        if (exists === null) {
+          return res.json({ message: "Please enter a valid member id" });
+        }
+        console.log(exists);
+
+            const u = await User.findById(req.params.id)
+            res.json({
+                data: u.tasks_applied_for
+            })
+        
+
+}catch (error) {
+    console.log(error)
+  
+    }
+});
+
+
+
+
 
 
 
@@ -569,7 +598,7 @@ router.get('/recommend/:member_id', async (req, res) => {
     }
 
 });
-router.get('/apply/:id', async (req, res) => {
+router.get('/apply/:id/:member_id', async (req, res) => {
     const status = joi.validate(req.params, {
         id: joi.string().length(24).required(),
         member_id:joi.string().length(24).required()

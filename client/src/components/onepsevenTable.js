@@ -3,23 +3,22 @@ import {BootstrapTable,
        TableHeaderColumn} from 'react-bootstrap-table';
 import '../css/Table.css';
 //import '../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css'
- 
- 
-class FeedbacksTable extends Component {
+
+
+class onepsevenTable extends Component {
   render() {
     return (
       <div>
         <BootstrapTable data={this.props.data}>
-          <TableHeaderColumn isKey={true} dataField='_id'>
-            ID
+          <TableHeaderColumn isKey dataField='applicants'>
+            Applicants
           </TableHeaderColumn>
-          <TableHeaderColumn dataField='comment'>
-            Comment
-          </TableHeaderColumn>
+
+
         </BootstrapTable>
       </div>
     );
   }
 }
- 
-export default FeedbacksTable;
+
+export default onepsevenTable; 
