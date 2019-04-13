@@ -40,7 +40,7 @@ router.post("/create", async (req, res) => {
       consultancy_agency_id: joi.string().length(24).required(),
       is_accepted: joi.boolean()
     })),
-    status:joi.string().min(10).required()
+    status:joi.string().min(10).allow()
 
 })
 if (status.error) {
