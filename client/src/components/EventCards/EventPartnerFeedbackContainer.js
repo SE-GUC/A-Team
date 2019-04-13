@@ -1,4 +1,4 @@
-import Card from './EventCard'
+import Card from './EventPartnerFeedbackCard'
 import React from 'react'
 import axios from 'axios'
 import '../../css/TaskCardContainer.css'
@@ -22,17 +22,16 @@ class EventsCardContainer extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/events/')
-            .then(res => {
-                // this.setState({events: res.data.data})
-                this.setState({elements:res.data.data})
-                this.setState({loading:false})
-            })
-            .catch(err => {
-                console.log("oislijdlijSfiz")
-            })
+        axios.get('http://localhost:4000/api/users/getCreatedEvents/5cae2d049cd95a5754daa7e4')
+        .then(res => {
+            // this.setState({events: res.data.data})
+            this.setState({elements:res.data.data})
+            this.setState({loading:false})
+        })
+        .catch(err => {
+            console.log("oislijdlijSfiz")
+        })
     }
-
     render() {  
         if(!this.state.loading) {
         var elements1=[];

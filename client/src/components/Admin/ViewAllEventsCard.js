@@ -35,8 +35,6 @@ class ViewAllEventsCard extends Component {
             this.setState({topics:this.props.data.topics})
             this.setState({type:this.props.data.type})
             this.setState({partner_initiated:this.props.data.partner_initiated})
-
-
     }
     checkAccept() {
         this.setState({accepted:'checked'})
@@ -76,11 +74,11 @@ class ViewAllEventsCard extends Component {
 				<div class="card-action">
                 <p>
                     <label>
-                        <input onClick={this.checkAccept} type="checkbox" class="filled-in" checked={this.state.accepted} />
+                    <a class="waves-effect waves-light btn">Accept</a>
+                    <a class="waves-effect waves-light btn">Reject</a>
                         <span>Accept</span>
                     </label>
                 </p>
-                <a onClick="" class="waves-effect waves-light btn">Submit</a>
 				</div>
 			</div>
 		</div>
