@@ -17,18 +17,14 @@ import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
-<<<<<<< HEAD
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
-
-=======
 import ProjectPostForm from './components/ProjectPostForm'
 import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
->>>>>>> 76ebe4ec4f5a773e2a68b3d5bd5b079e00da76ae
 
 const routing=(
     <Router>

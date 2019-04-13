@@ -93,7 +93,7 @@ class TaskCard extends Component {
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <div class="card__meta">
-                        <a href="card">{this.state.name}</a>
+                        <h5><a href="card">{this.state.name}</a></h5>
                         <time>{}</time>
                     </div>
                         <p><b>Description:</b> {this.state.description}</p>
