@@ -405,8 +405,8 @@ router
 
   router.get('/getMyEvents/:id', async(req,res)=>{
     try{
-    const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
-    return res.json({ data: eventsPartnerCreated })
+      const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+      return res.json({ data: eventsPartnerCreated })
   } catch (err) {
     return res.json({ error: `Error, couldn't find application for a event given the following data` })
   }

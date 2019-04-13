@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import axios from 'axios'
-import Card from './ApplicantsCard'
+import Card from './ShowFeedbacksCard'
 
 
 class EventCard extends Component {
@@ -22,7 +22,7 @@ class EventCard extends Component {
             applicants:[],
             elements2:[],
             showbtn:false,
-            applicant:''
+            feedbacks:[]
 
 
 
@@ -45,6 +45,7 @@ class EventCard extends Component {
                     this.setState({type:res.data.data.type})
                     this.setState({partner_initiated:res.data.data.partner_initiated})
                     this.setState({applicants:res.data.data.applicants})
+                    this.setState({feedbacks:res.data.data.feedbacks})
                         })
                 .catch(err => {
                     console.log(err)
@@ -52,18 +53,24 @@ class EventCard extends Component {
 
 
     }
-    showApplicants() {
+    showFeedbacks() {
         var elements1=[];
-        const users=this.state.applicants
-        console.log(this.state.applicants)
-        var elements3=[this.state.id]
+        const feedbacks=this.state.feedbacks
+        console.log(feedbacks)
+        var elements3=[]
+        for (var i =0 ;i<feedbacks.length;i++) {
+            elements3.push({
+                eventid:this.state.id,
+                index:i
+            })
+        }
         
-        for(var i=0;i<this.state.applicants.length;i++){
-            elements3.push(users[i].applicant_id)
-            elements1.push(<Card data ={elements3}/>);
-            console.log(elements3)
-            // elements3.pop()
-
+        
+        for(var i=0;i<this.state.feedbacks.length;i++){
+            elements3.push(i)
+            elements1.push(<Card data ={elements3[i]}/>);
+            console.log(elements3[i])
+            elements3.pop()
         }
         this.setState({elements2:elements1,
         showbtn:true})
@@ -109,7 +116,7 @@ class EventCard extends Component {
                     <p><b>Speakers:</b> {this.state.speakers}</p>
                     <p><b>Topics:</b> {this.state.topics}</p>
                     <p><b>Type:</b> {this.state.type}</p>
-                    <a onClick={()=>this.showApplicants()} class="waves-effect waves-light btn">Show Applicants</a>
+                    <a onClick={()=>this.showFeedbacks()} class="waves-effect waves-light btn">Show Feedbacks</a>
                     
 				</div>
 				<div class="card-action">

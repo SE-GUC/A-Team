@@ -26,6 +26,7 @@ import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
 import EventsPartner from './components/EventCards/EventsPartnerContainer'
+import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedbackContainer'
 
 const routing=(
     <Router>
@@ -40,6 +41,7 @@ const routing=(
       <Route path="/appcard" component={ApplicationCard}/>    
       {/* <Route path='/partnerrequests' component={ApplicantsCard}/> */}
       <Route path='/partnerrequests' component={EventsPartner}/>
+      <Route path='/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
     
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
