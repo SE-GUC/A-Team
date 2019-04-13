@@ -50,6 +50,11 @@ const routing=(
       <Route path="/locations" component={Locationcomps} />
       <Route path="/applyproj" component={ApplyProject} />
       <Route path="/cancelapp" component={CancelApp} />
+
+
+
+
+      
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
 
     
