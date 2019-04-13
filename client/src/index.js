@@ -22,13 +22,13 @@ import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
 import TaskCardContainer from './components/TaskCardContainer';
 //import EventCard from './components/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
+import MainPage from './components/Admin/MainPage'
 
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
 
 import ProjectPostForm from './components/ProjectPostForm'
-import TaskCardContainer from './components/TaskCardContainer';
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
@@ -50,7 +50,8 @@ const routing=(
       <Route path='/submit_task' component={TaskPostForm}/>
       <Route path="/recommend" component={Recommend} />
       <Route path="/Review" component={Review} />
-     
+      <Route path="/Admin" component={MainPage} />
+
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
