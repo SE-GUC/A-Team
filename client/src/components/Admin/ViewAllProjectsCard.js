@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import axios from 'axios'
+
 class ViewAllProjectsCard extends Component {
     constructor(props) {
         super(props)
@@ -110,7 +111,7 @@ class ViewAllProjectsCard extends Component {
                 <p>
                        
                 </p>
-                <a onClick={()=>this.accepy()} class="waves-effect waves-light btn">Accept</a>
+                <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
 				</div>
 			</div>
 		</div>
