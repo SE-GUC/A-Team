@@ -1,7 +1,7 @@
 import Card from './EventCard'
 import React from 'react'
 import axios from 'axios'
-
+import '../../css/TaskCardContainer.css'
 class EventsCardContainer extends React.Component {  
 
     constructor(props) {
