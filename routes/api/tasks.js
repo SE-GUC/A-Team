@@ -220,9 +220,10 @@ router.get('/read', async (req, res) => {
         res.data('Request Erorr')
     }
 })
+//Amr Story 1.7
 router.get('/read/applicants/', async(req,res) => {
     try {
-        const app = await Tasks.find({status:"Pending"},{applicants:1})
+        const app = await Tasks.find({status:"Accepting"},{applicants:1})
         res.json ({
             data: app
         })
