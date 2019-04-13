@@ -19,22 +19,17 @@ class ShowFeedbacks extends Component {
     }
     componentDidMount() {
         var elements=[]
-        // console.log(this.props.data)
-        const url = 'http://localhost:4000/api/events/getid/'+this.props.data[0]
-        // console.log(url)
+        console.log(this.props.data)
+        const url = 'http://localhost:4000/api/events/getid/'+this.props.data.eventid
+        console.log(url)
         axios.get(url)
         .then(
             res =>{
                 this.setState({name:res.data.data.name})
                 this.setState({feedbacks:res.data.data.feedbacks})
-                elements=res.data.data.feedbacks
-                console.log(elements)
-                this.setState({feedbacks:elements})
-                // console.log(this.state.feedbacks)
-                this.setState({feedback:this.state.feedbacks[this.props.data[this.props.data.length-1].comment]})
-                this.setState({rate:this.state.feedbacks[this.props.data[this.props.data.length-1].rate]})
-                console.log(this.state.feedbacks[this.props.data[this.props.data.length-1]].comment)
-                // console.log(this.state.rate)
+                this.setState({feedback:this.state.feedbacks[this.props.data.index].comment})
+                this.setState({rate:this.state.feedbacks[this.props.data.index].rate})
+                
             }
         )
 

@@ -23,7 +23,8 @@ class ApplicantsCard extends Component {
     }
     componentDidMount() {
         console.log(this.props.data)
-        const url = 'http://localhost:4000/api/users/'+this.props.data[this.props.data.length-1]
+        const url = 'http://localhost:4000/api/users/'+this.props.data.applicant_id
+        console.log(this.props.data.eventid)
         console.log(url)
         axios.get(url)
         .then(
@@ -42,9 +43,10 @@ class ApplicantsCard extends Component {
 
     }
     accept() {
-        const url = 'http://localhost:4000/api/events/'+this.props.data[0]+'/apply'
+        const url = 'http://localhost:4000/api/events/'+this.props.data.eventid+'/apply'
+        console.log(this.props.data.eventid)
         axios.put(url, {
-            applicant_id:this.props.data[this.props.data.length-1],
+            applicant_id:this.props.data.applicant_id,
             is_accepted:true
         })
 

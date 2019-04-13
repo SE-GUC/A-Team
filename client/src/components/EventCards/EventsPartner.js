@@ -56,18 +56,26 @@ class EventCard extends Component {
         var elements1=[];
         const users=this.state.applicants
         console.log(this.state.applicants)
-        var elements3=[this.state.id]
         
+        
+        var array=[]
         for(var i=0;i<this.state.applicants.length;i++){
-            elements3.push(users[i].applicant_id)
-            elements1.push(<Card data ={elements3}/>);
-            console.log(elements3)
+            var elements3={
+                eventid:this.state.id,
+                applicant_id:users[i].applicant_id
+            }
+            array.push(elements3)
+        }
+        for(var i =0;i<array.length;i++) {
+            elements1.push(<Card data ={array[i]}/>);
+        }
             // elements3.pop()
+            this.setState({elements2:elements1,
+            showbtn:true})
 
         }
-        this.setState({elements2:elements1,
-        showbtn:true})
-    }
+        
+    
 
     render() {
         if(this.state.showbtn) {
