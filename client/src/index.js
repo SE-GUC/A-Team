@@ -37,6 +37,7 @@ import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
 import EventsPartner from './components/EventCards/EventsPartnerContainer'
 import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedbackContainer'
+import TaskCardContainer from './components/TaskCardContainer'
 
 const routing=(
     <Router>
