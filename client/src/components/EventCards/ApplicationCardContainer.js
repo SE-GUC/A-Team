@@ -1,6 +1,7 @@
 import Card from './ApplicationCard'
 import React from 'react'
 import axios from 'axios'
+import '../../css/TaskCardContainer.css'
 
 class ApplicaitonCardContainer extends React.Component {  
 
@@ -24,7 +25,7 @@ class ApplicaitonCardContainer extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:4000/api/events/')
             .then(res => {
-                // this.setState({events: res.data.data})
+                this.setState({events: res.data.data})
                 this.setState({elements:res.data.data})
                 this.setState({loading:false})
             })
@@ -42,8 +43,12 @@ class ApplicaitonCardContainer extends React.Component {
             elements1.push(<Card data ={events[i]}/>);
         }
         return (
-            <div> 
-            {elements1}
+            <div class="container">
+                <div class="row">
+                    <div class = "row s2">  
+                        {elements1}
+                    </div>
+                </div>
             </div>
         );
         }

@@ -131,7 +131,8 @@ class ViewAllEventsCard extends Component {
 				<div class="card-action">
                 <p>
                     <label>
-                        <input onClick={this.checkAccept} type="checkbox" class="filled-in" checked={this.state.accepted} />
+                    <a class="waves-effect waves-light btn">Accept</a>
+                    <a class="waves-effect waves-light btn">Reject</a>
                         <span>Accept</span>
                     </label>
                 </p>
