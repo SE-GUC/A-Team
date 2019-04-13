@@ -106,7 +106,6 @@ router.post('/register', async (req,res) => {
       name: joi.string().min(2).max(30).required(),
       email: joi.string().email().required(),
       password: joi.string().required(),
-      age: joi.number(),
       type: joi.array().items(joi.string().min(1).max(2)).required(),
       username: joi.string().min(8).max(50).required(),
       date_of_birth: joi.string().required(),
@@ -118,7 +117,8 @@ router.post('/register', async (req,res) => {
       board_members: joi.allow(),
       reports:joi.allow(),
       years_of_experience:joi.allow(),
-      skills:joi.allow()
+      skills:joi.allow(),
+      notifications:joi.allow()
       })
       if (status.error) {
         return res.json({ error: status.error.details[0].message })
@@ -128,7 +128,6 @@ router.post('/register', async (req,res) => {
         name: joi.allow(),
         email: joi.allow(),
         password: joi.allow(),
-        age: joi.allow(),
         type: joi.allow(),
         username: joi.allow(),
         date_of_birth: joi.allow(),
@@ -146,7 +145,6 @@ router.post('/register', async (req,res) => {
       name: joi.allow(),
       email: joi.allow(),
       password: joi.allow(),
-      age: joi.allow(),
       type: joi.allow(),
       username: joi.allow(),
       date_of_birth: joi.allow(),
@@ -162,7 +160,6 @@ router.post('/register', async (req,res) => {
       name: joi.allow(),
       email: joi.allow(),
       password: joi.allow(),
-      age: joi.allow(),
       type: joi.allow(),
       username: joi.allow(),
       date_of_birth: joi.allow(),
@@ -207,7 +204,6 @@ router.post('/register', async (req,res) => {
             type,
             username,
             name,
-            age,
             email,
             password: hashedPassword ,
             date_of_birth,
@@ -223,7 +219,8 @@ router.post('/register', async (req,res) => {
             skills,
             notifications:[],
             past_projects:[],
-            events_created:[]
+            events_created:[],
+            tasks_applied_for:[]
         })
     newUser
     .save()
