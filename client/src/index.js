@@ -32,12 +32,15 @@ import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
+
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
-import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
+// import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
 import EventsPartner from './components/EventCards/EventsPartnerContainer'
 import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedbackContainer'
 import TaskCardContainer from './components/TaskCardContainer'
+import EventModule from './components/EventCards/EventModule'
+
 
 const routing=(
     <Router>
@@ -51,7 +54,7 @@ const routing=(
       <Route path="/adminContainer" component={AdminViewEvents}/>    
       <Route path="/feedback" component={Feedback}/>    
       <Route path="/appcard" component={ApplicationCard}/>    
-      {/* <Route path='/partnerrequests' component={ApplicantsCard}/> */}
+      <Route path='/eventmodule' component={EventModule}/>
       <Route path='/partnerrequests' component={EventsPartner}/>
       <Route path='/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
     
