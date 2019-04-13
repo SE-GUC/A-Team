@@ -49,9 +49,12 @@ router.get('/get_tasks/:id',async(req,res) => {
   return res.json({data: tasksApplied})
 })
 //Amr Story 1.1
+//STILL NOT TESTED
 router.put('/remove_application/:id', async (req,res) => {
-  User.update( {_id: req.params.id}, { $pull: {tasks_applied_for: {_id:req.body.id}}}
+  
+  const m = await User.update( {_id: req.params.id}, { $pull: {tasks_applied_for: req.body.tasks_applied_for}}
     )
+    return res.json({data:m})
 })
 
 
@@ -127,6 +130,7 @@ router.post('/register', async (req,res) => {
       reports:joi.allow(),
       years_of_experience:joi.allow(),
       skills:joi.allow()
+      
       })
       if (status.error) {
         return res.json({ error: status.error.details[0].message })
