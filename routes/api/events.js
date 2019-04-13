@@ -84,6 +84,29 @@ router.get('/getPending', async (req,res)=>{
   console.log(allEvents)
   return res.json({ data: allEvents })
 })
+//not tested lesa
+router
+  .route('/getPendingId/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      var allEvents = await Event.find({}).exec()
+      allEvents.filter(lessa_pending)
+      const event = allEvents.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 
 router.post('/createType', async (request, response) => {
   const status = joi.validate(request.body, {

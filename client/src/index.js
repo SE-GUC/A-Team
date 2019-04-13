@@ -18,6 +18,12 @@ import Locationcomps from './components/Locationcomps'
 import CreateEvent from './components/CreateEvent'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
+import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
+import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
+import TaskCardContainer from './components/TaskCardContainer';
+//import EventCard from './components/EventsCardContainer'
+import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
+
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
@@ -62,6 +68,9 @@ const routing=(
       <Route path="/Create_Events" component={CreateEvent} />
       <Route path="/applyproj" component={ApplyProject} />
       <Route path="/cancelapp" component={CancelApp} />
+      <Route path="/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/viewallevents" component={ViewAllEventsContainer} />
+      <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
 
 
 

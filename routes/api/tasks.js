@@ -97,8 +97,11 @@ router.post('/add', async (req, res) => {
         skills: joi.array().items(joi.string()),
         admin_id: joi.string().length(24),
         assigned_id: joi.string().length(24),
-
-        applicants: joi.array().items(joi.string().length(24))
+        applicants: joi.array().items(joi.object().keys({
+            applicant_id: joi.string().length(24).required(),
+            is_accepted: joi.boolean()
+          }))
+ 
     })
     if (status.error) {
         return res.json({

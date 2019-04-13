@@ -1,13 +1,14 @@
-import Card from './ViewAllEventsCard';
+import Card from './ViewPendingEvents';
 import React from 'react';
 import axios from 'axios';
 import '../../css/TaskCardContainer.css'
-class ViewAllEventsContainer extends React.Component {
+
+class ViewPendingEventsComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             elements:[],
-            id:'',
+            _id:'',
             remaining_places:'',
             name:'',
             location:'',
@@ -30,7 +31,7 @@ class ViewAllEventsContainer extends React.Component {
 
     componentDidMount() {
       
-        axios.get('http://localhost:4000/api/events/' )
+        axios.get('http://localhost:4000/api/getPending/')
             .then(res => {
                 console.log(res.data.data)
                 this.setState({
@@ -77,4 +78,4 @@ class ViewAllEventsContainer extends React.Component {
     }
 
 }
-export default ViewAllEventsContainer;
+export default ViewPendingEventsComponent;

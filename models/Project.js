@@ -17,12 +17,12 @@ const ProjectSchema = new Schema({
     partner_responsible:{
         type: Schema.Types.ObjectId, 
         required:true,
-        // ref:'User'
+         ref:'User'
     },
     consultancy_agency_assigned:{
         type:Schema.Types.ObjectId,
         required:false,
-        // ref:'User'    
+         ref:'User'    
     },
     skills: [{
         type: String,
@@ -33,14 +33,19 @@ const ProjectSchema = new Schema({
         consultancy_agency_id:Schema.Types.ObjectId,
         is_accepted:Boolean,
         required:false,
-        // ref:'User'
+         ref:'User'
     }],
     tasks:[{
         type: Schema.Types.ObjectId, 
-        // ref: 'tasks',
+        ref: 'tasks',
         required:false
     
-    }]
+    }],
+    status :{
+        type:String,
+        enum:['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED'],
+        required:true
+    }
 
 
 })
