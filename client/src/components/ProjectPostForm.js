@@ -9,7 +9,7 @@ import "materialize-css/dist/css/materialize.min.css";
 export class PostForm extends Component {
   state = {
     name: "",
-    partner_responsible: "5cacccc7b62d5618bc0fff21", //Assuming Session
+    partner_responsible: "5cae373eaea50e48600c8483", //Assuming Session
     description: "",
     skills: [],
     all_skills: []

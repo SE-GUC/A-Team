@@ -20,7 +20,6 @@ import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
 import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
-import TaskCardContainer from './components/TaskCardContainer';
 //import EventCard from './components/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
