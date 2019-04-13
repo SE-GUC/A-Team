@@ -9,6 +9,22 @@ const Type = require('../../models/Type')
 const User= require('../../models/User')
 
 
+
+router.get('/getBySpeakers/:speaker', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.speakers.includes(req.params.speaker)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
 router.get('/getByTopics/:topic', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
