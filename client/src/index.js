@@ -38,6 +38,7 @@ import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
 import EventsPartner from './components/EventCards/EventsPartnerContainer'
 import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedbackContainer'
 import TaskCardContainer from './components/TaskCardContainer'
+import Register from './components/Authentication/Register'
 
 const routing=(
     <Router>
@@ -72,13 +73,8 @@ const routing=(
       <Route path="/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/viewallevents" component={ViewAllEventsContainer} />
       <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
-
-
-
-
-      
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
-
+      <Route path='/register' component={Register}/>
     
       
     </div>
