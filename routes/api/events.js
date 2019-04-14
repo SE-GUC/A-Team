@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
 const moment = require('moment')
-
+const Location = require('../../models/Location')
 const Event = require('../../models/Event')
 const Type = require('../../models/Type')
 
@@ -47,6 +47,21 @@ router.route('/:type').get(async (request, response) => {
   }
 })
 
+router.get('/get_events/:location', async(req,res)=> {
+  try {
+    const final  = await Event.find({location:req.params.location})
+    console.log(final)
+    res.json({
+
+      data:final
+    })
+    
+  } catch (err) {
+    res.json({
+      err
+    })
+  }
+})
 
 
 router
@@ -320,3 +335,5 @@ router
 
   
 module.exports=router 
+
+
