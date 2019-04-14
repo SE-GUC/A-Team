@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
 const moment = require('moment')
-
+const Location = require('../../models/Location')
 const Event = require('../../models/Event')
 const Type = require('../../models/Type')
 const User= require('../../models/User')
@@ -23,7 +23,38 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     })
     return res.json({ data: result }) 
   } catch (err) {
-    return res.json({ error: `Error, couldn't find a event given the following type` })
+    return res.json({ error: `Error, couldn't find an event given the following speaker` })
+  }
+})
+router.get('/FilterByPrice/:Price', async(req,res)=>{
+ try{ const allEvents=await Event.find({}).exec()
+  var r= []
+  allEvents.forEach(event =>{
+    if (event.price[0]<parseInt(req.params.Price+1)){
+      r.push(event)
+    }
+  })
+  return res.json({data: r })
+}
+catch(err){
+  return res.json({ error: `Error, couldn't find an event given the following price` })
+}
+})
+
+
+
+router.get('/getByRemainginPlaces/:places', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.remaining_places<parseInt(req.params.places)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find an event given the following place` })
   }
 })
 
@@ -40,7 +71,7 @@ router.get('/getByTopics/:topic', async(req,res)=>{
     console.log(result)
     return res.json({ data: result }) 
   } catch (err) {
-    return res.json({ error: `Error, couldn't find a event given the following type` })
+    return res.json({ error: `Error, couldn't find an event given the following topic` })
   }
 })
 
@@ -139,6 +170,16 @@ router.post('/createType', async (request, response) => {
       return response.json({ error: err.message })
     }
   })
+  router.get('/getTypesHoss', async (request, response) => {
+    try {
+      const types = await Type.find({}).exec()
+      var allTypes =[]
+      return response.json({ data: types })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
   router.delete('/deleteTypes/:id', async (request, response) => {
     Type.findByIdAndDelete(request.params.id, (err, model) => {
       if (!err) {
@@ -167,6 +208,21 @@ router.route('/:type').get(async (request, response) => {
   }
 })
 
+router.get('/get_events/:location', async(req,res)=> {
+  try {
+    const final  = await Event.find({location:req.params.location})
+    console.log(final)
+    res.json({
+
+      data:final
+    })
+    
+  } catch (err) {
+    res.json({
+      err
+    })
+  }
+})
 
 
 router
@@ -477,3 +533,5 @@ router
   
   
 module.exports=router 
+
+

@@ -12,6 +12,7 @@ class ApplicantsCard extends Component {
             username:'',
             age:'',
             interests:[],
+            show:true
             // speakers:[],
             // topics:[],
             // type:[],
@@ -49,6 +50,13 @@ class ApplicantsCard extends Component {
             applicant_id:this.props.data.applicant_id,
             is_accepted:true
         })
+        const url2 = 'http://localhost:4000/api/users/' +this.props.data.applicant_id+'/addEvent/'
+        console.log(url2)
+        axios.post(url2, {
+            eventid:this.props.data.eventid
+        })
+        this.setState({show:false})
+
 
     }
     reject() {
@@ -56,6 +64,7 @@ class ApplicantsCard extends Component {
     }
 
     render() {
+        if(this.state.show)
         return (
         
 <div>
@@ -90,6 +99,13 @@ class ApplicantsCard extends Component {
 	</div>
 </div>
         )
+        else{
+            return (
+                <div>
+                    
+                </div>
+            )
+        }
     }
 }
 

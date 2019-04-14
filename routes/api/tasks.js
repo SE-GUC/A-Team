@@ -10,6 +10,15 @@ const User = require('../../models/User')
 
 
 
+router.get('/allemails', async(req, res)=>{
+    const allUsers=await User.find({}).exec()
+    var allEmails = []
+    for(var i=0;i<allUsers.length;i++){
+        allEmails.push(allUsers[i].email)
+    }
+    return res.json(allEmails)
+})
+
 //add random task tester
 router.get('/', async (req, res) => {
     try {

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import EventList from '../EventList';
-import ShowFeedbacks from '../ShowFeedbacks';
-import GetEventsByType from '../GetEventsByType';
-import ApplyForEvent from '../ApplyForEvent';
+import EventCard from './EventsCardContainer'
+import ApplicationCard from './ApplicationCardContainer'
+import EventsPartner from './EventsPartnerContainer'
+import EventsPartnerFeedbacks from './EventPartnerFeedbackContainer'
 import {
     Container, 
     Button
 } from "reactstrap";
+import FeedbackCardContainer from './FeedbackCardContainer';
 
 class Events extends Component {
     
@@ -14,7 +15,8 @@ class Events extends Component {
         show:false,
         showFeedbacks:false,
         showByType:false,
-        showApplication: false
+        showApplication: false,
+        showFeedbacksofPartner:false
       }
         booleanShow = event => {
         event.preventDefault();
@@ -22,7 +24,9 @@ class Events extends Component {
           show:true,
           showFeedbacks:false,
           showByType:false,
-          showApplication: false
+          showApplication: false,
+          showFeedbacksofPartner:false
+
     
     
         })
@@ -33,7 +37,9 @@ class Events extends Component {
           show:false,
           showFeedbacks:true,    
           showByType:false,
-          showApplication: false
+          showApplication: false,
+          showFeedbacksofPartner:false
+
     
         })
       }
@@ -44,7 +50,9 @@ class Events extends Component {
           show:false,
           showFeedbacks:false,    
           showByType:true,
-          showApplication: false
+          showApplication: false,
+          showFeedbacksofPartner:false
+
     
         })
       }
@@ -55,7 +63,21 @@ class Events extends Component {
           show:false,
           showFeedbacks:false,    
           showByType:false,
-          showApplication: true
+          showApplication: true,
+          showFeedbacksofPartner:false
+
+      })
+      }
+      
+      booleanFeedbacks = event =>{
+        event.preventDefault();
+        this.setState({
+          show:false,
+          showFeedbacks:false,    
+          showByType:false,
+          showApplication: false,
+          showFeedbacksofPartner:true
+
       })
       }
     
@@ -68,9 +90,11 @@ class Events extends Component {
         
                 <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
-                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Show Events by Type</Button> 
+                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
-                {/* <EventList/> */}
+                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+
+                <EventCard/>
 
             </Container>
 
@@ -85,9 +109,11 @@ class Events extends Component {
                  <h1>Events</h1>
                     <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
-                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Show Events by Type</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
-                    {/* <ShowFeedbacks/> */}
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+
+                    <FeedbackCardContainer/>
               </Container>
           </div>
             )
@@ -100,9 +126,11 @@ class Events extends Component {
               <h1>Events</h1>
                 <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
-                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Show Events by Type</Button> 
+                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
-                {/* <GetEventsByType/> */}
+                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+
+                <EventsPartner/>
               </Container>
           </div>
             )
@@ -115,14 +143,33 @@ class Events extends Component {
                  <h1>Events</h1>
                     <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
-                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Show Events by Type</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
-                    {/* <ApplyForEvent/> */}
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+
+                    <ApplicationCard/>
 
               </Container>
           </div>
             )
      
+      }
+      renderFeedbacksofPartner() {
+        return(
+          <div>
+              <Container>
+                 <h1>Events</h1>
+                    <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                    <EventsPartnerFeedbacks/>
+
+              </Container>
+          </div>
+            )
+
       }
       render() {
         if(this.state.show) {
@@ -137,14 +184,18 @@ class Events extends Component {
         if (this.state.showApplication){
           return this.renderApplicaiton();
         }
+        if(this.state.showFeedbacksofPartner)
+        return this.renderFeedbacksofPartner();
         return (
           <div>
               <Container>
                  <h1>Events</h1>
                     <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
-                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Show Events by Type</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+
               </Container>
 
             </div>
