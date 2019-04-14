@@ -40,10 +40,10 @@ const UserSchema = new Schema({
         type: Boolean,
         required:true
     },
-    interests: {
+    interests: [{
         type: String,
         required: true,
-    },
+    }],
     //stuff of CA
     info: {
         type: String,
@@ -78,6 +78,11 @@ const UserSchema = new Schema({
         type:Number,
         required: false 
     }],
+    tasks_applied_for:[{
+        type:mongoose.Schema.Types.ObjectId,
+        required:false
+    }],
+
 
 
 

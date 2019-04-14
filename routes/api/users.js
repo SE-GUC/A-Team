@@ -3,34 +3,90 @@ const router = express.Router();
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
+const Event = require('../../models/Event');
 const joi = require('joi');
 const moment = require('moment')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
 
+
+
+// {
+	
+//   "type":["P"],
+//     "username":"mohamedhooda",
+//     "name":"Mohamed Mahmoud",
+//     "email": "mohamedhooda@lirten.com",
+//     "password": "hashedPassword" ,
+//     "date_of_birth":"balooza",
+//     "phone": "01005599171",
+//     "is_private": false,
+//     "interests":["Computer Science"],
+//     "field_of_work": [],
+//     "board_members":[]
+// }
 //to get every User
+    // router.get('/', passport.authenticate('jwt', {session: false}),  async (req, res) => {
+    //   const users = await User.find()
+    //   res.json({ data: users })
+    // });
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
 
-//login
-router.post('/login', function(req, res){
-  const email= req.body.email;
-  const password= req.body.password;
-  const salt = bcrypt.genSaltSync(10)
-  const hashedPassword = bcrypt.hashSync(password,salt)
- 
-  User.findOne({email: email, password: password}, function(err, user){
-      if(err){
-          console.log(err);
-          return res.status(500).send();
-      }
-      if(!user){
-          return res.status(404).send();
+router.get('/getEvents/:id', async(req,res)=>{
+  const user = await User.findById(req.params.id).exec()
+  const events = await user.events_attended
+  return res.json({ data: events })
+})
 
-      }
-      req.session.user= user;
-      return res.status(200).send();
-  })
+//Amr Story 1.15
+router.get('/get_tasks/:id',async(req,res) => {
+  const users = await User.findById(req.params.id).exec()
+  const tasksApplied = await users.tasks_applied_for
+  return res.json({data: tasksApplied})
+})
+// router.put('/remove_application/:id', function(req,res)=> {
+//   User.update({_id:req.params.id}, { $pull: {tasks_applied_for: {_id:req.body.id} } }
+//     )
+// })
+// .put(async (request, response) => {
+//   User.findByIdAndUpdate(request.params.id, request.body, { new: true }, (err, model) => {
+//     if (!err) {
+//       return response.json({ data: model })
+//     } else {
+//       return response.json({ error: `Error, couldn't update a user given the following data` })
+//     }
+//   })
+// })
+
+
+router.get('/getCreatedEvents/:id', async(req,res)=>{
+  const user = await User.findById(req.params.id).exec()
+  const events = await user.events_created
+  return res.json({ data: events })
+})
+
+router.post('/login', async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const user = await User.findOne({ email });
+		if (!user) return res.status(404).json({ email: 'Email does not exist' });
+		const match = bcrypt.compareSync(password, user.password);
+		if (match) {
+            const payload = {
+                id: user.id,
+                name: user.name,
+                email: user.email, 
+                type:user.type
+            }
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            return res.json({token: `Bearer ${token}`})
+        }
+		else return res.status(400).send({ password: 'Wrong password' });
+	} catch (e) {}
 });
 
 //dashboard
@@ -42,6 +98,7 @@ router.get('/dashboard', function(req,res){
   return res.status(200).send("Welcome!");
 })
 
+
 //register new user
 router.post('/register', async (req,res) => {
     const {type, email, username, date_of_birth, name, password, phone, is_private, interests, info, field_of_work,board_members,reports,years_of_experience,skills }  = req.body
@@ -49,7 +106,6 @@ router.post('/register', async (req,res) => {
       name: joi.string().min(2).max(30).required(),
       email: joi.string().email().required(),
       password: joi.string().required(),
-      age: joi.number(),
       type: joi.array().items(joi.string().min(1).max(2)).required(),
       username: joi.string().min(8).max(50).required(),
       date_of_birth: joi.string().required(),
@@ -61,7 +117,8 @@ router.post('/register', async (req,res) => {
       board_members: joi.allow(),
       reports:joi.allow(),
       years_of_experience:joi.allow(),
-      skills:joi.allow()
+      skills:joi.allow(),
+      notifications:joi.allow()
       })
       if (status.error) {
         return res.json({ error: status.error.details[0].message })
@@ -71,7 +128,6 @@ router.post('/register', async (req,res) => {
         name: joi.allow(),
         email: joi.allow(),
         password: joi.allow(),
-        age: joi.allow(),
         type: joi.allow(),
         username: joi.allow(),
         date_of_birth: joi.allow(),
@@ -89,7 +145,6 @@ router.post('/register', async (req,res) => {
       name: joi.allow(),
       email: joi.allow(),
       password: joi.allow(),
-      age: joi.allow(),
       type: joi.allow(),
       username: joi.allow(),
       date_of_birth: joi.allow(),
@@ -105,7 +160,6 @@ router.post('/register', async (req,res) => {
       name: joi.allow(),
       email: joi.allow(),
       password: joi.allow(),
-      age: joi.allow(),
       type: joi.allow(),
       username: joi.allow(),
       date_of_birth: joi.allow(),
@@ -165,7 +219,8 @@ router.post('/register', async (req,res) => {
             skills,
             notifications:[],
             past_projects:[],
-            events_created:[]
+            events_created:[],
+            tasks_applied_for:[]
         })
     newUser
     .save()
@@ -252,6 +307,10 @@ router.get('/users/:id',async (req,res) => {
     else
     res.json({data: user})
     });
+
+
+
+
 
 module.exports=router
     

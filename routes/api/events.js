@@ -6,6 +6,78 @@ const moment = require('moment')
 const Location = require('../../models/Location')
 const Event = require('../../models/Event')
 const Type = require('../../models/Type')
+const User= require('../../models/User')
+
+
+
+router.get('/getBySpeakers/:speaker', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.speakers.includes(req.params.speaker)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
+router.get('/getByRemainginPlaces/:places', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.remaining_places<parseInt(req.params.places)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
+router.get('/getByTopics/:topic', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.topics.includes(req.params.topic)){
+        result.push(event)
+      }
+    })
+    // const event = await Event.find({type:request.params.type}).exec()
+    console.log(result)
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find a event given the following type` })
+  }
+})
+
+router
+  .route('/getID/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const event = await Event.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
 
 // {
 //   "remaining_places": 300,
@@ -20,6 +92,37 @@ const Type = require('../../models/Type')
 //     "attendees": ["5c93cd1f1c9fe35274d2f624","5c93cd1f1c9fe35274d2f624"]
 
 // }
+
+router.get('/getPending', async (req,res)=>{
+  var allEvents = await Event.find({}).exec()
+  allEvents.filter(lessa_pending)
+  console.log(allEvents)
+  return res.json({ data: allEvents })
+})
+//not tested lesa
+router
+  .route('/getPendingId/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      var allEvents = await Event.find({}).exec()
+      allEvents.filter(lessa_pending)
+      const event = allEvents.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
 router.post('/createType', async (request, response) => {
   const status = joi.validate(request.body, {
       name: joi.string().required(),
@@ -37,11 +140,37 @@ router.post('/createType', async (request, response) => {
     }
   })
 
+  router.get('/getTypes', async (request, response) => {
+    try {
+      const types = await Type.find({}).exec()
+      return response.json({ data: types })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+  router.delete('/deleteTypes/:id', async (request, response) => {
+    Type.findByIdAndDelete(request.params.id, (err, model) => {
+      if (!err) {
+        return response.json({ data: null })
+      } else {
+        return response.json({ error: `Error, couldn't delete a Type given the following data` })
+      }
+    })
+  })
+  
 //get all events with a type "task 2.3" na2sa testing
 router.route('/:type').get(async (request, response) => {
   try {
-    const event = await Event.find({type:request.params.type}).exec()
-    return response.json({ data: event })
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.type.includes(request.params.type)){
+        result.push(event)
+      }
+    })
+    // const event = await Event.find({type:request.params.type}).exec()
+    console.log(result)
+    return response.json({ data: result })
   } catch (err) {
     return response.json({ error: `Error, couldn't find a event given the following type` })
   }
@@ -74,8 +203,8 @@ router
       about: joi.string().min(5).max(500).required(),
       remaining_places: joi.number().required(),
       speakers: joi.array().items(joi.string().min(4).max(70)),
-      topics: joi.array().items(joi.string().min(4).max(70)),
-      type: joi.array().items(joi.string().min(5).max(20)).required(),
+      topics: joi.array().items(joi.string().min(3).max(70)),
+      type: joi.array().items(joi.string().min(3).max(20)).required(),
       partner_initiated: joi.string().length(24).required(),
       attendees: joi.array().items(joi.string().length(24)),
       status: joi.string(),
@@ -128,6 +257,45 @@ router
     }
   })
 
+  router.get('/getEligible/:id', async(req,res)=> {
+    var user = await User.findById(req.params.id).exec()
+    console.log(user)
+    var allEvents = await Event.find({}).exec()
+    console.log(intersection_destructive(allEvents[0].status !== 'PENDING_APPROVAL'))
+    var result=[]
+    for(var i=0;i<allEvents.length;i++) {
+      if(intersection_destructive(user.interests,allEvents[i].type).length>0 && allEvents[i].status !== 'PENDING_APPROVAL'){
+        console.log('ana get hena')
+        result.push(allEvents[i])
+      }
+    }
+    console.log(result)
+    return res.json({ data: result })
+  })
+
+  function intersection_destructive(a, b)
+  {
+  var result = [];
+  while( a.length > 0 && b.length > 0 )
+  {  
+     if      (a[0] < b[0] ){ a.shift(); }
+     else if (a[0] > b[0] ){ b.shift(); }
+     else
+     {
+       result.push(a.shift());
+       b.shift();
+     }
+  }
+
+  return result;
+  }
+
+  function lessa_pending(a) {
+    if(a.status==='PENDING_APPROVAL'){
+      return true
+    }
+    else return false
+  }
 
 router
   .route('/:id')
@@ -321,18 +489,16 @@ router
     }
   })
 
+  router.get('/getMyEvents/:id', async(req,res)=>{
+    try{
+      const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+      return res.json({ data: eventsPartnerCreated })
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find application for a event given the following data` })
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+  })
+  
   
 module.exports=router 
 

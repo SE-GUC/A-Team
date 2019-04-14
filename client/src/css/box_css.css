@@ -1,4 +1,4 @@
-h1{
+.header1{
     background: #45ACA8;
     font-size:32px;
     height: 43px; 
@@ -169,5 +169,38 @@ td{
     height:30px;
     margin-top: 20px;
     margin-left:90px;
+}
+.layoutTaskForm{
+    background-image: url('https://www.digitalorganics.com.au/wp-content/uploads/2018/02/webbackground.jpg');
+    background-repeat: round;
+    background-size: inherit;
+    
+
+
 } 
-        
+.layoutTaskFormInner{
+    padding-top:100px;
+    margin-top:100px ;
+    margin-left:150px;
+    margin-right:150px;
+    background:transparent;
+    border: 6px cadetblue solid;
+    
+}
+
+.layoutTaskFormInner::placeholder {
+    color: black;
+    font-size: 13px;
+  }
+  .loader {
+    /*if you want to use it just add an empty div with is in the middle*/  
+    border-bottom: 16px solid red;
+    border-top: 16px solid blue;
+    border-right: 16px solid yellow;
+    border-left: 16px solid green;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; 
+    animation: spin 2s linear infinite;
+  }

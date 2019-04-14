@@ -19,6 +19,8 @@ const projects= require('./routes/api/project')
 const dummy = require('./routes/api/dummy')
 const member =require('./routes/api/members')
 const ConsultancyAgency = require('./routes/api/consultancy_agencies')
+const skills= require('./routes/api/skills')
+const notif=require('./routes/api/notification')
 
 //const tasks_objects= require('./routes/api/tasks_objects')
 
@@ -26,7 +28,6 @@ const ConsultancyAgency = require('./routes/api/consultancy_agencies')
 
 
     mongoose.connect('mongodb+srv://mohamedhooda:Fox2871998@lirtennewschema-ld7fm.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
-   //lazm nsheel el 5ara da
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
     }).on('error', function(error){
@@ -84,6 +85,8 @@ app.use('/api/dummy',dummy)
 app.use('/api/consultancyAgencies',ConsultancyAgency)
 app.use('/api/partners',partner)
 app.use('/api/members',member)
+app.use('/api/skills',skills)
+app.use('/api/notifications',notif)
 //app.use('/api/tasks',tasks_objects)
 
 
