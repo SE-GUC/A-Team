@@ -10,6 +10,8 @@ const User= require('../../models/User')
 
 
 
+
+
 router.get('/getBySpeakers/:speaker', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
@@ -159,7 +161,11 @@ router.post('/createType', async (request, response) => {
   router.get('/getTypes', async (request, response) => {
     try {
       const types = await Type.find({}).exec()
-      return response.json({ data: types })
+      var allTypes =[]
+      for(var i =0;i<types.length;i++) {
+        allTypes.push(types[i].name)
+      }
+      return response.json({ data: allTypes })
     } catch (err) {
       return response.json({ error: err.message })
     }
