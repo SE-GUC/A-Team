@@ -170,6 +170,15 @@ router.post('/createType', async (request, response) => {
       return response.json({ error: err.message })
     }
   })
+  router.get('/getTypesHoss', async (request, response) => {
+    try {
+      const types = await Type.find({}).exec()
+      var allTypes =[]
+      return response.json({ data: types })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 
   router.delete('/deleteTypes/:id', async (request, response) => {
     Type.findByIdAndDelete(request.params.id, (err, model) => {
