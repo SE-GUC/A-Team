@@ -27,10 +27,12 @@ class CreateEvent extends Component {
             type:[], 
             chosen:'',
             chosen_type:'',
+            chosentypearray:[],
             ch:[],
             type5:'',
             speaker:''
         }
+
     }
     componentDidMount(){
       let elems = document.querySelectorAll('.dropdown-trigger');
@@ -39,28 +41,18 @@ class CreateEvent extends Component {
      M.FormSelect.init(elems4,  {inDuration: 300, outDuration: 225});
       axios.get('http://localhost:4000/api/locations/')
       .then(res => {
-        var id=[]
         var locc=[]
-        var loccbtn=[]
-        var locc1=[]
-        var room=[]
         var cap=[]
 
         for(let c=0;c<res.data.data.length;c++){
           if(res.data.data[c].booked==='Available'){
-              locc1.push(res.data.data[c].title)
-              loccbtn.push(<a class="waves-effect waves-light btn-large">{res.data.data[c].title}</a> )
-              locc.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangelocation} id={res.data.data[c]._id}>{res.data.data[c].title}: {res.data.data[c].subtitle} Capactity{res.data.data[c].capacity}</button></li>) 
-          id.push(<li><a href="#!">{res.data.data[c]._id}</a></li>)
-          room.push(<li><a href="#!">{res.data.data[c].subtitle}</a></li>)
-          cap.push(<li><a href="#!">{res.data.data[c].capacity}</a></li>)
+              locc.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangelocation} id={res.data.data[c]._id}
+              >{res.data.data[c].title}: {res.data.data[c].subtitle} Capactity{res.data.data[c].capacity}</button></li>)
+              this.setState({remaining_places:res.data.data[c].capacity}) 
         }
         }
          this.setState({location:locc})
         this.setState({capacity:cap})
-        this.setState({sublocation:room})
-        this.setState({location_id:id})
-        this.setState({ch:loccbtn})
       })
       .catch(error =>{
         console.log(error)
@@ -72,7 +64,7 @@ class CreateEvent extends Component {
         axios.get('http://localhost:4000/api/events/getTypes')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
-            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p]._id}>{response.data.data[p].name}</button></li>)
+            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p].name}>{response.data.data[p].name}</button></li>)
           }
         })
         .catch(error =>{
@@ -82,16 +74,20 @@ class CreateEvent extends Component {
     }
     
 setname=(event)=>{
+      event.preventDefault();
       this.setState({name:event.target.value})
   }
 setprice=(event)=>{
+  event.preventDefault();
     this.setState({price:event.target.value})
 }
 setabout=(event)=>{
+  event.preventDefault();
   this.setState({about:event.target.value})
 }
 
 setspeaker =event =>{
+  event.preventDefault();
   this.setState({speaker:event.target.value})
   console.log(this.state.speaker)
 
@@ -104,37 +100,46 @@ setspeakers(){
 
 }
 settopics=(event)=>{
+  event.preventDefault();
   this.setState({topics:event.target.value})
 }
 handleChangelocation=(event)=>{
+  event.preventDefault();
  this.setState({chosen:event.target.id})
 console.log(this.state.chosen)
   }
 handleChangetype = event=> {
-    this.setState({chosen_type:event.target.id})
+  event.preventDefault();
+    // this.setState({chosen_type:event.target.id})
+    this.state.chosentypearray.push(event.target.id)
     console.log(this.state.chosen_type)
+    console.log(this.state.chosentypearray)
   }
 handleClick=event=>
     {
-      var allSpeakers=this.state.speaker.split(',')
+
       event.preventDefault();
+      var allSpeakers=this.state.speaker.split(',')
+      var allPrices=this.state.price.split(',')
+      var alltopics=this.state.topics.split(',')
       const url= 'http://localhost:4000/api/events/'
       console.log(url)
       const body= {
-        price:this.state.price,
+        price:allPrices,
         location:this.state.chosen,
         name:this.state.name,
         about:this.state.about,
         remaining_places:this.state.remaining_places,
         speakers:allSpeakers,
-        topics:this.state.topics,
-        type:this.state.chosen_type,
+        topics:alltopics,
+        type:this.state.chosentypearray,
+        partner_initiated:'5cae2d049cd95a5754daa7e4'
       }
       console.log(body)
       axios.post(url,body)
       .then(res =>{  
-       // console.log(res)
-        return res.data.data;
+        alert('posted successfully')
+        console.log(res)
       })
       .catch(function (error){
         console.log(error)
@@ -146,7 +151,10 @@ handleClick=event=>
     {
         return(
           <div>
-            
+                      <h6>Hey</h6>
+                      <h6>Hey</h6>
+                      <h6>Hey</h6>
+
                 
                 <br/>
                 
@@ -159,7 +167,7 @@ handleClick=event=>
                 <label for="Event_name"></label>
               </div>
               <div class="input-field col s6">
-                <input placeholder="price" state={this.state} id="price_id" type="text" class="validate" onChange={this.setprice}/>
+                <input placeholder="Add prices (Separate prices by commas)" state={this.state} id="price_id" type="text" class="validate" onChange={this.setprice}/>
                    <label for="price_id"></label>
               </div>
             </div> 
@@ -171,8 +179,14 @@ handleClick=event=>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <input placeholder="Add speakers" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
+                <input placeholder="Add speakers (Separate speakers by commas)" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
                 <label for="about_id"></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input placeholder="Add topics (Separate topics by commas)" id="topics_id" state={this.state} type="text" class="validate" onChange={this.settopics}/>
+                <label for="topics_id"></label>
               </div>
             </div>
             {/* <div>
@@ -210,11 +224,12 @@ handleClick=event=>
                       {this.state.type}
                       </ul>
                   </div>
-
+                <div class="row">
                   <a class='dropdown-trigger btn' href='#' data-target='dropdown1' >Select Location</a>
-                  <ul id='dropdown1' class='dropdown-content'>
+                  <ul  id='dropdown1' class='dropdown-content'>
                   {this.state.location}
                   </ul>
+                  </div>
                   <br/>
           
                   
