@@ -5,7 +5,7 @@ import Step2 from "./Step2";
 export class Register extends Component {
   state = {
     currentStep: 1,
-    type: [],
+    type: ["M"],
     name: "",
     email: "",
     username: "",
@@ -68,7 +68,7 @@ export class Register extends Component {
   get nextButton() {
     let currentStep = this.state.currentStep;
     // If the current step is not 3, then render the "next" button
-    if (false) {
+    if (currentStep === 1) {
       //edit later currentStep === 1
       //nwraeeh el button ama yekteb hagto
       const {
@@ -132,16 +132,8 @@ export class Register extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <p>Step {this.state.currentStep}</p>
+          <h3>Registration Form</h3>
+          <p>Step {this.state.currentStep} (Next Button Will Appear when you finsih required fields)</p>
           <form onSubmit={this.submit} className="col s12">
             <Step1
               currentStep={this.state.currentStep}
@@ -157,7 +149,13 @@ export class Register extends Component {
               is_private={this.state.is_private}
               type={this.state.type}
             />
-            <Step2 />
+            <Step2
+              type={this.state.type}
+              currentStep={this.state.currentStep}
+              ca={this.state.ca}
+              member={this.state.member}
+              partner={this.state.partner}
+            />
             <div className="row">
               <div className="col s6">{this.previousButton}</div>
               <div>{this.nextButton}</div>
