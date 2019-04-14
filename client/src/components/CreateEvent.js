@@ -3,26 +3,8 @@ import ReactDOM from 'react-dom';
 import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'; 
-import Chips, { Chip } from 'react-chips'
 
 
-
-const styles = theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-    },
-    dense: {
-      marginTop: 16,
-    },
-    menu: {
-      width: 250,
-    },
-  });
   
   
 
@@ -99,28 +81,6 @@ class CreateEvent extends Component {
         this.setState({type:ty})
     }
     
-addSpeakers = newspeaker => {
-      var update = this.state.speakers;
-      var found = update.find(function(element) {
-        return element === newspeaker;
-      });
-      if (found === undefined) {
-        update.push(newspeaker);
-        this.setState({ speakers: update });
-      } else {
-        window.alert("You Already Added This speaker!");
-      }
-    };
-delSpeaker = speaker => {
-      var spe = this.state.speakers;
-      for (var i = 0; i < spe.length; i++) {
-        if (spe[i] === speaker) {
-          spe.splice(i, 1);
-          i--;
-        }
-      }
-      this.setState({ speakers: spe });
-    };
 setname=(event)=>{
       this.setState({name:event.target.value})
   }
@@ -139,6 +99,7 @@ setspeaker =event =>{
 setspeakers(){
   this.setState({speakers:this.state.speakers.push(this.state.speaker)})
   this.setState({speaker:''})
+  console.log(this.state.speakers)
   // this.state.speakers.push(this.state.speaker)
 
 }
@@ -155,6 +116,7 @@ handleChangetype = event=> {
   }
 handleClick=event=>
     {
+      var allSpeakers=this.state.speaker.split(',')
       event.preventDefault();
       const url= 'http://localhost:4000/api/events/'
       console.log(url)
@@ -164,7 +126,7 @@ handleClick=event=>
         name:this.state.name,
         about:this.state.about,
         remaining_places:this.state.remaining_places,
-        speakers:this.state.speakers,
+        speakers:allSpeakers,
         topics:this.state.topics,
         type:this.state.chosen_type,
       }
@@ -209,13 +171,9 @@ handleClick=event=>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <input placeholder="Add speaker" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
+                <input placeholder="Add speakers" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
                 <label for="about_id"></label>
               </div>
-            </div>
-            <div class ="row">
-                  <button class="btn waves-effect waves-light"  onClick={this.setspeakers}>Add speaker
-                  </button>
             </div>
             {/* <div>
                <Chips
