@@ -33,7 +33,7 @@ class ViewPendingEvents extends Component {
         })
         
         
-        axios.get('http://localhost:4000/api/events/getPendingId/'+this.props.value)
+        axios.get('http://localhost:4000/api/events/getid/'+this.props.value)
             .then(res => {
                 this.setState({
                     remaining_places: res.data.data.remaining_places
@@ -92,7 +92,7 @@ class ViewPendingEvents extends Component {
     }
     sbmtbtn() {
         this.setState({submitState:true})
-        const url='http://localhost:4000/api/events/'+this.state.id +'/feedback'
+        const url='http://localhost:4000/api/events/'+this.state.id +'/response'
         axios.post(url,{
             user_id:"5cae2d049cd95a5754daa7e4", //da ghalat, admin id hayethat hena
             comment:this.state.message,
@@ -140,20 +140,20 @@ class ViewPendingEvents extends Component {
                     <p><b>Status:</b> {this.state.status}</p>
                     <p><b>Attendees:</b> {this.state.attendees}</p>
                     <p><b>Time of edit:</b> {this.state.time_of_edit}</p>
-                    <p><b>Feedback:</b> {this.state.feedbacks}</p>
+                    {/* <p><b>Feedback:</b> {this.state.feedbacks}</p>
                     <p><b>Response:</b> {this.state.responses_from_admin}</p>
-                    <p><b>Applicants:</b> {this.state.applicants}</p>
+                    <p><b>Applicants:</b> {this.state.applicants}</p> */}
 
 				</div>
                 
 				<div class="card-action">
-                <p>
+                {/* <p>
                     <label>
                     <input onChange={this.handleChangeText} placeholder="Enter Feedback" id="feedback" type="text" class="validate"/>
                                     <a onClick={()=>this.sbmtbtn()} class="waves-effect waves-light btn">Submit</a>
                    
                     </label>
-                </p>
+                </p> */}
             <a onClick={this.accept} class="waves-effect waves-light btn">Accept</a>
 				</div>
 			</div>
