@@ -151,10 +151,7 @@ handleClick=event=>
     {
         return(
           <div>
-                      <h6>Hey</h6>
-                      <h6>Hey</h6>
-                      <h6>Hey</h6>
-
+                 
                 
                 <br/>
                 

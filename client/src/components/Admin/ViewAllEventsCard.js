@@ -122,9 +122,9 @@ class ViewAllEventsCard extends Component {
                     <p><b>Status:</b> {this.state.status}</p>
                     <p><b>Attendees:</b> {this.state.attendees}</p>
                     <p><b>Time of edit:</b> {this.state.time_of_edit}</p>
-                    <p><b>Feedback:</b> {this.state.feedbacks}</p>
-                    <p><b>Response:</b> {this.state.responses_from_admin}</p>
-                    <p><b>Applicants:</b> {this.state.applicants}</p>
+                    {/* <p><b>Feedback:</b> {this.state.feedbacks}</p>
+                    <p><b>Response:</b> {this.state.responses_from_admin}</p> */}
+                    {/* <p><b>Applicants:</b> {this.state.applicants}</p> */}
 
 				</div>
                 
