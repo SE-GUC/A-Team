@@ -21,9 +21,25 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     })
     return res.json({ data: result }) 
   } catch (err) {
-    return res.json({ error: `Error, couldn't find a event given the following type` })
+    return res.json({ error: `Error, couldn't find an event given the following speaker` })
   }
 })
+router.get('/FilterByPrice/:Price', async(req,res)=>{
+ try{ const allEvents=await Event.find({}).exec()
+  var r= []
+  allEvents.forEach(event =>{
+    if (event.price[0]<parseInt(req.params.Price+1)){
+      r.push(event)
+    }
+  })
+  return res.json({data: r })
+}
+catch(err){
+  return res.json({ error: `Error, couldn't find an event given the following price` })
+}
+})
+
+
 
 router.get('/getByRemainginPlaces/:places', async(req,res)=>{
   try {
@@ -36,7 +52,7 @@ router.get('/getByRemainginPlaces/:places', async(req,res)=>{
     })
     return res.json({ data: result }) 
   } catch (err) {
-    return res.json({ error: `Error, couldn't find a event given the following type` })
+    return res.json({ error: `Error, couldn't find an event given the following place` })
   }
 })
 
@@ -53,7 +69,7 @@ router.get('/getByTopics/:topic', async(req,res)=>{
     console.log(result)
     return res.json({ data: result }) 
   } catch (err) {
-    return res.json({ error: `Error, couldn't find a event given the following type` })
+    return res.json({ error: `Error, couldn't find an event given the following topic` })
   }
 })
 
@@ -148,6 +164,7 @@ router.post('/createType', async (request, response) => {
       return response.json({ error: err.message })
     }
   })
+
   router.delete('/deleteTypes/:id', async (request, response) => {
     Type.findByIdAndDelete(request.params.id, (err, model) => {
       if (!err) {
