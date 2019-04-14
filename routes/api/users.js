@@ -48,6 +48,17 @@ router.get('/get_tasks/:id',async(req,res) => {
   const tasksApplied = await users.tasks_applied_for
   return res.json({data: tasksApplied})
 })
+//Amr Story 1.1
+//STILL NOT TESTED
+router.put('/remove_application/:id', async (req,res) => {
+  
+  const m = await User.update( {_id: req.params.id}, { $pull: {tasks_applied_for: req.body.tasks_applied_for}}
+    )
+    return res.json({data:m})
+})
+
+
+
 // router.put('/remove_application/:id', function(req,res)=> {
 //   User.update({_id:req.params.id}, { $pull: {tasks_applied_for: {_id:req.body.id} } }
 //     )

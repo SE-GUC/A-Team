@@ -23,7 +23,7 @@ import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
 //import EventCard from './components/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
-
+import Skills from './components//Admin/SkillController'
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
@@ -57,7 +57,7 @@ const routing=(
       <Route path='/eventmodule' component={EventModule}/>
       <Route path='/partnerrequests' component={EventsPartner}/>
       <Route path='/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
-    
+      <Route path='/skills' component={Skills }/>
       <Route path="/task_control_panel" component={TaskControl} />
       <Route path="/get_tasks" component={TaskList}/>
       <Route path="/dummy" component={Dummy} />
