@@ -16,7 +16,7 @@ export class SkillController extends Component {
     const data = {
       skill: this.state.Skill.toLowerCase()
     };
-    axios.post("https://ateamse2.herokuapp.com/api/skills/addSkill", data).then(res => {
+    axios.post("http://localhost:4000/api/skills/addSkill", data).then(res => {
       const flag = res.data.data;
       console.log(flag);
       if (flag === undefined) {
@@ -29,7 +29,7 @@ export class SkillController extends Component {
   DelSkill = e => {
     e.preventDefault();
     const skill=this.state.Skill.toLowerCase()
-    const url = "https://ateamse2.herokuapp.com/api/skills/delete/" + skill;
+    const url = "http://localhost:4000/api/skills/delete/" + skill;
     axios.delete(url).then(res => {
         if(res.data.data===null){
             window.alert("Deleted The Skill: \n"+skill);
@@ -42,7 +42,7 @@ export class SkillController extends Component {
   };
   ShowSkill = e => {
     e.preventDefault();
-    const url='https://ateamse2.herokuapp.com/api/skills/getSkill'
+    const url='http://localhost:4000/api/skills/getSkill'
     axios.get(url).then(res => {
         console.log(res.data.data.length)
         var array=[]

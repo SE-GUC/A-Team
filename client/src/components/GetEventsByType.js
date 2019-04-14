@@ -25,7 +25,7 @@ class GetEventsByType extends Component {
         const types = {
             type:this.state.type
         };
-        const url = 'https://ateamse2.herokuapp.com/api/events/'+types.type
+        const url = 'http://localhost:4000/api/events/'+types.type
         axios.get(url)
             .then(res => {
                 this.setState({events: res.data.data})

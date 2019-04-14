@@ -17,7 +17,7 @@ class Recommend extends Component {
         const tasking = {
           id: this.state.id
         };
-        const url = "https://ateamse2.herokuapp.com/api/tasks/recommend/" + tasking.id;
+        const url = "http://localhost:4000/api/tasks/recommend/" + tasking.id;
         axios.get(url).then(res => {
           this.setState({ result: res.data.data });
           console.log(res.data.data);

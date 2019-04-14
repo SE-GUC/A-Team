@@ -40,7 +40,7 @@ class EventCard extends Component {
         this.setState({partner_initiated:this.props.data.partner_initiated})
     } 
     applybtn() {
-        const url='https://ateamse2.herokuapp.com/api/events/'+this.state.id +'/apply'
+        const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
         axios.post(url,{
             applicant_id:"5cae2d049cd95a5754daa7e4"
         })

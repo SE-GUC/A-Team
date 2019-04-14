@@ -31,7 +31,7 @@ class EventCard extends Component {
     componentDidMount() {
         console.log(this.props.data)
         this.setState({id:this.props.data})
-            const url = 'https://ateamse2.herokuapp.com/api/events/getid/' + this.props.data
+            const url = 'http://localhost:4000/api/events/getid/' + this.props.data
             console.log(url)
             axios.get(url)
                 .then(res => {

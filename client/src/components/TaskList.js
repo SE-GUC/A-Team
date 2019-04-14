@@ -13,7 +13,7 @@ class TaskList extends Component {
     }
   }
   componentDidMount () {
-    axios.get(`https://ateamse2.herokuapp.com/api/tasks/read/`)
+    axios.get(`http://localhost:4000/api/tasks/read/`)
             .then(res => {
               console.log(res)
               this.setState({tasks: res.data.data})

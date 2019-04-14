@@ -23,7 +23,7 @@ class ShowFeedbacks extends Component {
      
        const  id= this.state.id
     
-     const url = 'https://ateamse2.herokuapp.com/api/events/'+id+'/feedback'
+     const url = 'http://localhost:4000/api/events/'+id+'/feedback'
      axios.get(url)
          .then(res => {
              this.setState({feedbacks: res.data.data})

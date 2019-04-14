@@ -29,7 +29,7 @@ class LocationStoryTwoTwo extends Component {
         };
         console.log(locationing.id)
         console.log(locationing.booked)
-        const url = 'https://ateamse2.herokuapp.com/api/locations/'+locationing.id
+        const url = 'http://localhost:4000/api/locations/'+locationing.id
         axios.put(url, {booked: locationing.booked})
             .then(res => {
                 this.setState({ booked: res.data })

@@ -87,7 +87,7 @@ export class Form extends Component {
         description: this.state.description,
         skills: this.state.skills
       };
-      axios.post("https://ateamse2.herokuapp.com/api/tasks/add", data).then(res => {
+      axios.post("http://localhost:4000/api/tasks/add", data).then(res => {
         console.log(res);
         window.alert("Posted Task ");
         return res.data;
@@ -99,7 +99,7 @@ export class Form extends Component {
   getSkillFromDB = () => {
     try {
       axios
-        .get("https://ateamse2.herokuapp.com/api/skills/getSkillCollection")
+        .get("http://localhost:4000/api/skills/getSkillCollection")
         .then(res => {
           this.setState({ all_skills: res.data });
           return res.data;

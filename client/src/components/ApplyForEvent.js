@@ -30,7 +30,7 @@ class ApplyForEvent extends Component {
         const application = {
             id: this.state.id
         };
-        const url = 'https://ateamse2.herokuapp.com/api/events/'+application.id+'/apply/'
+        const url = 'http://localhost:4000/api/events/'+application.id+'/apply/'
         const newApplication1={
             applicant_id: this.state.applicantid,
         }

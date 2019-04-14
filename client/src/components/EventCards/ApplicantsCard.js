@@ -24,7 +24,7 @@ class ApplicantsCard extends Component {
     }
     componentDidMount() {
         console.log(this.props.data)
-        const url = 'https://ateamse2.herokuapp.com/api/users/'+this.props.data.applicant_id
+        const url = 'http://localhost:4000/api/users/'+this.props.data.applicant_id
         console.log(this.props.data.eventid)
         console.log(url)
         axios.get(url)
@@ -44,13 +44,13 @@ class ApplicantsCard extends Component {
 
     }
     accept() {
-        const url = 'https://ateamse2.herokuapp.com/api/events/'+this.props.data.eventid+'/apply'
+        const url = 'http://localhost:4000/api/events/'+this.props.data.eventid+'/apply'
         console.log(this.props.data.eventid)
         axios.put(url, {
             applicant_id:this.props.data.applicant_id,
             is_accepted:true
         })
-        const url2 = 'https://ateamse2.herokuapp.com/api/users/' +this.props.data.applicant_id+'/addEvent/'
+        const url2 = 'http://localhost:4000/api/users/' +this.props.data.applicant_id+'/addEvent/'
         console.log(url2)
         axios.post(url2, {
             eventid:this.props.data.eventid

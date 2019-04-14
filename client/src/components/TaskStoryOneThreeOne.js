@@ -26,7 +26,7 @@ class TaskStoryOneThreeOne extends Component {
     const tasking = {
       id: this.state.id
     };
-    const url = "https://ateamse2.herokuapp.com/api/tasks/read/" + tasking.id;
+    const url = "http://localhost:4000/api/tasks/read/" + tasking.id;
     axios.get(url).then(res => {
       this.setState({ desc: res.data.data });
       this.setState({ done: true });

@@ -24,8 +24,8 @@ class FeedbackCardContainer extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('https://ateamse2.herokuapp.com/api/users/getEvents/5cae2d049cd95a5754daa7e4')
-        // axios.get('https://ateamse2.herokuapp.com/api/events')
+        axios.get('http://localhost:4000/api/users/getEvents/5cae2d049cd95a5754daa7e4')
+        // axios.get('http://localhost:4000/api/events')
         .then(res => {
                 // this.setState({events: res.data.data})
                 this.setState({elements:res.data.data})

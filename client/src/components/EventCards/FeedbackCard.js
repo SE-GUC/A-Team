@@ -29,7 +29,7 @@ class FeedbackCard extends Component {
     componentDidMount() {
         console.log(this.props.data)
         this.setState({id:this.props.data})
-            const url = 'https://ateamse2.herokuapp.com/api/events/getid/' + this.props.data
+            const url = 'http://localhost:4000/api/events/getid/' + this.props.data
             console.log(url)
             axios.get(url)
                 .then(res => {
@@ -53,7 +53,7 @@ class FeedbackCard extends Component {
     
     sbmtbtn() {
         this.setState({submitState:true})
-        const url='https://ateamse2.herokuapp.com/api/events/'+this.state.id +'/feedback'
+        const url='http://localhost:4000/api/events/'+this.state.id +'/feedback'
         axios.post(url,{
             user_id:"5cae2d049cd95a5754daa7e4", //da ghalat
             comment:this.state.message,

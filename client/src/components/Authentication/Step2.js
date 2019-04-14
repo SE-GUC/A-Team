@@ -32,7 +32,7 @@ export class Step2 extends Component {
   getSkillFromDB = () => {
     try {
       axios
-        .get("https://ateamse2.herokuapp.com/api/skills/getSkillCollection")
+        .get("http://localhost:4000/api/skills/getSkillCollection")
         .then(res => {
           this.setState({ all_skills: res.data });
           return res.data;

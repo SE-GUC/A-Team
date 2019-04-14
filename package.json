@@ -2,14 +2,14 @@
   "name": "express-test",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "node server.js",
+    "start": "node index.js",
+    "server": "node index.js",
     "client": "npm start --prefix client",
     "test": "jest",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "deve": "nodemon server.js",
+    "deve": "nodemon index.js",
     "heroku-postbuild":
     "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },

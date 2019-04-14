@@ -31,7 +31,7 @@ class ViewPendingEventsComponent extends React.Component {
 
     componentDidMount() {
       
-        axios.get('https://ateamse2.herokuapp.com/api/events/getPending/')
+        axios.get('http://localhost:4000/api/events/getPending/')
             .then(res => {
                 console.log(res.data.data)
                 this.setState({

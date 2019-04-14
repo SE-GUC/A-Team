@@ -29,7 +29,7 @@ class TaskStoryOnepointTwo extends Component {
         };
         console.log(tasking.tid)
         console.log(tasking.pid)
-        const url = 'https://ateamse2.herokuapp.com/api/tasks/accept/'+tasking.tid+'/'+tasking.pid
+        const url = 'http://localhost:4000/api/tasks/accept/'+tasking.tid+'/'+tasking.pid
         axios.put(url, {response_from_admin: tasking.response})
         .then(res => {
             this.setState({ response: res.data.data })

@@ -41,7 +41,7 @@ class LocationPost extends Component {
 
     const m = axios({
       method: "post",
-      url: "https://ateamse2.herokuapp.com/api/locations/",
+      url: "http://localhost:4000/api/locations/",
       headers: { "Content-Type": "application/json" },
       data: {
         title: this.state.title,

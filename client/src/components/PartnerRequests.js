@@ -14,7 +14,7 @@ class PartnerRequesget extends Component{
     }
     componentDidMount()
     {    
-         axios.get('https://ateamse2.herokuapp.com/api/PartnerRequest/geteventrequest')
+         axios.get('http://localhost:4000/api/PartnerRequest/geteventrequest')
          .then(response => {
              this.setState({requests:response.data.data})
              this.setState({loading:false})

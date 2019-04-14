@@ -39,7 +39,7 @@ class CreateEvent extends Component {
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
       var elems4 = document.querySelectorAll('select');
      M.FormSelect.init(elems4,  {inDuration: 300, outDuration: 225});
-      axios.get('https://ateamse2.herokuapp.com/api/locations/')
+      axios.get('http://localhost:4000/api/locations/')
       .then(res => {
         var locc=[]
         var cap=[]
@@ -61,7 +61,7 @@ class CreateEvent extends Component {
       M.Chips.init(elems1, {inDuration: 300, outDuration: 225});
     
       var ty=[]
-        axios.get('https://ateamse2.herokuapp.com/api/events/getTypesHoss')
+        axios.get('http://localhost:4000/api/events/getTypesHoss')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
             ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p]}>{response.data.data[p].name}</button></li>)
@@ -122,7 +122,7 @@ handleClick=event=>
       var allSpeakers=this.state.speaker.split(',')
       var allPrices=this.state.price.split(',')
       var alltopics=this.state.topics.split(',')
-      const url= 'https://ateamse2.herokuapp.com/api/events/'
+      const url= 'http://localhost:4000/api/events/'
       console.log(url)
       const body= {
         price:allPrices,
