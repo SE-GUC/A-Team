@@ -14,7 +14,8 @@ class TaskStoryOnepointTwo extends Component {
      };
 
      handleChange = event => {
-        this.setState({ id: event.target.value })
+        this.setState({ tid: event.target.value })
+        this.setState({ pid: event.target.value })
     }
     handleAnotherChange = event => {
         this.setState({ response: event.target.value })
@@ -22,17 +23,20 @@ class TaskStoryOnepointTwo extends Component {
     handleSubmit = event => {
         event.preventDefault(); //prevents page from reloading
         const tasking = {
-            id: this.state.id,
+            tid: this.state.tid,
+            pid: this.state.pid
        
         };
-        console.log(tasking.id)
-        const url = 'http://localhost:4000/api/tasks/review/'+tasking.id
+        console.log(tasking.tid)
+        console.log(tasking.pid)
+        const url = 'http://localhost:4000/api/tasks/accept/'+tasking.tid+'/'+tasking.pid
         axios.put(url, {response_from_admin: tasking.response})
         .then(res => {
             this.setState({ response: res.data.data })
             //this.setState({ done:true })
             console.log(res.data.data)
-            alert("reviewed!");
+            
+            alert('done');
         })
 
     };
@@ -74,7 +78,11 @@ class TaskStoryOnepointTwo extends Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Task ID:
-                    <input type="text" name="id" onChange={this.handleChange} />
+                    <input type="text" name="tid" onChange={this.handleChange} />
+                </label>
+                <label>
+                    Partner ID:
+                    <input type="text" name="pid" onChange={this.handleChange} />
                 </label>
             
                 

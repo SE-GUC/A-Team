@@ -2,8 +2,100 @@ const joi = require('joi')
 const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
-
+const moment = require('moment')
+const Location = require('../../models/Location')
 const Event = require('../../models/Event')
+const Type = require('../../models/Type')
+const User= require('../../models/User')
+
+
+
+
+
+router.get('/getBySpeakers/:speaker', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.speakers.includes(req.params.speaker)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find an event given the following speaker` })
+  }
+})
+router.get('/FilterByPrice/:Price', async(req,res)=>{
+ try{ const allEvents=await Event.find({}).exec()
+  var r= []
+  allEvents.forEach(event =>{
+    if (event.price[0]<parseInt(req.params.Price+1)){
+      r.push(event)
+    }
+  })
+  return res.json({data: r })
+}
+catch(err){
+  return res.json({ error: `Error, couldn't find an event given the following price` })
+}
+})
+
+
+
+router.get('/getByRemainginPlaces/:places', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.remaining_places<parseInt(req.params.places)){
+        result.push(event)
+      }
+    })
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find an event given the following place` })
+  }
+})
+
+router.get('/getByTopics/:topic', async(req,res)=>{
+  try {
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.topics.includes(req.params.topic)){
+        result.push(event)
+      }
+    })
+    // const event = await Event.find({type:request.params.type}).exec()
+    console.log(result)
+    return res.json({ data: result }) 
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find an event given the following topic` })
+  }
+})
+
+router
+  .route('/getID/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      const event = await Event.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+
 
 // {
 //   "remaining_places": 300,
@@ -19,109 +111,151 @@ const Event = require('../../models/Event')
 
 // }
 
-// {
-// 	"applicant_id":"asdfghjklzxcvbnmqwertyui",
-// 	"isAccepted":true
-// }
+router.get('/getPending', async (req,res)=>{
+  var allEvents = await Event.find({}).exec()
+  allEvents.filter(lessa_pending)
+  console.log(allEvents)
+  return res.json({ data: allEvents })
+})
+//not tested lesa
+router
+  .route('/getPendingId/:id')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .get(async (request, response) => {
+    try {
+      var allEvents = await Event.find({}).exec()
+      allEvents.filter(lessa_pending)
+      const event = allEvents.findById(request.params.id)
+      console.log(event)
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 
-// {
-// 	"applicant_id":"ahmedasdfghlololololasdg",
-// 	"isAccepted":true
-// }
+router.post('/createType', async (request, response) => {
+  const status = joi.validate(request.body, {
+      name: joi.string().required(),
+    })
+    if (status.error) {
+      return response.json({ error: status })
+    }
+    try {
+      const newType = await new Type({
+        name: request.body.name
+      }).save()
+      return response.json({ data: newType })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't create a new Type with the following data` })
+    }
+  })
 
-router.get('/location/:location', (req,res) => {
-    //const updateTask = req.body;
-    //const foundlocation=updateTask.id?true:false; 
-    
-    events.forEach(event => {
-        if(event.location === req.params.location) {
-            res.json(event);
-        }
-    });
+  router.get('/getTypes', async (request, response) => {
+    try {
+      const types = await Type.find({}).exec()
+      var allTypes =[]
+      for(var i =0;i<types.length;i++) {
+        allTypes.push(types[i].name)
+      }
+      return response.json({ data: allTypes })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
+  router.get('/getTypesHoss', async (request, response) => {
+    try {
+      const types = await Type.find({}).exec()
+      var allTypes =[]
+      return response.json({ data: types })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })
 
-});
-router.get('/basedescription/:des', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.description === req.params.des) {
-            res.json(event);
-        }
-    });
-});
-router.get('/registerationprice/:price', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.price === req.params.price) {
-            res.json(event);
-        }
-    });
-});
-router.get('/places/:place', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.remaining_places === req.params.place) {
-            res.json(event);
-        }
-    });
-});
-router.get('/speakers/:speakers', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.speakers === req.params.speakers) {
-            res.json(event);
-        }
-    });
-});
-router.get('/topics/:topics', (req,res) => {
-     
-    events.forEach(event => {
-        if(event.topics === req.params.topics) {
-            res.json(event);
-        }
-    });
-});
-
-
-
-
+  router.delete('/deleteTypes/:id', async (request, response) => {
+    Type.findByIdAndDelete(request.params.id, (err, model) => {
+      if (!err) {
+        return response.json({ data: null })
+      } else {
+        return response.json({ error: `Error, couldn't delete a Type given the following data` })
+      }
+    })
+  })
+  
 //get all events with a type "task 2.3" na2sa testing
 router.route('/:type').get(async (request, response) => {
   try {
-    const event = await Event.find({type:request.params.type}).exec()
-    return response.json({ data: event })
+    const allEvents = await Event.find({}).exec()
+    var result=[]
+    allEvents.forEach(event =>{
+      if (event.type.includes(request.params.type)){
+        result.push(event)
+      }
+    })
+    // const event = await Event.find({type:request.params.type}).exec()
+    console.log(result)
+    return response.json({ data: result })
   } catch (err) {
     return response.json({ error: `Error, couldn't find a event given the following type` })
   }
 })
 
+router.get('/get_events/:location', async(req,res)=> {
+  try {
+    const final  = await Event.find({location:req.params.location})
+    console.log(final)
+    res.json({
+
+      data:final
+    })
+    
+  } catch (err) {
+    res.json({
+      err
+    })
+  }
+})
 
 
 router
   .route('/')
   .post(async (request, response) => {
     const status = joi.validate(request.body, {
-      remaining_places: joi.number().required(),
+      price: joi.array().items(joi.number().required()),
       location: joi.string().length(24).required(),
       name: joi.string().min(6).max(30).required(),
       about: joi.string().min(5).max(500).required(),
-      price: joi.number().required(),
+      remaining_places: joi.number().required(),
       speakers: joi.array().items(joi.string().min(4).max(70)),
-      topics: joi.array().items(joi.string().min(4).max(70)),
-      type: joi.string().min(5).max(20).required(),
-      partnerInitiated: joi.string().length(24).required(),
-      attendees: joi.array().items(joi.string().min(4).max(70)),
-      request: joi.string().length(24).required(),
+      topics: joi.array().items(joi.string().min(3).max(70)),
+      type: joi.array().items(joi.string().min(3).max(20)).required(),
+      partner_initiated: joi.string().length(24).required(),
+      attendees: joi.array().items(joi.string().length(24)),
+      status: joi.string(),
       feedbacks: joi.array().items(joi.object().keys({
         user_id: joi.string().length(24).required(),
         comment: joi.string().required()
       })),
       applicants: joi.array().items(joi.object().keys({
         applicant_id: joi.string().length(24).required()
+      })),
+      responses_from_admin: joi.array().items(joi.object().keys({
+        admin_id: joi.string().length(24).required(),
+        response: joi.string(),
+        is_accepted: joi.boolean()
       }))
 
     })
     if (status.error) {
-      return response.json({ error: status.error.details[0].message })
+      return response.json({ error: status })
     }
     try {
       const event = await new Event({
@@ -134,11 +268,12 @@ router
         speakers: request.body.speakers,
         topics: request.body.topics,
         type: request.body.type,
-        partnerInitiated: request.body.partnerInitiated,
-        attendees: request.body.attendees,
-        request: request.body.request,
-        feedbacks: request.body.ratings || [],
-        applicants: request.body.ratings || []
+        partner_initiated: request.body.partner_initiated,
+        status:'PENDING_APPROVAL',
+        time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        attendees: [],
+        feedbacks: [],
+        applicants: []
       }).save()
       return response.json({ data: event })
     } catch (err) {
@@ -154,6 +289,45 @@ router
     }
   })
 
+  router.get('/getEligible/:id', async(req,res)=> {
+    var user = await User.findById(req.params.id).exec()
+    console.log(user)
+    var allEvents = await Event.find({}).exec()
+    console.log(intersection_destructive(allEvents[0].status !== 'PENDING_APPROVAL'))
+    var result=[]
+    for(var i=0;i<allEvents.length;i++) {
+      if(intersection_destructive(user.interests,allEvents[i].type).length>0 && allEvents[i].status !== 'PENDING_APPROVAL'){
+        console.log('ana get hena')
+        result.push(allEvents[i])
+      }
+    }
+    console.log(result)
+    return res.json({ data: result })
+  })
+
+  function intersection_destructive(a, b)
+  {
+  var result = [];
+  while( a.length > 0 && b.length > 0 )
+  {  
+     if      (a[0] < b[0] ){ a.shift(); }
+     else if (a[0] > b[0] ){ b.shift(); }
+     else
+     {
+       result.push(a.shift());
+       b.shift();
+     }
+  }
+
+  return result;
+  }
+
+  function lessa_pending(a) {
+    if(a.status==='PENDING_APPROVAL'){
+      return true
+    }
+    else return false
+  }
 
 router
   .route('/:id')
@@ -216,7 +390,7 @@ router
       const applicant = {
         _id: mongoose.Types.ObjectId(),
         applicant_id: request.body.applicant_id,
-        isAccepted: false
+        is_accepted: false
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
       return response.json({ data: event })
@@ -228,7 +402,7 @@ router
     try {
       const status = joi.validate(request.body, {
         applicant_id: joi.string().length(24).required(),
-        isAccepted: joi.boolean().required()
+        is_accepted: joi.boolean().required()
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
@@ -236,7 +410,7 @@ router
       const applicant = {
         _id: mongoose.Types.ObjectId(),
         applicant_id: request.body.applicant_id,
-        isAccepted: request.body.isAccepted
+        is_accepted: request.body.is_accepted
       }
       const event = await Event.findByIdAndUpdate(request.params.id, { $set: { applicants: applicant } }).exec()
       return response.json({ data: event })
@@ -314,6 +488,50 @@ router
   })
 
 
+  router
+  .route('/:id/adminResponse')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        admin_id: joi.string().length(24).required(),
+        response: joi.string().min(6).required(),
+        is_accepted: joi.boolean().required()  
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const response = {
+        _id: mongoose.Types.ObjectId(),
+        admin_id: request.body.admin_id,
+        is_accepted: request.body.is_accepted
+      }
+      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { responses_from_admin: response } }).exec()
+      return response.json({ data: event })
+    } catch (err) {
+      return response.json({ error: `Error, couldn't find application for a event given the following data` })
+    }
+  })
 
+  router.get('/getMyEvents/:id', async(req,res)=>{
+    try{
+      const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+      return res.json({ data: eventsPartnerCreated })
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find application for a event given the following data` })
+  }
+
+  })
+  
   
 module.exports=router 
+
+
