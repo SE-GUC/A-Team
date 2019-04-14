@@ -23,7 +23,7 @@ class ApplicaitonCardContainer extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/events/')
+        axios.get('https://ateamse2.herokuapp.com/api/events/')
             .then(res => {
                 this.setState({events: res.data.data})
                 this.setState({elements:res.data.data})

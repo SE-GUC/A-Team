@@ -20,7 +20,7 @@ class ShowFeedbacks extends Component {
     componentDidMount() {
         var elements=[]
         console.log(this.props.data)
-        const url = 'http://localhost:4000/api/events/getid/'+this.props.data.eventid
+        const url = 'https://ateamse2.herokuapp.com/api/events/getid/'+this.props.data.eventid
         console.log(url)
         axios.get(url)
         .then(

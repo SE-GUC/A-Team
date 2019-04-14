@@ -33,7 +33,7 @@ class ViewPendingEvents extends Component {
         })
         
         
-        axios.get('http://localhost:4000/api/events/getid/'+this.props.value)
+        axios.get('https://ateamse2.herokuapp.com/api/events/getid/'+this.props.value)
             .then(res => {
                 this.setState({
                     remaining_places: res.data.data.remaining_places
@@ -92,7 +92,7 @@ class ViewPendingEvents extends Component {
     }
     sbmtbtn() {
         this.setState({submitState:true})
-        const url='http://localhost:4000/api/events/'+this.state.id +'/response'
+        const url='https://ateamse2.herokuapp.com/api/events/'+this.state.id +'/response'
         axios.post(url,{
             user_id:"5cae2d049cd95a5754daa7e4", //da ghalat, admin id hayethat hena
             comment:this.state.message,
@@ -103,7 +103,7 @@ class ViewPendingEvents extends Component {
     accept(){
         this.setState({submitState:true})
      
-        axios.put('http://localhost:4000/api/events/' + this.props.value, {
+        axios.put('https://ateamse2.herokuapp.com/api/events/' + this.props.value, {
             state: 'ACCEPTED'
         })
     }

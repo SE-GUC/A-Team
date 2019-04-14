@@ -25,7 +25,7 @@ class TaskCard extends Component {
             id: this.props.value
         })
         console.log(this.props.value)
-        const url = 'http://localhost:4000/api/tasks/read/' + this.props.value
+        const url = 'https://ateamse2.herokuapp.com/api/tasks/read/' + this.props.value
         console.log(url)
         axios.get(url)
             .then(res => {
@@ -68,7 +68,7 @@ class TaskCard extends Component {
     applyTask=(e)=>{
         const task_id=this.state._id
         const member_id=this.state.assume_memberID
-        const getURL='http://localhost:4000/api/tasks/apply/'+task_id+'/'+member_id
+        const getURL='https://ateamse2.herokuapp.com/api/tasks/apply/'+task_id+'/'+member_id
         axios.get(getURL)
         .then(result=>{
         var message=result.data.msg

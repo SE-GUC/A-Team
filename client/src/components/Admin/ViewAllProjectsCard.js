@@ -25,7 +25,7 @@ class ViewAllProjectsCard extends Component {
         })
         
         
-        axios.get('http://localhost:4000/api/project/read/'+this.props.value)
+        axios.get('https://ateamse2.herokuapp.com/api/project/read/'+this.props.value)
             .then(res => {
                 this.setState({
                     project_name: res.data.data.project_name
@@ -59,7 +59,7 @@ class ViewAllProjectsCard extends Component {
             .catch(err => {
                 console.log(err)
             })
-            axios.get('http://localhost:4000/api/consultancyAgencies/view_agency/'+ this.state.consultancy_agency_assigned)
+            axios.get('https://ateamse2.herokuapp.com/api/consultancyAgencies/view_agency/'+ this.state.consultancy_agency_assigned)
             .then(res => {
                 this.setState({
                     names: res.data.data.info
@@ -69,7 +69,7 @@ class ViewAllProjectsCard extends Component {
        accept(){
         this.setState({submitState:true})
      
-        axios.put('http://localhost:4000/api/project/crud/', {
+        axios.put('https://ateamse2.herokuapp.com/api/project/crud/', {
             id: this.props.value,
             state: 'ACCEPTED'
         })

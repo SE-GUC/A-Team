@@ -31,7 +31,7 @@ class TaskStoryOneThreeTwo extends Component {
     };
     console.log(tasking.id);
     console.log(tasking.response);
-    const url = "http://localhost:4000/api/tasks/update/" + tasking.id;
+    const url = "https://ateamse2.herokuapp.com/api/tasks/update/" + tasking.id;
     axios.put(url, { response_from_admin: tasking.response }).then(res => {
       this.setState({ response: res.data });
       // this.setState({ done:true })

@@ -37,7 +37,7 @@ class AssignMember extends Component {
         //     assigned_id: this.state.assigned_id
        
         // };
-        const url = 'http://localhost:4000/api/project/tasks/assignMember'+this.state.id
+        const url = 'https://ateamse2.herokuapp.com/api/project/tasks/assignMember'+this.state.id
       
 
         axios.put(url,{assigned_id: this.state.assigned_id })

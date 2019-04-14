@@ -34,7 +34,7 @@ class CancelApp extends Component {
     handleSubmit = project => {
         project.preventDefault(); //prevents page from reloading
     
-        const url = 'http://localhost:4000/api/project/cancelApp/'+this.state.project_id
+        const url = 'https://ateamse2.herokuapp.com/api/project/cancelApp/'+this.state.project_id
       
 
         axios.put(url,{consultancy_agency_id: this.state.consultancy_agency_id })

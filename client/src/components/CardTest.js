@@ -28,7 +28,7 @@ class CardTest extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/tasks/read/')
+        axios.get('https://ateamse2.herokuapp.com/api/tasks/read/')
             .then(res => {
                 this.setState({tasks:res.data.data})
                 this.setState({name:res.data.data[0].name})

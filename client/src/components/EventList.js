@@ -16,7 +16,7 @@ class EventList extends Component {
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/events`)
+        axios.get(`https://ateamse2.herokuapp.com/api/events`)
             .then(res => {
                 // console.log(res.data.data)
                 this.setState({events: res.data.data});

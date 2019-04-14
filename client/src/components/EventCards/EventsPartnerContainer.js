@@ -22,7 +22,7 @@ class EventsCardContainer extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/users/getCreatedEvents/5cae2d049cd95a5754daa7e4')
+        axios.get('https://ateamse2.herokuapp.com/api/users/getCreatedEvents/5cae2d049cd95a5754daa7e4')
         .then(res => {
             // this.setState({events: res.data.data})
             this.setState({elements:res.data.data})
