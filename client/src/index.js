@@ -27,7 +27,7 @@ import Skills from './components//Admin/SkillController'
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
-
+import Event_Module from './components/EventCards/EventModule'
 import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
@@ -75,6 +75,7 @@ const routing=(
       <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path='/register' component={Register}/>
+      <Route path='/event_module' component={Event_Module}/>
     
       
     </div>

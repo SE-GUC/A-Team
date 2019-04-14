@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 import EventList from '../EventList';
 import ShowFeedbacks from '../ShowFeedbacks';
 import GetEventsByType from '../GetEventsByType';
