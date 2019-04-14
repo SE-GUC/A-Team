@@ -64,7 +64,8 @@ class EventCard extends Component {
                 eventid:this.state.id,
                 applicant_id:users[i].applicant_id
             }
-            array.push(elements3)
+            if(!users[i].is_accepted)
+                array.push(elements3)
         }
         for(var i =0;i<array.length;i++) {
             elements1.push(<Card data ={array[i]}/>);
