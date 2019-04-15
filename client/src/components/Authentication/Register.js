@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import "../../css/box_css.css";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import axios from "axios";
+
 export class Register extends Component {
   state = {
-    currentStep: 1,
-    type: ["M"],
+    col: { data: ["adams", "barbra", "cat", "doggo"] },
+    currentStep: 2, // Should be 1 intially
+    type: ["M"], //feault is M
     name: "",
     email: "",
     username: "",
@@ -15,19 +18,55 @@ export class Register extends Component {
     phone: "",
     intrests: [],
     is_private: true,
-    ca: {
-      info: "",
-      field_of_work: [],
-      board_members: [], // name job_title email
-      reports: []
-    },
-    member: {
-      years_of_experience: "",
-      skills: []
-    },
-    partner: {
-      field_of_work: [],
-      board_members: []
+    all_skills: [],
+    //CA
+    info: "",
+    field_of_work: [],
+    board_members: [], // name job_title email
+    reports: [],
+    //member
+    years_of_experience: "0",
+    skills: []
+    //partner
+    //field_of_work: [],
+    //board_members: []
+  };
+  componentDidMount() {
+    this.getIntrestfromDB();
+    this.getSkillFromDB();
+  }
+  addSkill = newskill => {
+    var update = this.state.skills;
+    var found = update.find(function(element) {
+      return element === newskill;
+    });
+    if (found === undefined) {
+      update.push(newskill);
+      this.setState({ skills: update });
+    } else {
+      window.alert("You Already Added This Skill!");
+    }
+  };
+  delSkill = skill => {
+    var uskills = this.state.skills;
+    for (var i = 0; i < uskills.length; i++) {
+      if (uskills[i] === skill) {
+        uskills.splice(i, 1);
+        i--;
+      }
+    }
+    this.setState({ skills: uskills });
+  };
+  getSkillFromDB = () => {
+    try {
+      axios
+        .get("http://localhost:4000/api/skills/getSkillCollection")
+        .then(res => {
+          this.setState({ all_skills: res.data });
+          return res.data;
+        });
+    } catch (error) {
+      console.log("error");
     }
   };
   next = () => {
@@ -64,22 +103,13 @@ export class Register extends Component {
     // ...else return nothing
     return null;
   }
-
   get nextButton() {
     let currentStep = this.state.currentStep;
     // If the current step is not 3, then render the "next" button
     if (currentStep === 1) {
       //edit later currentStep === 1
       //nwraeeh el button ama yekteb hagto
-      const {
-        name,
-        email,
-        username,
-        phone,
-        password,
-        date_of_birth,
-        password2
-      } = this.state;
+      const { name, email, username, phone, password, password2 } = this.state;
       if (
         name !== "" &&
         email !== "" &&
@@ -87,6 +117,7 @@ export class Register extends Component {
         username.length > 8 &&
         password.length > 8 &&
         password2.length > 8 &&
+        password === password2 &&
         phone !== ""
       ) {
         return (
@@ -99,7 +130,56 @@ export class Register extends Component {
             Next
           </button>
         );
-      } else return null;
+      } else
+        return (
+          <button
+            disabled
+            class="waves-effect waves-light btn"
+            type="button"
+            onClick={this.next}
+          >
+            <i class="material-icons right">arrow_forward</i>
+            Next
+          </button>
+        );
+    }
+    if (currentStep === 2) {
+      const text = this.state.years_of_experience;
+      if (this.state.type[0] === "M") {
+        var flag = false;
+        for (var n = 0; n < 46; n++) {
+          var chkr = "" + n;
+          flag = text === chkr;
+          if (flag) {
+            n = 100;
+          }
+        }
+        if (this.state.skills.length === 0 || !flag) {
+          console.log(this.state.skills);
+          return (
+            <button
+              disabled
+              class="waves-effect waves-light btn"
+              type="button"
+              onClick={this.next}
+            >
+              <i class="material-icons right">arrow_forward</i>
+              Next
+            </button>
+          );
+        } else {
+          return (
+            <button
+              class="waves-effect waves-light btn"
+              type="button"
+              onClick={this.next}
+            >
+              <i class="material-icons right">arrow_forward</i>
+              Next
+            </button>
+          );
+        }
+      }
     }
     if (currentStep < 3) {
       return (
@@ -116,7 +196,6 @@ export class Register extends Component {
     // ...else render nothing
     return null;
   }
-
   handleChange = event => {
     console.log(event.target.value);
     const { name, value } = event.target;
@@ -127,13 +206,50 @@ export class Register extends Component {
   submit = event => {
     event.preventDefault();
   };
-
+  getIntrestfromDB() {
+    try {
+      axios.get("http://localhost:4000/api/events/getTypes").then(res => {
+        this.setState({ col: res.data });
+        return res.data;
+      });
+    } catch (error) {
+      console.log("error");
+    }
+  }
+  addIntrest = newskill => {
+    var update = this.state.intrests;
+    var found = update.find(function(element) {
+      return element === newskill;
+    });
+    if (found === undefined) {
+      update.push(newskill);
+      this.setState({ intrests: update });
+    } else {
+      window.alert("You Already Added This Intrest!");
+    }
+  };
+  delIntrest = skill => {
+    var uskills = this.state.intrests;
+    for (var i = 0; i < uskills.length; i++) {
+      if (uskills[i] === skill) {
+        uskills.splice(i, 1);
+        i--;
+      }
+    }
+    this.setState({ intrests: uskills });
+  };
+  setExperience = e => {
+    this.setState({ years_of_experience: e });
+  };
   render() {
     return (
       <React.Fragment>
         <div className="container">
           <h3>Registration Form</h3>
-          <p>Step {this.state.currentStep} (Next Button Will Appear when you finsih required fields)</p>
+          <p>
+            Step {this.state.currentStep} (Next Button Will Appear when you
+            finsih required fields)
+          </p>
           <form onSubmit={this.submit} className="col s12">
             <Step1
               currentStep={this.state.currentStep}
@@ -145,16 +261,27 @@ export class Register extends Component {
               password2={this.state.password2}
               date_of_birth={this.state.date_of_birth}
               phone={this.state.phone}
-              intrests={this.state.intrests}
               is_private={this.state.is_private}
               type={this.state.type}
+              intrests={this.state.intrests}
+              addSkill={this.addIntrest}
+              delSkill={this.delIntrest}
+              col={this.state.col}
             />
             <Step2
+              handleChange={this.handleChange}
+              exprSet={this.setExperience}
               type={this.state.type}
               currentStep={this.state.currentStep}
-              ca={this.state.ca}
-              member={this.state.member}
-              partner={this.state.partner}
+              info={this.state.info}
+              field_of_work={this.state.field_of_work}
+              board_members={this.state.field_of_work}
+              reports={this.state.reports}
+              years_of_experience={this.state.years_of_experience}
+              skills={this.state.skills}
+              addSkill={this.addSkill}
+              delSkill={this.delSkill}
+              col={this.state.all_skills}
             />
             <div className="row">
               <div className="col s6">{this.previousButton}</div>
