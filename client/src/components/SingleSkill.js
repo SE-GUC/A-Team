@@ -13,16 +13,10 @@ export class TaskSkills extends Component {
   render() {
     return (
       <div>
-        <p className="delele">
+        <div class="chip">
           {this.props.skill}
-          <a
-            onClick={this.onSubmit}
-            onTouchStart={(document.body.style.cursor = "pointer")}
-            onTouchEnd={(document.body.style.cursor = "default")}
-          >
-            <i class="right material-icons">close</i>
-          </a>
-        </p>
+          <i  onClick={this.onSubmit} class="close material-icons">close</i>
+        </div>
       </div>
     );
   }

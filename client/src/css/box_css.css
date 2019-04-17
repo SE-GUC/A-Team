@@ -1,4 +1,4 @@
-body,a,p,li,input,h1,h2,h3,h4,h5,h6,table,tr,td,ul,span{
+body,a,p,li,input,h1,h2,h3,h4,h5,h6,table,tr,td,ul,span,i,div,nav,th{
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 body{
@@ -248,9 +248,20 @@ td {
   display: block;
 }
 .Steps{
+  height: 900px;
   border: 4px darkgrey dashed;
   padding: 20px;
   padding-left: 30px;
-  border-bottom: 1px darkgrey dashed
+  border-bottom: 1px darkgrey dashed;
+  margin-bottom: 15px;
+
+}
+.Steps1{
+  height: 800px;
+  border: 4px darkgrey dashed;
+  padding: 20px;
+  padding-left: 30px;
+  border-bottom: 1px darkgrey dashed;
+  margin-bottom: 15px;
 
 }

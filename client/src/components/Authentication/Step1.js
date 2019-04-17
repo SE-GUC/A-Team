@@ -30,7 +30,7 @@ export class Step1 extends Component {
   };
   componentDidMount() {
     document.addEventListener("DOMContentLoaded", function() {
-      var elems = document.querySelectorAll(".datepicker");
+      var elems = document.getElementById("dob step1 reg");
       var options = {
         format: "dd/mm/yyyy",
         yearRange: [1960, new Date().getFullYear() - 18]
@@ -47,7 +47,7 @@ export class Step1 extends Component {
       return null;
     }
     return (
-      <div className="Steps">
+      <div className="Steps1">
         <div className="row" title="Enter Name and Email">
           <div className="input-field col s6">
             <i class="material-icons prefix">tag_faces</i>
@@ -124,6 +124,7 @@ export class Step1 extends Component {
           <div className="input-field col s4">
             <i class="material-icons prefix">date_range</i>
             <input
+              id="dob step1 reg"
               placeholder="Date of birth.."
               name="date_of_birth"
               type="text"

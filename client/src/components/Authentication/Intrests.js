@@ -9,7 +9,7 @@ class Intrests extends Component {
   render () {
     return <div>
          <table>
-              <tr>
+              <tr >
                 <td><AddSkill addSkill={this.props.addSkill}  col={this.props.col}/></td>
                 <td><TaskSkills skills={this.props.skills} delSkill={this.props.delSkill} /></td>
                 </tr>

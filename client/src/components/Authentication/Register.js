@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import "../../css/box_css.css";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import Step3 from "./Step3";
 import axios from "axios";
 
 export class Register extends Component {
   state = {
     col: { data: ["adams", "barbra", "cat", "doggo"] },
     currentStep: 2, // Should be 1 intially
-    type: ["M"], //feault is M
+    type: ["CA"], //feault is M
     name: "",
     email: "",
     username: "",
@@ -37,6 +38,10 @@ export class Register extends Component {
   }
   addSkill = newskill => {
     var update = this.state.skills;
+    if (update.length === 10) {
+      window.alert("You can Only Enter a maximium of 10 Skills");
+      return;
+    }
     var found = update.find(function(element) {
       return element === newskill;
     });
@@ -180,6 +185,32 @@ export class Register extends Component {
           );
         }
       }
+      if (this.state.type[0] === "CA") {
+        if (this.state.info.length < 20) {
+          return (
+            <button
+              disabled
+              class="waves-effect waves-light btn"
+              type="button"
+              onClick={this.next}
+            >
+              <i class="material-icons right">arrow_forward</i>
+              Next
+            </button>
+          );
+        } else
+          return (
+            <button
+              disabled
+              class="waves-effect waves-light btn"
+              type="button"
+              onClick={this.next}
+            >
+              <i class="material-icons right">arrow_forward</i>
+              Next
+            </button>
+          );
+      }
     }
     if (currentStep < 3) {
       return (
@@ -205,6 +236,20 @@ export class Register extends Component {
   };
   submit = event => {
     event.preventDefault();
+  };
+  delBoard = () => {
+    var board = this.state.board_members;
+    board.pop();
+    this.setState({ board_members: board });
+    console.log(board);
+  };
+  addBoard = value => {
+    var board = this.state.board_members;
+    board.push(value);
+    this.setState({ board_members: board });
+  };
+  setReport = value => {
+    this.setState({ reports: value });
   };
   getIntrestfromDB() {
     try {
@@ -275,13 +320,23 @@ export class Register extends Component {
               currentStep={this.state.currentStep}
               info={this.state.info}
               field_of_work={this.state.field_of_work}
-              board_members={this.state.field_of_work}
+              board_members={this.state.board_members}
               reports={this.state.reports}
               years_of_experience={this.state.years_of_experience}
               skills={this.state.skills}
               addSkill={this.addSkill}
               delSkill={this.delSkill}
               col={this.state.all_skills}
+              addBoard={this.addBoard}
+              delBoard={this.delBoard}
+              setReport={this.setReport}
+            />
+            <Step3
+                handleChange={this.handleChange}
+                currentStep={this.state.currentStep}
+                state={this.state}
+                type={this.state.type}
+            
             />
             <div className="row">
               <div className="col s6">{this.previousButton}</div>

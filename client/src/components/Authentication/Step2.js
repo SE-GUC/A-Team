@@ -3,16 +3,110 @@ import Skills from "../../components/Skills";
 import axios from "axios";
 import Intrests from "./Intrests";
 import TaskDatePack from "../TaskDatePack";
+import M from "materialize-css";
 
 export class Step2 extends Component {
   state = {
     all_skills: [],
     skills: [],
-    years_of_experience: ""
+    reports: [],
+    years_of_experience: "",
+    bname: "",
+    btitle: "",
+    bemaail: "",
+    currentRow: 1
   };
+  handleChange = event => {
+    console.log(event.target.value);
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+  addMember = () => {
+    const details = {
+      name: this.state.bname,
+      job_title: this.state.btitle,
+      email: this.state.bemaail
+    };
+    const condtion =
+      details.name === "" || details.job_title === "" || details.email === "";
+    if (condtion) {
+      window.alert(
+        "If You Want To Add a Board Member \n You Must Enter The Details"
+      );
+    } else {
+      const row = this.state.currentRow;
+      if (row === 7) {
+        window.alert("You Can NOT add more than 7 board members");
+        return;
+      }
+      var table = document.getElementById("Step2-CA-Board");
+      table.rows[row].cells[0].innerHTML = details.name;
+      table.rows[row].cells[1].innerHTML = details.email;
+      table.rows[row].cells[2].innerHTML = details.job_title;
+      //Add Delete Button
 
-  componentDidMount() {}
-
+      //update register component
+      this.props.addBoard(details);
+      this.setState({ currentRow: row + 1 });
+      this.setState({ bname: "" });
+      this.setState({ btitle: "" });
+      this.setState({ bemaail: "" });
+    }
+  };
+  delMember = () => {
+    const row = this.state.currentRow - 1;
+    if (row === 0) {
+      window.alert("You did not Enter Any Values");
+    } else {
+      var table = document.getElementById("Step2-CA-Board");
+      table.rows[row].cells[0].innerHTML = "";
+      table.rows[row].cells[1].innerHTML = "";
+      table.rows[row].cells[2].innerHTML = "";
+      this.setState({ currentRow: row });
+      this.props.delBoard();
+    }
+  };
+  onChipAdd = () => {
+    var result = [];
+    var elem = document.getElementById("CA chips Reg");
+    var instance = M.Chips.getInstance(elem);
+    for (var i = 0; i < instance.chipsData.length; i++) {
+      result.push(instance.chipsData[i].tag);
+    }
+    this.setState({ reports: result });
+    this.props.setReport(result);
+  };
+  componentDidMount() {
+    document.addEventListener("DOMContentLoaded", function() {
+      var textNeedCount = document.querySelectorAll("#CA_Info_TA");
+      M.CharacterCounter.init(textNeedCount);
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.getElementById("CA chips Reg");
+      var instances = M.Chips.init(elems, {
+        placeholder: "Add Report URLs",
+        secondaryPlaceholder: "Add URL",
+        limit: 5,
+        onChipAdd: () => {
+          var x = [];
+          for (var i = 0; i < instances.chipsData.length; i++) {
+            x.push(instances.chipsData[i].tag);
+          }
+          return x;
+          // console.log("Data",dataOfCa,"Instances",instances)
+        }
+      });
+    });
+  }
+  setURL = () => {
+    console.log("lalal");
+    var elems = document.getElementById("CA chips Reg");
+    var instance = M.Chips.getInstance(elems);
+    var reports = instance.onChipAdd();
+    console.log(reports);
+  };
   render() {
     if (this.props.currentStep !== 2) {
       return null;
@@ -42,10 +136,7 @@ export class Step2 extends Component {
                 max="45"
               />
             </div>
-            <div
-              className="input-field col s9"
-              style={{ border: "1px dashed salmon" }}
-            >
+            <div className="input-field col s9">
               <Intrests
                 addSkill={this.props.addSkill}
                 delSkill={this.props.delSkill}
@@ -57,13 +148,264 @@ export class Step2 extends Component {
         </div>
       );
     }
-    if (this.props.type[0] === "P") {
-      //Partner Form
-      return <div />;
-    }
     if (this.props.type[0] === "CA") {
+      //Partner Form
+      return (
+        <div className="Steps">
+          <h4>You Chose to Become a Consultancy Agency</h4>
+          <h5>You will be to Sponsor Projects and Host Events</h5>
+          <p>Please Enter The Following Details:</p>
+          <br />
+          <div className="row" title="info">
+            <div className="input-field col s12">
+              <i class="material-icons prefix">info</i>
+              <textarea
+                id="CA_Info_TA"
+                class="materialize-textarea"
+                name="info"
+                placeholder="Plaase Enter A Brief Description On The Organization You are Representing MIN 20 Characters"
+                value={this.props.info}
+                onChange={this.props.handleChange}
+                data-length="90"
+              />
+            </div>
+          </div>
+          <div title="Add Info About The Board" className="row">
+            <div className="Info to Add" className="col s6">
+              <h6>Enter Details of the Board Members (Optional)</h6>
+              <div className="row">
+                <div className="input-field col s3" title="Board Member Name">
+                  <i class="material-icons prefix">person</i>
+                  <input
+                    type="text"
+                    placeholder="Board Member Name"
+                    name="bname"
+                    value={this.state.bname}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row" title="Board Member Email">
+                <div className="input-field col s3">
+                  <i class="material-icons prefix">email</i>
+                  <input
+                    type="text"
+                    placeholder="Board Member Email"
+                    name="bemaail"
+                    value={this.state.bemaail}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row" title="Board Member Title">
+                <div className="input-field col s3">
+                  <i class="material-icons prefix">show_chart</i>
+                  <input
+                    type="text"
+                    placeholder="Board Member Title"
+                    name="btitle"
+                    value={this.state.btitle}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div
+                className="row"
+                title="Click Here to Submit"
+                style={{ paddingTop: "30px" }}
+              >
+                <div className="col s6">
+                  <button
+                    type="submit"
+                    class="btn waves-effect waves-light"
+                    onClick={this.addMember}
+                    style={{ marginLeft: "50px" }}
+                  >
+                    Add Member
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+                <div className="col s6">
+                  <button
+                    type="submit"
+                    class="btn waves-effect waves-light"
+                    onClick={this.delMember}
+                  >
+                    Undo
+                    <i class="material-icons right">undo</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="Table that Shows Board Members" className="col s6">
+              <table id="Step2-CA-Board" className="highlight">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Postion</th>
+                  </tr>
+                </thead>
+
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div className="row" title="Reports">
+            <div className="col s12">
+              <h6>
+                Please Enter The Links of Your Agency's Reports (Optional)
+              </h6>
+              <div
+                id="CA chips Reg"
+                class="chips"
+                onChange={this.onChipAdd}
+                onKeyDown={this.onChipAdd}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (this.props.type[0] === "P") {
       //Consultancy Agency Form
-      return <div />;
+      return (
+        <div className="Steps1">
+          <h4>You Chose to Become a Consultancy Agency</h4>
+          <h5>You will be to Sponsor Projects and Host Events</h5>
+          <p>Please Enter The Following Details:</p>
+          <br />
+
+          <div title="Add Info About The Board" className="row">
+            <div className="Info to Add" className="col s6">
+              <h6>Enter Details of the Board Members (Optional)</h6>
+              <div className="row">
+                <div className="input-field col s3" title="Board Member Name">
+                  <i class="material-icons prefix">person</i>
+                  <input
+                    type="text"
+                    placeholder="Board Member Name"
+                    name="bname"
+                    value={this.state.bname}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row" title="Board Member Email">
+                <div className="input-field col s3">
+                  <i class="material-icons prefix">email</i>
+                  <input
+                    type="text"
+                    placeholder="Board Member Email"
+                    name="bemaail"
+                    value={this.state.bemaail}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row" title="Board Member Title">
+                <div className="input-field col s3">
+                  <i class="material-icons prefix">show_chart</i>
+                  <input
+                    type="text"
+                    placeholder="Board Member Title"
+                    name="btitle"
+                    value={this.state.btitle}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div
+                className="row"
+                title="Click Here to Submit"
+                style={{ paddingTop: "30px" }}
+              >
+                <div className="col s6">
+                  <button
+                    type="submit"
+                    class="btn waves-effect waves-light"
+                    onClick={this.addMember}
+                    style={{ marginLeft: "50px" }}
+                  >
+                    Add Member
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+                <div className="col s6">
+                  <button
+                    type="submit"
+                    class="btn waves-effect waves-light"
+                    onClick={this.delMember}
+                  >
+                    Undo
+                    <i class="material-icons right">undo</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="Table that Shows Board Members" className="col s6">
+              <table id="Step2-CA-Board" className="highlight">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Postion</th>
+                  </tr>
+                </thead>
+
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+                <tr style={{ height: "53px" }}>
+                  <td /> <td /> <td />
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div className="row" title="Reports">
+            <div className="col s12">
+              <h6>
+                Please Enter The Links of Your Agency's Reports (Optional)
+              </h6>
+              <div
+                id="CA chips Reg"
+                class="chips"
+                onChange={this.onChipAdd}
+                onKeyDown={this.onChipAdd}
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
     return null;
   }
