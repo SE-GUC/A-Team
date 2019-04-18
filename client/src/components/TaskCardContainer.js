@@ -1,7 +1,7 @@
 import Card from './TaskCard';
 import React from 'react';
 import axios from 'axios'
-// import '../css/TaskCardContainer.css'
+import '../css/TaskCardContainer.css'
 class TaskCardContainer extends React.Component {
     constructor(props) {
         super(props)

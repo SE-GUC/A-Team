@@ -78,21 +78,22 @@ class ApplicantsCard extends Component {
 	<div class="" >
 		<div class="col s12 m6">
 			<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
+				<div class="card-content white-text" id="cardContent">
 					<div class="card__meta">
 						<time>{}</time>
 					</div>
 					<span class="card-title">{this.state.name}</span>
+                    <p>---------------------------------------------------------</p>
 					<p><b>Email:</b> {this.state.email}</p>
                     <p><b>Username:</b> {this.state.username}</p>
                     <p><b>Age:</b> {this.state.age}</p>
                     <p><b>Interests:</b> {this.state.interests}</p>
-                    <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
-                    <a onClick={()=>this.reject()} class="waves-effect waves-light btn">Reject</a>
+            
 
 				</div>
 				<div class="card-action">
-
+                <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
+                    <a onClick={()=>this.reject()} class="waves-effect waves-light btn">Reject</a>
 				</div>
 			</div>
 		</div>

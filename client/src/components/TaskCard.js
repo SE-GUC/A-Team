@@ -95,6 +95,7 @@ class TaskCard extends Component {
                     <div class="card__meta">
                         <h5>{this.state.name}</h5>
                         <p>---------------------------------------------------------</p>
+                        
                         <time>{}</time>
                     </div>
                         <p><b>Description:</b> {this.state.description}</p>
