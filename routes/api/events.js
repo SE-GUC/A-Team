@@ -11,7 +11,6 @@ const User= require('../../models/User')
 
 
 
-
 router.get('/getBySpeakers/:speaker', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
@@ -258,6 +257,7 @@ router
       return response.json({ error: status })
     }
     try {
+     
       const event = await new Event({
         _id: mongoose.Types.ObjectId(),
         remaining_places: request.body.remaining_places,
@@ -271,6 +271,7 @@ router
         partner_initiated: request.body.partner_initiated,
         status:'PENDING_APPROVAL',
         time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        event_date:request.body.event_date,
         attendees: [],
         feedbacks: [],
         applicants: []

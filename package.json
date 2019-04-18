@@ -10,8 +10,7 @@
     "test": "jest",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "deve": "nodemon index.js",
-    "heroku-postbuild":
-    "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -42,6 +41,7 @@
     "path": "^0.12.7",
     "react": "^16.8.6",
     "react-bootstrap-table": "^4.3.1",
+    "react-datepicker": "^2.4.0",
     "react-dom": "^16.8.6",
     "react-materialize": "^3.0.4",
     "react-router-dom": "^5.0.0",
