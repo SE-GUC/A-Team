@@ -145,7 +145,7 @@ router.post('/register', async (req,res) => {
         phone: joi.allow(),
         is_private: joi.allow(),
         interests: joi.allow(),
-  
+        
         info: joi.string().required(), 
         field_of_work: joi.array().items(joi.string()).required(),
         board_members: joi.array().items(joi.string()).required(),

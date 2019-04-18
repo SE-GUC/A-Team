@@ -4,21 +4,21 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import axios from "axios";
-
+import M from "materialize-css";
 export class Register extends Component {
   state = {
     col: { data: ["adams", "barbra", "cat", "doggo"] },
-    currentStep: 2, // Should be 1 intially
+    currentStep: 1, // Should be 1 intially
     type: ["M"], //feault is M
-    name: "",
-    email: "",
-    username: "",
-    password: "",
-    password2: "",
-    date_of_birth: "",
-    phone: "",
+    name: "youssef shalaby",
+    email: "youshalaby@gmail.com",
+    username: "Shalaby89",
+    password: "123456789",
+    password2: "123456789",
+    date_of_birth: "23/09/1998",
+    phone: "01119455455",
     intrests: [],
-    is_private: true,
+    is_private: false,
     all_skills: [],
     //CA
     info: "",
@@ -187,8 +187,9 @@ export class Register extends Component {
           );
         }
       }
-      if (this.state.type[0] === "CA") {
+      if (this.state.type[0] === "C") {
         if (this.state.info.length < 20) {
+          console.log(this.state.info.length);
           return (
             <button
               disabled
@@ -203,7 +204,6 @@ export class Register extends Component {
         } else
           return (
             <button
-              disabled
               class="waves-effect waves-light btn"
               type="button"
               onClick={this.next}
@@ -229,15 +229,46 @@ export class Register extends Component {
     // ...else render nothing
     return null;
   }
+  submit = () => {
+    const data = {
+      name:this.state.name,
+      email:this.state.email,
+      username:this.state.username,
+      password:this.state.password,
+      date_of_birth:this.state.date_of_birth,
+      phone:this.state.phone,
+      intrests:this.state.intrests,
+      is_private:this.state.is_private,
+      info:this.state.info,
+      field_of_work:this.state.field_of_work,
+      board_members:this.state.board_members,
+      reports:this.state.reports,
+      years_of_experience:this.state.years_of_experience +"Year (s)",
+      skills:this.state.skills,
+      type:this.state.type,
+      applicants:[]
+    }
+    console.log("Submitting..")
+    
+    try{
+      console.log("Fetching")
+     axios.post("http://localhost:4000/api/users/register", data).then(res => {
+        console.log(res);
+        console.log("Submited..")
+       // window.alert("Registred");
+      //  return res.data
+      });
+    } catch (error) {
+      console.log("error");
+    }
+    console.log("DONE..")
+  };
   handleChange = event => {
     console.log(event.target.value);
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
-  };
-  submit = event => {
-    event.preventDefault();
   };
   delBoard = () => {
     var board = this.state.board_members;
@@ -297,7 +328,7 @@ export class Register extends Component {
             Step {this.state.currentStep} (Next Button Will Appear when you
             finsih required fields)
           </p>
-          <form onSubmit={this.submit} className="col s12">
+          <form  className="col s12">
             <Step1
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
@@ -338,14 +369,18 @@ export class Register extends Component {
               currentStep={this.state.currentStep}
               state={this.state}
               type={this.state.type}
+              submit={this.submit}
             />
+
             <div className="row">
               <div class="col s2">{this.previousButton}</div>
               <div class="col s2" />
               <div class="col s2" />
               <div class="col s2" />
               <div class="col s2" />
-              <div class="col s2 push-s1" style={{marginRight:'45px'}}>{this.nextButton}</div>
+              <div class="col s2 push-s1" style={{ marginRight: "45px" }}>
+                {this.nextButton}
+              </div>
             </div>
           </form>
         </div>

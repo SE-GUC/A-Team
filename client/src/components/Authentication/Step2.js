@@ -4,6 +4,7 @@ import axios from "axios";
 import Intrests from "./Intrests";
 import TaskDatePack from "../TaskDatePack";
 import M from "materialize-css";
+import Chip from '@material-ui/core/Chip';
 
 export class Step2 extends Component {
   state = {
@@ -22,6 +23,38 @@ export class Step2 extends Component {
     this.setState({
       [name]: value
     });
+  };
+  addMemberP = () => {
+    const details = {
+      name: this.state.bname,
+      job_title: this.state.btitle,
+      email: this.state.bemaail
+    };
+    const condtion =
+      details.name === "" || details.job_title === "" || details.email === "";
+    if (condtion) {
+      window.alert(
+        "If You Want To Add a Board Member \n You Must Enter The Details"
+      );
+    } else {
+      const row = this.state.currentRow;
+      if (row === 7) {
+        window.alert("You Can NOT add more than 7 board members");
+        return;
+      }
+      var table = document.getElementById("Step2-P-Board");
+      table.rows[row].cells[0].innerHTML = details.name;
+      table.rows[row].cells[1].innerHTML = details.email;
+      table.rows[row].cells[2].innerHTML = details.job_title;
+      //Add Delete Button
+
+      //update register component
+      this.props.addBoard(details);
+      this.setState({ currentRow: row + 1 });
+      this.setState({ bname: "" });
+      this.setState({ btitle: "" });
+      this.setState({ bemaail: "" });
+    }
   };
   addMember = () => {
     const details = {
@@ -68,9 +101,32 @@ export class Step2 extends Component {
       this.props.delBoard();
     }
   };
+  delMemberP = () => {
+    const row = this.state.currentRow - 1;
+    if (row === 0) {
+      window.alert("You did not Enter Any Values");
+    } else {
+      var table = document.getElementById("Step2-P-Board");
+      table.rows[row].cells[0].innerHTML = "";
+      table.rows[row].cells[1].innerHTML = "";
+      table.rows[row].cells[2].innerHTML = "";
+      this.setState({ currentRow: row });
+      this.props.delBoard();
+    }
+  };
   onChipAdd = () => {
     var result = [];
     var elem = document.getElementById("CA chips Reg");
+    var instance = M.Chips.getInstance(elem);
+    for (var i = 0; i < instance.chipsData.length; i++) {
+      result.push(instance.chipsData[i].tag);
+    }
+    this.setState({ reports: result });
+    this.props.setReport(result);
+  };
+  onChipAddP = () => {
+    var result = [];
+    var elem = document.getElementById("P chips Reg");
     var instance = M.Chips.getInstance(elem);
     for (var i = 0; i < instance.chipsData.length; i++) {
       result.push(instance.chipsData[i].tag);
@@ -99,10 +155,33 @@ export class Step2 extends Component {
         }
       });
     });
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.getElementById("P chips Reg");
+      var instances = M.Chips.init(elems, {
+        placeholder: "Add Report URLs",
+        secondaryPlaceholder: "Add URL",
+        limit: 5,
+        onChipAdd: () => {
+          var x = [];
+          for (var i = 0; i < instances.chipsData.length; i++) {
+            x.push(instances.chipsData[i].tag);
+          }
+          return x;
+          // console.log("Data",dataOfCa,"Instances",instances)
+        }
+      });
+    });
   }
   setURL = () => {
     console.log("lalal");
     var elems = document.getElementById("CA chips Reg");
+    var instance = M.Chips.getInstance(elems);
+    var reports = instance.onChipAdd();
+    console.log(reports);
+  };
+  setURLP = () => {
+    console.log("lalal");
+    var elems = document.getElementById("P chips Reg");
     var instance = M.Chips.getInstance(elems);
     var reports = instance.onChipAdd();
     console.log(reports);
@@ -149,8 +228,9 @@ export class Step2 extends Component {
         </div>
       );
     }
-    if (this.props.type[0] === "CA") {
+    if (this.props.type[0] === "C") {
       //Partner Form
+
       return (
         <div className="Steps">
           <h4>You Chose to Become a Consultancy Agency</h4>
@@ -171,6 +251,7 @@ export class Step2 extends Component {
               />
             </div>
           </div>
+
           <div title="Add Info About The Board" className="row">
             <div className="Info to Add" className="col s6">
               <h6>Enter Details of the Board Members (Optional)</h6>
@@ -284,12 +365,11 @@ export class Step2 extends Component {
           </div>
         </div>
       );
-    }
-    if (this.props.type[0] === "P") {
-      //Consultancy Agency Form
+    } else if (this.props.type[0] === "P") {
+      //Partner  Form
       return (
         <div className="Steps1">
-          <h4>You Chose to Become a Consultancy Agency</h4>
+          <h4>You Chose to Become a Partner</h4>
           <h5>You will be to Sponsor Projects and Host Events</h5>
           <p>Please Enter The Following Details:</p>
           <br />
@@ -342,7 +422,7 @@ export class Step2 extends Component {
                   <button
                     type="submit"
                     class="btn waves-effect waves-light"
-                    onClick={this.addMember}
+                    onClick={this.addMemberP}
                     style={{ marginLeft: "50px" }}
                   >
                     Add Member
@@ -353,7 +433,7 @@ export class Step2 extends Component {
                   <button
                     type="submit"
                     class="btn waves-effect waves-light"
-                    onClick={this.delMember}
+                    onClick={this.delMemberP}
                   >
                     Undo
                     <i class="material-icons right">undo</i>
@@ -362,7 +442,7 @@ export class Step2 extends Component {
               </div>
             </div>
             <div className="Table that Shows Board Members" className="col s6">
-              <table id="Step2-CA-Board" className="highlight">
+              <table id="Step2-P-Board" className="highlight">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -398,10 +478,10 @@ export class Step2 extends Component {
                 Please Enter The Links of Your Agency's Reports (Optional)
               </h6>
               <div
-                id="CA chips Reg"
+                id="PchipsReg"
                 class="chips"
-                onChange={this.onChipAdd}
-                onKeyDown={this.onChipAdd}
+                onChange={this.onChipAddP}
+                onKeyDown={this.onChipAddP}
               />
             </div>
           </div>
