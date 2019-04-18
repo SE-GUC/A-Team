@@ -1,11 +1,14 @@
-.card {
+#cardContent {
     width:400px;
-    height: 400px;
+    height: 300px;
     padding:20px;
     margin-right:15px;
+    background-color: black;
 
 }
-
+#cardAction {
+    background-color: black;
+}
 .container {
     justify-items: center;
     /* grid-gap: 20px 5000px; */
