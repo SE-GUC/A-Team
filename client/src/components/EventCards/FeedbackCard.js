@@ -54,12 +54,22 @@ class FeedbackCard extends Component {
     sbmtbtn() {
         this.setState({submitState:true})
         const url='http://localhost:4000/api/events/'+this.state.id +'/feedback'
-        axios.post(url,{
-            user_id:"5cae2d049cd95a5754daa7e4", //da ghalat
-            comment:this.state.message,
-            rate:this.state.range
 
-        })
+        axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: localStorage.getItem('token')
+            }, 
+            data: {
+
+                comment:this.state.message,
+                rate:this.state.range    
+            }
+          }).then(res=>{
+              console.log('geh hena?')
+              console.log(res)
+          });
     }
     
 
