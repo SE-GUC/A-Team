@@ -1,0 +1,32 @@
+.bg-image {
+    /* Full height */
+    height: 50%; 
+    
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.img1 {
+  background-image: url(https://static.theceomagazine.net/wp-content/uploads/2017/05/19201304/2017.4.19-David-Hand-Five-operational-strategies-for-sustained-business-performance.jpg);
+}
+.img2 { background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEkmba10_Ak7Ds189C0pCsNdqrGwHXqiM7yJVnDNB6oTdfcg0yPw);
+}
+
+/* Position text in the middle of the page/image */
+.bg-text {
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  font-size: 80px;
+  border: 10px solid #f1f1f1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+}
