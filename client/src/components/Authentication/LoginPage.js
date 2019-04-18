@@ -25,7 +25,7 @@ class LoginPage  extends Component {
         }
         axios.post('http://localhost:4000/api/users/login', body).then( res=>{
           console.log(res)
-          var token = res.data.token.split(' ')[1]
+          var token = res.data.token
           localStorage.setItem("token", token)
         }).catch(err=>{
             console.log(err)
