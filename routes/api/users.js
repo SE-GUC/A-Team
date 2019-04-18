@@ -32,15 +32,52 @@ const tokenKey = require('../../config/keys').secretOrKey
     //   const users = await User.find()
     //   res.json({ data: users })
     // });
+
+const checkToken = (req, res, next) => {
+  const header = req.headers['authorization'];
+    
+  if(typeof header !== 'undefined') {
+      const bearer = header.split(' ');
+      const token = bearer[1];
+    
+      req.token = token;
+      next();
+  } else {
+      //If header is undefined return Forbidden (403)
+      res.sendStatus(403)
+  }
+}
+
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
 
-router.get('/getEvents/:id', async(req,res)=>{
-  const user = await User.findById(req.params.id).exec()
-  const events = await user.events_attended
-  return res.json({ data: events })
-})
+// router.get('/getEvents/:id', async(req,res)=>{
+//   const user = await User.findById(req.params.id).exec()
+//   const events = await user.events_attended
+//   return res.json({ data: events })
+// })
+
+router.get('/getEvents', checkToken, async (req, res) => {
+  //verify the JWT token generated for the user
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+      if(err){
+          //If error send Forbidden (403)
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      } else {
+          const user = await User.findById(authorizedData.id).exec()
+          const events = await user.events_attended
+
+          console.log('SUCCESS: Connected to protected route');
+
+          //If token is successfully verified, we can send the autorized data 
+          return res.json({
+              data:events
+          });
+      }
+  })
+});
 
 //Amr Story 1.15
 router.get('/get_tasks/:id',async(req,res) => {
@@ -74,11 +111,26 @@ router.put('/remove_application/:id', async (req,res) => {
 // })
 
 
-router.get('/getCreatedEvents/:id', async(req,res)=>{
-  const user = await User.findById(req.params.id).exec()
-  const events = await user.events_created
-  return res.json({ data: events })
-})
+router.get('/getCreatedEvents', checkToken, async (req, res) => {
+  //verify the JWT token generated for the user
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+      if(err){
+          //If error send Forbidden (403)
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      } else {
+          const user = await User.findById(authorizedData.id).exec()
+          const events = await user.events_created
+
+          console.log('SUCCESS: Connected to protected route');
+
+          //If token is successfully verified, we can send the autorized data 
+          return res.json({
+              data:events
+          });
+      }
+  })
+});
 
 router.post('/login', async (req, res) => {
 	try {
