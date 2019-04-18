@@ -42,6 +42,8 @@ import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
 import EventModule from './components/EventCards/EventModule'
 
+import LoginPage from './components/Authentication/LoginPage'
+
 
 const routing=(
     <Router>
@@ -79,6 +81,7 @@ const routing=(
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path='/register' component={Register}/>
       <Route path='/event_module' component={Event_Module}/>
+      <Route path='/login' component={LoginPage}/>
     
       
     </div>

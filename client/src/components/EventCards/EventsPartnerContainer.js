@@ -22,22 +22,29 @@ class EventsCardContainer extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/users/getCreatedEvents/5cae2d049cd95a5754daa7e4')
-        .then(res => {
-            // this.setState({events: res.data.data})
+
+        axios('http://localhost:4000/api/users/getCreatedEvents', {
+            method: 'GET',
+            headers: {
+              'authorization': localStorage.getItem('token')
+            }
+          })
+          .then(res => {
+            console.log(res)
             this.setState({elements:res.data.data})
             this.setState({loading:false})
-        })
-        .catch(err => {
-            console.log("oislijdlijSfiz")
-        })
+            })
+          .catch(err => { 
+              console.log('feih error')
+              console.log(err) })
+
     }
     render() {  
         if(!this.state.loading) {
         var elements1=[];
         const events=this.state.elements
         for(var i=0;i<this.state.elements.length;i++){
-            console.log(events[i]._id)
+            console.log(events[i])
             elements1.push(<Card data ={events[i]}/>);
         }
         return (
