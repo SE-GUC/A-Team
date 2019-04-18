@@ -9,7 +9,7 @@ export class Register extends Component {
   state = {
     col: { data: ["adams", "barbra", "cat", "doggo"] },
     currentStep: 2, // Should be 1 intially
-    type: ["CA"], //feault is M
+    type: ["M"], //feault is M
     name: "",
     email: "",
     username: "",
@@ -26,7 +26,7 @@ export class Register extends Component {
     board_members: [], // name job_title email
     reports: [],
     //member
-    years_of_experience: "0",
+    years_of_experience: 0,
     skills: []
     //partner
     //field_of_work: [],
@@ -96,12 +96,14 @@ export class Register extends Component {
     if (currentStep !== 1) {
       return (
         <button
-          className="waves-effect waves-light btn"
+          class="waves-effect waves-light btn"
           type="button"
           onClick={this.prev}
         >
-          <i class="material-icons right">arrow_backward</i>
-          Previous
+          <p>
+            <i class="material-icons right">keyboard_arrow_left</i>
+            Back
+          </p>
         </button>
       );
     }
@@ -127,7 +129,7 @@ export class Register extends Component {
       ) {
         return (
           <button
-            class="waves-effect waves-light btn"
+            class="waves-effect waves-light btn pulse"
             type="button"
             onClick={this.next}
           >
@@ -175,7 +177,7 @@ export class Register extends Component {
         } else {
           return (
             <button
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn pulse"
               type="button"
               onClick={this.next}
             >
@@ -215,7 +217,7 @@ export class Register extends Component {
     if (currentStep < 3) {
       return (
         <button
-          class="waves-effect waves-light btn"
+          class="waves-effect waves-light btn pulse"
           type="button"
           onClick={this.next}
         >
@@ -332,15 +334,18 @@ export class Register extends Component {
               setReport={this.setReport}
             />
             <Step3
-                handleChange={this.handleChange}
-                currentStep={this.state.currentStep}
-                state={this.state}
-                type={this.state.type}
-            
+              handleChange={this.handleChange}
+              currentStep={this.state.currentStep}
+              state={this.state}
+              type={this.state.type}
             />
             <div className="row">
-              <div className="col s6">{this.previousButton}</div>
-              <div>{this.nextButton}</div>
+              <div class="col s2">{this.previousButton}</div>
+              <div class="col s2" />
+              <div class="col s2" />
+              <div class="col s2" />
+              <div class="col s2" />
+              <div class="col s2 push-s1" style={{marginRight:'45px'}}>{this.nextButton}</div>
             </div>
           </form>
         </div>

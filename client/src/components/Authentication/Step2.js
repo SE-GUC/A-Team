@@ -114,12 +114,13 @@ export class Step2 extends Component {
     if (this.props.type[0] === "M") {
       //Member Form
       return (
-        <div className="Steps">
+        <div className="StepsM">
           <h4>You Chose to Become a Member</h4>
           <h5>
             You will be able to apply for tasks and fulfil the freelance dream
           </h5>
           <p>Please Enter The Following Details:</p>
+          <p>You need to enter at least one skill</p>
           <br />
           <div className="row">
             <div className="input-field col s3">
@@ -129,7 +130,7 @@ export class Step2 extends Component {
                 className="validate"
                 name="years_of_experience"
                 type="number"
-                placeholder="Years of Experience.."
+                placeholder="Years of Experience*"
                 value={this.props.years_of_experience}
                 onChange={this.props.handleChange}
                 min="0"
