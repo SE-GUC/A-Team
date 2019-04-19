@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import { Redirect, Route } from 'react-router-dom'
+import NavGeneral from '../NavGeneral'
 
 class LoginPage  extends Component {
     constructor(props)
@@ -52,7 +53,7 @@ class LoginPage  extends Component {
         .catch(err => { 
             console.log(err) })
         if(myuser.type.includes('P')) {
-          this.props.history.replace('/partnernav');
+          this.props.history.replace('/partner');
 
         } else if(myuser.type.includes('CA')) {
         } else if(myuser.type.includes('M')) {
@@ -68,6 +69,8 @@ class LoginPage  extends Component {
         // }
     
         return(
+            <div >
+            <NavGeneral/>
 
             <div class="row">
               <div class="row">
@@ -83,6 +86,7 @@ class LoginPage  extends Component {
                 </div>
               </div>
               <a onClick={()=>this.loginbtn()} class="waves-effect waves-light btn">Login</a>
+          </div>
           </div>
         );
       

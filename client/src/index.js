@@ -53,7 +53,24 @@ const routing=(
     <Route path="/homepage" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
     <Route path="/Events" component={EventCard} />
-      <Route path="/partnernav" component={NavPartner}/>    
+      <Route path="/partner" component={NavPartner}/>    
+      <Route path="/partner/Events" component={EventCard} />
+      <Route path="/partner/Create_Events" component={CreateEvent} />
+      <Route path="/partner/feedback" component={Feedback}/>    
+      <Route path="/partner/appcard" component={ApplicationCard}/>    
+      <Route path='/partner/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
+      <Route path='/partner/submit_task' component={TaskPostForm}/>
+      <Route path="/partner/get_tasks" component={TaskList}/>
+      <Route path="/partner/viewrtaskapplicants" component={ViewTApplicants}/>
+      <Route path="/partner/task_card" component={TaskCardContainer} />
+
+
+
+
+
+
+
+
       {/* <Route path="/card" component={EventCard}/>     */}
       <Route path="/post_project" component={ProjectPostForm}/>  
       <Route path="/adminContainer" component={AdminViewEvents}/>    
