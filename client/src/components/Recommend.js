@@ -57,7 +57,7 @@ class Recommend extends Component {
                                 <input placeholder="Member id" type="text" name="name" onChange={this.handleChange} />
                             </label>
                             <p></p>
-                            <button type="submit">Get recommendations</button>
+                            <button type="submit" className="waves-effect waves-light btn cyan darken-3">Get recommendations</button>
                             <ul>
                             <li>
                                 {this.state.result}

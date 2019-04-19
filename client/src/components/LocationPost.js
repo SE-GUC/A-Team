@@ -113,7 +113,7 @@ class LocationPost extends Component {
           <input type="text" name="booked" onChange={this.handleChangeFour} />
         </label>
 
-        <button type="submit">Add Location</button>
+        <button type="submit" className="waves-effect waves-light btn green darken-3">Add Location</button>
       </form>
     );
   }

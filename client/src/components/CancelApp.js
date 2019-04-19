@@ -89,7 +89,7 @@ class CancelApp extends Component {
                 <input type="text" name="id" onChange={this.handleAnotheChange} />
             </label>
                 <br/>
-                <button type="submit">Cancel</button>
+                <button className="waves-effect waves-light btn red darken-2" type="submit">Cancel</button>
             </form>
             </div>
         )

@@ -69,7 +69,7 @@ class TaskStoryOneThreeOne extends Component {
             Task ID:
             <input type="text" name="id" onChange={this.handleChange} />
           </label>
-          <button type="submit">Get Task's Desc</button>
+          <button type="submit" className="waves-effect waves-light btn cyan darken-3">Get Task's Desc</button>
           <br />
           <div>
             <ul>

@@ -92,7 +92,7 @@ class StoryOnePointEleven extends Component {
                 </label>
               
                 
-                <button type="submit">View tasks i applied on</button>
+                <button type="submit" className="waves-effect waves-light btn cyan darken-3">View tasks i applied on</button>
             </form>
             
             

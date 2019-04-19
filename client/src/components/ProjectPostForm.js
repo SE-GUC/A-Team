@@ -162,7 +162,7 @@ export class PostForm extends Component {
                     <input
                       type="submit"
                       value="Submit"
-                      className="waves-effect waves-light btn-large"
+                      className="waves-effect waves-light btn-large green darken-2"
                       state={this.state}
                     />
                   </div>

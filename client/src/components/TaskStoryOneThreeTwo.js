@@ -88,7 +88,7 @@ class TaskStoryOneThreeTwo extends Component {
           />
         </label>
 
-        <button type="submit">Update Task's response from admin</button>
+        <button type="submit" className="waves-effect waves-light btn green darken-2">Update Task's response from admin</button>
       </form>
     );
   }

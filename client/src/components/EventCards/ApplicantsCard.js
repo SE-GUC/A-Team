@@ -92,8 +92,8 @@ class ApplicantsCard extends Component {
 
 				</div>
 				<div class="card-action">
-                <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
-                    <a onClick={()=>this.reject()} class="waves-effect waves-light btn">Reject</a>
+                <a onClick={()=>this.accept()} class="waves-effect waves-light btn greeen darken-2">Accept</a>
+                    <a onClick={()=>this.reject()} class="waves-effect waves-light btn red darken-2">Reject</a>
 				</div>
 			</div>
 		</div>

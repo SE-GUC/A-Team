@@ -305,7 +305,7 @@ export class Step2 extends Component {
                 <div className="col s6">
                   <button
                     type="submit"
-                    class="btn waves-effect waves-light"
+                    class="waves-effect waves-light btn green lighten-3"
                     onClick={this.addMember}
                     style={{ marginLeft: "50px" }}
                   >
@@ -316,7 +316,7 @@ export class Step2 extends Component {
                 <div className="col s6">
                   <button
                     type="submit"
-                    class="btn waves-effect waves-light"
+                    class="waves-effect waves-light btn red ligthen-3"
                     onClick={this.delMember}
                   >
                     Undo
@@ -427,7 +427,7 @@ export class Step2 extends Component {
                 <div className="col s6">
                   <button
                     type="submit"
-                    class="btn waves-effect waves-light"
+                    class="waves-effect waves-light btn green ligthen-3"
                     onClick={this.addMemberP}
                     style={{ marginLeft: "50px" }}
                   >
@@ -438,7 +438,7 @@ export class Step2 extends Component {
                 <div className="col s6">
                   <button
                     type="submit"
-                    class="btn waves-effect waves-light"
+                    class="waves-effect waves-light btn red ligthen-3"
                     onClick={this.delMemberP}
                   >
                     Undo

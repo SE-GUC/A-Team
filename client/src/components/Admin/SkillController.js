@@ -81,7 +81,7 @@ export class SkillController extends Component {
             <button
               type="submit"
               onClick={this.AddSkill}
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn green darken-2"
             >
               Add Skill
               <i class="material-icons left">add</i>
@@ -91,7 +91,7 @@ export class SkillController extends Component {
             <button
               type="submit"
               onClick={this.DelSkill}
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn red darken-2"
             >
               Delete Skill
               <i class="material-icons left">delete</i>
@@ -101,7 +101,7 @@ export class SkillController extends Component {
             <button
               type="submit"
               onClick={this.ShowSkill}
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn cyan darken-3"
             >
               View Skills
               <i class="material-icons left">search</i>

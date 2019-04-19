@@ -54,7 +54,7 @@ class EventsCardContainer extends React.Component {
                 <div class="row">
                     <div class = "row s2">  
                         {elements1}
-                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.loadMore}>Load More</button>
+                        <button class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
 
                     </div>
                 </div>

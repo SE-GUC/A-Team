@@ -46,7 +46,7 @@ class CreateEvent extends Component {
 
         for(let c=0;c<res.data.data.length;c++){
           if(res.data.data[c].booked==='Available'){
-              locc.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangelocation} id={res.data.data[c]._id}
+              locc.push(<li><button style={{color:'black'}} class="waves-effect waves-light btn green lighten-3" onClick={this.handleChangelocation} id={res.data.data[c]._id}
               >{res.data.data[c].title}: {res.data.data[c].subtitle} Capactity{res.data.data[c].capacity}</button></li>)
               this.setState({remaining_places:res.data.data[c].capacity}) 
         }
@@ -237,7 +237,7 @@ handleClick=event=>
                   <br/>
                   <div class="row">
                   <div class="col s10 offset-s1 center-align">
-                  <button class="btn waves-effect waves-light" name="action" state={this.state} onClick={this.handleClick}>Submit Form
+                  <button class="waves-effect waves-light btn green darken-2" name="action" state={this.state} onClick={this.handleClick}>Submit Form
                     <i class="material-icons right"></i>
                   </button>
                   </div>

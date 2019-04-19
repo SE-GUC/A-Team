@@ -96,7 +96,7 @@ class ApplyForProj extends Component {
                 <input type="text" name="id" onChange={this.handleAnotheChange} />
             </label>
                 <br/>
-                <button type="submit">Apply</button>
+                <button type="submit" className='waves-effect waves-light btn green darken-2'>Apply</button>
             </form>
             </div>
         )

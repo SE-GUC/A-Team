@@ -91,7 +91,7 @@ class AssignMember extends Component {
                 <input type="text" name="id" onChange={this.handleAnotheChange} />
             </label>
                 <br/>
-                <button type="submit">Assign</button>
+                <button type="submit" className='waves-effect waves-light btn cyan darken-3'>Assign</button>
             </form>
             </div>
         )

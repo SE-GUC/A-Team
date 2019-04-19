@@ -96,7 +96,7 @@ class TaskStoryOnepointTwo extends Component {
                 </label>
             
                 
-                <button type="submit">Review task</button>
+                <button type="submit" className="waves-effect waves-light btn green darken-2">Review task</button>
             </form>
             
             

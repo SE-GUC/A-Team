@@ -94,7 +94,7 @@ class LocationStoryTwoTwo extends Component {
                 </label>
                 
                 
-                <button type="submit">Book Location</button>
+                <button type="submit" className='waves-effect waves-light btn green darken-3'>Book Location</button>
             </form>
             
             
