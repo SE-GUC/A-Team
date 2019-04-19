@@ -106,7 +106,7 @@ export class Step3 extends Component {
       <div className='col s6'>
       <p>If you are sure about the information you entered, then complete your Register</p>
       <p>Submitting this form means that you agree with Lirten-Hub's <a href='#'>Terms and Condtions</a></p>
-      <a class="waves-effect waves-light btn-large" onClick={this.props.submit}><i class="material-icons left">check</i>Complete Register</a>
+      <button type='submit' class="waves-effect waves-light btn-large" onClick={this.props.submit}><i class="material-icons left">check</i>Complete Register</button>
       </div>
       </div>
       
@@ -135,7 +135,7 @@ export class Step3 extends Component {
       <div className='col s6'>
       <p>If you are sure about the information you entered, then complete your Register</p>
       <p>Submitting this form means that you agree with Lirten-Hub's <a href='#'>Terms and Condtions</a></p>
-      <a class="waves-effect waves-light btn-large" onClick={this.props.submit}><i class="material-icons left">check</i>Complete Register</a>
+      <button type='submit' class="waves-effect waves-light btn-large" onClick={this.props.submit}><i class="material-icons left">check</i>Complete Register</button>
       </div>
       </div>
       

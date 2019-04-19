@@ -114,7 +114,7 @@ router.get('/dashboard', function(req,res){
 router.post('/register', async (req,res) => {
     const {type, email, username, date_of_birth, name, password, phone, is_private, interests, info, field_of_work,board_members,reports,years_of_experience,skills }  = req.body
     const status = joi.validate(req.body, {
-      name: joi.string().min(2).max(30).required(),
+      name: joi.string().min(2).max(40).required(),
       email: joi.string().email().required(),
       password: joi.string().required(),
       type: joi.array().items(joi.string().min(1).max(2)).required(),
@@ -136,6 +136,13 @@ router.post('/register', async (req,res) => {
       }
 
       const statusCA =joi.validate(req.body, {
+        info:joi.allow(),
+      field_of_work:joi.allow(),
+      board_members: joi.allow(),
+      reports:joi.allow(),
+      years_of_experience:joi.allow(),
+      skills:joi.allow(),
+      notifications:joi.allow(),
         name: joi.allow(),
         email: joi.allow(),
         password: joi.allow(),
@@ -145,14 +152,17 @@ router.post('/register', async (req,res) => {
         phone: joi.allow(),
         is_private: joi.allow(),
         interests: joi.allow(),
-        
         info: joi.string().required(), 
         field_of_work: joi.array().items(joi.string()).required(),
-        board_members: joi.array().items(joi.string()).required(),
         reports: joi.array().items(joi.string()).required(),
       })
 
     const statusM = joi.validate(req.body, {
+      info:joi.allow(),
+      field_of_work:joi.allow(),
+      board_members: joi.allow(),
+      reports:joi.allow(),
+      notifications:joi.allow(),
       name: joi.allow(),
       email: joi.allow(),
       password: joi.allow(),
@@ -164,22 +174,9 @@ router.post('/register', async (req,res) => {
       interests: joi.allow(),
       years_of_experience: joi.number().required(),
       skills: joi.array().items(joi.string()).required(),
-
     })
 
-    const statusP= joi.validate(req.body, {
-      name: joi.allow(),
-      email: joi.allow(),
-      password: joi.allow(),
-      type: joi.allow(),
-      username: joi.allow(),
-      date_of_birth: joi.allow(),
-      phone: joi.allow(),
-      is_private: joi.allow(),
-      interests: joi.allow(),
-      field_of_work: joi.array().items(joi.string()).required(),
-      board_members: joi.array().items(joi.string()).required(),
-    })
+    
 
     if (req.body.type.includes('CA')) {
       if (statusCA.error) {

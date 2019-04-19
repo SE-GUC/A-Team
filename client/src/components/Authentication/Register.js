@@ -9,20 +9,20 @@ export class Register extends Component {
   state = {
     col: { data: ["adams", "barbra", "cat", "doggo"] },
     currentStep: 1, // Should be 1 intially
-    type: ["M"], //feault is M
-    name: "youssef shalaby",
-    email: "youshalaby@gmail.com",
-    username: "Shalaby89",
+    type: ["C"], //feault is M
+    name: "youssef shalaby 1",
+    email: "youshalabyP@gmail.com",
+    username: "Shalaby8P9",
     password: "123456789",
     password2: "123456789",
     date_of_birth: "23/09/1998",
     phone: "01119455455",
-    intrests: [],
+    intrests: ["Art"],
     is_private: false,
     all_skills: [],
     //CA
     info: "",
-    field_of_work: [],
+    field_of_work: ["EL SAYED 7AMDI"],
     board_members: [], // name job_title email
     reports: [],
     //member
@@ -116,7 +116,7 @@ export class Register extends Component {
     if (currentStep === 1) {
       //edit later currentStep === 1
       //nwraeeh el button ama yekteb hagto
-      const { name, email, username, phone, password, password2 } = this.state;
+      const { name, email, username, phone, password, password2,intrests } = this.state;
       if (
         name !== "" &&
         email !== "" &&
@@ -125,7 +125,9 @@ export class Register extends Component {
         password.length > 8 &&
         password2.length > 8 &&
         password === password2 &&
-        phone !== ""
+        phone !== "" && 
+        intrests.length !==0
+
       ) {
         return (
           <button
@@ -229,37 +231,73 @@ export class Register extends Component {
     // ...else render nothing
     return null;
   }
+  postRegister = (data)=>{
+    try{
+      console.log("Fetching")
+     axios.post("http://localhost:4000/api/users/register", data).then(res => {
+        console.log(res);
+        console.log("Submited..")
+       window.alert("Registred");
+      //  return res.data
+      });
+    } catch (error) {
+      console.log("error");
+    }
+  }
   submit = () => {
-    const data = {
+    const dataM = {
       name:this.state.name,
       email:this.state.email,
       username:this.state.username,
       password:this.state.password,
       date_of_birth:this.state.date_of_birth,
       phone:this.state.phone,
-      intrests:this.state.intrests,
+      interests:this.state.intrests,
       is_private:this.state.is_private,
-      info:this.state.info,
-      field_of_work:this.state.field_of_work,
+      years_of_experience:this.state.years_of_experience,
+      skills:this.state.skills,
+      type:this.state.type
+    }
+    const dataP = {
+      name:this.state.name,
+      email:this.state.email,
+      username:this.state.username,
+      password:this.state.password,
+      date_of_birth:this.state.date_of_birth,
+      phone:this.state.phone,
+      interests:this.state.intrests,
+      is_private:this.state.is_private,
       board_members:this.state.board_members,
       reports:this.state.reports,
-      years_of_experience:this.state.years_of_experience +"Year (s)",
-      skills:this.state.skills,
-      type:this.state.type,
-      applicants:[]
+      type:["P"],
+      field_of_work:this.state.field_of_work
+    }
+    const dataC ={
+      name:this.state.name,
+      email:this.state.email,
+      username:this.state.username,
+      password:this.state.password,
+      date_of_birth:this.state.date_of_birth,
+      phone:this.state.phone,
+      interests:this.state.intrests,
+      is_private:this.state.is_private,
+      board_members:this.state.board_members,
+      reports:this.state.reports,
+      type:["CA"],
+      info:this.state.info,
+      field_of_work:this.state.field_of_work
     }
     console.log("Submitting..")
-    
-    try{
-      console.log("Fetching")
-     axios.post("http://localhost:4000/api/users/register", data).then(res => {
-        console.log(res);
-        console.log("Submited..")
-       // window.alert("Registred");
-      //  return res.data
-      });
-    } catch (error) {
-      console.log("error");
+    if(this.state.type[0]==="M"){
+      this.postRegister(dataM)
+    }
+    if(this.state.type[0]==="P"){
+      console.log("ya sherka ya metnaka",dataP.board_members)
+      console.log("This is an Array",dataP.type)
+      this.postRegister(dataP)
+    }
+    if(this.state.type[0]==="C"){
+      this.postRegister(dataC)
     }
     console.log("DONE..")
   };
@@ -319,6 +357,7 @@ export class Register extends Component {
   setExperience = e => {
     this.setState({ years_of_experience: e });
   };
+  com
   render() {
     return (
       <React.Fragment>
@@ -328,7 +367,7 @@ export class Register extends Component {
             Step {this.state.currentStep} (Next Button Will Appear when you
             finsih required fields)
           </p>
-          <form  className="col s12">
+          <div  className="col s12">
             <Step1
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
@@ -382,7 +421,7 @@ export class Register extends Component {
                 {this.nextButton}
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </React.Fragment>
     );

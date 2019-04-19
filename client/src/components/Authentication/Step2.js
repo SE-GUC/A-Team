@@ -134,10 +134,13 @@ export class Step2 extends Component {
     this.setState({ reports: result });
     this.props.setReport(result);
   };
+  
   componentDidMount() {
+    console.log("WAZA")
     document.addEventListener("DOMContentLoaded", function() {
       var textNeedCount = document.querySelectorAll("#CA_Info_TA");
       M.CharacterCounter.init(textNeedCount);
+      console.log(textNeedCount)
     });
     document.addEventListener("DOMContentLoaded", function() {
       var elems = document.getElementById("CA chips Reg");
@@ -172,6 +175,7 @@ export class Step2 extends Component {
       });
     });
   }
+ 
   setURL = () => {
     console.log("lalal");
     var elems = document.getElementById("CA chips Reg");
@@ -193,7 +197,7 @@ export class Step2 extends Component {
     if (this.props.type[0] === "M") {
       //Member Form
       return (
-        <div className="StepsM">
+        <div className="StepsM" >
           <h4>You Chose to Become a Member</h4>
           <h5>
             You will be able to apply for tasks and fulfil the freelance dream
