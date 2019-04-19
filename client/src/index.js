@@ -51,15 +51,15 @@ const routing=(
     <div>
     <Route path="/" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
-      <Route path="/Events" component={Events} />
+      <Route path="/Events" component={EventCard} />
       {/* <Route path="/PartnerRequests" component={PartnerRequests}/>     */}
-      <Route path="/card" component={EventCard}/>    
+      {/* <Route path="/card" component={EventCard}/>     */}
       <Route path="/post_project" component={ProjectPostForm}/>  
       <Route path="/adminContainer" component={AdminViewEvents}/>    
       <Route path="/feedback" component={Feedback}/>    
       <Route path="/appcard" component={ApplicationCard}/>    
-      <Route path='/eventmodule' component={EventModule}/>
-      <Route path='/partnerrequests' component={EventsPartner}/>
+      {/* <Route path='/eventmodule' component={EventModule}/> */}
+      {/* <Route path='/partnerrequests' component={EventsPartner}/> */}
       <Route path='/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path='/skills' component={Skills }/>
       <Route path="/task_control_panel" component={TaskControl} />
@@ -81,7 +81,7 @@ const routing=(
       <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path='/register' component={Register}/>
-      <Route path='/event_module' component={Event_Module}/>
+      {/* <Route path='/event_module' component={Event_Module}/> */}
       <Route path='/login' component={LoginPage}/>
     
       

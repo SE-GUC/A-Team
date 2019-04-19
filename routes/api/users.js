@@ -153,12 +153,19 @@ router.post('/login', async (req, res) => {
 });
 
 //dashboard
-router.get('/dashboard', function(req,res){
-  if(!req.session.user){
-    return res.status(401).send();
-
-  }
-  return res.status(200).send("Welcome!");
+router.get('/dashboard',checkToken, function(req,res){
+  
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+    if(err){
+        //If error send Forbidden (403)
+        console.log('ERROR: Could not connect to the protected route');
+        res.sendStatus(403);
+    } else {
+        return res.json({
+            data:authorizedData
+        });
+    }
+})
 })
 
 

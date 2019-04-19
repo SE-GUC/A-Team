@@ -34,17 +34,21 @@ class FeedbackCardContainer extends React.Component {
             limit:this.state.limit+2
         })
     }
-    componentDidMount() {
-        axios.get('http://localhost:4000/api/users/getEvents/5cae2d049cd95a5754daa7e4')
-        // axios.get('http://localhost:4000/api/events')
-        .then(res => {
-                // this.setState({events: res.data.data})
-                this.setState({elements:res.data.data})
-                this.setState({loading:false})
-                })
-              .catch(err => { 
-                  console.log(err) })
-    }
+    componentDidMount() {    
+        axios('http://localhost:4000/api/users/getEvents', {
+            method: 'GET',
+            headers: {
+              'authorization': localStorage.getItem('token')
+            }
+          })
+          .then(res => {
+            console.log(res)
+            this.setState({elements:res.data.data})
+            this.setState({loading:false})
+            })
+          .catch(err => { 
+              console.log(err) })
+}
 
     render() {  
         if(!this.state.loading) {
