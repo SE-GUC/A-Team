@@ -41,7 +41,7 @@ import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedback
 import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
 import EventModule from './components/EventCards/EventModule'
-
+import './css/navbar.css'
 
 const routing=(
     <Router>
