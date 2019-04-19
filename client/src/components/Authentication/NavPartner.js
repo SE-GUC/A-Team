@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import '../css/homepage.css'
-import '../css/navbar.css'
+import '../../css/homepage.css'
+import '../../css/navbar.css'
 import M from 'materialize-css'
 export class NavPartner extends Component {
   componentDidMount(){
@@ -8,7 +8,7 @@ export class NavPartner extends Component {
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
   }
   render() {
-
+    console.log('geh hena?')
     return (
       <div>
         <head>

@@ -34,7 +34,7 @@ class FeedbackCardContainer extends React.Component {
             limit:this.state.limit+2
         })
     }
-    componentDidMount() {    
+    componentDidMount() {
         axios('http://localhost:4000/api/users/getEvents', {
             method: 'GET',
             headers: {
@@ -47,8 +47,9 @@ class FeedbackCardContainer extends React.Component {
             this.setState({loading:false})
             })
           .catch(err => { 
-              console.log(err) })
-}
+              console.log(err) 
+            })
+    }
 
     render() {  
         if(!this.state.loading) {

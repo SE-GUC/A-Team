@@ -95,22 +95,6 @@ router.put('/remove_application/:id', async (req,res) => {
 })
 
 
-
-// router.put('/remove_application/:id', function(req,res)=> {
-//   User.update({_id:req.params.id}, { $pull: {tasks_applied_for: {_id:req.body.id} } }
-//     )
-// })
-// .put(async (request, response) => {
-//   User.findByIdAndUpdate(request.params.id, request.body, { new: true }, (err, model) => {
-//     if (!err) {
-//       return response.json({ data: model })
-//     } else {
-//       return response.json({ error: `Error, couldn't update a user given the following data` })
-//     }
-//   })
-// })
-
-
 router.get('/getCreatedEvents', checkToken, async (req, res) => {
   //verify the JWT token generated for the user
   jwt.verify(req.token, tokenKey, async (err, authorizedData) => {

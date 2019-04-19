@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import { Redirect, Route } from 'react-router-dom'
+
 class LoginPage  extends Component {
     constructor(props)
     {
@@ -7,7 +9,11 @@ class LoginPage  extends Component {
         this.state= {
             email:'',
             password:'',
-            token:''
+            token:'',
+            partner:false,
+            member:false,
+            ca:false,
+            admin:false
         }
     }
     handleEmail=event =>{
@@ -17,13 +23,14 @@ class LoginPage  extends Component {
         this.setState({password:event.target.value})
 
     }
-    loginbtn(){
+    async loginbtn(){
+      var myuser;
         console.log('ay 7aga')
         const body={
             email:this.state.email,
             password:this.state.password
         }
-        axios.post('http://localhost:4000/api/users/login', body).then(res=>{
+        await axios.post('http://localhost:4000/api/users/login', body).then(res=>{
           console.log(res)
           var token = res.data.token
           localStorage.setItem("token", token)
@@ -31,12 +38,34 @@ class LoginPage  extends Component {
         }).catch(err=>{
             console.log(err)
         })
+        // console.log(localStorage.getItem('token'))
+        await axios('http://localhost:4000/api/users/dashboard', {
+          method: 'GET',
+          headers: {
+            'authorization': localStorage.getItem('token')
+          }
+        })
+        .then(res => {
+          console.log(res.data.data)
+          myuser=res.data.data
+          })
+        .catch(err => { 
+            console.log(err) })
+        if(myuser.type.includes('P')) {
+          this.props.history.replace('/partnernav');
 
-        
-
+        } else if(myuser.type.includes('CA')) {
+        } else if(myuser.type.includes('M')) {
+          this.setState({member:true})
+        } else {
+          this.setState({admin:true})
+        }
     }
     render() {
-
+        // if(this.state.partner){
+        //   return(
+        //   )
+        // }
     
         return(
 
