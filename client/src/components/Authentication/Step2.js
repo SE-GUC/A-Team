@@ -287,7 +287,7 @@ export class Step2 extends Component {
               </div>
               <div className="row" title="Board Member Title">
                 <div className="input-field col s3">
-                  <i class="material-icons prefix">show_chart</i>
+                  <i class="material-icons prefix">business_center</i>
                   <input
                     type="text"
                     placeholder="Board Member Title"
@@ -409,7 +409,7 @@ export class Step2 extends Component {
               </div>
               <div className="row" title="Board Member Title">
                 <div className="input-field col s3">
-                  <i class="material-icons prefix">show_chart</i>
+                  <i class="material-icons prefix">business_center</i>
                   <input
                     type="text"
                     placeholder="Board Member Title"

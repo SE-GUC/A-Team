@@ -50,6 +50,7 @@ export class TaskBasicField extends Component {
         <div>
           <i class="material-icons prefix">assignment</i>
           <input
+            maxLength='40'
             className="validate"
             required
             title={this.props.fieldname}

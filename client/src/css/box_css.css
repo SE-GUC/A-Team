@@ -299,12 +299,17 @@ td {
 
 }
 .taskForm{
-  border: 2px dashed #212121;
+  border: 2px solid #212121;
   margin-bottom: 50px;
   height: 900px;
 }
 .projectForm{
-  border: 2px dashed #212121;
+  border: 2px solid #212121;
   margin-bottom: 50px;
   height: 500px;
+}
+.eventForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  padding-top:10px;
 }
