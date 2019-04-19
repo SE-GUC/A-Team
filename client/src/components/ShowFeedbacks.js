@@ -34,7 +34,17 @@ class ShowFeedbacks extends Component {
 
  };
  renderLoading() {
-     return <div>Loading...</div>
+     return <div class="preloader-wrapper big active">
+     <div class="spinner-layer spinner-blue-only">
+       <div class="circle-clipper left">
+         <div class="circle"></div>
+       </div><div class="gap-patch">
+         <div class="circle"></div>
+       </div><div class="circle-clipper right">
+         <div class="circle"></div>
+       </div>
+     </div>
+   </div>
  }
  renderError() {
      return (
@@ -51,7 +61,7 @@ class ShowFeedbacks extends Component {
                  Event ID:
                  <input type="text" name="id" onChange={this.handleChange} />
              </label>
-             <button type="submit">Get Feedbacks</button>
+             <button type="submit" className="waves-effect waves-light btn cyan darken-3">Get Feedbacks</button>
              <ul>
        
          <FeedbacksTable data={this.state.feedbacks}/>             
@@ -75,7 +85,7 @@ class ShowFeedbacks extends Component {
                    Event ID:
                    <input type="text" name="id" onChange={this.handleChange} />
                </label>
-               <button type="submit">Get Feedbacks</button>
+               <button type="submit" className="waves-effect waves-light btn cyan darken-3">Get Feedbacks</button>
                <ul>
          
            <FeedbacksTable data={this.state.feedbacks}/>             
@@ -95,7 +105,7 @@ class ShowFeedbacks extends Component {
              </label>
              
              <br/>
-             <button type="submit">Get Feedbacks</button>
+             <button type="submit" className="waves-effect waves-light cyan red darken-3">Get Feedbacks</button>
          </form>
          </div>
          

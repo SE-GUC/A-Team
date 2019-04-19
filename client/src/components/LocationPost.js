@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import M from "materialize-css";
 
 class LocationPost extends Component {
   state = {
@@ -50,11 +51,28 @@ class LocationPost extends Component {
         capacity: this.state.capacity,
         booked: this.state.booked
       }
-    }).then(window.alert("Posted Task "));
+    }).then(
+      res=>{
+        var msg="Posted Location "
+        var html="<span style='color:#ffdd42'>"+msg+"</span>"
+        M.toast({html:html })
+      }
+    
+    );
     console.log(m);
   };
   renderLoading() {
-    return <div>Loading...</div>;
+    return <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
   }
   renderError() {
     return <div>Ooops, : {this.state.error.message}</div>;
@@ -95,7 +113,7 @@ class LocationPost extends Component {
           <input type="text" name="booked" onChange={this.handleChangeFour} />
         </label>
 
-        <button type="submit">Add Location</button>
+        <button type="submit" className="waves-effect waves-light btn green darken-3">Add Location</button>
       </form>
     );
   }

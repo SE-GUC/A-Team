@@ -1,194 +1,315 @@
-.header1{
-    background: #45ACA8;
-    font-size:32px;
-    height: 43px; 
-    border-radius: 8%;
-    margin: 8px;
-    
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #f4f4f4;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;}
+
+main {
+  flex: 1 0 auto;
 }
-.form{
-    height:100%;
-    width:100%;
-    background-image: url('https://www.digitalorganics.com.au/wp-content/uploads/2018/02/webbackground.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: fixed;
-    overflow: scroll;
+a,p,li,input,table,tr,td,ul,span,i,div,nav,th,label,ul{
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;}
+b,strong,h6,h5{
+  font-weight: 900;
+font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 }
-.fill{
-    background-color:#D4F4FD;
-    text-align: center;
-    align-content: center;
-    margin: 35px 500px;
-    border-radius: 4%;
-    border: lightblue 5px solid;
-    
+h1,h2,h3,h4{
+  font-family: Arial Black, Arial Bold, Gadget, sans-serif;
 }
-.basic{
-    text-align: center;
-    align-content: center;
+a:hover{
+  text-decoration: wavy;
+  color: royalblue;
+  transition: 400ms;
 }
-.TaskDetails{
-    text-align: center;
-    align-content: center;
-    
+::placeholder{
+  color: dimgrey;
+  opacity: 0.8;
 }
-.Requirements{
-    text-align: center;
-    align-content: center;   
+.header1 {
+  background: #45aca8;
+  font-size: 32px;
+  height: 43px;
+  border-radius: 8%;
+  margin: 8px;
 }
-.input[type=text]{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color:cadetblue;
+.input[type="submit"]:hover{
+  background:gold;
 }
-.datepack{
-    text-align: center;
-    align-content: center;  
-    padding: 5px;
-    font-size:17px
+.form {
+  height: 100%;
+  width: 100%;
+  background-image: url("https://www.digitalorganics.com.au/wp-content/uploads/2018/02/webbackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  overflow: scroll;
+}
+.fill {
+  background-color: #d4f4fd;
+  text-align: center;
+  align-content: center;
+  margin: 35px 500px;
+  border-radius: 4%;
+  border: lightblue 5px solid;
+}
+.basic {
+  text-align: center;
+  align-content: center;
+}
+.TaskDetails {
+  text-align: center;
+  align-content: center;
+}
+.Requirements {
+  text-align: center;
+  align-content: center;
+}
+.input[type="text"] {
+  font-family: inherit;
+  color: cadetblue;
+}
+.datepack {
+  text-align: center;
+  align-content: center;
+  padding: 5px;
+  font-size: 17px;
 }
 
 .money {
-    position: absolute;
-    cursor: default;
-    z-index: 2;
-    background-color: rgb(201, 211, 211);
-    width: 14.5px;
-    text-align: center;
-    margin: 0px;
-    pointer-events: none;
-    height: 10px;
-    line-height: 10px;
-    border-radius: 5%;
+  position: absolute;
+  cursor: default;
+  z-index: 2;
+  background-color: rgb(201, 211, 211);
+  width: 14.5px;
+  text-align: center;
+  margin: 0px;
+  pointer-events: none;
+  height: 10px;
+  line-height: 10px;
+  border-radius: 5%;
+}
+select {
+  padding: 5px 5px;
+  margin: 2px;
+  font-family: inherit;
+  border: none;
+  border-radius: 4px;
+  background-color: azure;
+  border-radius: 5%;
+}
+option {
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: azure;
+  border-radius: 5%;
+}
+td {
+  padding-left: 40px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.text {
+  padding: 5px;
+  border-radius: 5%;
+}
+.L34 {
+  padding: 5px;
+}
+.slider {
+  height: 15px;
+  background: #6694c6;
+  opacity: 0.75;
+}
+.slider:hover {
+  opacity: 1;
+}
+.slider::-moz-range-thumb {
+  background: #e5e5e5;
+  cursor: pointer;
+}
+.button1 {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #ffffff;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  background-color: #6694c6;
+  color: #e5e5e5;
+  text-align: center;
+  transition: all 0.2s;
+}
+.button1:hover {
+  color: #6694c6;
+  background-color: #e5e5e5;
+}
+@media all and (max-width: 30em) {
+  .button1 {
+    display: block;
+    margin: 4em;
   }
- select{
-    padding: 5px 5px;
-    margin: 2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    border: none;
-    border-radius: 4px;
-    background-color: azure;
-    border-radius: 5%;
- } 
- option{
-    padding: 5px 5px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    border: none;
-    border-radius: 4px;
-    background-color: azure;
-    border-radius: 5%;
- }
-td{
-    padding-left:40px;
-    padding-bottom: 10px;
-    padding-top:10px;
 }
-.text{
-    padding: 5px;
-    border-radius: 5%;
+.skillip {
+  width: 150px;
+  height: 30px;
+  border-radius: 5%;
 }
-.L34{
-    padding:5px;
+.skillbtn {
+  background-color: #6694c6;
+  flex: 1;
+  background: url(https://cdn1.iconfinder.com/data/icons/ui-colored-1/100/UI__2-512.png)
+    no-repeat left center;
+  background-size: 20px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: transparent;
+  color: transparent;
 }
-.slider{
-    height:15px;
-    background: #6694C6;
-    opacity: 0.75;
+.delete {
+  background: url(https://img.icons8.com/cotton/2x/cancel--v1.png) no-repeat
+    left center;
+  background-size: 23px;
+  width: 26px;
+  height: 26px;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
 }
-.slider:hover{
-    opacity: 1;
+.delele {
+  background: #f4f4f4;
+  border: black solid 2px;
+  border-radius: 10%;
+  font-family:inherit;
+  text-align: left;
+  width: 200px;
+  height: 30px;
+  margin-top: 20px;
+  margin-left: 90px;
 }
-.slider::-moz-range-thumb{
-    background:#E5E5E5;
-    cursor:pointer;
-
+.layoutTaskForm {
+  background-image: url("https://www.digitalorganics.com.au/wp-content/uploads/2018/02/webbackground.jpg");
+  background-repeat: round;
+  background-size: inherit;
 }
-.button1{
-    display:inline-block;
-    padding:0.35em 1.2em;
-    border:0.1em solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    background-color:#6694C6;
-    color:#E5E5E5;
-    text-align:center;
-    transition: all 0.2s;
-    }
-    .button1:hover{
-    color:#6694C6;
-    background-color:#E5E5E5;
-    }
-    @media all and (max-width:30em){
-        .button1{
-            display:block;
-            margin:4em
-        }
-    }
-.skillip{
-    width:150px;
-    height:30px;
-    border-radius: 5%;
-
-}
-.skillbtn{
-    background-color: #6694C6;
-    flex:1;
-    background: url(https://cdn1.iconfinder.com/data/icons/ui-colored-1/100/UI__2-512.png) no-repeat left center ;
-    background-size: 20px;
-    width:22px;
-    height:22px;
-    border-radius: 50%;
-    border:transparent;
-    color:transparent;
-   
-
-}
-.delete{
-    background: url(https://img.icons8.com/cotton/2x/cancel--v1.png) no-repeat left center ;
-    background-size: 23px;
-    width:26px;
-    height:26px;
-    color:#ffffff;
-    border:none;
-    padding:10px;
-    border-radius:50%;
-    cursor:pointer;
-    float:right;
-}
-.delele{
-    background:#f4f4f4;
-    border:black solid 2px;
-    border-radius:10%;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    text-align: left;
-    width:150px;
-    height:30px;
-    margin-top: 20px;
-    margin-left:90px;
-}
-.layoutTaskForm{
-    background-image: url('https://www.digitalorganics.com.au/wp-content/uploads/2018/02/webbackground.jpg');
-    background-repeat: round;
-    background-size: inherit;
-    
-
-
-} 
-.layoutTaskFormInner{
-    padding-top:100px;
-    margin-top:100px ;
-    margin-left:150px;
-    margin-right:150px;
-    background:transparent;
-    border: 6px cadetblue solid;
-    
+.layoutTaskFormInner {
+  background: transparent;
+  border: 6px cadetblue solid;
+  padding-bottom: 12090px;
 }
 
 .layoutTaskFormInner::placeholder {
-    color: black;
-    font-size: 13px;
-  }
+  color: black;
+  font-size: 13px;
+}
+.loader {
+  /*if you want to use it just add an empty div with is in the middle*/
+  border-bottom: 16px solid red;
+  border-top: 16px solid blue;
+  border-right: 16px solid yellow;
+  border-left: 16px solid green;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.Steps{
+  height: 900px;
+  border: 2px darkgrey solid;
+  padding: 20px;
+  padding-left: 30px;
+  border-bottom: 1px darkgrey dashed;
+  margin-bottom: 15px;
+
+}
+.Steps1{
+  height: 800px;
+  border: 2px darkgrey solid;
+  padding: 20px;
+  padding-left: 30px;
+  border-bottom: 1px darkgrey solid;
+  margin-bottom: 15px;
+
+}
+.StepsM{
+  height: 500px;
+  border: 2px darkgrey solid;
+  padding: 20px;
+  padding-left: 30px;
+  border-bottom: 1px darkgrey dashed;
+  margin-bottom: 15px;
+
+}
+.StepsF{
+  height: 500px;
+  border: 2px darkgrey solid;
+  padding: 20px;
+  padding-left: 30px;
+  margin-bottom: 15px;
+
+}
+.taskForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  height: 900px;
+}
+.projectForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  height: 500px;
+}
+.eventForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  padding-top:10px;
+}

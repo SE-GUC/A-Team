@@ -1,14 +1,13 @@
-import Card from './ViewAllEventsCard'
-import React from 'react'
-import axios from 'axios'
-
-class ViewAllEventsContainer extends React.Component {  
-
+import Card from './ViewAllEventsCard';
+import React from 'react';
+import axios from 'axios';
+import '../../css/TaskCardContainer.css'
+class ViewAllEventsContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             elements:[],
-            events:[],
+            id:'',
             remaining_places:'',
             name:'',
             location:'',
@@ -18,43 +17,72 @@ class ViewAllEventsContainer extends React.Component {
             topics:[],
             type:[],
             partner_initiated:'',
-            loading: true
+            status:'',
+            attendees:[],
+            time_of_edit:'',
+            feedbacks:[],
+            responses_from_admin:[],
+            applicants:[],
+            loading:true
+
         }
-    }
-    componentDidMount() {
-        axios.get('http://localhost:4000/api/events/')
-            .then(res => {
-                // this.setState({events: res.data.data})
-                this.setState({elements:res.data.data})
-                this.setState({loading:false})
-            })
-            .catch(err => {
-                console.log("oislijdlijSfiz")
-            })
     }
 
-    render() {  
+    componentDidMount() {
+      
+        axios.get('http://localhost:4000/api/events/' )
+            .then(res => {
+                console.log(res.data.data)
+                this.setState({
+                    elements: res.data.data
+                })
+                this.setState({
+                    loading: false
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
+    }
+
+
+    render() {
         if(!this.state.loading) {
-        var elements1=[];
-        const events=this.state.elements
-        for(var i=0;i<this.state.elements.length;i++){
-            console.log(events[i]._id)
-            elements1.push(<Card data ={events[i]}/>);
-        }
-        return (
-            <div> 
-            {elements1}
-            </div>
-        );
-        }
-        else
-        {
-            return (
-                <div>
-                    Hello
+            console.log(this.state.elements)
+            var elements1=[];
+            const events = this.state.elements
+            for(var i = 0;i < this.state.elements.length;i++) {
+                elements1.push(<Card value={events[i]._id}/>)
+               
+                
+            }
+            
+        //pushed
+        return( 
+                <div class="container">
+                <div class="row">
+                    <div class="row s2">{elements1}</div>
                 </div>
+                </div>
+        );
+        } else {
+            return(
+                <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
             )
         }
     }
+
 }
 export default ViewAllEventsContainer;

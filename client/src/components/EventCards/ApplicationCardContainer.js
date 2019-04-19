@@ -1,6 +1,7 @@
 import Card from './ApplicationCard'
 import React from 'react'
 import axios from 'axios'
+import '../../css/TaskCardContainer.css'
 
 class ApplicaitonCardContainer extends React.Component {  
 
@@ -18,13 +19,19 @@ class ApplicaitonCardContainer extends React.Component {
             topics:[],
             type:[],
             partner_initiated:'',
-            loading: true
+            loading: true,
+            limit:0
         }
+    }
+    loadMore=(e)=> {
+        this.setState({
+            limit:this.state.limit+2
+        })
     }
     componentDidMount() {
         axios.get('http://localhost:4000/api/events/')
             .then(res => {
-                // this.setState({events: res.data.data})
+                this.setState({events: res.data.data})
                 this.setState({elements:res.data.data})
                 this.setState({loading:false})
             })
@@ -39,11 +46,19 @@ class ApplicaitonCardContainer extends React.Component {
         const events=this.state.elements
         for(var i=0;i<this.state.elements.length;i++){
             console.log(events[i]._id)
+            if(i <= this.state.limit) {
             elements1.push(<Card data ={events[i]}/>);
+            }
         }
         return (
-            <div> 
-            {elements1}
+            <div class="container">
+                <div class="row">
+                    <div class = "row s2">  
+                        {elements1}
+                        <button class="waves-effect waves-light btn-small  green darken-3" type="submit" name="action" onClick={this.loadMore}>Load More</button>
+
+                    </div>
+                </div>
             </div>
         );
         }

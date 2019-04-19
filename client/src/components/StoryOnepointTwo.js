@@ -36,13 +36,23 @@ class TaskStoryOnepointTwo extends Component {
             //this.setState({ done:true })
             console.log(res.data.data)
             
-            alert(res.data);
+            alert('done');
         })
 
     };
 
     renderLoading() {
-        return <div>Loading...</div>
+        return <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     }
     renderError() {
         return (
@@ -86,7 +96,7 @@ class TaskStoryOnepointTwo extends Component {
                 </label>
             
                 
-                <button type="submit">Review task</button>
+                <button type="submit" className="waves-effect waves-light btn green darken-2">Review task</button>
             </form>
             
             

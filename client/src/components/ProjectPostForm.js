@@ -5,11 +5,12 @@ import Skills from "./Skills";
 import axios from "axios";
 import "../css/box_css.css";
 import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css";
 
 export class PostForm extends Component {
   state = {
     name: "",
-    partner_responsible: "5cacccc7b62d5618bc0fff21", //Assuming Session
+    partner_responsible: "5cae373eaea50e48600c8483", //Assuming Session
     description: "",
     skills: [],
     all_skills: []
@@ -25,7 +26,9 @@ export class PostForm extends Component {
       update.push(newskill);
       this.setState({ skills: update });
     } else {
-      window.alert("You Already Added This Skill!");
+      var msg = "You Already Added This Skill!";
+      var html = "<span style='color:#ffdd42'>" + msg + "</span>";
+      M.toast({ html: html });
     }
   };
   delSkill = skill => {
@@ -50,20 +53,24 @@ export class PostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     try {
-        if(this.state.skills.length===0){
-            window.alert('You Have To Enter At Least one Skill')
-            return
-          }
+      if (this.state.skills.length === 0) {
+        var msg = "You Have To Enter At Least one Skill";
+        var html = "<span style='color:#ffdd42'>" + msg + "</span>";
+        M.toast({ html: html });
+        return;
+      }
       const data = {
         project_name: this.state.name,
         time_expected: this.state.time_expected,
-        partner_responsible:this.state.partner_responsible,
+        partner_responsible: this.state.partner_responsible,
         description: this.state.description,
         skills: this.state.skills
       };
       axios.post("http://localhost:4000/api/project/create", data).then(res => {
         console.log(res);
-        window.alert("Posted Project ");
+        var msg = "Posted Project ";
+        var html = "<span style='color:green'>" + msg + "</span>";
+        M.toast({ html: html });
         return res.data;
       });
     } catch (error) {
@@ -72,7 +79,7 @@ export class PostForm extends Component {
   };
   getSkillFromDB = async () => {
     try {
-    await  axios
+      await axios
         .get("http://localhost:4000/api/skills/getSkillCollection")
         .then(res => {
           this.setState({ all_skills: res.data });
@@ -82,12 +89,26 @@ export class PostForm extends Component {
       console.log("error");
     }
   };
-  componentDidMount(){
-      this.getSkillFromDB()
+  componentDidMount() {
+    this.getSkillFromDB();
   }
 
   renderLoading() {
-    return <div>Loading...</div>;
+    return (
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle" />
+          </div>
+          <div class="gap-patch">
+            <div class="circle" />
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle" />
+          </div>
+        </div>
+      </div>
+    );
   }
   renderError() {
     return <div>Ooops, : {this.state.error.message}</div>;
@@ -102,14 +123,18 @@ export class PostForm extends Component {
   render() {
     return (
       <div>
-        <div className="layoutTaskForm">
-          <div className="layoutTaskFormInner">
+        <div>
+          <div>
             <div className="container">
-              <form onSubmit={this.handleSubmit} className="cols12">
-                <div className="section">
-                  <h4>Project Details:</h4>
-                  <div className="row">
-                    <div className="input-field col s6">
+              <h4>Project Details:</h4>
+              <p>
+                Please be Advised that the project will not be posted Until it
+                is approved by Lirten-Hub
+              </p>
+              <form onSubmit={this.handleSubmit} className='projectForm'>
+                <div>
+                  <div className="row" title="Project Name">
+                    <div className="input-field col s12">
                       <TaskBasicField
                         className="text"
                         state={this.state}
@@ -119,37 +144,48 @@ export class PostForm extends Component {
                       />
                     </div>
                   </div>
-
-                  <div className="input-field col s12">
-                    <TaskBasicField
-                      fieldname="Project Description"
-                      type="bigtext"
-                      func={this.setDescription}
-                    />
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <TaskBasicField
+                        fieldname="Project Description"
+                        type="bigtext"
+                        func={this.setDescription}
+                      />
+                    </div>
                   </div>
-                </div>
-
-                <h4>Skill Requierements:</h4>
-                
-                <Skills
-                  addSkill={this.addSkill}
-                  delSkill={this.delSkill}
-                  skills={this.state.skills}
-                  state={this.state}
-                  col={this.state.all_skills}
-                />
-
-                <div className="row">
-                  <div className="input-field col s4" />
-                  <div className="input-field col s4">
-                    <input
-                      type="submit"
-                      value="Submit"
-                      className="waves-effect waves-light btn-large"
-                      state={this.state}
-                    />
+                  <center>
+                    <h4>Skill Requierements:</h4>
+                  </center>
+                  <br />
+                  <div className="row">
+                    <div className="col s6">
+                      <Skills
+                        addSkill={this.addSkill}
+                        delSkill={this.delSkill}
+                        skills={this.state.skills}
+                        state={this.state}
+                        col={this.state.all_skills}
+                      />
+                    </div>
+                    <div className="col s6">
+                      <p>
+                        Please Enter a Collection of Skills that will be needed
+                        for this project
+                      </p>
+                      <p>
+                        In Order to finish you submission, you must add at
+                        leaast one skill
+                      </p>
+                      <br />
+                      <input
+                        style={{ marginLeft: "150px" }}
+                        type="submit"
+                        value="Submit"
+                        className="waves-effect waves-light btn-large green darken-2"
+                        state={this.state}
+                      />
+                    </div>
                   </div>
-                  <div className="input-field col s4" />
                 </div>
               </form>
             </div>
