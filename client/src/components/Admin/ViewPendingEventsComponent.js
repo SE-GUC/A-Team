@@ -31,7 +31,7 @@ class ViewPendingEventsComponent extends React.Component {
 
     componentDidMount() {
       
-        axios.get('http://localhost:4000/api/getPending/')
+        axios.get('http://localhost:4000/api/events/getPending/')
             .then(res => {
                 console.log(res.data.data)
                 this.setState({

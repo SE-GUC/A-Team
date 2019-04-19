@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import '../css/homepage.css'
-import '../css/navbar.css'
+import '../../css/homepage.css'
+import '../../css/navbar.css'
 import M from 'materialize-css'
-export class HomePage extends Component {
+export class NavPartner extends Component {
   componentDidMount(){
     let elems = document.querySelectorAll('.dropdown-trigger');
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
   }
   render() {
-
+    console.log('geh hena?')
     return (
       <div>
         <head>
@@ -33,11 +33,10 @@ export class HomePage extends Component {
   <li><a class='ili' href='/StoryOnePointEleven'>Tasks i applied on</a></li>
 </ul>
 <ul id="dropdown111" class="dropdown-content">
-  {/* <li><a href='/Create_Events'>Create Events</a></li> */}
-  {/* <li><a href="/feedback">Write Feedback </a></li> */}
-  {/* <li><a href="/appcard">Apply for Event </a></li>
-  <li><a href='/partnerfeedbacks'>Feedbacks on my Events</a></li> */}
-  <li><a href='/events'>Show Events</a></li>
+  <li><a href='/Create_Events'>Create Events</a></li>
+  <li><a href="/feedback">Write Feedback </a></li>
+  <li><a href="/appcard">Apply for Event </a></li>
+  <li><a href='/partnerfeedbacks'>Feedbacks on my Events</a></li>
 </ul>
 <ul id="dropdown1111" class="dropdown-content">
   <li><a class='ili' href='/skills'>Skill Panel</a></li>
@@ -65,8 +64,6 @@ export class HomePage extends Component {
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
             class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a href='/login'>Login</a></li>
-      <li><a href='/register'>Sign Up</a></li>   
     </ul>
   </div>
 </nav>
@@ -76,4 +73,4 @@ export class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default NavPartner;

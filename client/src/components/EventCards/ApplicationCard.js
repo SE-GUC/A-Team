@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-
 import axios from 'axios'
 import M from 'materialize-css';
 
@@ -40,12 +39,36 @@ class EventCard extends Component {
         this.setState({partner_initiated:this.props.data.partner_initiated})
     } 
     applybtn() {
+        this.setState({submitState:true})
+        this.apply2()
         const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
-        axios.post(url,{
-            applicant_id:"5cae2d049cd95a5754daa7e4"
-        })
+
+        axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+          }).then(res=>{
+              console.log('geh hena?')
+              console.log(res)
+          });
     }
-    
+    apply2() {
+        const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
+
+        axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+          }).then(res=>{
+              console.log('geh hena?')
+              console.log(res)
+          });
+
+    }    
 
     render() {
         return (
@@ -97,11 +120,9 @@ class EventCard extends Component {
 
 
 
-				<div id="test" class="card-action">
-                <div style={{paddingTop:'40px'}}>
+				<div class="card-action">
+                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn">Apply</a>
 
-                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</a>
-                </div>
 				</div>
 			</div>
 		</div>

@@ -2,6 +2,11 @@ import Card from './FeedbackCard'
 import React from 'react'
 import axios from 'axios'
 import '../../css/yaracard.css'
+const jwt = require('jsonwebtoken')
+// const tokenKey = require('../../../../config/keys').secretOrKey
+
+
+
 
 
 class FeedbackCardContainer extends React.Component {  
@@ -30,15 +35,19 @@ class FeedbackCardContainer extends React.Component {
         })
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/users/getEvents/5cae2d049cd95a5754daa7e4')
-        // axios.get('http://localhost:4000/api/events')
-        .then(res => {
-                // this.setState({events: res.data.data})
-                this.setState({elements:res.data.data})
-                this.setState({loading:false})
+        axios('http://localhost:4000/api/users/getEvents', {
+            method: 'GET',
+            headers: {
+              'authorization': localStorage.getItem('token')
+            }
+          })
+          .then(res => {
+            console.log(res)
+            this.setState({elements:res.data.data})
+            this.setState({loading:false})
             })
-            .catch(err => {
-                console.log("oislijdlijSfiz")
+          .catch(err => { 
+              console.log(err) 
             })
     }
 

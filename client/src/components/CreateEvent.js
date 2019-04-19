@@ -151,11 +151,6 @@ handleClick=event=>
     {
         return(
           <div>
-                      
-                
-                
-                
-          
           <div class="container">
           <h4>Create Event</h4>
           <p>Please be advised that Your Event won't be seen by others until its is approved by Lirten-Hub</p>
