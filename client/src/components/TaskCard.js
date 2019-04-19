@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'materialize-css/dist/css/materialize.min.css';
+import '../css/TaskCardContainer.css'
 
 class TaskCard extends Component {
     constructor(props) {
@@ -89,7 +90,7 @@ class TaskCard extends Component {
     <br/>
     <br/>
     {/* <div class="container" width="120"> */}
-    <div class="">
+    <div class="" id="manga">
             <div class="card blue-grey darken-1" id="cardHopefully">
                 <div class="card-content white-text" id="cardContent">
                     <div class="card__meta">
