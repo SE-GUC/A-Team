@@ -51,8 +51,8 @@ export class HomePage extends Component {
   <li><a class='ili' href='/viewallproj'>All Projects</a></li>
   <li><a class='ili' href='/post_project'>Post a Project</a></li>
 </ul>
-<nav>
-  <div class="nav-wrapper">
+<nav class="blue-text text-darken-2">
+  <div class="nav-wrapper grey darken-4">
       
      
 
@@ -65,6 +65,7 @@ export class HomePage extends Component {
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a class="dropdown-trigger" href="#" data-target="dropdown111">Events<i
             class="material-icons right">arrow_drop_down</i></a></li>
+      {/* <!-- Dropdown Trigger --> */}
       <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
             class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
