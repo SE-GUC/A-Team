@@ -56,7 +56,7 @@ class FeedbackCardContainer extends React.Component {
             <div class="container">
             <div class="row">
                 <div class="row s2">{elements1}</div>
-                <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.loadMore}>Load More</button>
+                <button class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
 
             </div>
             </div>
@@ -64,9 +64,17 @@ class FeedbackCardContainer extends React.Component {
 
     } else {
         return(
-            <div>
-                Loading...
-            </div>
+            <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
         )
     }
 }

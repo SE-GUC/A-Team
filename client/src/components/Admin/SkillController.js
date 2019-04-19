@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import SkillItem from './SkillItem'
 import SkillChips from './SkillChips'
+import M from "materialize-css";
 export class SkillController extends Component {
   state = {
     Skill: "",
@@ -20,9 +21,13 @@ export class SkillController extends Component {
       const flag = res.data.data;
       console.log(flag);
       if (flag === undefined) {
-        window.alert("You Have Already Added: \n" + data.skill);
+        var msg="You Have Already Added:" + data.skill
+        var html="<span style='color:#ffdd42'>"+msg+"</span>"
+        M.toast({html:html })
       } else {
-        window.alert("You Added: \n" + flag.skill);
+        var msg="You Added:" + flag.skill
+        var html="<span style='color:green'>"+msg+"</span>"
+        M.toast({html:html })
       }
     });
   };
@@ -32,10 +37,14 @@ export class SkillController extends Component {
     const url = "http://localhost:4000/api/skills/delete/" + skill;
     axios.delete(url).then(res => {
         if(res.data.data===null){
-            window.alert("Deleted The Skill: \n"+skill);
+            var msg="Deleted The Skill: "+skill
+            var html="<span style='color:#green'>"+msg+"</span>"
+            M.toast({html:html })
         }
       if(res.data.data===undefined){
-        window.alert("Failed to Delete The Skill: \n"+skill);
+        var msg="Failed to Delete The Skill: \n"+skill
+        var html="<span style='color:#ffdd42'>"+msg+"</span>"
+        M.toast({html:html })
       }
      
     });
@@ -72,7 +81,7 @@ export class SkillController extends Component {
             <button
               type="submit"
               onClick={this.AddSkill}
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn green darken-2"
             >
               Add Skill
               <i class="material-icons left">add</i>
@@ -82,7 +91,7 @@ export class SkillController extends Component {
             <button
               type="submit"
               onClick={this.DelSkill}
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn red darken-2"
             >
               Delete Skill
               <i class="material-icons left">delete</i>
@@ -92,7 +101,7 @@ export class SkillController extends Component {
             <button
               type="submit"
               onClick={this.ShowSkill}
-              class="waves-effect waves-light btn"
+              class="waves-effect waves-light btn cyan darken-3"
             >
               View Skills
               <i class="material-icons left">search</i>

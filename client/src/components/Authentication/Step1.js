@@ -124,13 +124,13 @@ export class Step1 extends Component {
           <div className="input-field col s4">
             <i class="material-icons prefix">date_range</i>
             <input
-              id="dob step1 reg"
               placeholder="Date of birth.."
               name="date_of_birth"
-              type="text"
+              type="date"
               value={this.props.date_of_birth}
               onChange={this.props.handleChange}
-              className="datepicker"
+              className="validate"
+              max='2000-01-01'
             />
           </div>
           <div className="input-field col s4" style={{paddingLeft:'30px'}}>
@@ -145,7 +145,7 @@ export class Step1 extends Component {
                     class="with-gap"
                     name="type"
                     type="radio"
-                    value={["CA"]}
+                    value={["C"]}
                     onClick={this.props.handleChange}
                   />
                   <span>Consultancy Agency</span>
@@ -184,6 +184,7 @@ export class Step1 extends Component {
                   type="checkbox"
                   className="filled-in"
                   name="is_private"
+                  pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4})"
                   value={this.props.is_private}
                   onChange={this.props.handleChange}
                 />

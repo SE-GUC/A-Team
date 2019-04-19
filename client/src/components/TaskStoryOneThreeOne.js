@@ -34,7 +34,17 @@ class TaskStoryOneThreeOne extends Component {
     });
   };
   renderLoading() {
-    return <div>Loading...</div>;
+    return <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>;
   }
   renderError() {
     return <div>Ooops, : {this.state.error.message}</div>;
@@ -59,7 +69,7 @@ class TaskStoryOneThreeOne extends Component {
             Task ID:
             <input type="text" name="id" onChange={this.handleChange} />
           </label>
-          <button type="submit">Get Task's Desc</button>
+          <button type="submit" className="waves-effect waves-light btn cyan darken-3">Get Task's Desc</button>
           <br />
           <div>
             <ul>

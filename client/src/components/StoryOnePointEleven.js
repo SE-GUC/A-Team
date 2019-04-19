@@ -43,7 +43,17 @@ class StoryOnePointEleven extends Component {
     };
 
     renderLoading() {
-        return <div>Loading...</div>
+        return <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     }
     renderError() {
         return (
@@ -82,7 +92,7 @@ class StoryOnePointEleven extends Component {
                 </label>
               
                 
-                <button type="submit">View tasks i applied on</button>
+                <button type="submit" className="waves-effect waves-light btn cyan darken-3">View tasks i applied on</button>
             </form>
             
             

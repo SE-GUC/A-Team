@@ -97,16 +97,20 @@ class FeedbackCard extends Component {
                                     <p><b>Speakers:</b> {this.state.speakers}</p>
                                     <p><b>Topics:</b> {this.state.topics}</p>
                                     <p><b>Type:</b> {this.state.type}</p>
-                                    <form action="#">
+                                    
+
+                                </div>
+                                <div id="test" class="card-action">
+                                <div style={{paddingTop:'40px'}}>
+                                <form action="#">
                                     <p class="range-field">
                                     <label>Rating</label>
                                         <input onChange={this.handleRange} type="range" id="test5" min="1" max="5" />
                                         </p>
                                     </form>
                                     <input onChange={this.handleChangeText} placeholder="Enter Feedback" id="feedback" type="text" class="validate"/>
-                                    <a onClick={()=>this.sbmtbtn()} class="waves-effect waves-light btn">Submit</a>
+                                    <a onClick={()=>this.sbmtbtn()} class="waves-effect waves-light btn-small green darken-2">Submit</a>
                                 </div>
-                                <div class="card-action">
                 
                                 </div>
                             </div>

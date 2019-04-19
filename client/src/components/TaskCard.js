@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import 'materialize-css/dist/css/materialize.min.css';
 import '../css/TaskCardContainer.css'
+import M from "materialize-css";
 
 class TaskCard extends Component {
     constructor(props) {
@@ -74,7 +75,8 @@ class TaskCard extends Component {
         .then(result=>{
         var message=result.data.msg
         message=message.substring(0,message.length-33)
-        window.alert(message)
+        var html="<span style='color:#ffdd42'>"+message+"</span>"
+        M.toast({html:html })
         })
         
 
@@ -113,9 +115,9 @@ class TaskCard extends Component {
                 </div>
                 <div class="card-action" id="cardAction">
                 <div style={{paddingTop:'10px'}}>
-                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.applyTask}>Do I have the Required Skills?
+                        <button class="waves-effect waves-light btn-small yellow accent-2" type="submit" id="reqBut" name="action" onClick={this.applyTask}>Do I have the Required Skills?
                         </button>
-                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.applyTask}>Apply
+                        <button class="waves-effect waves-light btn-small green darken-2" type="submit" name="action" onClick={this.applyTask}>Apply
                         </button>
                         </div> 
                 </div>
