@@ -33,6 +33,9 @@ a:hover{
   border-radius: 8%;
   margin: 8px;
 }
+.input[type="submit"]:hover{
+  background:gold;
+}
 .form {
   height: 100%;
   width: 100%;
@@ -299,4 +302,14 @@ td {
   padding-left: 30px;
   margin-bottom: 15px;
 
+}
+.taskForm{
+  border: 2px dashed #212121;
+  margin-bottom: 50px;
+  height: 900px;
+}
+.projectForm{
+  border: 2px dashed #212121;
+  margin-bottom: 50px;
+  height: 500px;
 }
