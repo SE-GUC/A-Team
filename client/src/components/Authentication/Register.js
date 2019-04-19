@@ -39,7 +39,8 @@ export class Register extends Component {
   addSkill = newskill => {
     var update = this.state.skills;
     if (update.length === 10) {
-      window.alert("You can Only Enter a maximium of 10 Skills");
+      var html="<span style='color:#ffdd42'>You reached the max limit</span>"
+        M.toast({html:html })
       return;
     }
     var found = update.find(function(element) {
@@ -49,7 +50,8 @@ export class Register extends Component {
       update.push(newskill);
       this.setState({ skills: update });
     } else {
-      window.alert("You Already Added This Skill!");
+      var html="<span style='color:#ffdd42'>You already added this skill</span>"
+        M.toast({html:html })
     }
   };
   delSkill = skill => {
@@ -237,7 +239,8 @@ export class Register extends Component {
      axios.post("http://localhost:4000/api/users/register", data).then(res => {
         console.log(res);
         console.log("Submited..")
-       window.alert("Registred");
+        var html="<span style='color:green'>You have Succussfuly Registred</span>"
+        M.toast({html:html })
       //  return res.data
       });
     } catch (error) {
@@ -341,7 +344,8 @@ export class Register extends Component {
       update.push(newskill);
       this.setState({ intrests: update });
     } else {
-      window.alert("You Already Added This Intrest!");
+      var html="<span style='color:#ffdd42'>You ALready added this Intrest</span>"
+        M.toast({html:html })
     }
   };
   delIntrest = skill => {

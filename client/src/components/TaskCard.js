@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'materialize-css/dist/css/materialize.min.css';
+import M from "materialize-css";
 
 class TaskCard extends Component {
     constructor(props) {
@@ -73,7 +74,8 @@ class TaskCard extends Component {
         .then(result=>{
         var message=result.data.msg
         message=message.substring(0,message.length-33)
-        window.alert(message)
+        var html="<span style='color:#ffdd42'>"+message+"</span>"
+        M.toast({html:html })
         })
         
 

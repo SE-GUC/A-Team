@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import M from "materialize-css";
 
 class LocationPost extends Component {
   state = {
@@ -50,7 +51,14 @@ class LocationPost extends Component {
         capacity: this.state.capacity,
         booked: this.state.booked
       }
-    }).then(window.alert("Posted Task "));
+    }).then(
+      res=>{
+        var msg="Posted Location "
+        var html="<span style='color:#ffdd42'>"+msg+"</span>"
+        M.toast({html:html })
+      }
+    
+    );
     console.log(m);
   };
   renderLoading() {

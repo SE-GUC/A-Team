@@ -7,6 +7,7 @@ import Skills from "./Skills";
 import axios from "axios";
 import "../css/box_css.css";
 import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css";
 
 export class Form extends Component {
   state = {
@@ -33,7 +34,9 @@ export class Form extends Component {
       update.push(newskill);
       this.setState({ skills: update });
     } else {
-      window.alert("You Already Added This Skill!");
+      var msg="You Already Added This Skill!"
+      var html="<span style='color:#ffdd42'>"+msg+"</span>"
+        M.toast({html:html })
     }
   };
   delSkill = skill => {
@@ -74,7 +77,9 @@ export class Form extends Component {
     e.preventDefault();
     try {
       if(this.state.skills.length===0){
-        window.alert('You Have To Enter At Least one Skill')
+        var msg='You Have To Enter At Least one Skill'
+        var html="<span style='color:#ffdd42'>"+msg+"</span>"
+        M.toast({html:html })
         return
       }
       const data = {
@@ -89,7 +94,9 @@ export class Form extends Component {
       };
       axios.post("http://localhost:4000/api/tasks/add", data).then(res => {
         console.log(res);
-        window.alert("Posted Task ");
+        var msg="Posted Task "
+        var html="<span style='color:green'>"+msg+"</span>"
+        M.toast({html:html })
         return res.data;
       });
     } catch (error) {

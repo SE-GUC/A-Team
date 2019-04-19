@@ -33,13 +33,13 @@ export class Step2 extends Component {
     const condtion =
       details.name === "" || details.job_title === "" || details.email === "";
     if (condtion) {
-      window.alert(
-        "If You Want To Add a Board Member \n You Must Enter The Details"
-      );
+      var html="<span style='color:#ffdd42'>You Must Enter The Details</span>"
+        M.toast({html:html })
     } else {
       const row = this.state.currentRow;
       if (row === 7) {
-        window.alert("You Can NOT add more than 7 board members");
+        var html="<span style='color:#ffdd42'>You can only enter 7 members</span>"
+        M.toast({html:html })
         return;
       }
       var table = document.getElementById("Step2-P-Board");
@@ -65,14 +65,14 @@ export class Step2 extends Component {
     const condtion =
       details.name === "" || details.job_title === "" || details.email === "";
     if (condtion) {
-      window.alert(
-        "If You Want To Add a Board Member \n You Must Enter The Details"
-      );
+      var html="<span style='color:#ffdd42'>You Must Enter The Details</span>"
+        M.toast({html:html })
     } else {
       const row = this.state.currentRow;
       if (row === 7) {
-        window.alert("You Can NOT add more than 7 board members");
-        return;
+        var html="<span style='color:#ffdd42'>You can only Enter 7 Members</span>"
+        M.toast({html:html })
+        return
       }
       var table = document.getElementById("Step2-CA-Board");
       table.rows[row].cells[0].innerHTML = details.name;
@@ -91,7 +91,8 @@ export class Step2 extends Component {
   delMember = () => {
     const row = this.state.currentRow - 1;
     if (row === 0) {
-      window.alert("You did not Enter Any Values");
+      var html="<span style='color:#ffdd42'>You did'nt enter any values</span>"
+        M.toast({html:html })
     } else {
       var table = document.getElementById("Step2-CA-Board");
       table.rows[row].cells[0].innerHTML = "";
@@ -104,7 +105,8 @@ export class Step2 extends Component {
   delMemberP = () => {
     const row = this.state.currentRow - 1;
     if (row === 0) {
-      window.alert("You did not Enter Any Values");
+      var html="<span style='color:#ffdd42'>You did'nt enter any values</span>"
+        M.toast({html:html })
     } else {
       var table = document.getElementById("Step2-P-Board");
       table.rows[row].cells[0].innerHTML = "";

@@ -3,8 +3,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-
-
+import M from "materialize-css";
 
 class TaskStoryOneThreeTwo extends Component {
   state = {
@@ -36,7 +35,9 @@ class TaskStoryOneThreeTwo extends Component {
       this.setState({ response: res.data });
       // this.setState({ done:true })
     });
-    window.alert("Edited Task's Response from Admin Successfully");
+    var msg="Edited Task's Response from Admin Successfully"
+    var html="<span style='color:green'>"+msg+"</span>"
+        M.toast({html:html })
   };
   renderLoading() {
     return <div>Loading...</div>;

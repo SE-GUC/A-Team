@@ -1,8 +1,7 @@
-
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import M from "materialize-css";
 
 
 class AssignMember extends Component {
@@ -43,7 +42,9 @@ class AssignMember extends Component {
         axios.put(url,{assigned_id: this.state.assigned_id })
         .then(res => {
             console.log(res);
-            window.alert("Assigned Member! ");
+            var msg="Assigned Member! "
+            var html="<span style='color:#green'>"+msg+"</span>"
+            M.toast({html:html })
             return res.data
           })
         this.setState({done:true})

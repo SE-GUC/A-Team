@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-
+import M from "materialize-css";
 
 
 class LocationStoryTwoTwo extends Component {
@@ -36,7 +36,9 @@ class LocationStoryTwoTwo extends Component {
                 // this.setState({ done:true })
 
             })
-            window.alert("Booked Location ");
+            var msg="Booked Location "
+            var html="<span style='color:#ffdd42'>"+msg+"</span>"
+            M.toast({html:html })
 
    
     };

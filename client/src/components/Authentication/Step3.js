@@ -7,41 +7,6 @@ export class Step3 extends Component {
     if (type[0] === "P") return "Partner";
     if (type[0] === "CA") return "Consultancy Agency";
   };
-  submit = () => {
-    const data = {
-      name:this.state.name,
-      email:this.state.email,
-      username:this.state.username,
-      password:this.state.password,
-      date_of_birth:this.state.date_of_birth,
-      phone:this.state.phone,
-      intrests:this.state.intrests,
-      is_private:this.state.is_private,
-      info:this.state.info,
-      field_of_work:this.state.field_of_work,
-      board_members:this.state.board_members,
-      reports:this.state.reports,
-      years_of_experience:this.state.years_of_experience +"Year (s)",
-      skills:this.state.skills,
-      type:this.state.type,
-      applicants:[]
-    }
-    console.log("Submitting..")
-    if(this.data.type[0]===["C"])
-    {
-      this.data.type=["CA"]
-    }
-    try{
-    axios.post("http://localhost:4000/api/users/register", data).then(res => {
-        console.log("Registered",res);
-        console.log("Submited..")
-        window.alert("Registred");
-      });
-    } catch (error) {
-      console.log("error");
-    }
-    console.log("DONE..")
-  };
   displayArray=(array)=>{
     var result=''
     for(var i=0;i<array.length;i++){
