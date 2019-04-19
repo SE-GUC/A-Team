@@ -156,16 +156,16 @@ router.get('/dashboard',checkToken, function(req,res){
 //register new user
 router.post('/register', async (req,res) => {
     const {type, email, username, date_of_birth, name, password, phone, is_private, interests, info, field_of_work,board_members,reports,years_of_experience,skills }  = req.body
-    const status = joi.validate(req.body, {
-      name: joi.string().min(2).max(40).required(),
-      email: joi.string().email().required(),
-      password: joi.string().required(),
-      type: joi.array().items(joi.string().min(1).max(2)).required(),
-      username: joi.string().min(8).max(50).required(),
-      date_of_birth: joi.string().required(),
-      phone: joi.string().required(),
-      is_private: joi.boolean().required(),
-      interests: joi.array().items(joi.string()).required(),
+    /*const status = joi.validate(req.body, {
+      name: joi.string().min(2).max(40).required(),  Handled in frontend
+      email: joi.string().email().required(), Handled in frontend
+      password: joi.string().required(), Handled in front end with more restrictions
+      type: joi.array().items(joi.string().min(1).max(2)).required(), Handled in front end
+      username: joi.string().min(8).max(50).required(), Handled in frontend
+      date_of_birth: joi.string().required(), //Handled in frontend
+      phone: joi.string().required(), handled in front end
+      is_private: joi.boolean().required(), handled in frontend
+      interests: joi.array().items(joi.string()).required(), handled in frontend
       info:joi.allow(),
       field_of_work:joi.allow(),
       board_members: joi.allow(),
@@ -173,69 +173,10 @@ router.post('/register', async (req,res) => {
       years_of_experience:joi.allow(),
       skills:joi.allow(),
       notifications:joi.allow()
-      })
-      if (status.error) {
-        return res.json({ error: status.error.details[0].message })
-      }
+      })*/
+     
 
-      const statusCA =joi.validate(req.body, {
-        info:joi.allow(),
-      field_of_work:joi.allow(),
-      board_members: joi.allow(),
-      reports:joi.allow(),
-      years_of_experience:joi.allow(),
-      skills:joi.allow(),
-      notifications:joi.allow(),
-        name: joi.allow(),
-        email: joi.allow(),
-        password: joi.allow(),
-        type: joi.allow(),
-        username: joi.allow(),
-        date_of_birth: joi.allow(),
-        phone: joi.allow(),
-        is_private: joi.allow(),
-        interests: joi.allow(),
-        info: joi.string().required(), 
-        field_of_work: joi.array().items(joi.string()).required(),
-        reports: joi.array().items(joi.string()).required(),
-      })
-
-    const statusM = joi.validate(req.body, {
-      info:joi.allow(),
-      field_of_work:joi.allow(),
-      board_members: joi.allow(),
-      reports:joi.allow(),
-      notifications:joi.allow(),
-      name: joi.allow(),
-      email: joi.allow(),
-      password: joi.allow(),
-      type: joi.allow(),
-      username: joi.allow(),
-      date_of_birth: joi.allow(),
-      phone: joi.allow(),
-      is_private: joi.allow(),
-      interests: joi.allow(),
-      years_of_experience: joi.number().required(),
-      skills: joi.array().items(joi.string()).required(),
-    })
-
-    
-
-    if (req.body.type.includes('CA')) {
-      if (statusCA.error) {
-        return res.json({ error: statusCA.error })
-      }
-    }
-    if (req.body.type.includes('P')) {
-      if (statusP.error) {
-        return res.json({ error: statusP.error })
-      }
-    }
-    if (req.body.type.includes('M')) {
-      if (statusM.error) {
-        return res.json({ error: statusM.error })
-      }
-    }
+      
     const useremail = await User.findOne({email})
     const usernamef = await User.findOne({username})
     if(useremail||usernamef){

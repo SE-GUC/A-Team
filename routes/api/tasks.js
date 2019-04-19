@@ -18,7 +18,14 @@ router.get('/allemails', async(req, res)=>{
     }
     return res.json(allEmails)
 })
-
+router.get('/alluserNames', async(req, res)=>{
+    const allUsers=await User.find({}).exec()
+    var allEmails = []
+    for(var i=0;i<allUsers.length;i++){
+        allEmails.push(allUsers[i].username)
+    }
+    return res.json(allEmails)
+})
 //add random task tester
 router.get('/', async (req, res) => {
     try {

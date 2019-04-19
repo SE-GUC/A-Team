@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import Skills from "../../components/Skills";
 import axios from "axios";
 import Intrests from "./Intrests";
-import TaskDatePack from "../TaskDatePack";
 import M from "materialize-css";
-import Chip from '@material-ui/core/Chip';
-
+import Chips from "react-materialize";
 export class Step2 extends Component {
   state = {
     all_skills: [],
@@ -15,7 +12,13 @@ export class Step2 extends Component {
     bname: "",
     btitle: "",
     bemaail: "",
-    currentRow: 1
+    currentRow: 1,
+    url: ""
+  };
+
+  addURL = () => {
+    this.props.addURL(this.state.url);
+    this.setState({url:''})
   };
   handleChange = event => {
     console.log(event.target.value);
@@ -33,13 +36,15 @@ export class Step2 extends Component {
     const condtion =
       details.name === "" || details.job_title === "" || details.email === "";
     if (condtion) {
-      var html="<span style='color:#ffdd42'>You Must Enter The Details</span>"
-        M.toast({html:html })
+      var html =
+        "<span style='color:#ffdd42'>You Must Enter The Details</span>";
+      M.toast({ html: html });
     } else {
       const row = this.state.currentRow;
       if (row === 7) {
-        var html="<span style='color:#ffdd42'>You can only enter 7 members</span>"
-        M.toast({html:html })
+        var html =
+          "<span style='color:#ffdd42'>You can only enter 7 members</span>";
+        M.toast({ html: html });
         return;
       }
       var table = document.getElementById("Step2-P-Board");
@@ -65,14 +70,16 @@ export class Step2 extends Component {
     const condtion =
       details.name === "" || details.job_title === "" || details.email === "";
     if (condtion) {
-      var html="<span style='color:#ffdd42'>You Must Enter The Details</span>"
-        M.toast({html:html })
+      var html =
+        "<span style='color:#ffdd42'>You Must Enter The Details</span>";
+      M.toast({ html: html });
     } else {
       const row = this.state.currentRow;
       if (row === 7) {
-        var html="<span style='color:#ffdd42'>You can only Enter 7 Members</span>"
-        M.toast({html:html })
-        return
+        var html =
+          "<span style='color:#ffdd42'>You can only Enter 7 Members</span>";
+        M.toast({ html: html });
+        return;
       }
       var table = document.getElementById("Step2-CA-Board");
       table.rows[row].cells[0].innerHTML = details.name;
@@ -91,8 +98,9 @@ export class Step2 extends Component {
   delMember = () => {
     const row = this.state.currentRow - 1;
     if (row === 0) {
-      var html="<span style='color:#ffdd42'>You did'nt enter any values</span>"
-        M.toast({html:html })
+      var html =
+        "<span style='color:#ffdd42'>You did'nt enter any values</span>";
+      M.toast({ html: html });
     } else {
       var table = document.getElementById("Step2-CA-Board");
       table.rows[row].cells[0].innerHTML = "";
@@ -105,8 +113,9 @@ export class Step2 extends Component {
   delMemberP = () => {
     const row = this.state.currentRow - 1;
     if (row === 0) {
-      var html="<span style='color:#ffdd42'>You did'nt enter any values</span>"
-        M.toast({html:html })
+      var html =
+        "<span style='color:#ffdd42'>You did'nt enter any values</span>";
+      M.toast({ html: html });
     } else {
       var table = document.getElementById("Step2-P-Board");
       table.rows[row].cells[0].innerHTML = "";
@@ -136,13 +145,13 @@ export class Step2 extends Component {
     this.setState({ reports: result });
     this.props.setReport(result);
   };
-  
+
   componentDidMount() {
-    console.log("WAZA")
+    console.log("WAZA");
     document.addEventListener("DOMContentLoaded", function() {
       var textNeedCount = document.querySelectorAll("#CA_Info_TA");
       M.CharacterCounter.init(textNeedCount);
-      console.log(textNeedCount)
+      console.log(textNeedCount);
     });
     document.addEventListener("DOMContentLoaded", function() {
       var elems = document.getElementById("CA chips Reg");
@@ -177,7 +186,7 @@ export class Step2 extends Component {
       });
     });
   }
- 
+
   setURL = () => {
     console.log("lalal");
     var elems = document.getElementById("CA chips Reg");
@@ -199,7 +208,7 @@ export class Step2 extends Component {
     if (this.props.type[0] === "M") {
       //Member Form
       return (
-        <div className="StepsM" >
+        <div className="StepsM">
           <h4>You Chose to Become a Member</h4>
           <h5>
             You will be able to apply for tasks and fulfil the freelance dream
@@ -236,9 +245,26 @@ export class Step2 extends Component {
     }
     if (this.props.type[0] === "C") {
       //Partner Form
-
+      document.addEventListener("DOMContentLoaded", function() {
+        console.log("manga");
+        var elems = document.getElementById("CA chips Reg");
+        var instances = M.Chips.init(elems, {
+          placeholder: "Add Report URLs",
+          secondaryPlaceholder: "Add URL",
+          limit: 5,
+          onChipAdd: () => {
+            var x = [];
+            for (var i = 0; i < instances.chipsData.length; i++) {
+              x.push(instances.chipsData[i].tag);
+            }
+            return x;
+            // console.log("Data",dataOfCa,"Instances",instances)
+          }
+        });
+      });
       return (
         <div className="Steps">
+          <script />
           <h4>You Chose to Become a Consultancy Agency</h4>
           <h5>You will be to Sponsor Projects and Host Events</h5>
           <p>Please Enter The Following Details:</p>
@@ -361,12 +387,27 @@ export class Step2 extends Component {
               <h6>
                 Please Enter The Links of Your Agency's Reports (Optional)
               </h6>
-              <div
-                id="CA chips Reg"
-                class="chips"
-                onChange={this.onChipAdd}
-                onKeyDown={this.onChipAdd}
-              />
+              <div className="row">
+                <div className="input-field col s6">
+                  <input
+                    type="url"
+                    class="validator"
+                    name="url"
+                    value={this.state.url}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="col s6">
+                  <button
+                    style={{ marginTop: "20px" }}
+                    type="submit"
+                    onClick={this.addURL}
+                    class="waves-effect waves-light btn green ligthen-3"
+                  >
+                    Add Report URL
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -483,12 +524,30 @@ export class Step2 extends Component {
               <h6>
                 Please Enter The Links of Your Agency's Reports (Optional)
               </h6>
-              <div
-                id="PchipsReg"
-                class="chips"
-                onChange={this.onChipAddP}
-                onKeyDown={this.onChipAddP}
-              />
+              <p>you can add multiple urls</p>
+              <div className="row">
+                <div className="input-field col s6">
+                  <i class="material-icons prefix">folder_open</i>
+
+                  <input
+                    type="url"
+                    class="validator"
+                    name="url"
+                    value={this.state.url}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="col s6">
+                  <button
+                    style={{ marginTop: "20px" }}
+                    type="submit"
+                    onClick={this.addURL}
+                    class="waves-effect waves-light btn green ligthen-3"
+                  >
+                    Add Report URL
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
