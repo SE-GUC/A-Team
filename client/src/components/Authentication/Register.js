@@ -369,7 +369,7 @@ export class Register extends Component {
           <h3>Registration Form</h3>
           <p>
             Step {this.state.currentStep} (Next Button Will Appear when you
-            finsih required fields)
+            finish required fields)
           </p>
           <div  className="col s12">
             <Step1
