@@ -44,6 +44,7 @@ import EventModule from './components/EventCards/EventModule'
 
 import LoginPage from './components/Authentication/LoginPage'
 
+import './css/navbar.css'
 
 const routing=(
     <Router>

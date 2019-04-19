@@ -56,7 +56,7 @@ class ApplyForEvent extends Component {
                     <input type="text" placeholder="write eventId" name="id" onChange={this.handleChange} />
                     <input type="text" placeholder="write applicantID" name="id" onChange={this.handleChange1} />
                 </label>
-                <button type="submit">Apply</button>
+                <button type="submit" className="waves-effect waves-light btn green darken-2">Apply</button>
         </form>
             </div>
 
@@ -82,7 +82,7 @@ class ApplyForEvent extends Component {
                 <input type="text" name="id" onChange={this.handleChange1} />
             </label>
                 <br/>
-                <button type="submit">Apply</button>
+                <button type="submit" className='waves-effect waves-light btn green darken-2'>Apply</button>
             </form>
             </div>
         )

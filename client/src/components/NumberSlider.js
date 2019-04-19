@@ -23,7 +23,7 @@ export class NumberSlider extends Component {
       this.setState({ time_expected: status });
       console.log("wololo");
     } else {
-      this.setState({ experience_needed: status });
+      //this.setState({ experience_needed: status });
     }
   };
   render() {
@@ -57,10 +57,8 @@ export class NumberSlider extends Component {
           refs={this.dur}
           class="browser-default"
         >
-          <option value="Hour(s)">Hour(s)</option>
-          <option selected value="Day(s)">Day(s)</option>
-          <option value="Week(s)">Week(s)</option>
-          <option value="Month(s)">Month(s)</option>
+          
+          <option selected value="Month(s)">Month(s)</option>
           <option value="Year(s)">Year(s)</option>
         </select>
         </div>
