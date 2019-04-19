@@ -37,8 +37,8 @@ export class NavPartner extends Component {
   <li><a href='/partner/partnerfeedbacks'>Feedbacks on my Events</a></li>
 </ul>
 <ul id="dropdown11111" class="dropdown-content">
-  <li><a class='ili' href='/viewallproj'>All Projects</a></li>
-  <li><a class='ili' href='/post_project'>Post a Project</a></li>
+  <li><a class='ili' href='/partner/viewallproj'>All Projects</a></li>
+  <li><a class='ili' href='/partner/post_project'>Post a Project</a></li>
 </ul>
 <nav class="blue-text text-darken-2">
   <div class="nav-wrapper grey darken-4">

@@ -63,6 +63,10 @@ const routing=(
       <Route path="/partner/get_tasks" component={TaskList}/>
       <Route path="/partner/viewrtaskapplicants" component={ViewTApplicants}/>
       <Route path="/partner/task_card" component={TaskCardContainer} />
+      <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/partner/post_project" component={ProjectPostForm}/>  
+
+
 
 
 
