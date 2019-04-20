@@ -4,8 +4,8 @@ import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'; 
 import moment from 'moment'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";  
+//import DatePicker from "react-datepicker";
+//import "react-datepicker/dist/react-datepicker.css";  
   
 
 class CreateEvent extends Component {
@@ -242,10 +242,10 @@ handleChangetype = event=> {
                   </div>
                   </div>
                   <div class="row">
-                  <DatePicker
+                 { /*<DatePicker
                       selected={this.state.startDate}
                       onChange={this.handleChangedate}
-                    />
+                 />*/}
                   </div>
                   <br/>   
                    <br/>

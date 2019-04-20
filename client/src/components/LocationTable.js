@@ -16,6 +16,10 @@ class LocationTable extends Component {
           <TableHeaderColumn dataField='title'>
             Title
           </TableHeaderColumn>
+          <TableHeaderColumn dataField='subtitle'>
+            SUBTitle
+          </TableHeaderColumn>
+          
           <TableHeaderColumn dataField='location'>
             Location
           </TableHeaderColumn>
