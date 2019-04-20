@@ -57,7 +57,8 @@ class LoginPage  extends Component {
           this.props.history.replace('/partner');
         } else if(myuser.type.includes('CA')) {
         } else if(myuser.type.includes('M')) {
-          this.setState({member:true})
+          this.props.history.replace('/member');
+
         } else if (myuser.type.includes('A')) {
           this.props.history.replace('/admin');
         }
