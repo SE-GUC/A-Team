@@ -1,4 +1,6 @@
-
+#cardContent {
+    height: 330px;
+}
 #cardAction {
     width: 400px;
     background-color:	#909090;
@@ -13,6 +15,12 @@
     grid-column-gap: 10px;
 
 }
+#manga {
+    margin-right: 20px;
+}
 #test {
     background-color:	#909090;
+}
+#loadMoreBut {
+    margin-right: 20px;
 }

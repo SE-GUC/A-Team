@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
+import '../../css/TaskCardContainer.css'
 import axios from 'axios'
 
 class ViewAllProjectsCard extends Component {
@@ -43,16 +44,16 @@ class ViewAllProjectsCard extends Component {
                     partner_responsible: res.data.data.partner_responsible
                 })
                 this.setState({
-                    skills: res.data.data.skills
+                    skills: res.data.data.skills + ','
                 })
                 this.setState({
                     consultancy_agency_assigned: res.data.data.consultancy_agency_assigned
                 })
                 this.setState({
-                    consultancy_agency_applicants: res.data.data.consultancy_agency_applicants
+                    consultancy_agency_applicants: res.data.data.consultancy_agency_applicants + ','
                 })
                 this.setState({
-                    tasks: res.data.data.tasks
+                    tasks: res.data.data.tasks + ','
                 })
             
             })
@@ -89,11 +90,10 @@ class ViewAllProjectsCard extends Component {
 	<br/>
 	<br/>
             
-	<div class="" >
+	<div class="" id = "manga">
 			<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
+				<div class="card-content white-text" id="cardContent">
 					<div class="card__meta">
-						<a href="card">Project</a>
 						<time>{}</time>
 					</div>
 					<span class="card-title">{this.state.project_name}</span>
@@ -107,11 +107,11 @@ class ViewAllProjectsCard extends Component {
 
 				</div>
                 
-				<div class="card-action">
+				<div class="card-action" id="cardAction">
                 <p>
                        
                 </p>
-                <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
+                <a onClick={()=>this.accept()} class="waves-effect waves-light btn-small green">Accept</a>
 				</div>
 			</div>
 		</div>

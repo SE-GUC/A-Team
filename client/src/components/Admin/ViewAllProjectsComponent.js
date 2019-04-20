@@ -16,9 +16,15 @@ class ViewAllProjectsComponent extends React.Component {
             skills:[],
             consultancy_agency_applicants:[],
             tasks:[],
-            loading:true
+            loading:true,
+            limit:0
 
         }
+    }
+    loadMore=(e)=> {
+        this.setState({
+            limit:this.state.limit+2
+        })
     }
 
     componentDidMount() {
@@ -47,7 +53,10 @@ class ViewAllProjectsComponent extends React.Component {
             var elements1=[];
             const projects = this.state.elements
             for(var i = 0;i < this.state.elements.length;i++) {
+                if(i <= this.state.limit) {
+
                 elements1.push(<Card value={projects[i]._id}/>)
+                }
                
                 
             }
@@ -56,6 +65,7 @@ class ViewAllProjectsComponent extends React.Component {
         return( 
                 <div class="container">
                 <div class="row">
+                <button id = "loadMoreBut" class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
                     <div class="row s2">{elements1}</div>
                 </div>
                 </div>
