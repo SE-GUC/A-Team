@@ -10,12 +10,10 @@ class LocationPost extends Component {
     location: "",
     capacity: null,
     booked: ""
-    //n3m?
-    // el buttons 3andi maba2etsh sha3'ala i will sow you 
-    // nothing happened
+   
   };
   handleChangeOne = e => {
-    // this.setState({ [e.target.title]: e.target.value});
+  
     this.setState({
       title: e.target.value
     });
