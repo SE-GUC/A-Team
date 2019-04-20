@@ -3,7 +3,7 @@ const functions = {
   RecommendNormalUpperCase: async () => {
     return axios({
       method: "get",
-      url: "https://ateamse2.herokuapp.com/api/tasks/recommend",
+      url: "http://localhost:4000/api/tasks/recommend",
       headers: { "Content-Type": "application/json" },
       data: {
         skills: ["Bloodhound", "Wraith", "Octane", "messi"]
@@ -13,7 +13,7 @@ const functions = {
   RecommendNormalLowerCase: async () => {
     return axios({
       method: "get",
-      url: "https://ateamse2.herokuapp.com/api/tasks/recommend",
+      url: "http://localhost:4000/api/tasks/recommend",
       headers: { "Content-Type": "application/json" },
       data: {
         skills: ["Bloodhound", "Wraith", "Octane"]
@@ -23,7 +23,7 @@ const functions = {
   RecommendNoSkills: async () => {
     return axios({
       method: "get",
-      url: "https://ateamse2.herokuapp.com/api/tasks/recommend",
+      url: "http://localhost:4000/api/tasks/recommend",
       headers: { "Content-Type": "application/json" },
       data: {
         skills: []
@@ -33,7 +33,7 @@ const functions = {
   RecommendNotEnough: async () => {
     return axios({
       method: "get",
-      url: "https://ateamse2.herokuapp.com/api/tasks/recommend",
+      url: "http://localhost:4000/api/tasks/recommend",
       headers: { "Content-Type": "application/json" },
       data: {
         skills: ['Wraith']

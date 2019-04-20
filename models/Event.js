@@ -100,6 +100,9 @@ const EventSchema = new Schema({
     time_of_edit:{
         type:String
     },
+    event_date:{
+        type:Date
+    },
     feedbacks: [feedbackSchema],
     responses_from_admin:[responseSchema], //crud mat3amalsh
     applicants: [applicationSchema]
