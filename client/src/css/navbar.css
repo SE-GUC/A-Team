@@ -1,0 +1,186 @@
+.iul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .ili {
+    text-decoration: none;
+    float: left;
+    color: aliceblue;
+    margin: 5px;
+    padding: 10px;
+    border-right: aliceblue 2px solid;
+    opacity: 0.7;
+    font-family:  Montserrat, "Open Sans", Helvetica, Arial, sans-serif;;
+  }
+
+  .ili:hover {
+    opacity: 1;
+    text-decoration: none;
+    font-family:  Montserrat, "Open Sans", Helvetica, Arial, sans-serif;;
+  }
+
+  .githublogo {
+    text-decoration: none;
+    float: left;
+    color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-right: aliceblue 2px solid;
+    opacity: 0.7;
+    font-family: - Montserrat, "Open Sans", Helvetica, Arial, sans-serif;;
+    background: url(https://git-scm.com/images/logos/downloads/Git-Logo-White.png) no-repeat left center;
+    background-size: 90%;
+
+  }
+
+  .githublogo:hover {
+    color: transparent;
+    opacity: 1;
+  }
+
+  .homebtn {
+    text-decoration: none;
+    float: left;
+    color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-right: aliceblue 2px solid;
+    opacity: 0.7;
+    font-family:  Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+    background: url(https://www.indiaretailing.com/wp-content/uploads/2016/02/Home-Button.png) no-repeat left center;
+    background-size: 90%;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .homebtn:hover {
+    color: transparent;
+    opacity: 1;
+  }
+  .fa {
+    padding: 15px;
+    font-size: 15px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    margin: 3px;
+  }
+  
+  .fa:hover {
+      transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:white;
+      text-decoration: none;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+  
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
+  
+  .fa-pinterest {
+    background: #cb2027;
+    color: white;
+  }
+  
+  .fa-snapchat-ghost {
+    background: #fffc00;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+  
+  .fa-skype {
+    background: #00aff0;
+    color: white;
+  }
+  
+  .fa-android {
+    background: #a4c639;
+    color: white;
+  }
+  
+  .fa-dribbble {
+    background: #ea4c89;
+    color: white;
+  }
+  
+  .fa-vimeo {
+    background: #45bbff;
+    color: white;
+  }
+  
+  .fa-tumblr {
+    background: #2c4762;
+    color: white;
+  }
+  
+  .fa-vine {
+    background: #00b489;
+    color: white;
+  }
+  
+  .fa-foursquare {
+    background: #45bbff;
+    color: white;
+  }
+  
+  .fa-stumbleupon {
+    background: #eb4924;
+    color: white;
+  }
+  
+  .fa-flickr {
+    background: #f40083;
+    color: white;
+  }
+  
+  .fa-yahoo {
+    background: #430297;
+    color: white;
+  }
+  
+  .fa-soundcloud {
+    background: #ff5500;
+    color: white;
+  }
+  
+  .fa-reddit {
+    background: #ff5700;
+    color: white;
+  }
+  
+  .fa-rss {
+    background: #ff6600;
+    color: white;
+  }

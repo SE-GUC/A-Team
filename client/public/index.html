@@ -10,7 +10,6 @@
       overflow: hidden;
       background-color: #333;
     }
-
     .ili {
       text-decoration: none;
       float: left;
@@ -19,15 +18,11 @@
       padding: 10px;
       border-right: aliceblue 2px solid;
       opacity: 0.7;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
-
     .ili:hover {
       opacity: 1;
       text-decoration: none;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
-
     .githublogo {
       text-decoration: none;
       float: left;
@@ -36,17 +31,13 @@
       padding: 10px;
       border-right: aliceblue 2px solid;
       opacity: 0.7;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       background: url(https://git-scm.com/images/logos/downloads/Git-Logo-White.png) no-repeat left center;
       background-size: 90%;
-
     }
-
     .githublogo:hover {
       color: transparent;
       opacity: 1;
     }
-
     .homebtn {
       text-decoration: none;
       float: left;
@@ -55,13 +46,11 @@
       padding: 10px;
       border-right: aliceblue 2px solid;
       opacity: 0.7;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       background: url(https://www.indiaretailing.com/wp-content/uploads/2016/02/Home-Button.png) no-repeat left center;
       background-size: 90%;
       margin-right: 5px;
       margin-left: 5px;
     }
-
     .homebtn:hover {
       color: transparent;
       opacity: 1;
@@ -70,14 +59,14 @@
   <meta charset="utf-8" />
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
 
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>React App</title>
+  <title>Lirten HUB</title>
 </head>
-<ul id="dropdown11" class="dropdown-content">
+<!-- <ul id="dropdown11" class="dropdown-content">
   <li><a href='/submit_task'>Post a Task</a></li>
   <li><a href='/recommend'>Recommend Tasks</a></li>
   <li><a href='/task_control_panel'>Task Control Panel</a></li>
@@ -104,12 +93,12 @@
 <ul id="dropdown11111" class="dropdown-content">
   <li><a class='ili' href='/viewallproj'>All Projects</a></li>
   <li><a class='ili' href='/post_project'>Post a Project</a></li>
-</ul>
-<nav>
-  <div class="nav-wrapper">
+</ul> -->
+<!-- <nav class="blue-text text-darken-2">
+  <div class="nav-wrapper grey darken-4"> -->
       
      
-
+<!-- 
     <ul class="left hide-on-med-and-down">
         <li><a href="/" ><i class="material-icons">home</i></a></li>
       <li> <a href="https://github.com/SE-GUC/A-Team" title="Git-Hub"><i class="material-icons">storage</i></a> </li>
@@ -118,19 +107,59 @@
       <li><a class="dropdown-trigger" href="#" data-target="dropdown1111">Admin<i
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a class="dropdown-trigger" href="#" data-target="dropdown111">Events<i
-            class="material-icons right">arrow_drop_down</i></a></li>
+            class="material-icons right">arrow_drop_down</i></a></li> -->
       <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
+      <!-- <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
             class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
-  </div>
-</nav>
+    </ul> -->
+  <!-- </div>
+</nav> -->
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
 
-  <div id="root"></div>
+  <div id="root">
+    <h1>Welcome Page</h1>
+  </div>
 
 </body>
 
+<footer class="page-footer grey darken-4 margin-bottom: 0px" >
+    <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Lirten-Hub</h5>
+            <p class="grey-text text-lighten-4">Our vision is to give a chance to those who wish to contribute but are not
+                given a chance, to empower and teach those who want to better their futures.</p>
+          </div>
+          <div class="col s4 offset-l2 s6">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="/">Homepage</a></li>
+              <li><a class="grey-text text-lighten-3" href="/register">Register</a></li>
+              <li><a class="grey-text text-lighten-3" href="/task_card">Tasks</a></li>
+              <li><a class="grey-text text-lighten-3" href="/Event">Events</a></li>
+              <li><a class="grey-text text-lighten-3" href="#">More About us</a></li>
+            </ul>
+          </div>
+          <div class="col s4 offset-l2 s">
+              <h5 class="white-text">Social Media</h5>
+                <a href="https://www.facebook.com" class="fa fa-facebook"></a>
+                <a href="https://www.twitter.com" class="fa fa-twitter"></a>
+                <a href="https://www.google.com" class="fa fa-google"></a>
+          </br>
+                <a href="#" class="fa fa-linkedin"></a>
+                <a href="#" class="fa fa-youtube"></a>
+                <a href="#" class="fa fa-rss"></a>
+              
+            </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2019 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+      </div>
+</footer>
 </html>

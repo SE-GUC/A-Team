@@ -21,7 +21,7 @@ export class AddSkill extends Component {
     //Integraet Components is still needed
     return (
             
-            <div>
+            <div >
             <Autocomplete suggestions={this.props.col.data} addSkill={this.props.addSkill} />
             </div>
     )
