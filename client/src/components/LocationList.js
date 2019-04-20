@@ -73,9 +73,8 @@ class LocationList extends Component {
             <div className="m">
             
             <p className="Table-header" align="center">Locations</p>
-            <LocationTable data={this.state.locations}/> {/*
-            As you can see, and bas bdkhl guwa hena el array el gebto men TaskList, mgm3 hena?ahh ana i mean fel app.cs i dont know how to viok stoepw
-            */}
+            <LocationTable data={this.state.locations}/> {
+            }
             
             </div>
 
