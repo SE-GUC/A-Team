@@ -4,50 +4,99 @@ const axios = require('axios')
 
 
 
-test('Testing get req', async () => {
-    const loc = await funcs.getLocation();
-    expect(loc.data.data[0]._id).toBe('5c9bff7f569b9a001796d40a') });
+test(
+    "Get all Locations",
+    async () => {
+      const Locations = await funcs.getLocation();
+      expect(Locations.data.data).toEqual(
+          expect.arrayContaining([
+          expect.objectContaining({
+              
+              _id: expect.any(String),
+              title: expect.any(String),
+              subtitle: expect.any(String),
+              location: expect.any(String),
+              capacity: expect.any(Number),
+              booked: expect.any(String)
+                          })
+          ])
+        );
+      
+    },
+   
+  );
+
+
+   test('Deleting a location', async() => {
+          const before = await funcs.getLocation();
+          await funcs.deleteLocation(before.data.data[0]._id);
+          const after = await funcs.getLocation();
+          expect(before.data.data).not.toEqual(
+          expect.arrayContaining([expect.objectContaining(after.data.data)])
+           );
+   });
+
+//   test('Location post test', async() => {
+//           const before = await funcs.getLocation()
+//           const x = funcs.postLocation()
+//           const after = await funcs.getLocation()
+//           expect(x).toBeDefined()
+        
+//       });
+test(
+    "Create a Location",
+    async () => {
+      
+      const locations = await funcs.postLocation({
+        title:'test',
+        subtitle:'test',
+        location:'test',
+        capacity:2000,
+        booked:'test'
+          });
+      const location = await funcs.getLocation();
+      expect(location.data.data).toEqual(
+        expect.arrayContaining([expect.objectContaining(locations.data.data)])
+      );
+    },
+    
+  );
+
+
+
+      
+    
+    
+// test('Location changing capacity', async() => {
+//         const newInfo = 100
+//         const res = await funcs.updateLocationcapacity('5ca92cef8140653810cfbf1e',newInfo)
+//         expect(res.data.info).toEqual(res.data.newInfo)
+//     }); 
+    
+// test('Location changing title', async() => {
+//     const newInfo = 'title-updating'
+//     const res = await funcs.updateLocationInfo('5ca92cef8140653810cfbf1e',newInfo)
+//     expect(res.data.info).toEqual(res.data.newInfo)
+// });
+
+
+// test('Locaticon change booking', async() => {
+//     const newInfo = "update booking"
+//     const res = await funcs.updateLocationBooking('5ca92cef8140653810cfbf1e',newInfo)
+//     expect(res.data.info).toEqual(res.data.newInfo)
+// });
+
+
+// test('new location creation',() => {
+//     expect(funcs.createlocation()).toEqual({
+//         title:'test',
+//         location:'test',
+//         capacity:2000,
+//         booked:"test"
+// });
+ 
   
 
-test('Location delete test', async() => {
-        const before = await funcs.getLocation();
-        const v =  await funcs.deleteLocation('mangaTwo3');
-        const after = await funcs.getLocation();
-        expect(before.data.length).toBe(after.data.length)
-
-    });
-test('Location post test', async() => {
-        const before = await funcs.getLocation()
-        const x = funcs.postLocation()
-        const after = await funcs.getLocation()
-        expect(x).toBeDefined()
-        
-    });
-    
-    
-    
-test('Location changing capacity', async() => {
-        const newInfo = 20
-        const res = await funcs.updateLocationcapacity('5c9cad9507d1740017bdb25c',newInfo)
-        expect(res.data.info).toEqual(res.data.newInfo)
-    }); 
-    
-test('Location changing title', async() => {
-    const newInfo = 'title-updating'
-    const res = await funcs.updateLocationInfo('5c9cc1df0fb0b90a80c37cd1',newInfo)
-    expect(res.data.info).toEqual(res.data.newInfo)
-});
-
-
-test('Location change booking', async() => {
-    const newInfo = "update booking"
-    const res = await funcs.updateLocationBooking('5c9bffa8569b9a001796d40d',newInfo)
-    expect(res.data.info).toEqual(res.data.newInfo)
-});
-
 
     
-
-//To run the tests,
-//type: npm run test
-//Goodluck;)
+// })
