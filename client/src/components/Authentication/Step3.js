@@ -14,6 +14,12 @@ export class Step3 extends Component {
     }
     return result
   }
+  chopInfo= (text)=>{
+    if(text.length<30)
+    return text
+    else
+      return text.substring(0,30)+".."
+  }
   getBoardMemberNames=()=>{
     var members=[]
     var board=this.props.state.board_members
@@ -92,8 +98,7 @@ export class Step3 extends Component {
       <p><strong>Phone Number: </strong>{this.props.state.phone}</p>
       <p><strong>Intrests:</strong>{this.displayArray(this.props.state.intrests)}</p>
       <p><strong>Privacy: </strong>{this.props.state.is_private ? "Private Account":"Not a Private Account"}</p>
-      
-      <p class="flow-text"><strong>Information: </strong>{this.props.state.info}</p>
+      <p><strong>Information: </strong>{this.chopInfo(this.props.state.info)}</p>
       <p><strong>Reports: </strong>{this.displayArray(this.props.state.reports)}</p>
       <p><strong>Board Members: </strong>{this.getBoardMemberNames()}</p>
       </div>

@@ -3,6 +3,7 @@ import EventCard from './EventsCardContainer'
 import ApplicationCard from './ApplicationCardContainer'
 import EventsPartner from './EventsPartnerContainer'
 import EventsPartnerFeedbacks from './EventPartnerFeedbackContainer'
+import FilterEvents from './FilterEventsContainer'
 import {
     Container, 
     Button
@@ -16,7 +17,8 @@ class Events extends Component {
         showFeedbacks:false,
         showByType:false,
         showApplication: false,
-        showFeedbacksofPartner:false
+        showFeedbacksofPartner:false,
+        ShowEventsFiltered:false
       }
         booleanShow = event => {
         event.preventDefault();
@@ -25,7 +27,8 @@ class Events extends Component {
           showFeedbacks:false,
           showByType:false,
           showApplication: false,
-          showFeedbacksofPartner:false
+          showFeedbacksofPartner:false,
+          ShowEventsFiltered:false
 
     
     
@@ -38,7 +41,8 @@ class Events extends Component {
           showFeedbacks:true,    
           showByType:false,
           showApplication: false,
-          showFeedbacksofPartner:false
+          showFeedbacksofPartner:false,
+          ShowEventsFiltered:false
 
     
         })
@@ -51,7 +55,8 @@ class Events extends Component {
           showFeedbacks:false,    
           showByType:true,
           showApplication: false,
-          showFeedbacksofPartner:false
+          showFeedbacksofPartner:false,
+          ShowEventsFiltered:false
 
     
         })
@@ -64,7 +69,8 @@ class Events extends Component {
           showFeedbacks:false,    
           showByType:false,
           showApplication: true,
-          showFeedbacksofPartner:false
+          showFeedbacksofPartner:false,
+          ShowEventsFiltered:false
 
       })
       }
@@ -76,7 +82,20 @@ class Events extends Component {
           showFeedbacks:false,    
           showByType:false,
           showApplication: false,
-          showFeedbacksofPartner:true
+          showFeedbacksofPartner:true,
+          ShowEventsFiltered:false
+
+      })
+      }
+      booleanShowEventsfiltered = event =>{
+        event.preventDefault();
+        this.setState({
+          show:false,
+          showFeedbacks:false,    
+          showByType:false,
+          showApplication: false,
+          showFeedbacksofPartner:false,
+          ShowEventsFiltered:true
 
       })
       }
@@ -93,6 +112,7 @@ class Events extends Component {
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
 
                 <EventCard/>
 
@@ -112,6 +132,7 @@ class Events extends Component {
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
 
                     <FeedbackCardContainer/>
               </Container>
@@ -129,6 +150,7 @@ class Events extends Component {
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
                 <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
 
                 <EventsPartner/>
               </Container>
@@ -146,6 +168,7 @@ class Events extends Component {
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
 
                     <ApplicationCard/>
 
@@ -153,6 +176,24 @@ class Events extends Component {
           </div>
             )
      
+      }
+      rendershowEventsfiltered(){
+        return(
+          <div>
+              <Container>
+                 <h1>Events</h1>
+                    <Button color="dark" style={{marginBottom:'2rem'}}  onClick={this.booleanShow}>Show Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowFeedbacks}>Show Feedbacks of Event</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
+
+                    <FilterEvents/>
+
+              </Container>
+          </div>
+            )
       }
       renderFeedbacksofPartner() {
         return(
@@ -164,6 +205,8 @@ class Events extends Component {
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
+
                     <EventsPartnerFeedbacks/>
 
               </Container>
@@ -186,6 +229,8 @@ class Events extends Component {
         }
         if(this.state.showFeedbacksofPartner)
         return this.renderFeedbacksofPartner();
+        if(this.state.ShowEventsFiltered)
+        return this.rendershowEventsfiltered();
         return (
           <div>
               <Container>
@@ -195,6 +240,7 @@ class Events extends Component {
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowByType}>Accept Applicants</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanApply}>Apply</Button> 
                     <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanFeedbacks}>Show feedbacks on my Events</Button> 
+                    <Button color="dark" style={{marginBottom:'2rem'}} onClick={this.booleanShowEventsfiltered}>Show Events filtered</Button> 
 
               </Container>
 

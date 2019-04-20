@@ -24,19 +24,10 @@ class AssignMember extends Component {
         this.setState({ assigned_id: task.target.value })
     }
 
-    // apply=(member_id)=>{
-    //     var update=this.state.consultancy_agency_applicants
-    //     update.push(consultancy_agency_id)
-        
-    //     this.setState({consultancy_agency_applicants:update})
-    // }
     handleSubmit = project => {
-        task.preventDefault(); //prevents page from reloading
-        // const t = {
-        //     assigned_id: this.state.assigned_id
-       
-        // };
-        const url = 'http://localhost:4000/api/project/tasks/assignMember'+this.state.id
+        project.preventDefault(); //prevents page from reloading
+
+        const url = 'http://localhost:4000/api/tasks/assignMember/'+this.state.id
       
 
         axios.put(url,{assigned_id: this.state.assigned_id })

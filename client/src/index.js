@@ -32,7 +32,6 @@ import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
-
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 // import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
@@ -41,6 +40,7 @@ import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedback
 import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
 import EventModule from './components/EventCards/EventModule'
+import AssignMember from './components/AssignMember';
 import NavPartner from './components/Authentication/NavPartner'
 
 import LoginPage from './components/Authentication/LoginPage'
@@ -52,6 +52,7 @@ const routing=(
     <div>
     <Route path="/homepage" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
+    <Route path="/eventmodule" component={EventModule} />
     <Route path="/Events" component={EventCard} />
       <Route path="/partner" component={NavPartner}/>    
       <Route path="/partner/Events" component={EventCard} />
@@ -65,6 +66,7 @@ const routing=(
       <Route path="/partner/task_card" component={TaskCardContainer} />
       <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/partner/post_project" component={ProjectPostForm}/>  
+      
 
 
 
@@ -91,7 +93,7 @@ const routing=(
       <Route path="/recommend" component={Recommend} />
       <Route path="/Review" component={Review} />
       <Route path="/Admin" component={MainPage} />
-
+      <Route path="/assignmember" component={AssignMember}/>
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />

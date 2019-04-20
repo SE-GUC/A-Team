@@ -10,11 +10,11 @@ main {
 }
 a,p,li,input,table,tr,td,ul,span,i,div,nav,th,label,ul{
   font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;}
-b,strong{
+b,strong,h6,h5{
   font-weight: 900;
 font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 }
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4{
   font-family: Arial Black, Arial Bold, Gadget, sans-serif;
 }
 a:hover{
@@ -32,6 +32,9 @@ a:hover{
   height: 43px;
   border-radius: 8%;
   margin: 8px;
+}
+.input[type="submit"]:hover{
+  background:gold;
 }
 .form {
   height: 100%;
@@ -63,8 +66,7 @@ a:hover{
   align-content: center;
 }
 .input[type="text"] {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: inherit;
   color: cadetblue;
 }
 .datepack {
@@ -90,8 +92,7 @@ a:hover{
 select {
   padding: 5px 5px;
   margin: 2px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: inherit;
   border: none;
   border-radius: 4px;
   background-color: azure;
@@ -99,8 +100,6 @@ select {
 }
 option {
   padding: 5px 5px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   border: none;
   border-radius: 4px;
   background-color: azure;
@@ -189,8 +188,7 @@ td {
   background: #f4f4f4;
   border: black solid 2px;
   border-radius: 10%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family:inherit;
   text-align: left;
   width: 200px;
   height: 30px;
@@ -299,4 +297,19 @@ td {
   padding-left: 30px;
   margin-bottom: 15px;
 
+}
+.taskForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  height: 900px;
+}
+.projectForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  height: 500px;
+}
+.eventForm{
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  padding-top:10px;
 }
