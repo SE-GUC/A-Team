@@ -120,8 +120,8 @@ class EventCard extends Component {
 
 
 
-				<div class="card-action">
-                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn">Apply</a>
+				<div class="card-action" id="cardAction">
+                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</a>
 
 				</div>
 			</div>
