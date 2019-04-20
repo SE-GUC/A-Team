@@ -3,26 +3,48 @@ body {
   min-height: 100vh;
   flex-direction: column;
   background: #f4f4f4;
-  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;}
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
 
 main {
   flex: 1 0 auto;
 }
-a,p,li,input,table,tr,td,ul,span,i,div,nav,th,label,ul{
-  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;}
-b,strong,h6,h5{
-  font-weight: 900;
-font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+a,
+p,
+li,
+input,
+table,
+tr,
+td,
+ul,
+span,
+i,
+div,
+nav,
+th,
+label,
+ul {
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 }
-h1,h2,h3,h4{
+b,
+strong,
+h6,
+h5 {
+  font-weight: 900;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
   font-family: Arial Black, Arial Bold, Gadget, sans-serif;
 }
-a:hover{
+a:hover {
   text-decoration: wavy;
   color: royalblue;
   transition: 400ms;
 }
-::placeholder{
+::placeholder {
   color: dimgrey;
   opacity: 0.8;
 }
@@ -33,8 +55,8 @@ a:hover{
   border-radius: 8%;
   margin: 8px;
 }
-.input[type="submit"]:hover{
-  background:gold;
+.input[type="submit"]:hover {
+  background: gold;
 }
 .form {
   height: 100%;
@@ -188,7 +210,7 @@ td {
   background: #f4f4f4;
   border: black solid 2px;
   border-radius: 10%;
-  font-family:inherit;
+  font-family: inherit;
   text-align: left;
   width: 200px;
   height: 30px;
@@ -263,53 +285,78 @@ td {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.Steps{
+.Steps {
   height: 900px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   border-bottom: 1px darkgrey dashed;
   margin-bottom: 15px;
-
 }
-.Steps1{
+.Steps1 {
   height: 800px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   border-bottom: 1px darkgrey solid;
   margin-bottom: 15px;
-
 }
-.StepsM{
+.StepsM {
   height: 500px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   border-bottom: 1px darkgrey dashed;
   margin-bottom: 15px;
-
 }
-.StepsF{
+.StepsF {
   height: 500px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   margin-bottom: 15px;
-
 }
-.taskForm{
+.taskForm {
   border: 2px solid #212121;
   margin-bottom: 50px;
   height: 900px;
 }
-.projectForm{
+.projectForm {
   border: 2px solid #212121;
   margin-bottom: 50px;
   height: 500px;
 }
-.eventForm{
+.eventForm {
   border: 2px solid #212121;
   margin-bottom: 50px;
-  padding-top:10px;
+  padding-top: 10px;
 }
+.fa.fa-star{
+  padding: 0px;
+  margin: 0px;
+  width:20px;
+}
+.fa-star {
+  transition: 0ms;
+  opacity: 1;
+  background: transparent;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  text-decoration: none;
+}
+.fa-star:hover {
+  color:gold
+}
+.fa-star.checked {
+  color: gold;
+}
+.fa-star.checked:hover {
+  background: transparent;
+  transition: 0ms;
+  color:yellow
+}
+.whiteph::placeholder{
+  color:whitesmoke
+}
+/*fa fa-star checked*/

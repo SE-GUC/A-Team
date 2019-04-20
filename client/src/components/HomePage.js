@@ -36,7 +36,7 @@ import TaskCardContainer from '../components/TaskCardContainer'
 import Register from '../components/Authentication/Register'
 import EventModule from '../components/EventCards/EventModule'
 import NavPartner from '../components/Authentication/NavPartner'
-
+import {BrowserRouter} from 'react-router-dom';
 import LoginPage from '../components/Authentication/LoginPage'
 
 import '../css/navbar.css'
@@ -50,6 +50,7 @@ export class HomePage extends Component {
     return (
       <div>
         <NavGeneral/>
+      
         <Router>
     <div>
     <Route path="/task_card" component={TaskCardContainer} />

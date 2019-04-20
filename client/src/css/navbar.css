@@ -71,13 +71,7 @@
     margin: 3px;
   }
   
-  .fa:hover {
-      transition: 700ms;
-      opacity: 1;
-      background: #212121;
-      color:white;
-      text-decoration: none;
-  }
+  
   
   .fa-facebook {
     background: #3B5998;
