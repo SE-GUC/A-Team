@@ -116,6 +116,19 @@ router.get('/view_applicants', async(req,res) => {
     }
     res.json({data:c});
     
+});
+router.get('/view_applicants/:id', async(req,res) => {
+    const tasks= await Tasks.findById(req.params.id)
+    const c=[]
+    
+
+        const element = tasks.applicants;
+        
+        c.push({element})
+      
+    
+    res.json({data:c});
+    
 })
 
 router.post('/add_task', async (req, res) => {
