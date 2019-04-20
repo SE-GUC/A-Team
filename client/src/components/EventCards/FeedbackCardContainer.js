@@ -1,7 +1,7 @@
 import Card from './FeedbackCard'
 import React from 'react'
 import axios from 'axios'
-import '../../css/yaracard.css'
+import '../../css/TaskCardContainer.css'
 const jwt = require('jsonwebtoken')
 // const tokenKey = require('../../../../config/keys').secretOrKey
 
