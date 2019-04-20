@@ -99,10 +99,14 @@ router.get('/getCreatedEvents', checkToken, async (req, res) => {
   //verify the JWT token generated for the user
   jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
       if(err){
+
           //If error send Forbidden (403)
           console.log('ERROR: Could not connect to the protected route');
           res.sendStatus(403);
       } else {
+        if(!authorizedData.type.includes('P')||!authorizedData.type.includes('A')||!authorizedData.type.includes('CA')) {
+          res.status(400).send({ password: 'You can\'t access this page' });
+        }
           const user = await User.findById(authorizedData.id).exec()
           const events = await user.events_created
 
