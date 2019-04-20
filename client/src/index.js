@@ -32,7 +32,6 @@ import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
-
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 // import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
@@ -41,6 +40,7 @@ import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedback
 import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
 import EventModule from './components/EventCards/EventModule'
+import AssignMember from './components/AssignMember';
 
 
 const routing=(
@@ -66,7 +66,7 @@ const routing=(
       <Route path="/recommend" component={Recommend} />
       <Route path="/Review" component={Review} />
       <Route path="/Admin" component={MainPage} />
-
+      <Route path="/assignmember" component={AssignMember}/>
       <Route path="/Event" component={Event} />
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
