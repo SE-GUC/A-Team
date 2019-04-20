@@ -59,7 +59,9 @@ export class NumberSlider extends Component {
         >
           
           <option selected value="Month(s)">Month(s)</option>
+          <option value="Week(s)">Weeks(s)</option>
           <option value="Year(s)">Year(s)</option>
+          <option value="Year(s)">Weeks(s)</option>
         </select>
         </div>
         

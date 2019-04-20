@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
+import '../../css/TaskCardContainer.css'
+
 import axios from 'axios'
 
 
@@ -70,7 +72,8 @@ class EventCard extends Component {
 
 				</div>
 				<div class="card-action" id = "cardAction">
-
+                <div style={{paddingTop:'25px'}}>
+                </div>
 				</div>
 			</div>
 		</div>

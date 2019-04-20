@@ -118,8 +118,8 @@ class EventCard extends Component {
                     <p><b>Type:</b> {this.state.type}</p>
                     
 				</div>
-				<div class="card-action">
-                <a onClick={()=>this.showFeedbacks()} class="waves-effect waves-light btn">Show Feedbacks</a>
+				<div class="card-action" id="test">
+                <a onClick={()=>this.showFeedbacks()} class="waves-effect waves-light btn-small green darken-2">Show Feedbacks</a>
 
 				</div>
 			</div>

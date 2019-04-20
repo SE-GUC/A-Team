@@ -151,37 +151,40 @@ handleClick=event=>
     {
         return(
           <div>
-                 
-                
-                <br/>
-                
-          
-          <div class="row">
-          <form onSubmit={this.handleClick} class="col s12">
+          <div class="container">
+          <h4>Create Event</h4>
+          <p>Please be advised that Your Event won't be seen by others until its is approved by Lirten-Hub</p>
+          <br></br>
+          <form onSubmit={this.handleClick} className='eventForm'>
             <div class="row">
               <div class="input-field col s6">
-                <input placeholder="Name of the Event" state={this.state} id="Event_name" type="text" class="validate" onChange={this.setname}/>
-                <label for="Event_name"></label>
+              <i class="material-icons prefix">event</i>
+              <input placeholder="Event Name" state={this.state} id="Event_name" type="text" class="validate" onChange={this.setname}/>
+              <label for="Event_name">Event Name</label>
               </div>
               <div class="input-field col s6">
-                <input placeholder="Add prices (Separate prices by commas)" state={this.state} id="price_id" type="text" class="validate" onChange={this.setprice}/>
-                   <label for="price_id"></label>
+              <i class="material-icons prefix">monetization_on</i>
+                   <input placeholder="Add prices (Separate prices by commas)" state={this.state} id="price_id" type="text" class="validate" onChange={this.setprice}/>
+                   <label for="price_id">Price</label>
               </div>
             </div> 
             <div class="row">
               <div class="input-field col s12">
-                <input placeholder="about" id="about_id" state={this.state} type="text" class="validate" onChange={this.setabout}/>
+              <i class="material-icons prefix">info</i>
+                <textarea placeholder="about" id="about_id" state={this.state}  class="materialize-textarea" onChange={this.setabout}/>
                 <label for="about_id"></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
+              <i class="material-icons prefix">mic</i>
                 <input placeholder="Add speakers (Separate speakers by commas)" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
                 <label for="about_id"></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
+              <i class="material-icons prefix">book</i>
                 <input placeholder="Add topics (Separate topics by commas)" id="topics_id" state={this.state} type="text" class="validate" onChange={this.settopics}/>
                 <label for="topics_id"></label>
               </div>
@@ -215,7 +218,8 @@ handleClick=event=>
                   <input class="custom-class" id="topics_id" onChange={this.settopics}/>
                   </div>
               </div> */}
-              <div class="row">
+             <div className='row'>
+             <div class="row">
                   <a class='dropdown-trigger btn' href='#' data-target='dropdown2' >Select Type</a>
                       <ul id='dropdown2' class='dropdown-content'>
                       {this.state.type}
@@ -227,18 +231,18 @@ handleClick=event=>
                   {this.state.location}
                   </ul>
                   </div>
+             </div>
                   <br/>
           
                   
-                   <br/>
-                  <br/>
-                  <div class="row">
+                  <div class="row" style={{marginRight:'80px'}}>
                   <div class="col s10 offset-s1 center-align">
                   <button class="waves-effect waves-light btn green darken-2" name="action" state={this.state} onClick={this.handleClick}>Submit Form
                     <i class="material-icons right"></i>
                   </button>
                   </div>
                   </div>
+                  
           </form>
         </div>
         </div>

@@ -7,6 +7,56 @@ export class Step1 extends Component {
     passwords: false,
     choice: []
   };
+  usernameonChange= () =>{
+    const email= document.getElementById('username-reg-input').value
+    const array=this.props.takenUnames
+    var chkr= array.includes(email);
+    if(email===''){
+      document.getElementById('username-reg-span').innerHTML= "username is required"
+      document.getElementById('username-reg-span').style.color='grey'
+    }
+    else if(email.length<=8){
+      document.getElementById('username-reg-span').innerHTML= "minimum 8 characters"
+      document.getElementById('username-reg-span').style.color='red'
+    }
+    else if(chkr){
+      document.getElementById('username-reg-span').innerHTML= "username is Taken"
+      document.getElementById('username-reg-span').style.color='red'
+    }
+    else{
+      document.getElementById('username-reg-span').innerHTML= "Very Good"
+      document.getElementById('username-reg-span').style.color='green'
+    }
+  }
+  emailonChange=()=>{
+    const email= document.getElementById('reg-input-email').value
+    const array=this.props.takenEmails
+    var chkr= array.includes(email);
+    if(email===''){
+      document.getElementById('email-reg-span').innerHTML= "Email is required"
+      document.getElementById('email-reg-span').style.color='grey'
+    }
+    else if(!email.includes("@")){
+      document.getElementById('email-reg-span').innerHTML= "Enter a valid email"
+      document.getElementById('email-reg-span').style.color='red'
+    }
+    else if(chkr){
+      document.getElementById('email-reg-span').innerHTML= "Email is Taken"
+      document.getElementById('email-reg-span').style.color='red'
+    }
+    else{
+      document.getElementById('email-reg-span').innerHTML= "Very Good"
+      document.getElementById('email-reg-span').style.color='green'
+    }
+  }
+  checkUsernameMatch=e=>{
+    this.usernameonChange();
+    this.props.handleChange(e);
+  }
+  checkEmailMatch= e =>{
+    this.emailonChange();
+    this.props.handleChange(e);
+  }
 
   passwordMatch = () => {
     const password = document.getElementById("pwd1_enter").value;
@@ -63,13 +113,15 @@ export class Step1 extends Component {
           <div className="input-field col s6">
             <i class="material-icons prefix">email</i>
             <input
+              id='reg-input-email'
               class="validate"
               name="email"
               type="email"
               placeholder="Email.."
               value={this.props.email}
-              onChange={this.props.handleChange}
+              onChange={this.checkEmailMatch}
             />
+          <span id='email-reg-span'class="helper-text"></span>
           </div>
         </div>
         <div className="row" title="Enter Phone and UserName">
@@ -87,12 +139,14 @@ export class Step1 extends Component {
           <div className="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
             <input
+            id='username-reg-input'
               name="username"
               type="text"
               placeholder="UserName.."
               value={this.props.username}
-              onChange={this.props.handleChange}
+              onChange={this.checkUsernameMatch}
             />
+            <span id='username-reg-span'class="helper-text"></span>
           </div>
         </div>
         <div className="row" title="Enter Password">
