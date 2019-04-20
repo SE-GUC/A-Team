@@ -149,3 +149,47 @@
       color:#ff6600;
       text-decoration: none;
   }
+ #login-btn-nav:hover{
+   background: #212121;
+    
+ }
+.login-box:hover{
+  transition:700ms;
+  color:green;  
+}
+.login-div-cancel{
+  color:#d32f2f;
+}
+.login-div-cancel:hover{
+  color:#d32f2f;
+}
+.login-div{
+  transition: 600ms;
+}
+
+
+.loginb span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.loginb span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.loginb:hover span {
+  color:green;
+  padding-right: 25px;
+}
+
+.loginb:hover span:after {
+  opacity: 1;
+  right: 0;
+}
