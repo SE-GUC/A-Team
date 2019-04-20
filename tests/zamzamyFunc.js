@@ -1,6 +1,6 @@
 
 const axios = require('axios');
-const heroku='https://ateamse2.herokuapp.com/'
+const heroku='http://localhost:4000/'
 const headers={
         'Content-Type': 'application/json',
         'Authorization': 'JWT fefege...' 
@@ -10,14 +10,14 @@ const functions = {
         add: (x,y) => x+y,
 
         getEvents: async () => {
-            const events = await axios.get('https://ateamse2.herokuapp.com/api/events')
+            const events = await axios.get('http://localhost:4000/api/events')
             return events
           },
 
           
          Review: async(id, isReviewed) => {
                
-                const k = await axios.put('https://ateamse2.herokuapp.com/api/tasks/review/'+id, {is_reviewed: isReviewed})
+                const k = await axios.put('http://localhost:4000/api/tasks/review/'+id, {is_reviewed: isReviewed})
                 console.log(k.data)
                 return k.data
                 

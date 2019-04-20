@@ -18,18 +18,31 @@ class EventsCardContainer extends React.Component {
             topics:[],
             type:[],
             partner_initiated:'',
-            loading: true
+            loading: true,
+            limit: 0
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/users/getCreatedEvents/5cae2d049cd95a5754daa7e4')
-        .then(res => {
-            // this.setState({events: res.data.data})
+
+        axios('http://localhost:4000/api/users/getCreatedEvents', {
+            method: 'GET',
+            headers: {
+              'authorization': localStorage.getItem('token')
+            }
+          })
+          .then(res => {
+            console.log(res)
             this.setState({elements:res.data.data})
             this.setState({loading:false})
-        })
-        .catch(err => {
-            console.log("oislijdlijSfiz")
+            })
+          .catch(err => { 
+              console.log('feih error')
+              console.log(err) })
+
+    }
+    loadMore=(e)=> {
+        this.setState({
+            limit:this.state.limit+2
         })
     }
     render() {  
@@ -38,13 +51,18 @@ class EventsCardContainer extends React.Component {
         const events=this.state.elements
         for(var i=0;i<this.state.elements.length;i++){
             console.log(events[i]._id)
+            if(i <= this.state.limit) {
             elements1.push(<Card data ={events[i]}/>);
+            }
         }
+
         return (
             <div class="container">
                 <div class="row">
                     <div class = "row s2">  
                         {elements1}
+                        <button class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
+
                     </div>
                 </div>
             </div>

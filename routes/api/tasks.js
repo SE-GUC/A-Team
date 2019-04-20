@@ -32,7 +32,14 @@ router.get('/allemails', async(req, res)=>{
     }
     return res.json(allEmails)
 })
-
+router.get('/alluserNames', async(req, res)=>{
+    const allUsers=await User.find({}).exec()
+    var allEmails = []
+    for(var i=0;i<allUsers.length;i++){
+        allEmails.push(allUsers[i].username)
+    }
+    return res.json(allEmails)
+})
 //add random task tester
 router.get('/', async (req, res) => {
     try {
@@ -55,36 +62,83 @@ router.get('/get_my_tasks',checkToken, async (request, response) => {
             }else{
                 const user = await User.findById(authorizedData.id).exec()
                     const allTasks = await user.tasks_applied_for
-        var result=[]
-        allTasks.forEach(task =>{
-          if (task.id == (request.params.id)){
-            result.push(task)
-          }
-        })
-        return response.json({ data: result });
+                    var result=[]
+                    allTasks.forEach(task =>{
+                      if (task.id == (request.params.id)){
+                        result.push(task)
+                      }
+                    })
+                    return response.json({ data: result });
+                }
+            })
+                });
+///////////////
+router.get('/view_accepting', async (req, res) => {
+    const task = await Tasks.find({status:"Accepting"});
+    res.json({data:task});
+
+});
+router.get('/view_pending', async (req, res) => {
+    const task = await Tasks.find({status:"Pending"});
+    res.json({data:task});
+
+});
+router.get('/view_Approved', async (req, res) => {
+    const task = await Tasks.find({status:"Approved"});
+    res.json({data:task});
+
+});
+router.get('/view_assigned', async (req, res) => {
+    const task = await Tasks.find({status:"Assigned"});
+    res.json({data:task});
+
+});
+router.get('/view_closed', async (req, res) => {
+    const task = await Tasks.find({status:"Closed"});
+    res.json({data:task});
+
+});
+router.get('/view_finished', async (req, res) => {
+    const task = await Tasks.find({status:"Finished"});
+    res.json({data:task});
+
+});
+router.get('/view_applicants', async(req,res) => {
+    const tasks= await Tasks.find()
+    const a=[]
+    const c=[]
+    
+    for (let i = 0; i < tasks.length; i++) {
+        const element = tasks[i].applicants;
+        
+        c.push({name:tasks[i].name,applicants:element})
+      
     }
+    res.json({data:c});
+    
 })
-    });
+
 router.post('/add_task', async (req, res) => {
     const newTask = new Task({
-        name: "Octane",
+        name: "new",
         time_of_post: new Date('01.02.2012'),
         time_of_review: new Date('01.02.2012'),
         monetary_compensation: 2000,
         price: 898989,
         time_of_assingment: new Date('01.02.2012'),
         is_assigned: false,
-        assigned_id: '',
+        //assigned_id: '',
         time_expected: "3 days",
         level_of_comitment: "High",
         is_reviewed: false,
+
         experience_needed: "6 yrs",
         description: "Be aware of the new kill leader",
         p_id: '',
         skills: ["Apex Legends"],
         response_from_admin: '',
-        admin_id: 1,
-        applicants: [1, 2, 3]
+        admin_id: mongoose.Types.ObjectId(),
+        applicants: [ mongoose.Types.ObjectId(),mongoose.Types.ObjectId(), mongoose.Types.ObjectId()]
     })
     newTask
         .save()
