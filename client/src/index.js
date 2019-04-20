@@ -41,24 +41,49 @@ import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedback
 import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
 import EventModule from './components/EventCards/EventModule'
+import NavPartner from './components/Authentication/NavPartner'
 
 import LoginPage from './components/Authentication/LoginPage'
 
+import './css/navbar.css'
 
 const routing=(
     <Router>
     <div>
-    <Route path="/" component={Home} />
+    <Route path="/homepage" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
-      <Route path="/Events" component={Events} />
-      {/* <Route path="/PartnerRequests" component={PartnerRequests}/>     */}
-      <Route path="/card" component={EventCard}/>    
+    <Route path="/eventmodule" component={EventModule} />
+    <Route path="/Events" component={EventCard} />
+      <Route path="/partner" component={NavPartner}/>    
+      <Route path="/partner/Events" component={EventCard} />
+      <Route path="/partner/Create_Events" component={CreateEvent} />
+      <Route path="/partner/feedback" component={Feedback}/>    
+      <Route path="/partner/appcard" component={ApplicationCard}/>    
+      <Route path='/partner/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
+      <Route path='/partner/submit_task' component={TaskPostForm}/>
+      <Route path="/partner/get_tasks" component={TaskList}/>
+      <Route path="/partner/viewrtaskapplicants" component={ViewTApplicants}/>
+      <Route path="/partner/task_card" component={TaskCardContainer} />
+      <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/partner/post_project" component={ProjectPostForm}/>  
+      
+
+
+
+
+
+
+
+
+
+
+      {/* <Route path="/card" component={EventCard}/>     */}
       <Route path="/post_project" component={ProjectPostForm}/>  
       <Route path="/adminContainer" component={AdminViewEvents}/>    
       <Route path="/feedback" component={Feedback}/>    
       <Route path="/appcard" component={ApplicationCard}/>    
-      <Route path='/eventmodule' component={EventModule}/>
-      <Route path='/partnerrequests' component={EventsPartner}/>
+      {/* <Route path='/eventmodule' component={EventModule}/> */}
+      {/* <Route path='/partnerrequests' component={EventsPartner}/> */}
       <Route path='/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path='/skills' component={Skills }/>
       <Route path="/task_control_panel" component={TaskControl} />
@@ -80,7 +105,7 @@ const routing=(
       <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path='/register' component={Register}/>
-      <Route path='/event_module' component={Event_Module}/>
+      {/* <Route path='/event_module' component={Event_Module}/> */}
       <Route path='/login' component={LoginPage}/>
     
       

@@ -115,7 +115,7 @@ class Autocomplete extends Component {
     if (showSuggestions && userInput) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
-          <ul class="suggestions">
+          <ul class="suggestions"  >
             {filteredSuggestions.map((suggestion, index) => {
               let className;
 
@@ -126,7 +126,7 @@ class Autocomplete extends Component {
 
               return (
                 <li
-                  className={className}
+                  
                   key={suggestion}
                   onClick={onClick}
                 >

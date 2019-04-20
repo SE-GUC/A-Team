@@ -19,7 +19,7 @@ class filters extends Component{
     handlesubmit=event=>{
         event.preventDefault();
         const p= this.state.price
-        const url= 'http://localhost:4000/api/events/FilterByPrice'+p
+        const url= 'http://localhost:4000/api/events/getrByPrice'+p
         axios.get(url)
         .then(res=>{
 

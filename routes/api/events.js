@@ -84,7 +84,7 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     return res.json({ error: `Error, couldn't find an event given the following speaker` })
   }
 })
-router.get('/FilterByPrice/:Price', async(req,res)=>{
+router.get('/getByPrice/:Price', async(req,res)=>{
  try{ const allEvents=await Event.find({}).exec()
   var r= []
   allEvents.forEach(event =>{

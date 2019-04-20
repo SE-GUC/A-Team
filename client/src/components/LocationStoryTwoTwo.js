@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-
+import M from "materialize-css";
 
 
 class LocationStoryTwoTwo extends Component {
@@ -36,12 +36,24 @@ class LocationStoryTwoTwo extends Component {
                 // this.setState({ done:true })
 
             })
-            window.alert("Booked Location ");
+            var msg="Booked Location "
+            var html="<span style='color:#ffdd42'>"+msg+"</span>"
+            M.toast({html:html })
 
    
     };
     renderLoading() {
-        return <div>Loading...</div>
+        return <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     }
     renderError() {
         return (
@@ -82,7 +94,7 @@ class LocationStoryTwoTwo extends Component {
                 </label>
                 
                 
-                <button type="submit">Book Location</button>
+                <button type="submit" className='waves-effect waves-light btn green darken-3'>Book Location</button>
             </form>
             
             
