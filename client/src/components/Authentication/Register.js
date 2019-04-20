@@ -171,7 +171,7 @@ export class Register extends Component {
         intrests.length !==0
         &&!chkr
         &&!chkr1
-        && date_of_birth.includes('/')
+        && date_of_birth !==''
       ) {
         return (
           <button

@@ -2,10 +2,32 @@ import React, { Component } from "react";
 import '../css/homepage.css'
 import '../css/navbar.css'
 import M from 'materialize-css'
+import Login from './Authentication/LoginPage'
 export class NavGeneral extends Component {
   componentDidMount(){
     let elems = document.querySelectorAll('.dropdown-trigger');
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
+  }
+  hideLogin =()=>{
+    var cssHoverCancel=''
+
+    var element= document.getElementById("login-nav-div")
+    console.log("Element",element)
+    document.getElementById('login-action').style.transition='700ms'
+    if (element.style.display === "none") {
+      //show or login
+      element.style.display = "block";
+      document.getElementById('login-action').classList.remove('login-div')
+      document.getElementById('login-action').classList.add('login-div-cancel')
+      document.getElementById('login-action').innerHTML="Cancel Login"
+    } else {
+      //hide or cancel
+      element.style.display = "none";
+      document.getElementById('login-action').classList.remove('login-div-cancel')
+      document.getElementById('login-action').classList.add('login-div')
+      document.getElementById('login-action').innerHTML="Sign in"
+    }
+    
   }
   render() {
 
@@ -67,6 +89,8 @@ export class NavGeneral extends Component {
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a href='/login'>Login</a></li>
       <li><a href='/register'>Sign Up</a></li>   
+      <li><a id='login-action' href='#' onClick={this.hideLogin} className='login-box' >Sign in</a></li>  
+      <li><div id='login-nav-div' className='login-div' style={{display:'none'}} ><Login></Login></div></li> 
     </ul>
   </div>
 </nav>

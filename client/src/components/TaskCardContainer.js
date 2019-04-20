@@ -76,9 +76,10 @@ class TaskCardContainer extends React.Component {
         if(this.state.getAllTasks) {
         return( 
                 <div class="container">
+                    <button class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
                     <div class="row">
+
                         <div class="row s2">{elements1}</div>
-                        <button class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
                     </div>
                 </div>
         );
