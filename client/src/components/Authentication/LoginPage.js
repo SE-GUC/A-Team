@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { Redirect, Route } from 'react-router-dom'
 import NavGeneral from '../NavGeneral'
+import '../../css/navbar.css'
 
 class LoginPage  extends Component {
     constructor(props)
@@ -54,12 +55,12 @@ class LoginPage  extends Component {
             console.log(err) })
         if(myuser.type.includes('P')) {
           this.props.history.replace('/partner');
-
         } else if(myuser.type.includes('CA')) {
         } else if(myuser.type.includes('M')) {
-          this.setState({member:true})
-        } else {
-          this.setState({admin:true})
+          this.props.history.replace('/member');
+
+        } else if (myuser.type.includes('A')) {
+          this.props.history.replace('/admin');
         }
     }
     render() {
@@ -69,23 +70,21 @@ class LoginPage  extends Component {
         // }
     
         return(
-            <div >
-            <NavGeneral/>
-
-            <div class="row">
+            <div style={{marginLeft:'220px'}}>
+            <div>
               <div class="row">
-                <div class="input-field col s12">
-                  <input onChange={this.handleEmail} id="email" type="email" class="validate"/>
-                  <label for="email">Email</label>
+                <div class="input-field col s4">
+              <input onChange={this.handleEmail} id="email" type="email" class="white-text"/>
+                  <label class='white-text'for="email">Email</label>
+                </div>
+                <div class="input-field col s4">
+                  <input onChange={this.handlePass} id="password" type="password" class="white-text"/>
+                  <label for="password" class='white-text'>Password</label>
+                </div>
+                <div className='col s3'>
+                <a onClick={()=>this.loginbtn()} id='login-btn-nav' className='loginb'><span>Login</span></a>
                 </div>
               </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input onChange={this.handlePass} id="password" type="password" class="validate"/>
-                  <label for="password">Password</label>
-                </div>
-              </div>
-              <a onClick={()=>this.loginbtn()} class="waves-effect waves-light btn">Login</a>
           </div>
           </div>
         );
