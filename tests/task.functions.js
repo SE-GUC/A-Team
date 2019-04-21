@@ -4,7 +4,7 @@ const functions = {
     add: (a,b) => a+b,
 
     getTasks: async () => {
-        const task = await axios.get('https://ateamse2.herokuapp.com/api/tasks/read')
+        const task = await axios.get('http://localhost:4000/api/tasks/read')
         return task.data
     },
     getUser: async() => {
@@ -12,18 +12,18 @@ const functions = {
         return user
     },
     updateTaskDesc: async(id,desc) => {
-        const m = await axios.put('https://ateamse2.herokuapp.com/api/tasks/update/'+id, {description: desc})
+        const m = await axios.put('http://localhost:4000/api/tasks/update/'+id, {description: desc})
         return m
 
     },
     deleteTaskDesc: async(id) => {
-        const manga = axios.delete('https://ateamse2.herokuapp.com/api/tasks/'+id, {})
+        const manga = axios.delete('http://localhost:4000/api/tasks/'+id, {})
         return manga
     }, 
     postTask: async() => {
         return axios({
             method:'post',
-            url: 'https://ateamse2.herokuapp.com/api/tasks/create/',
+            url: 'http://localhost:4000/api/tasks/create/',
             headers: {'Content-Type': 'application/json'},
             data: {
                 name: 'Testing Post',
@@ -46,18 +46,18 @@ const functions = {
         });
     },
     getTaskDesc: async(id) => {
-        const manga = await axios.get('https://ateamse2.herokuapp.com/api/tasks/read/'+id)
+        const manga = await axios.get('http://localhost:4000/api/tasks/read/'+id)
         console.log(manga.data.data)
         return manga.data
     },
      getapplicants: async () => {
-    const applicants = await axios.get('https://ateamse2.herokuapp.com/api/tasks/view_applicants')
+    const applicants = await axios.get('http://localhost:4000/api/tasks/view_applicants')
     return applicants
   },
     updateassignid: async () => {
     return await axios({
       method: 'put',
-      url: 'https://ateamse2.herokuapp.com/api/tasks/uassign/5c9b9bbf69bb9e0017b86e6f',
+      url: 'http://localhost:4000/api/tasks/uassign/5c9b9bbf69bb9e0017b86e6f',
       headers: {'Content-Type': 'application/json'}, 
       data: {
          is_assigned:'true',
@@ -71,7 +71,7 @@ const functions = {
     shalabyCTask: async()=>{
         return await axios({
             method: 'post',
-            url: 'https://ateamse2.herokuapp.com/api/tasks/add',
+            url: 'http://localhost:4000/api/tasks/add',
             headers: {'Content-Type': 'application/json'}, 
             data: {
                 name:'Trappin up the Bando',

@@ -55,12 +55,12 @@ class LoginPage  extends Component {
             console.log(err) })
         if(myuser.type.includes('P')) {
           this.props.history.replace('/partner');
-
         } else if(myuser.type.includes('CA')) {
         } else if(myuser.type.includes('M')) {
-          this.setState({member:true})
-        } else {
-          this.setState({admin:true})
+          this.props.history.replace('/member');
+
+        } else if (myuser.type.includes('A')) {
+          this.props.history.replace('/admin');
         }
     }
     render() {

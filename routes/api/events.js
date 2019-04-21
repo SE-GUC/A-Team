@@ -70,7 +70,6 @@ router.get('/getEligible', checkToken, async(req,res)=> {
 
 
 
-
 router.get('/getBySpeakers/:speaker', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
@@ -85,7 +84,7 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     return res.json({ error: `Error, couldn't find an event given the following speaker` })
   }
 })
-router.get('/FilterByPrice/:Price', async(req,res)=>{
+router.get('/getByPrice/:Price', async(req,res)=>{
  try{ const allEvents=await Event.find({}).exec()
   var r= []
   allEvents.forEach(event =>{
@@ -297,6 +296,7 @@ router
       speakers: joi.array().items(joi.string().min(4).max(70)),
       topics: joi.array().items(joi.string().min(3).max(70)),
       type: joi.array().items(joi.string().min(3).max(20)).required(),
+      event_date:joi.date(),
       // partner_initiated: joi.string().length(24).required(),
       attendees: joi.array().items(joi.string().length(24)),
       status: joi.string(),
@@ -336,6 +336,7 @@ router
             topics: request.body.topics,
             type: request.body.type,
             partner_initiated: authorizedData.id,
+            event_date:request.body.event_date,
             status:'PENDING_APPROVAL',
             time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
             attendees: [],

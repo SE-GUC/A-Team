@@ -6,7 +6,7 @@ const rate = 5 //enter your rating here
 
 const myFuncs = {
         createEvent:async()=>{
-                    const newEvent=await axios.post('https://ateamse2.herokuapp.com/api/events', {                            
+                    const newEvent=await axios.post('http://localhost:4000/api/events', {                            
                       remaining_places: 250,
                       location: "5c9bff7f569b9a001796d40a",
                       about: "MERN Programming Style",
@@ -26,15 +26,15 @@ const myFuncs = {
           return events
         },
         updateEvent: async(id,remaining_places) => {
-          const updatedEvent = await axios.put('https://ateamse2.herokuapp.com/api/events/'+id+"", {remaining_places: remaining_places})
+          const updatedEvent = await axios.put('http://localhost:4000/api/events/'+id+"", {remaining_places: remaining_places})
           return updatedEvent.data.data
       },         
       deleteEvent:async(id)=>{
-            const deletedEvent=axios.delete('https://ateamse2.herokuapp.com/api/events'+id)
+            const deletedEvent=axios.delete('http://localhost:4000/api/events'+id)
                     return deletedEvent;
                },
       geteventbytype: async(type)=>{
-            const event=await axios.get('https://ateamse2.herokuapp.com/api/events/'+type+"", {type:type})
+            const event=await axios.get('http://localhost:4000/api/events/'+type+"", {type:type})
             console.log(event.data.data)
             return event.data.data
       },
@@ -56,13 +56,16 @@ const myFuncs = {
       },
 
       addNewApplication: async(id, user_id, isAccepted)=>{
-        const newApplication1={
-          applicant_id: user_id,
-          isAccepted: isAccepted
-        }
-        const newApplication = await axios.post('https://ateamse2.herokuapp.com/api/events/'+id+"/apply", newApplication1)
-        console.log(newApplication.data)
-        return newApplication
+        const url='http://localhost:4000/api/events/'+id+'/apply'
+
+       const newApplication = await axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: token
+            }
+          })
+          return newApplication //returns the event that i just wrote a feedback in
       }
         
 };

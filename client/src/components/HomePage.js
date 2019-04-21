@@ -40,6 +40,7 @@ import {BrowserRouter} from 'react-router-dom';
 import LoginPage from '../components/Authentication/LoginPage'
 import NavAdmin from '../components/Authentication/NavAdmin'
 import NavMemeber from '../components/Authentication/NavCA'
+import TaskPanelA from './TaskStoryOneThreeTwo'
 
 import '../css/navbar.css'
 export class HomePage extends Component {
@@ -90,6 +91,7 @@ export class HomePage extends Component {
       <Route path='/admin/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path="/admin/viewrtaskapplicants" component={ViewTApplicants}/>
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
+      <Route path="/admin/TaskPanel" component={TaskPanelA} />
 
 
       <Route path="/member" component={NavMemeber} />
