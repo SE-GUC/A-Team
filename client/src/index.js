@@ -16,6 +16,7 @@ import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
 import CreateEvent from './components/CreateEvent'
+import TaskPanelA from './components/TaskStoryOneThreeTwo'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
@@ -52,6 +53,7 @@ import './css/navbar.css'
 const routing=(
     <Router>
     <div>
+
     <Route path="/homepage" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
     <Route path="/Events" component={EventCard} />
@@ -87,6 +89,7 @@ const routing=(
       <Route path='/admin/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path="/admin/viewrtaskapplicants" component={ViewTApplicants}/>
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
+      <Route path="/admin/TaskPanel" component={TaskPanelA} />
 
 
       <Route path="/member" component={NavMemeber} />

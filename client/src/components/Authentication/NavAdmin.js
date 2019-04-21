@@ -16,6 +16,7 @@ export class NavAdmin extends Component {
                         <li><a href='/admin/get_tasks'>Get Tasks</a></li>
                         <li><a href='/admin/Review'>Review task</a></li>
                         <li><a href='/admin/viewrtaskapplicants'>View applicants</a></li>
+                        <li><a href='/admin/TaskPanel'>Task Panel</a></li>
                             {/* <li><a href='/admin/task_card'>Task Cards</a></li> */}
                         <li><a class='ili' href='/admin/StoryOnePointEleven'>Tasks i applied on</a></li>
                         </ul>
