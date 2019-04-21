@@ -56,13 +56,16 @@ const myFuncs = {
       },
 
       addNewApplication: async(id, user_id, isAccepted)=>{
-        const newApplication1={
-          applicant_id: user_id,
-          isAccepted: isAccepted
-        }
-        const newApplication = await axios.post('http://localhost:4000/api/events/'+id+"/apply", newApplication1)
-        console.log(newApplication.data)
-        return newApplication
+        const url='http://localhost:4000/api/events/'+id+'/apply'
+
+       const newApplication = await axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: token
+            }
+          })
+          return newApplication //returns the event that i just wrote a feedback in
       }
         
 };
