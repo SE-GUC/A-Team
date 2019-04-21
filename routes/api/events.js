@@ -41,6 +41,7 @@ router.get('/getEligible', checkToken, async(req,res)=> {
         var allEvents = await Event.find({}).exec()
         // console.log(allEvents)
         const user = await User.findById(authorizedData.id).exec()
+
         // console.log(user)
         var result=[]
         // console.log(user.interests)
@@ -50,14 +51,24 @@ router.get('/getEligible', checkToken, async(req,res)=> {
           var intersection = interests.filter(value => types.includes(value))
           // console.log(intersection)
 
-          if(intersection.length>0 ){
+          if(intersection.length>0){
             console.log(user.interests)
             result.push(allEvents[i])
           }
         }
+        // console.log(result.length)
+        var resres=[]
+        for (var i=0;i<result.length;i++) {
+          if(result[i].status!=='PENDING_APPROVAL') {
+            resres.push(result[i])
+          }
+        }
+        console.log(resres)
+        // console.log(result.length)
+
         console.log('SUCCESS: Connected to protected route');
         // console.log(result)
-        return res.json({ data: result })
+        return res.json({ data: resres })
       }
       catch(err){
         console.log(err)
@@ -65,6 +76,14 @@ router.get('/getEligible', checkToken, async(req,res)=> {
     
     }
 })
+function notPending(a) {
+  if (a.status==='PENDING_APPROVAL'){
+    console.log('eh')
+    return false;
+}
+console.log('eh el kalam')
+  return true;
+}
 
 })
 
@@ -571,7 +590,8 @@ router
         } else {
           const responsefromadmin = {
             admin_id: authorizedData.id,
-            is_accepted: request.body.is_accepted
+            is_accepted: request.body.is_accepted,
+            response: request.body.response
           }
           const event = await Event.findByIdAndUpdate(request.params.id, { $push: { responses_from_admin: responsefromadmin } }).exec()
           console.log('SUCCESS: Connected to protected route');
