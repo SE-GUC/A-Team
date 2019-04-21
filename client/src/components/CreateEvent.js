@@ -64,7 +64,7 @@ class CreateEvent extends Component {
         axios.get('http://localhost:4000/api/events/getTypesHoss')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
-            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p]}>{response.data.data[p].name}</button></li>)
+            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p].name}>{response.data.data[p].name}</button></li>)
           }
         })
         .catch(error =>{
@@ -116,6 +116,7 @@ console.log(this.state.chosen)
   }
 handleChangetype = event=> {
   event.preventDefault();
+  console.log(event.target.id)
     // this.setState({chosen_type:event.target.id})
     this.state.chosentypearray.push(event.target.id)
     console.log(this.state.chosen_type)
