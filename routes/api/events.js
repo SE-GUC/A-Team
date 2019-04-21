@@ -25,7 +25,23 @@ const checkToken = (req, res, next) => {
       res.sendStatus(403)
   }
 }
-
+router.get('/getByPrice/:Price', async(req,res)=>{
+  try{ 
+    const allEvents=await Event.find({}).exec()
+  if(req.params.Price==='empty')
+       return res.json({ data: allEvents }) 
+   var r= []
+   allEvents.forEach(event =>{
+     if (event.price[0]<parseInt(req.params.Price+1)){
+       r.push(event)
+     }
+   })
+   return res.json({data: r })
+ }
+ catch(err){
+   return res.json({ error: `Error, couldn't find an event given the following price` })
+ }
+ })
 
 router.get('/getEligible', checkToken, async(req,res)=> {
   jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
@@ -72,7 +88,11 @@ router.get('/getEligible', checkToken, async(req,res)=> {
 
 router.get('/getBySpeakers/:speaker', async(req,res)=>{
   try {
+
     const allEvents = await Event.find({}).exec()
+    if(req.params.speaker==='empty')
+      return res.json({ data: allEvents }) 
+
     var result=[]
     allEvents.forEach(event =>{
       if (event.speakers.includes(req.params.speaker)){
@@ -84,26 +104,16 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     return res.json({ error: `Error, couldn't find an event given the following speaker` })
   }
 })
-router.get('/getByPrice/:Price', async(req,res)=>{
- try{ const allEvents=await Event.find({}).exec()
-  var r= []
-  allEvents.forEach(event =>{
-    if (event.price[0]<parseInt(req.params.Price+1)){
-      r.push(event)
-    }
-  })
-  return res.json({data: r })
-}
-catch(err){
-  return res.json({ error: `Error, couldn't find an event given the following price` })
-}
-})
+
 
 
 
 router.get('/getByRemainginPlaces/:places', async(req,res)=>{
   try {
+   
     const allEvents = await Event.find({}).exec()
+    if(req.params.places==='empty')
+    return res.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.remaining_places<parseInt(req.params.places)){
@@ -119,6 +129,8 @@ router.get('/getByRemainginPlaces/:places', async(req,res)=>{
 router.get('/getByTopics/:topic', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
+    if(req.params.topic==='empty')
+    return res.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.topics.includes(req.params.topic)){
@@ -248,10 +260,11 @@ router.post('/createType', async (request, response) => {
     })
   })
   
-//get all events with a type "task 2.3" na2sa testing
 router.route('/getByType/:type').get(async (request, response) => {
   try {
     const allEvents = await Event.find({}).exec()
+    if(request.params.type==='empty')
+    return response.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.type.includes(request.params.type)){
@@ -262,7 +275,7 @@ router.route('/getByType/:type').get(async (request, response) => {
     console.log(result)
     return response.json({ data: result })
   } catch (err) {
-    return response.json({ error: `Error, couldn't find a event given the following type` })
+    return response.json({ error: err })
   }
 })
 
