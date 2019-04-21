@@ -52,7 +52,6 @@ test('gets events by type' , async()=>{
   //console.log(response.data.data)
   expect(response[0].type).toEqual(req.type)
 })
-
 test('Creating a new feedback in the feedbacks array', async() =>{
   const allEvents= await funcs.getEvents();
   // console.log(allEvents.data.data[2]._id)
@@ -61,7 +60,6 @@ test('Creating a new feedback in the feedbacks array', async() =>{
   expect(allEvents.data.data[2].feedbacks.length).toEqual(response.data.data.feedbacks.length);
 })
 
-test('',)
 
 test("Deletes an event",async()=>{
   const result = await funcs.deleteEvent()
@@ -71,8 +69,6 @@ test("Deletes an event",async()=>{
 
 test('Creating a new application in the applications array', async() =>{
   const allEvents= await funcs.getEvents();
-  // console.log(allEvents.data.data[2]._id)
-  const response = await funcs.addNewFeedback(allEvents.data.data[2]._id);
-  // console.log(response.data.data)
-  expect(allEvents.data.data[2].applicants.length).toEqual(response.data.data.applicants.length);
+  const response = await funcs.addNewApplication("5c93b78f1d4b8e5b48557ba0","5c9e33e5559ed00017ece5ea",true);
+  expect(allEvents.data.data[0].applicants.length).toEqual(response.data.data.applicants.length);
 })
