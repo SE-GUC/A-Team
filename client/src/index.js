@@ -74,7 +74,6 @@ const routing=(
       <Route path="/partner/filter" component={Filter}/>  
 
 
-      {/* <Route path="/admin" component={NavAdmin}/>     */}
       <Route path="/admin" component={NavAdmin}/>
       <Route path="/admin/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/admin/post_project" component={ProjectPostForm}/>  
