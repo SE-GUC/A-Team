@@ -51,10 +51,11 @@ export class HomePage extends Component {
 
     return (
       <div>
-        <NavGeneral/>
       
         <Router>
     <div>
+      
+    <Route path="/homepage" component={NavGeneral} />
     <Route path="/task_card" component={TaskCardContainer} />
     <Route path="/Events" component={EventCard} />
 
