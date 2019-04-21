@@ -28,16 +28,17 @@ class EventCard extends Component {
 
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
+        var loctaionid=''
         console.log(this.props.data)
         this.setState({id:this.props.data})
             const url = 'http://localhost:4000/api/events/getid/' + this.props.data
             console.log(url)
-            axios.get(url)
+          await  axios.get(url)
                 .then(res => {
                     this.setState({name:res.data.data.name})
                     this.setState({remaining_places:res.data.data.remaining_places})
-                    this.setState({location:res.data.data.location})
+                    loctaionid=res.data.data.location
                     this.setState({about:res.data.data.about})
                     this.setState({price:res.data.data.price})
                     this.setState({speakers:res.data.data.speakers})
@@ -50,6 +51,15 @@ class EventCard extends Component {
                 .catch(err => {
                     console.log(err)
                 })
+                await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+                    .then(res=>{
+                        console.log(res)
+                        var c= ""+res.data.data.title+", "+res.data.data.subtitle
+                        this.setState({location:c})
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
 
 
     }
