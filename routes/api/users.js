@@ -293,7 +293,7 @@ router
         return response.json({ error: status.error.details[0].message })
       }
       
-      const user = await User.findByIdAndUpdate(request.params.id, { $push: { eventsAttended: request.body.eventid } }).exec()
+      const user = await User.findByIdAndUpdate(request.params.id, { $push: { events_attended: request.body.eventid } }).exec()
       return response.json({ data: user })
     } catch (err) {
       return response.json({ error: err.message })
