@@ -44,6 +44,7 @@ import EventModule from './components/EventCards/EventModule'
 import NavPartner from './components/Authentication/NavPartner'
 
 import LoginPage from './components/Authentication/LoginPage'
+import taskviewapplicants from './components/Tasksviewapplicants'
 
 import './css/navbar.css'
 
@@ -52,6 +53,7 @@ const routing=(
     <div>
     <Route path="/homepage" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
+    <Route path="/view_applicants" component={taskviewapplicants} />
     <Route path="/Events" component={EventCard} />
       <Route path="/partnernav" component={NavPartner}/>    
       {/* <Route path="/card" component={EventCard}/>     */}
