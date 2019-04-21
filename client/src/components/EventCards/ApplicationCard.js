@@ -64,7 +64,7 @@ class EventCard extends Component {
                 authorization: localStorage.getItem('token')
             }
           }).then(res=>{
-              console.log('geh hena?')
+             // console.log('geh hena?')
               console.log(res)
           });
 
@@ -97,13 +97,10 @@ class EventCard extends Component {
             </div>
      
     
-	<div class="" >
+	<div  >
 		<div class="col s12 m6">
 			<div class="card blue-grey darken-1">
             <div class="card-content white-text" id="cardContent">
-					<div class="card__meta">
-						<time>{}</time>
-					</div>
 					<span class="card-title">{this.state.name}</span>
                     <p>---------------------------------------------------------</p>
                         
@@ -115,14 +112,10 @@ class EventCard extends Component {
                     <p><b>Speakers:</b> {this.state.speakers}</p>
                     <p><b>Topics:</b> {this.state.topics}</p>
                     <p><b>Type:</b> {this.state.type}</p>
-
-				</div>
-
-
-
-				<div class="card-action" id="cardAction">
-                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</a>
-
+                    <br></br>
+                    <center>
+                        <button type='button' onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</button>
+                        </center>
 				</div>
 			</div>
 		</div>

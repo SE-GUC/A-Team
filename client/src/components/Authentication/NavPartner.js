@@ -31,7 +31,8 @@ export class NavPartner extends Component {
   {/* <li><a class='ili' href='/StoryOnePointEleven'>Tasks i applied on</a></li> //member */}
 </ul>
 <ul id="dropdown111" class="dropdown-content">
-  <li><a href='/partner/Create_Events'>Create Events</a></li>
+<li><a href='/partner/Create_Events'>Create Events</a></li>
+<li><a href='/partner/myevents'>Applicants on my events</a></li>
   <li><a href="/partner/feedback">Write Feedback </a></li>
   <li><a href='/partner/filter'>Show Events</a></li>
 

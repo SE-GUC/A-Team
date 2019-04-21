@@ -7,7 +7,8 @@ const uuid = require('uuid')
 const joi = require('joi')
 const mongoose = require('mongoose')
 const User = require('../../models/User')
-
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
 const checkToken = (req, res, next) => {
     const header = req.headers['authorization'];
@@ -514,7 +515,7 @@ router.put('/accept/:tid',checkToken, async(req, res) => {
 //accepting task upload via task is and partner id
 
 try {
-    jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+    jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
 
     const exists = await Task.findOne({ _id: req.params.tid });
     if (exists === null) {
@@ -565,7 +566,61 @@ try {
     }
     
 });
-
+router.put('/approve/:tid',checkToken, async(req, res) => {
+    //accepting task upload via task is and partner id
+    
+    try {
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+    
+        const exists = await Task.findOne({ _id: req.params.tid });
+        if (exists === null) {
+          return res.json({ message: "Task id is invalid" });
+        }
+        console.log(exists);
+        const prtid = exists.partner_id._id;
+        const st = exists.status;
+        if(prtid == authorizedData.id && st=='Pending'){
+    
+            Tasks.findByIdAndUpdate(req.params.tid, {
+               
+                status: "Approved",
+                
+            }, {
+                new: true
+            }, (err, model) => {
+                if (!err) {
+                    return res.json({
+                        data: model
+                    })
+                } else {
+                    return res.data({
+                        error: `Can't acc task`
+                    })
+                }
+            });
+    
+          //exists.status="Accepting";
+           return res.json({
+                msg: `Task accepted`,
+                Task
+            });
+        }
+      
+        else{
+           return res.json({
+                msg: `You are only allowed to update your own approved taks!`,
+                
+            });
+        }
+    })
+    } catch (error) {
+        console.log(error)
+       // res.json({
+            //msg: 'cant accept'
+        //})
+        }
+        
+    });
 
 
 
@@ -575,7 +630,7 @@ try {
 router.get('/viewapplied/:id',checkToken, async(req, res) => {
 
     try {
-        jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
 
         const exists = await User.findOne({ _id: authorizedData.id });
         if (exists === null) {
@@ -672,7 +727,7 @@ router.get('/recommend',checkToken, async (req, res) => {
         })
     }
     try {
-        jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
 
         const found= await User.findById(authorizedData.id)
         if(!found){
@@ -727,7 +782,7 @@ router.get('/apply/:id',checkToken, async (req, res) => {
         
     }
     try {
-        jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
 
         const found= await User.findById(authorizedData.id)
         if(!found){

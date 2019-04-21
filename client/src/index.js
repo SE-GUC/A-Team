@@ -24,16 +24,15 @@ import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
 //import EventCard from './components/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
-import Skills from './components//Admin/SkillController'
+import Skills from './components/Admin/SkillController'
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
 import Event_Module from './components/EventCards/EventModule'
 import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
-import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
-
+import TaskAdmin from './components/TaskAdmin'
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 // import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
@@ -54,7 +53,6 @@ import './css/navbar.css'
 const routing=(
     <Router>
     <div>
-
     <Route path="/homepage" component={Home} />
     <Route path="/homepage/filter" component={Filter} />
     <Route path="/homepage/task_card" component={TaskCardContainer} />
@@ -62,6 +60,7 @@ const routing=(
 
       <Route path="/partner" component={NavPartner}/>    
       <Route path="/partner/Events" component={EventCard} />
+      <Route path="/partner/myevents" component={EventsPartner} />
       <Route path="/partner/Create_Events" component={CreateEvent} />
       <Route path="/partner/feedback" component={Feedback}/>    
       <Route path="/partner/appcard" component={ApplicationCard}/>    
@@ -113,7 +112,7 @@ const routing=(
 
       {/* <Route path="/card" component={EventCard}/>     */}
       <Route path="/post_project" component={ProjectPostForm}/>  
-      <Route path="/adminContainer" component={AdminViewEvents}/>    
+      {/* <Route path="/adminContainer" component={AdminViewEvents}/>     */}
       <Route path="/feedback" component={Feedback}/>    
       <Route path="/appcard" component={ApplicationCard}/>    
       {/* <Route path='/eventmodule' component={EventModule}/> */}
