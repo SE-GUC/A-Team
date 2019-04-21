@@ -24,7 +24,7 @@ import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
 //import EventCard from './components/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
-import Skills from './components//Admin/SkillController'
+import Skills from './components/Admin/SkillController'
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
@@ -33,7 +33,7 @@ import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
-
+import TaskAdmin from './components/TaskAdmin'
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 // import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
@@ -89,7 +89,7 @@ const routing=(
       <Route path='/admin/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path="/admin/viewrtaskapplicants" component={ViewTApplicants}/>
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
-      <Route path="/admin/TaskPanel" component={TaskPanelA} />
+      <Route path="/admin/TaskPanel" component={TaskAdmin} />
 
 
       <Route path="/member" component={NavMemeber} />
