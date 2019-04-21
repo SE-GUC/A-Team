@@ -117,7 +117,6 @@ class EventCard extends Component {
                     <p><b>Type:</b> {this.state.type}</p>
                     <br></br>
                     <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</a>
-
 				</div>
 			</div>
 		</div>
