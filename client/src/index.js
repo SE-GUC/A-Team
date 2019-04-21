@@ -54,8 +54,13 @@ const routing=(
     <Router>
     <div>
     <Route path="/homepage" component={Home} />
+    <Route path="/homepage/get_tasks" component={TaskList}/>
     <Route path="/homepage/filter" component={Filter} />
     <Route path="/homepage/task_card" component={TaskCardContainer} />
+    <Route path="/homepage/viewallproj" component={ViewAllProjectsComponent} />
+    <Route path='/homepage/register' component={Register}/>
+    <Route path='/homepage/login' component={LoginPage}/>
+
     {/* <Route path="/Events" component={EventCard} /> */}
 
       <Route path="/partner" component={NavPartner}/>    
@@ -138,7 +143,6 @@ const routing=(
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path='/register' component={Register}/>
       {/* <Route path='/event_module' component={Event_Module}/> */}
-      <Route path='/login' component={LoginPage}/>
     
       
     </div>
