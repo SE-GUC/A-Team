@@ -115,13 +115,8 @@ class EventCard extends Component {
                     <p><b>Speakers:</b> {this.state.speakers}</p>
                     <p><b>Topics:</b> {this.state.topics}</p>
                     <p><b>Type:</b> {this.state.type}</p>
-
-				</div>
-
-
-
-				<div class="card-action" id="cardAction">
-                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</a>
+                    <br></br>
+                    <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</a>
 
 				</div>
 			</div>
