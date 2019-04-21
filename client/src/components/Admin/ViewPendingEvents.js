@@ -25,20 +25,22 @@ class ViewPendingEvents extends Component {
             responses_from_admin:[],
             applicants:[],
             response:'',
-            is_accepted:false
+            is_accepted:false,
+            partner:''
 
         }
     }
     handleChangeText =(event) => {
         this.setState({response:event.target.value})
     }
-    componentDidMount() {
+    async componentDidMount() {
+        var loctaionid=''
         this.setState({
             id: this.props.value
         })
         
         
-        axios.get('http://localhost:4000/api/events/getid/'+this.props.value)
+       await axios.get('http://localhost:4000/api/events/getid/'+this.props.value)
             .then(res => {
                 this.setState({
                     remaining_places: res.data.data.remaining_places
@@ -49,9 +51,10 @@ class ViewPendingEvents extends Component {
                 this.setState({
                     name: res.data.data.name
                 })
-                this.setState({
-                    location: res.data.data.location
-                })
+                // this.setState({
+                //     location: res.data.data.location
+                // })
+                loctaionid=res.data.data.location
                 this.setState({
                     about: res.data.data.about
                 })
@@ -88,11 +91,23 @@ class ViewPendingEvents extends Component {
                 this.setState({
                     applicants: res.data.data.applicants
                 })
+                this.setState({
+                    partner:res.data.data.partner_initiated
+                })
               
             })
             .catch(err => {
                 console.log(err)
             })
+                await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+                .then(res=>{
+                    console.log(res)
+                    var c= ""+res.data.data.title+", "+res.data.data.subtitle
+                    this.setState({location:c})
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
            
     }
     sbmtbtn() {
@@ -118,6 +133,9 @@ class ViewPendingEvents extends Component {
      
         axios.put('http://localhost:4000/api/events/' + this.props.value, {
             status: 'ACCEPTED'
+        })
+        axios.post('http://localhost:4000/api/users/'+this.state.partner+'/addcreatedevent', {
+            eventid:this.state.id
         })
     }
 

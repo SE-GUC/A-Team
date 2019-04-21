@@ -21,7 +21,7 @@ import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
 import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
-//import EventCard from './components/EventsCardContainer'
+import EventCardContainer from './components/EventCards/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
 import Skills from './components/Admin/SkillController'
@@ -56,7 +56,7 @@ const routing=(
     <Route path="/homepage" component={Home} />
     <Route path="/homepage/filter" component={Filter} />
     <Route path="/homepage/task_card" component={TaskCardContainer} />
-    {/* <Route path="/Events" component={EventCard} /> */}
+    <Route path="/Events" component={EventCardContainer} />
 
       <Route path="/partner" component={NavPartner}/>    
       <Route path="/partner/Events" component={EventCard} />
