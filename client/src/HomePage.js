@@ -1,10 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Events from './components/Events'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
-import PartnerRequests from './components/PartnerRequests'
 import TaskControl from './TaskControl';
 import Dummy from './components/Dummy'
 import TaskList from './components/TaskList'
@@ -24,34 +20,25 @@ import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
 import Skills from './components//Admin/SkillController'
-import CardTest from './components/CardTest';
-import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
-import Event_Module from './components/EventCards/EventModule'
 import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
 import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
-import Home from './components/HomePage'
-
+import M from 'materialize-css'
+import NavGeneral from './components/NavGeneral'
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 // import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
-import EventsPartner from './components/EventCards/EventsPartnerContainer'
 import EventsPartnerFeedbacks from './components/EventCards/EventPartnerFeedbackContainer'
 import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
-import EventModule from './components/EventCards/EventModule'
 import NavPartner from './components/Authentication/NavPartner'
 import NavAdmin from './components/Authentication/NavAdmin'
 import NavMemeber from './components/Authentication/NavMember'
-
 import LoginPage from './components/Authentication/LoginPage'
 
-import './css/navbar.css'
 
 
-
-import '../css/navbar.css'
 export class HomePage extends Component {
   componentDidMount(){
     let elems = document.querySelectorAll('.dropdown-trigger');
@@ -65,7 +52,6 @@ export class HomePage extends Component {
       
         <Router>
     <div>
-    <Route path="/homepage" component={Home} />
     <Route path="/task_card" component={TaskCardContainer} />
     <Route path="/Events" component={EventCard} />
 
@@ -147,7 +133,10 @@ export class HomePage extends Component {
     
       
     </div>
-  </Router>      </div>
+  </Router>
+  
+  
+    </div>
     );
   }
 }
