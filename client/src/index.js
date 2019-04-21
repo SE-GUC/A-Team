@@ -21,7 +21,7 @@ import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
 import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
-//import EventCard from './components/EventsCardContainer'
+import EventCardContainer from './components/EventCards/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
 import Skills from './components/Admin/SkillController'
