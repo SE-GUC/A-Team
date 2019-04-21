@@ -7,6 +7,21 @@ const Tasks = require("../../models/Task");
 const Project = require("../../models/Project");
 const User = require("../../models/User");
 
+const checkToken = (req, res, next) => {
+  const header = req.headers['authorization'];
+    
+  if(typeof header !== 'undefined') {
+      const bearer = header.split(' ');
+      const token = bearer[1];
+    
+      req.token = token;
+      next();
+  } else {
+      //If header is undefined return Forbidden (403)
+      res.sendStatus(403)
+  }
+}
+
 router.get("/", async (req, res) => {
   try {
     const t = await Project.find();
@@ -15,19 +30,26 @@ router.get("/", async (req, res) => {
     res.json("Request Erorr");
   }
 });
-router.get('/get_my_projects/:consultancy_agency_assigned', async (request, response) => {
-  try {
-      const allProjects = await Project.find({}).exec()
+router.get('/get_my_projects/:id',checkToken, async (request, response) => {
+      //verify the JWT token generated for the user
+      jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the protected route');
+            res.sendStatus(403);
+        }else{
+            const user = await User.findById(authorizedData.id).exec()
+      const allProjects = await user.past_projects
       var result=[]
       allProjects.forEach(project =>{
-        if (project.consultancy_agency_assigned == (request.params.consultancy_agency_assigned)){
+        if (project.id == (request.params.id)){
           result.push(project)
         }
       })
-      return response.json({ data: result })
-    } catch (err) {
-      return response.json({ error: `Error, you haven't been assigned to any projects` })
+      return response.json({ data: result });
     }
+  })
+ 
   });
 router.post("/create", async (req, res) => {
   const status = joi.validate(req.body, {
@@ -84,14 +106,13 @@ try {
 });
 
 router.get('/read/:id', async(req,res) => {
-  try{
+   
   const tsk = await Project.findById(req.params.id)
   console.log(tsk)
-  return res.json({ data: tsk })
-  } catch (err) {
-      return res.json({error: err.message})
-  }
-})
+  return res.json({ data: tsk });
+        
+  
+});
 
 router
   .route("/crud")
@@ -185,7 +206,7 @@ router.put('/AddTask',async (req, res) => {
 
 //(Consultancy Agency) I can Apply on a project
 // router
-
+//hena
    router
   .route('/applyProj/:id')
   .all(async (request, response, next) => {
@@ -199,18 +220,18 @@ router.put('/AddTask',async (req, res) => {
   })
   .put(async (request, response) => {
     try {
+      jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+
       const status = joi.validate(request.body, {
         consultancy_agency_id:joi.string().length(24)
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
       }
-      // const checker= await Project.find({ _id:id,consultancy_agency_applicants: [consultancy_agency_id] })
-      // if(checker){
-      //   return res.json({ error: "You already applied to this project " });
-      // }
-      const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: request.body.consultancy_agency_id } }).exec()
+    
+      const project = await Project.findByIdAndUpdate(request.params.id, { $push: { consultancy_agency_applicants: authorizedData.id} }).exec()
       return response.json({ data: project })
+    })
     } catch (err) {
       return response.json({ error: `Error` })  
     }
@@ -241,6 +262,8 @@ router.put('/AddTask',async (req, res) => {
       return response.json({ error: `Error` })  
     }
   });
+
+  //hena
   router
   .route('/assign_consultancy_agency/:id')
   .all(async (request, response, next) => {
@@ -254,14 +277,17 @@ router.put('/AddTask',async (req, res) => {
   })
   .put(async (request, response) => {
     try {
+      jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+
       const status = joi.validate(request.body, {
         consultancy_agency_id:joi.string().length(24)
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
       }
-      const project = await Project.findByIdAndUpdate(request.params.id, { consultancy_agency_assigned: request.body.consultancy_agency_id } ).exec()
+      const project = await Project.findByIdAndUpdate(request.params.id, { consultancy_agency_assigned: authorizedData.id } ).exec()
       return response.json({ data: project })
+      })
     } catch (err) {
       return response.json({ error: `Error` })
     }

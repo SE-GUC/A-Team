@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'; 
-
-
-  
+import moment from 'moment'
+//import DatePicker from "react-datepicker";
+//import "react-datepicker/dist/react-datepicker.css";  
   
 
 class CreateEvent extends Component {
@@ -30,8 +30,8 @@ class CreateEvent extends Component {
             chosentypearray:[],
             ch:[],
             type5:'',
-            speaker:''
-        }
+            speaker:'',
+            startDate: new Date()        }
 
     }
     componentDidMount(){
@@ -71,6 +71,9 @@ class CreateEvent extends Component {
           console.log(error)
         })
         this.setState({type:ty})
+
+        var elemsdate = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(elemsdate, {inDuration: 300, outDuration: 225});
     }
     
 setname=(event)=>{
@@ -108,6 +111,9 @@ handleChangelocation=(event)=>{
  this.setState({chosen:event.target.id})
 console.log(this.state.chosen)
   }
+  handleChangedate=(date)=> {
+    this.setState({startDate: date});
+  }
 handleChangetype = event=> {
   event.preventDefault();
     // this.setState({chosen_type:event.target.id})
@@ -115,37 +121,40 @@ handleChangetype = event=> {
     console.log(this.state.chosen_type)
     console.log(this.state.chosentypearray)
   }
-handleClick=event=>
-    {
+  handleClick=event=>
+  {
+    event.preventDefault();
 
-      event.preventDefault();
-      var allSpeakers=this.state.speaker.split(',')
-      var allPrices=this.state.price.split(',')
-      var alltopics=this.state.topics.split(',')
-      const url= 'http://localhost:4000/api/events/'
-      console.log(url)
-      const body= {
-        price:allPrices,
-        location:this.state.chosen,
-        name:this.state.name,
-        about:this.state.about,
-        remaining_places:this.state.remaining_places,
-        speakers:allSpeakers,
-        topics:alltopics,
-        type:this.state.chosentypearray,
-        partner_initiated:'5cae2d049cd95a5754daa7e4'
-      }
-      console.log(body)
-      axios.post(url,body)
-      .then(res =>{  
+    const url= 'http://localhost:4000/api/events/'
+    var allSpeakers=this.state.speaker.split(',')
+    var allPrices=this.state.price.split(',')
+    var alltopics=this.state.topics.split(',')
+
+    axios({
+        method: 'POST',
+        url: url,
+        headers: {
+            authorization: localStorage.getItem('token')
+        }, 
+        data: {
+          price:allPrices,
+          location:this.state.chosen,
+          name:this.state.name,
+          about:this.state.about,
+          remaining_places:this.state.remaining_places,
+          speakers:allSpeakers,
+          topics:alltopics,
+          event_date:this.state.startDate,
+          type:this.state.chosentypearray
+        }
+      }).then(res=>{
         alert('posted successfully')
         console.log(res)
       })
-      .catch(function (error){
-        console.log(error)
-      })
-    }
-    
+    .catch(function (error){
+      console.log(error)
+    })
+  }
     
     render()
     {
@@ -231,6 +240,17 @@ handleClick=event=>
                   {this.state.location}
                   </ul>
                   </div>
+                  </div>
+                  <div class="row">
+                 { /*<DatePicker
+                      selected={this.state.startDate}
+                      onChange={this.handleChangedate}
+                 />*/}
+                  </div>
+                  <br/>   
+                   <br/>
+                  <br/>
+                  <div class="row">
              </div>
                   <br/>
           
