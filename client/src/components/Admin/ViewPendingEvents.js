@@ -23,9 +23,14 @@ class ViewPendingEvents extends Component {
             time_of_edit:'',
             feedbacks:[],
             responses_from_admin:[],
-            applicants:[]
+            applicants:[],
+            response:'',
+            is_accepted:false
 
         }
+    }
+    handleChangeText =(event) => {
+        this.setState({response:event.target.value})
     }
     componentDidMount() {
         this.setState({
@@ -92,19 +97,27 @@ class ViewPendingEvents extends Component {
     }
     sbmtbtn() {
         this.setState({submitState:true})
-        const url='http://localhost:4000/api/events/'+this.state.id +'/response'
-        axios.post(url,{
-            user_id:"5cae2d049cd95a5754daa7e4", //da ghalat, admin id hayethat hena
-            comment:this.state.message,
-            rate:this.state.range
-
-        })
+        const url='http://localhost:4000/api/events/'+this.state.id +'/adminresponse'
+        axios({
+        method: "POST",
+        url: url,
+        headers: {
+            authorization: localStorage.getItem("token")
+        },
+        data: {
+            response: this.state.response,
+            is_accepted: this.state.is_accepted
+        }
+        }).then(res => {
+        console.log("geh hena?");
+        console.log(res);
+        });
     }
     accept(){
-        this.setState({submitState:true})
+        this.setState({is_accepted:true})
      
         axios.put('http://localhost:4000/api/events/' + this.props.value, {
-            state: 'ACCEPTED'
+            status: 'ACCEPTED'
         })
     }
 
@@ -147,14 +160,15 @@ class ViewPendingEvents extends Component {
 				</div>
                 
 				<div class="card-action">
-                {/* <p>
+                <p>
                     <label>
                     <input onChange={this.handleChangeText} placeholder="Enter Feedback" id="feedback" type="text" class="validate"/>
                                     <a onClick={()=>this.sbmtbtn()} class="waves-effect waves-light btn">Submit</a>
                    
                     </label>
-                </p> */}
-            <a onClick={this.accept} class="waves-effect waves-light btn">Accept</a>
+                </p>
+
+            <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
 				</div>
 			</div>
 		</div>

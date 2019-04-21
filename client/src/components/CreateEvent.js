@@ -4,8 +4,8 @@ import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'; 
 import moment from 'moment'
-//import DatePicker from "react-datepicker";
-//import "react-datepicker/dist/react-datepicker.css";  
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";  
   
 
 class CreateEvent extends Component {
@@ -64,7 +64,7 @@ class CreateEvent extends Component {
         axios.get('http://localhost:4000/api/events/getTypesHoss')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
-            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p]}>{response.data.data[p].name}</button></li>)
+            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p].name}>{response.data.data[p].name}</button></li>)
           }
         })
         .catch(error =>{
@@ -111,11 +111,12 @@ handleChangelocation=(event)=>{
  this.setState({chosen:event.target.id})
 console.log(this.state.chosen)
   }
-  handleChangedate=(date)=> {
-    this.setState({startDate: date});
+  handleChangedate=(event)=> {
+    this.setState({startDate: event.target.value});
   }
 handleChangetype = event=> {
   event.preventDefault();
+  console.log(event.target.id)
     // this.setState({chosen_type:event.target.id})
     this.state.chosentypearray.push(event.target.id)
     console.log(this.state.chosen_type)
@@ -242,10 +243,12 @@ handleChangetype = event=> {
                   </div>
                   </div>
                   <div class="row">
-                 { /*<DatePicker
-                      selected={this.state.startDate}
-                      onChange={this.handleChangedate}
-                 />*/}
+                  <div className="input-field col s6">
+                  <i class="material-icons prefix">event</i>
+                    <input type="date" onChange={this.handleChangedate} />
+                    
+                  </div>
+                  <div className="col s6"></div>
                   </div>
                   <br/>   
                    <br/>
