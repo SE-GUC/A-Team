@@ -34,6 +34,8 @@ export class NavPartner extends Component {
 <li><a href='/partner/Create_Events'>Create Events</a></li>
 <li><a href='/partner/myevents'>Applicants on my events</a></li>
   <li><a href="/partner/feedback">Write Feedback </a></li>
+  <li><a href='/partner/filter'>Show Events</a></li>
+
   <li><a href="/partner/appcard">Apply for Event </a></li>
   <li><a href='/partner/partnerfeedbacks'>Feedbacks on my Events</a></li>
 </ul>

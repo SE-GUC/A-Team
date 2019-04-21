@@ -33,6 +33,8 @@ export class NavPartner extends Component {
 <ul id="dropdown111" class="dropdown-content">
   {/* <li><a href='/member/Create_Events'>Create Events</a></li> */}
   <li><a href="/member/feedback">Write Feedback </a></li>
+  <li><a href='/member/filter'>Show Events</a></li>
+
   <li><a href="/member/appcard">Apply for Event </a></li>
   <li><a href='/member/partnerfeedbacks'>Feedbacks on my Events</a></li>
 </ul>
