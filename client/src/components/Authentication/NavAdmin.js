@@ -22,6 +22,7 @@ export class NavAdmin extends Component {
                         </ul>
                         <ul id="dropdown111" class="dropdown-content">
                         <li><a href='/admin/locations'>locations</a></li>
+                        <li><a href='/admin/filter'>Show Events</a></li>
                         <li><a href='/admin/Create_Events'>Create Events</a></li>
                         <li><a href="/admin/feedback">Write Feedback </a></li>
                         <li><a href="/admin/appcard">Apply for Event </a></li>

@@ -57,14 +57,14 @@ export class NavGeneral extends Component {
   {/* <li><a href="/feedback">Write Feedback </a></li> */}
   {/* <li><a href="/appcard">Apply for Event </a></li>
   <li><a href='/partnerfeedbacks'>Feedbacks on my Events</a></li> */}
-  <li><a href='/events'>Show Events</a></li>
+  <li><a href='/homepage/filter'>Show Events</a></li>
 </ul>
 <ul id="dropdown1111" class="dropdown-content">
-  <li><a class='ili' href='/skills'>Skill Panel</a></li>
-  <li><a class='ili' href='/register'>Register</a></li>
-  <li><a class='ili' href='/Admin'>Admin Panel</a></li>
-  <li><a href='/task_control_panel'>Task Control Panel</a></li> 
-  <li><a href='/Review'>Review task</a></li> //admin
+  <li><a class='ili' href='/homepage/skills'>Skill Panel</a></li>
+  <li><a class='ili' href='/homepage/register'>Register</a></li>
+  <li><a class='ili' href='/homepage/Admin'>Admin Panel</a></li>
+  <li><a href='/homepage/task_control_panel'>Task Control Panel</a></li> 
+  <li><a href='/homepage/Review'>Review task</a></li> //admin
   <li><a class='ili' href='/Review'>Review</a></li>
 </ul>
 <ul id="dropdown11111" class="dropdown-content">

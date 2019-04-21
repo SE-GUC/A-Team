@@ -45,6 +45,7 @@ import EventModule from './components/EventCards/EventModule'
 import NavPartner from './components/Authentication/NavPartner'
 import NavAdmin from './components/Authentication/NavAdmin'
 import NavMemeber from './components/Authentication/NavMember'
+import Filter from './components/EventCards/FilterEventsContainer'
 
 import LoginPage from './components/Authentication/LoginPage'
 
@@ -55,8 +56,9 @@ const routing=(
     <div>
 
     <Route path="/homepage" component={Home} />
-    <Route path="/task_card" component={TaskCardContainer} />
-    <Route path="/Events" component={EventCard} />
+    <Route path="/homepage/filter" component={Filter} />
+    <Route path="/homepage/task_card" component={TaskCardContainer} />
+    {/* <Route path="/Events" component={EventCard} /> */}
 
       <Route path="/partner" component={NavPartner}/>    
       <Route path="/partner/Events" component={EventCard} />
@@ -70,6 +72,7 @@ const routing=(
       <Route path="/partner/task_card" component={TaskCardContainer} />
       <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/partner/post_project" component={ProjectPostForm}/>  
+      <Route path="/partner/filter" component={Filter}/>  
 
 
       {/* <Route path="/admin" component={NavAdmin}/>     */}
@@ -90,6 +93,8 @@ const routing=(
       <Route path="/admin/viewrtaskapplicants" component={ViewTApplicants}/>
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path="/admin/TaskPanel" component={TaskPanelA} />
+      <Route path="/admin/filter" component={Filter}/>  
+
 
 
       <Route path="/member" component={NavMemeber} />
@@ -101,6 +106,8 @@ const routing=(
       <Route path="/member/appcard" component={ApplicationCard}/>    
       <Route path='/member/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path="/member/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/member/filter" component={Filter}/>  
+
 
 
 

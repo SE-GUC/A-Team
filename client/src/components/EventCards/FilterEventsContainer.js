@@ -2,6 +2,7 @@ import Card from './FilterEvents'
 import React from 'react'
 import axios from 'axios'
 import '../../css/TaskCardContainer.css'
+import NavGeneral from '../NavGeneral';
 class EventsCardContainer extends React.Component {  
 
     constructor(props) {
@@ -151,28 +152,28 @@ class EventsCardContainer extends React.Component {
 
         for(var i=0; i<elements1.length;i++){
             for(var j=0; j<elements2.length;j++){
-                if(elements1[i]._id===elements2[j]._id){
+                if(elements1[i]._id===elements2[j]._id && elements1[i].status!=='PENDING_APPROVAL'){
                     intersection1.push(elements1[i])
                 }
             }
         }
         for(var i=0; i<elements3.length;i++){
             for(var j=0; j<intersection1.length;j++){
-                if(elements3[i]._id===intersection1[j]._id){
+                if(elements3[i]._id===intersection1[j]._id&& elements3[i].status!=='PENDING_APPROVAL'){
                     intersection2.push(elements3[i])
                 }
             }
         }
         for(var i=0; i<elements4.length;i++){
             for(var j=0; j<intersection2.length;j++){
-                if(elements4[i]._id===intersection2[j]._id){
+                if(elements4[i]._id===intersection2[j]._id&& elements4[i].status!=='PENDING_APPROVAL'){
                     intersection3.push(elements4[i])
                 }
             }
         }
         for(var i=0; i<elements5.length;i++){
             for(var j=0; j<intersection3.length;j++){
-                if(elements5[i]._id===intersection3[j]._id){
+                if(elements5[i]._id===intersection3[j]._id && elements5[i].status!=='PENDING_APPROVAL'){
                     intersection4.push(elements5[i])
                 }
             }
@@ -211,8 +212,10 @@ class EventsCardContainer extends React.Component {
         
         
         return (
-            
+            <div>
+                {/* <NavGeneral/> */}
             <div class="container"> 
+            
                 <div class="row">
               <div class="input-field col s6">
                 <input placeholder="Price less than:" state={this.state} id="Event_price_filter" type="text" class="validate" onChange={this.setprice}/>
@@ -240,6 +243,8 @@ class EventsCardContainer extends React.Component {
                     </div>
                 </div>
             </div>
+            </div>
+
         );
         }
         
