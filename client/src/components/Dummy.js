@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import Nav, { NavGeneral } from './NavGeneral'
+
+import Main from './Main'
 class Dummy  extends Component {
     render() {
         return(
-           <h1>ABCDEFGHIJKLMNOPQRSTUVWXYZ</h1>
+           <div>
+               <NavGeneral/>
+                <Main/>
+          </div>
         );
       
     }

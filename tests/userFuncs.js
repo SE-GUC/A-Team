@@ -1,4 +1,5 @@
 const axios = require('axios');
+const token='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWUzNzNlYWVhNTBlNDg2MDBjODQ4MyIsIm5hbWUiOiJNb2hhbWVkIE1haG1vdWQiLCJlbWFpbCI6Im1oQGxpcnRlbi5jb20iLCJ0eXBlIjpbIlAiXSwiaWF0IjoxNTU1NzQ4NDI2LCJleHAiOjE1NTkzNDQ4MjZ9.8ztVtyqgNEYtsNuTzdD19r2lM6achDl1l6BKFFpt0ZU'
 
 const myFuncs = {
         createUser:async()=>{
@@ -29,6 +30,14 @@ const myFuncs = {
           console.log(deletedUser.data.data)
           return deletedUser;
       },
+      addEventIAttended: async(userid,id) =>{
+        const specificEvent = await axios.get('http://localhost:4000/api/events/getid/'+id)
+        const userAfterEvent= await axios.post('http://localhost:4000/api/users/'+userid+'/addevent',{
+          eventid:id
+        })
+        return userAfterEvent.data.data
+
+      }
   };
-  myFuncs.deleteUser('5c9e8dc52d814000175cb808');
+  // myFuncs.addEventIAttended('5cae2d049cd95a5754daa7e4', '5cadbf76f0282229d89e7bd4');
 module.exports = myFuncs;

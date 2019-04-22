@@ -1,5 +1,9 @@
 const axios = require('axios');
 
+const token='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWUzNzNlYWVhNTBlNDg2MDBjODQ4MyIsIm5hbWUiOiJNb2hhbWVkIE1haG1vdWQiLCJlbWFpbCI6Im1oQGxpcnRlbi5jb20iLCJ0eXBlIjpbIlAiXSwiaWF0IjoxNTU1NzQ4NDI2LCJleHAiOjE1NTkzNDQ4MjZ9.8ztVtyqgNEYtsNuTzdD19r2lM6achDl1l6BKFFpt0ZU'
+const feedback= 'Enter your comment here!'
+const rate = 5 //enter your rating here
+
 const myFuncs = {
         createEvent:async()=>{
                     const newEvent=await axios.post('http://localhost:4000/api/events', {                            
@@ -34,22 +38,34 @@ const myFuncs = {
             console.log(event.data.data)
             return event.data.data
       },
-      addNewFeedback: async(id, user_id, comment)=>{
-        const newFeedback1={
-          user_id: user_id,
-          comment: comment
-        }
-        const newFeedback = await axios.post('http://localhost:4000/api/events/'+id+"/feedback", newFeedback1)
-        return newFeedback
+      addNewFeedback: async(id)=>{
+        const url='http://localhost:4000/api/events/'+id+'/feedback'
+
+       const newFeedback=await  axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: token
+            }, 
+            data: {
+                comment:feedback,
+                rate: rate
+            }
+          })
+          return newFeedback //returns the event that i just wrote a feedback in
       },
+
       addNewApplication: async(id, user_id, isAccepted)=>{
-        const newApplication1={
-          applicant_id: user_id,
-          isAccepted: isAccepted
-        }
-        const newApplication = await axios.post('http://localhost:4000/api/events/'+id+"/apply", newApplication1)
-        console.log(newApplication.data)
-        return newApplication
+        const url='http://localhost:4000/api/events/'+id+'/apply'
+
+       const newApplication = await axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: token
+            }
+          })
+          return newApplication //returns the event that i just wrote a feedback in
       }
         
 };

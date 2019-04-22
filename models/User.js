@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
     type: {
         type:[String],
-        enum:['CA','P','M'],
+        enum:['CA','P','M','A'],
         required:true
     },
     username:{

@@ -28,25 +28,40 @@ class EventCard extends Component {
 
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
         console.log(this.props.data)
+        var loctaionid=''
         this.setState({id:this.props.data})
             const url = 'http://localhost:4000/api/events/getid/' + this.props.data
             console.log(url)
-            axios.get(url)
+           await axios.get(url)
                 .then(res => {
-                    this.setState({name:res.data.data.name})
-                    this.setState({remaining_places:res.data.data.remaining_places})
-                    this.setState({location:res.data.data.location})
-                    this.setState({about:res.data.data.about})
-                    this.setState({price:res.data.data.price})
-                    this.setState({speakers:res.data.data.speakers})
-                    this.setState({topics:res.data.data.topics})
-                    this.setState({type:res.data.data.type})
-                    this.setState({partner_initiated:res.data.data.partner_initiated})
-                    this.setState({applicants:res.data.data.applicants})
+                    this.setState({
+                        name:res.data.data.name,
+                        remaining_places:res.data.data.remaining_places,
+                        about:res.data.data.about,
+                        price:res.data.data.price,
+                        topics:res.data.data.topics+',',
+                        type:res.data.data.type,
+                        partner_initiated:res.data.data.partner_initiated,
+                        applicants:res.data.data.applicants
+                    })
+                    console.log(res.data.data.applicants)
+                    loctaionid=res.data.data.location
+
                         })
                 .catch(err => {
+                    console.log(err)
+                })
+
+                console.log(loctaionid)
+                await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+                .then(res=>{
+                    console.log(res)
+                    var c= ""+res.data.data.title+", "+res.data.data.subtitle
+                    this.setState({location:c})
+                })
+                .catch(err=>{
                     console.log(err)
                 })
 
@@ -70,7 +85,7 @@ class EventCard extends Component {
         for(var i =0;i<array.length;i++) {
             elements1.push(<Card data ={array[i]}/>);
         }
-            // elements3.pop()
+                    // elements3.pop()
             this.setState({elements2:elements1,
             showbtn:true})
 
@@ -104,25 +119,25 @@ class EventCard extends Component {
 	<div class="" >
 		<div class="col s12 m6">
 			<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
+				<div class="card-content white-text" id="cardContent">
 					<div class="card__meta">
-						<a href="card">Event</a>
 						<time>{}</time>
 					</div>
 					<span class="card-title">{this.state.name}</span>
+                    <p>---------------------------------------------------------</p>
 					<p><b>Remaining Places:</b> {this.state.remaining_places}</p>
                     <p><b>Location:</b> {this.state.location}</p>
                     <p><b>About:</b> {this.state.about}</p>
                     <p><b>About:</b> {this.state.events}</p>
-                    <p><b>Price:</b> {this.state.price}</p>
+                    <p><b>Price:</b> {this.state.price}£</p>
                     <p><b>Speakers:</b> {this.state.speakers}</p>
                     <p><b>Topics:</b> {this.state.topics}</p>
                     <p><b>Type:</b> {this.state.type}</p>
-                    <a onClick={()=>this.showApplicants()} class="waves-effect waves-light btn">Show Applicants</a>
                     
 				</div>
 				<div class="card-action">
-
+<center><a onClick={()=>this.showApplicants()} class="waves-effect waves-light btn-small green darken-2">Show Applicants</a>
+</center>
 				</div>
 			</div>
 		</div>

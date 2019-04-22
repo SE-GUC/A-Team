@@ -7,14 +7,110 @@ const Location = require('../../models/Location')
 const Event = require('../../models/Event')
 const Type = require('../../models/Type')
 const User= require('../../models/User')
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
 
+const checkToken = (req, res, next) => {
+  const header = req.headers['authorization'];
+    
+  if(typeof header !== 'undefined') {
+      const bearer = header.split(' ');
+      const token = bearer[1];
+    
+      req.token = token;
+      next();
+  } else {
+      //If header is undefined return Forbidden (403)
+      res.sendStatus(403)
+  }
+}
+router.get('/getByPrice/:Price', async(req,res)=>{
+  try{ 
+    const allEvents=await Event.find({}).exec()
+  if(req.params.Price==='empty')
+       return res.json({ data: allEvents }) 
+   var r= []
+   allEvents.forEach(event =>{
+     if (event.price[0]<parseInt(req.params.Price+1)){
+       r.push(event)
+     }
+   })
+   return res.json({data: r })
+ }
+ catch(err){
+   return res.json({ error: `Error, couldn't find an event given the following price` })
+ }
+ })
+
+router.get('/getEligible', checkToken, async(req,res)=> {
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+    if(err){
+        //If error send Forbidden (403)
+        console.log('ERROR: Could not connect to the protected route');
+        res.sendStatus(403);
+    } else {
+        try{
+
+        
+        // console.log(authorizedData)
+        var allEvents = await Event.find({}).exec()
+        // console.log(allEvents)
+        const user = await User.findById(authorizedData.id).exec()
+
+        // console.log(user)
+        var result=[]
+        // console.log(user.interests)
+        for(var i=0;i<allEvents.length;i++) {
+          const interests=user.interests
+          const types =allEvents[i].type
+          var intersection = interests.filter(value => types.includes(value))
+          // console.log(intersection)
+
+          if(intersection.length>0){
+            console.log(user.interests)
+            result.push(allEvents[i])
+          }
+        }
+        // console.log(result.length)
+        var resres=[]
+        for (var i=0;i<result.length;i++) {
+          if(result[i].status!=='PENDING_APPROVAL') {
+            resres.push(result[i])
+          }
+        }
+        console.log(resres)
+        // console.log(result.length)
+
+        console.log('SUCCESS: Connected to protected route');
+        // console.log(result)
+        return res.json({ data: resres })
+      }
+      catch(err){
+        console.log(err)
+      }
+    
+    }
+})
+function notPending(a) {
+  if (a.status==='PENDING_APPROVAL'){
+    console.log('eh')
+    return false;
+}
+  return true;
+}
+
+})
 
 
 
 router.get('/getBySpeakers/:speaker', async(req,res)=>{
   try {
+
     const allEvents = await Event.find({}).exec()
+    if(req.params.speaker==='empty')
+      return res.json({ data: allEvents }) 
+
     var result=[]
     allEvents.forEach(event =>{
       if (event.speakers.includes(req.params.speaker)){
@@ -26,26 +122,16 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     return res.json({ error: `Error, couldn't find an event given the following speaker` })
   }
 })
-router.get('/FilterByPrice/:Price', async(req,res)=>{
- try{ const allEvents=await Event.find({}).exec()
-  var r= []
-  allEvents.forEach(event =>{
-    if (event.price[0]<parseInt(req.params.Price+1)){
-      r.push(event)
-    }
-  })
-  return res.json({data: r })
-}
-catch(err){
-  return res.json({ error: `Error, couldn't find an event given the following price` })
-}
-})
+
 
 
 
 router.get('/getByRemainginPlaces/:places', async(req,res)=>{
   try {
+   
     const allEvents = await Event.find({}).exec()
+    if(req.params.places==='empty')
+    return res.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.remaining_places<parseInt(req.params.places)){
@@ -61,6 +147,8 @@ router.get('/getByRemainginPlaces/:places', async(req,res)=>{
 router.get('/getByTopics/:topic', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
+    if(req.params.topic==='empty')
+    return res.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.topics.includes(req.params.topic)){
@@ -190,10 +278,11 @@ router.post('/createType', async (request, response) => {
     })
   })
   
-//get all events with a type "task 2.3" na2sa testing
-router.route('/:type').get(async (request, response) => {
+router.route('/getByType/:type').get(async (request, response) => {
   try {
     const allEvents = await Event.find({}).exec()
+    if(request.params.type==='empty')
+    return response.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.type.includes(request.params.type)){
@@ -204,7 +293,7 @@ router.route('/:type').get(async (request, response) => {
     console.log(result)
     return response.json({ data: result })
   } catch (err) {
-    return response.json({ error: `Error, couldn't find a event given the following type` })
+    return response.json({ error: err })
   }
 })
 
@@ -225,9 +314,10 @@ router.get('/get_events/:location', async(req,res)=> {
 })
 
 
+
 router
   .route('/')
-  .post(async (request, response) => {
+  .post(checkToken,async (request, response) => {
     const status = joi.validate(request.body, {
       price: joi.array().items(joi.number().required()),
       location: joi.string().length(24).required(),
@@ -237,7 +327,8 @@ router
       speakers: joi.array().items(joi.string().min(4).max(70)),
       topics: joi.array().items(joi.string().min(3).max(70)),
       type: joi.array().items(joi.string().min(3).max(20)).required(),
-      partner_initiated: joi.string().length(24).required(),
+      event_date:joi.date(),
+      // partner_initiated: joi.string().length(24).required(),
       attendees: joi.array().items(joi.string().length(24)),
       status: joi.string(),
       feedbacks: joi.array().items(joi.object().keys({
@@ -258,26 +349,38 @@ router
       return response.json({ error: status })
     }
     try {
-      const event = await new Event({
-        _id: mongoose.Types.ObjectId(),
-        remaining_places: request.body.remaining_places,
-        location: request.body.location,
-        name: request.body.name,
-        about: request.body.about,
-        price: request.body.price,
-        speakers: request.body.speakers,
-        topics: request.body.topics,
-        type: request.body.type,
-        partner_initiated: request.body.partner_initiated,
-        status:'PENDING_APPROVAL',
-        time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
-        attendees: [],
-        feedbacks: [],
-        applicants: []
-      }).save()
-      return response.json({ data: event })
-    } catch (err) {
-      return response.json({ error: `Error, couldn't create a new book with the following data` })
+      jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the protected route');
+            response.sendStatus(403);
+        } else {
+            
+          const event = await new Event({
+            _id: mongoose.Types.ObjectId(),
+            remaining_places: request.body.remaining_places,
+            location: request.body.location,
+            name: request.body.name,
+            about: request.body.about,
+            price: request.body.price,
+            speakers: request.body.speakers,
+            topics: request.body.topics,
+            type: request.body.type,
+            partner_initiated: authorizedData.id,
+            event_date:request.body.event_date,
+            status:'PENDING_APPROVAL',
+            time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
+            attendees: [],
+            feedbacks: [],
+            applicants: []
+          }).save()
+          return response.json({ data: event })
+        }
+    })
+      
+    }
+     catch (err) {
+      return response.json({ error: `Error, couldn't create a new event with the following data` })
     }
   })
   .get(async (request, response) => {
@@ -289,38 +392,20 @@ router
     }
   })
 
-  router.get('/getEligible/:id', async(req,res)=> {
-    var user = await User.findById(req.params.id).exec()
-    console.log(user)
-    var allEvents = await Event.find({}).exec()
-    console.log(intersection_destructive(allEvents[0].status !== 'PENDING_APPROVAL'))
-    var result=[]
-    for(var i=0;i<allEvents.length;i++) {
-      if(intersection_destructive(user.interests,allEvents[i].type).length>0 && allEvents[i].status !== 'PENDING_APPROVAL'){
-        console.log('ana get hena')
-        result.push(allEvents[i])
-      }
-    }
-    console.log(result)
-    return res.json({ data: result })
-  })
 
-  function intersection_destructive(a, b)
-  {
-  var result = [];
-  while( a.length > 0 && b.length > 0 )
-  {  
-     if      (a[0] < b[0] ){ a.shift(); }
-     else if (a[0] > b[0] ){ b.shift(); }
-     else
-     {
-       result.push(a.shift());
-       b.shift();
-     }
-  }
-
-  return result;
-  }
+  // function intersection(a, b)
+  // {
+  // var result = [];
+  // while( a.length > 0 && b.length > 0 )
+  // {  
+  //    if      (a[0] < b[0] ){ a.shift(); }
+  //    else if (a[0] > b[0] ){ b.shift(); }
+  //    else
+  //    {
+  //      result.push(a.shift());
+  //      b.shift();
+  //    }
+  // }
 
   function lessa_pending(a) {
     if(a.status==='PENDING_APPROVAL'){
@@ -379,21 +464,27 @@ router
     }
     next()
   })
-  .post(async (request, response) => {
+  .post(checkToken,async (request, response) => {
     try {
-      const status = joi.validate(request.body, {
-        applicant_id: joi.string().length(24).required(),
-      })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
-      }
-      const applicant = {
-        _id: mongoose.Types.ObjectId(),
-        applicant_id: request.body.applicant_id,
-        is_accepted: false
-      }
-      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
-      return response.json({ data: event })
+      jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the protected route');
+            response.sendStatus(403);
+        } else {
+            
+          const applicant={
+            applicant_id:authorizedData.id,
+            is_accepted:false
+          }
+          const event = await Event.findByIdAndUpdate(request.params.id, { $push: { applicants: applicant } }).exec()
+          console.log('SUCCESS: Connected to protected route');
+
+          //If token is successfully verified, we can send the autorized data 
+            return response.json({data: event
+            });
+        }
+    })
     } catch (err) {
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
@@ -401,7 +492,6 @@ router
   .put(async (request,response)=>{
     try {
       const status = joi.validate(request.body, {
-        applicant_id: joi.string().length(24).required(),
         is_accepted: joi.boolean().required()
       })
       if (status.error) {
@@ -431,32 +521,35 @@ router
     }
     next()
   })
-  .post(async (request, response) => {
+  .post(checkToken,async (request, response) => {
     try {
-      const status = joi.validate(request.body, {
-        user_id: joi.string().length(24).required(),
-        comment: joi.string().required(),
-        rate: joi.number()
-      })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
-      }
-      const feedback = {
-        _id: mongoose.Types.ObjectId(),
-        user_id: request.body.user_id,
-        comment: request.body.comment,
-        rate: request.body.rate
-      }
-      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
-      return response.json({ data: event })
+      jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log(err);
+            response.sendStatus(403);
+        } else {
+            
+          const feedback = {
+            user_id: authorizedData.id,
+            comment: request.body.comment,
+            rate: request.body.rate
+          }
+          const event = await Event.findByIdAndUpdate(request.params.id, { $push: { feedbacks: feedback } }).exec()
+          console.log('SUCCESS: Connected to protected route');
+
+          //If token is successfully verified, we can send the autorized data 
+            return response.json({data: event
+            });
+        }
+    })
     } catch (err) {
-      return response.json({ error: `Error, couldn't vote for a event given the following data` })
+      return response.json({ error: err.message })
     }
   })
   .put(async (request,response)=>{
     try {
       const status = joi.validate(request.body, {
-        user_id: joi.string().length(24).required(),
         comment: joi.string().required(), 
         rate: joi.number()
       })
@@ -493,29 +586,33 @@ router
   .all(async (request, response, next) => {
     const status = joi.validate(request.params, {
       id: joi.string().length(24).required()
-    })
+    })//wareeeny 
     if (status.error) {
       return response.json({ error: status.error.details[0].message })
     }
     next()
   })
-  .post(async (request, response) => {
+  .post(checkToken,async (request, response) => {
     try {
-      const status = joi.validate(request.body, {
-        admin_id: joi.string().length(24).required(),
-        response: joi.string().min(6).required(),
-        is_accepted: joi.boolean().required()  
-      })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
-      }
-      const response = {
-        _id: mongoose.Types.ObjectId(),
-        admin_id: request.body.admin_id,
-        is_accepted: request.body.is_accepted
-      }
-      const event = await Event.findByIdAndUpdate(request.params.id, { $push: { responses_from_admin: response } }).exec()
-      return response.json({ data: event })
+      jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the protected route');
+            response.sendStatus(403);
+        } else {
+          const responsefromadmin = {
+            admin_id: authorizedData.id,
+            is_accepted: request.body.is_accepted,
+            response: request.body.response
+          }
+          const event = await Event.findByIdAndUpdate(request.params.id, { $push: { responses_from_admin: responsefromadmin } }).exec()
+          console.log('SUCCESS: Connected to protected route');
+
+          //If token is successfully verified, we can send the autorized data 
+            return response.json({data: event
+            });
+        }
+    })
     } catch (err) {
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
@@ -530,8 +627,44 @@ router
   }
 
   })
+
+
   
-  
+ 
+
+//ALY ZAMZAMY 13.14 filter events based on status
+router.get("/getByStatus/:status", async (req, res) => {
+  //joi validation
+  const s = joi.validate(req.params, {
+    status: joi.string().required()
+  });
+  if (s.error) {
+    return response.json({ error: s.error.details[0].message });
+  }
+
+  //add ifs => if status is not in ENUM return message
+ var list=['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED',"ALL"]
+ const status=req.params.status
+  if (!list.includes(status)) {
+    return res.json({
+      message: "The status you entered is not a valid status"
+    });
+  }
+  try {
+    //if condtion to make sure it is a valid status
+    const criteria = req.params.status;
+    const query = await Event.find({ status: criteria });
+
+    return res.json({ data: query });
+  } catch (e) {
+    return res.json({ error: e });
+  }
+});
+
+
+
+
 module.exports=router 
 
 
+  
