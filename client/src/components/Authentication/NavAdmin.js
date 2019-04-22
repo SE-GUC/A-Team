@@ -27,12 +27,14 @@ export class NavAdmin extends Component {
                         <li><a href="/admin/feedback">Write Feedback </a></li>
                         <li><a href="/admin/appcard">Apply for Event </a></li>
                         <li><a href='/admin/partnerfeedbacks'>Feedbacks on my Events</a></li>
+                        
                         </ul>
                         <ul id="dropdown1111" class="dropdown-content">
                         <li><a class='ili' href='/admin/skills'>Skill Panel</a></li>
                         <li><a class='ili' href='/admin/viewpendingevents'>View Pending Events</a></li>
                         <li><a class='ili' href='/admin/Admin'>Admin Panel</a></li>
                         <li><a class='ili' href='/admin/Review'>Review</a></li>
+                        <li><a class='ili' href='/admin/Email'>Emails </a></li>
                         </ul>
                         <ul id="dropdown11111" class="dropdown-content">
                         <li><a class='ili' href='/admin/viewallproj'>All Projects</a></li>
