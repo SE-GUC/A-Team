@@ -51,23 +51,23 @@ class LoginPage  extends Component {
         .then(res => {
           console.log(res.data.data)
           myuser=res.data.data
+          if( myuser!==undefined&&myuser.type.includes('P') ) {
+            this.props.history.replace('/partner');
+          } else if(myuser!==undefined&&myuser.type.includes('CA') ) {
+            this.props.history.replace('/ca');
+  
+          } else if( myuser!==undefined&&myuser.type.includes('M')) {
+            this.props.history.replace('/member');
+  
+          } else if (myuser!==undefined&&myuser.type.includes('A')) {
+            this.props.history.replace('/admin');
+          }
+          else{
+            alert('Wrong password')
+          }  
           })
         .catch(err => { 
             console.log(err) })
-        if( myuser!==undefined&&myuser.type.includes('P') ) {
-          this.props.history.replace('/partner');
-        } else if(myuser!==undefined&&myuser.type.includes('CA') ) {
-          this.props.history.replace('/ca');
-
-        } else if( myuser!==undefined&&myuser.type.includes('M')) {
-          this.props.history.replace('/member');
-
-        } else if (myuser!==undefined&&myuser.type.includes('A')) {
-          this.props.history.replace('/admin');
-        }
-        else{
-          alert('Wrong password')
-        }
     }
     render() {
         // if(this.state.partner){
