@@ -43,18 +43,18 @@ class ApplicantsCard extends Component {
 
 
     }
-    accept() {
+    async accept() {
         const url = 'http://localhost:4000/api/events/'+this.props.data.eventid+'/apply'
         console.log(this.props.data.eventid)
-        axios.put(url, {
+        await axios.put(url, {
             applicant_id:this.props.data.applicant_id,
             is_accepted:true
         })
         const url2 = 'http://localhost:4000/api/users/' +this.props.data.applicant_id+'/addEvent/'
-        console.log(url2)
-        axios.post(url2, {
+        const hi=await axios.post(url2, {
             eventid:this.props.data.eventid
         })
+        console.log(hi)
         this.setState({show:false})
 
 
