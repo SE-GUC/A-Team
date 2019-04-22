@@ -131,7 +131,7 @@ const routing=(
       <Route path="/Review" component={Review} />
       {/* <Route path="/Admin" component={MainPage} /> */}
 
-      <Route path="/Event" component={Event} />
+      {/* <Route path="/Event" component={Event} /> */}
       <Route path="/Partner_Requests" component={Partnerreq} />
       <Route path="/locations" component={Locationcomps} />
       <Route path="/Create_Events" component={CreateEvent} />

@@ -52,7 +52,6 @@ export class PostForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    try {
       if (this.state.skills.length === 0) {
         var msg = "You Have To Enter At Least one Skill";
         var html = "<span style='color:#ffdd42'>" + msg + "</span>";
@@ -66,16 +65,40 @@ export class PostForm extends Component {
         description: this.state.description,
         skills: this.state.skills
       };
-      axios.post("http://localhost:4000/api/project/create", data).then(res => {
+      console.log(data)
+      // axios.post("http://localhost:4000/api/project/create", data).
+      // then(res => {
+      //   console.log(res);
+      //   var msg = "Posted Project ";
+      //   var html = "<span style='color:green'>" + msg + "</span>";
+      //   M.toast({ html: html });
+      //   console.log(res)
+      //   return res.data;
+      // })
+      // .catch(err=>{
+      //   console.log(err)
+      // });
+
+
+      axios({
+        method: 'POST',
+        url: "http://localhost:4000/api/project/create",
+        headers: {
+            authorization: localStorage.getItem('token')
+        }, 
+        data: data
+      }).then(res=>{
         console.log(res);
         var msg = "Posted Project ";
         var html = "<span style='color:green'>" + msg + "</span>";
         M.toast({ html: html });
+        console.log(res)
         return res.data;
-      });
-    } catch (error) {
-      console.log("error");
-    }
+    })
+    .catch(function (error){
+      console.log(error)
+    })
+    
   };
   getSkillFromDB = async () => {
     try {

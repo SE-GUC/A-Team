@@ -85,20 +85,26 @@ export class Form extends Component {
       const data = {
         name: this.state.name,
         monetary_compensation: this.state.monetary_compensation,
-        partner_id:this.state.partner_id,
         time_expected: this.state.time_expected,
         level_of_comitment: this.state.level_of_comitment,
         experience_needed: this.state.experience_needed,
         description: this.state.description,
         skills: this.state.skills
       };
-      axios.post("http://localhost:4000/api/tasks/add", data).then(res => {
-        console.log(res);
-        var msg="Posted Task "
-        var html="<span style='color:green'>"+msg+"</span>"
-        M.toast({html:html })
-        return res.data;
-      });
+      axios({
+        method: 'POST',
+        url: "http://localhost:4000/api/tasks/add",
+        headers: {
+            authorization: localStorage.getItem('token')
+        }, 
+        data: data
+      }).then(res=>{
+        alert('posted successfully')
+        console.log(res)
+      })
+    .catch(function (error){
+      console.log(error)
+    })
     } catch (error) {
       console.log("error");
     }
