@@ -31,8 +31,19 @@ class CreateEvent extends Component {
             ch:[],
             type5:'',
             speaker:'',
-            startDate: new Date()        }
+            startDate: new Date(),
+           shalabySpeakr:[]       }
 
+    }
+    onChipAddSpeaker=()=>{
+      var result = [];
+      var elem = document.getElementById('speaker-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ speakers: result });
+      console.log(this.state.speakers)
     }
     componentDidMount(){
       let elems = document.querySelectorAll('.dropdown-trigger');
@@ -45,7 +56,7 @@ class CreateEvent extends Component {
         var cap=[]
 
         for(let c=0;c<res.data.data.length;c++){
-          if(res.data.data[c].booked==='Available'){
+          if(res.data.data[c].booked==='Available'){  
               locc.push(<li><button style={{color:'black'}} class="waves-effect waves-light btn green lighten-3" onClick={this.handleChangelocation} id={res.data.data[c]._id}
               >{res.data.data[c].title}: {res.data.data[c].subtitle} Capactity{res.data.data[c].capacity}</button></li>)
               this.setState({remaining_places:res.data.data[c].capacity}) 
@@ -57,8 +68,8 @@ class CreateEvent extends Component {
       .catch(error =>{
         console.log(error)
       })
-      var elems1 = document.querySelectorAll('.chips');
-      M.Chips.init(elems1, {inDuration: 300, outDuration: 225});
+      var elems1 = document.getElementById('speaker-chips');
+      M.Chips.init(elems1, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Speaker'});
     
       var ty=[]
         axios.get('http://localhost:4000/api/events/getTypesHoss')
@@ -127,7 +138,7 @@ handleChangetype = event=> {
     event.preventDefault();
 
     const url= 'http://localhost:4000/api/events/'
-    var allSpeakers=this.state.speaker.split(',')
+//    var allSpeakers=this.state.speaker.split(',')
     var allPrices=this.state.price.split(',')
     var alltopics=this.state.topics.split(',')
 
@@ -143,7 +154,7 @@ handleChangetype = event=> {
           name:this.state.name,
           about:this.state.about,
           remaining_places:this.state.remaining_places,
-          speakers:allSpeakers,
+          speakers:this.state.speakers,
           topics:alltopics,
           event_date:this.state.startDate,
           type:this.state.chosentypearray
@@ -180,7 +191,7 @@ handleChangetype = event=> {
             </div> 
             <div class="row">
               <div class="input-field col s12">
-              <i class="material-icons prefix">info</i>
+              <i class="material-icons prefix" style={{marginTop:'1px'}}>info</i>
                 <textarea placeholder="about" id="about_id" state={this.state}  class="materialize-textarea" onChange={this.setabout}/>
                 <label for="about_id"></label>
               </div>
@@ -188,7 +199,7 @@ handleChangetype = event=> {
             <div class="row">
               <div class="input-field col s12">
               <i class="material-icons prefix">mic</i>
-                <input placeholder="Add speakers (Separate speakers by commas)" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
+              <div id='speaker-chips' className='chips' onKeyUp={this.onChipAddSpeaker} onKeyPress={this.onChipAddSpeaker} onKeyDown={this.onChipAddSpeaker}></div>
                 <label for="about_id"></label>
               </div>
             </div>
@@ -248,13 +259,15 @@ handleChangetype = event=> {
                     <input type="date" onChange={this.handleChangedate} />
                     
                   </div>
-                  <div className="col s6"></div>
+                  <div className=" col s6"></div>
                   </div>
                   <br/>   
                    <br/>
                   <br/>
                   <div class="row">
-             </div>
+                  <div className='input-field col s12'>
+                  </div>
+                  </div>
                   <br/>
           
                   
