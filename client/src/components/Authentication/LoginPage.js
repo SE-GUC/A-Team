@@ -28,13 +28,14 @@ class LoginPage  extends Component {
     }
     async loginbtn(){
       var myuser;
+      var token;
         const body={
             email:this.state.email,
             password:this.state.password
         }
         await axios.post('https://ateamse2.herokuapp.com/api/users/login', body).then(res=>{
           console.log(res)
-          var token = res.data.token
+          token = res.data.token
           localStorage.setItem("token", token)
           
         }).catch(err=>{
@@ -44,7 +45,7 @@ class LoginPage  extends Component {
         await axios('https://ateamse2.herokuapp.com/api/users/dashboard', {
           method: 'GET',
           headers: {
-            'authorization': localStorage.getItem('token')
+            'authorization': token
           }
         })
         .then(res => {
