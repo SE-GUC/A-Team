@@ -83,7 +83,6 @@ export class NavGeneral extends Component {
       <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a href='/homepage/login'>Login</a></li>
-      <li><a onClick={this.signOut} href='/homepage'>Sign out</a></li>
       <li><a href='/homepage/register'>Sign Up</a></li>   
       <li><div id='login-nav-div' className='login-div' style={{display:'none'}} ><Login></Login></div></li> 
     </ul>
