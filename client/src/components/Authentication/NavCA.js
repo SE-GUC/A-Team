@@ -107,6 +107,10 @@ export class Navca extends Component {
     this.setState({past_projects:result1})
     
   }
+  signOut(){
+    localStorage.setItem('token', null)
+  }
+
   render() {
     console.log('geh hena?')
     return (
@@ -177,6 +181,8 @@ export class Navca extends Component {
 
   </div>
   <div class="modal-footer">
+  <li><a onClick={this.signOut} href='/homepage'>Sign out</a></li>
+
     <a href="#!" class="modal-close waves-effect waves-green btn-flat text-color red">Close</a>
   </div>
   </div>

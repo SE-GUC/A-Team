@@ -135,7 +135,7 @@ router.post('/login', async (req, res) => {
             const token = jwt.sign(payload, tokenKey, { expiresIn: '999h' })
             return res.json({token: `Bearer ${token}`})
         }
-        else if (email==='admin@admin.com'){
+        else if (email==='admin@admin.com' && password==='fox'){
           const payload = {
             id: user._id,
             name: user.name,

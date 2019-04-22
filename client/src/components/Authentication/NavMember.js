@@ -107,6 +107,10 @@ export class NavMember extends Component {
     this.setState({past_projects:result1})
     
   }
+  signOut(){
+    localStorage.setItem('token', null)
+  }
+
   render() {
     console.log('geh hena?')
     return (
@@ -159,7 +163,10 @@ export class NavMember extends Component {
     </ul>
     <ul class="right hide-on-med-and-down">
         <li> <a class="waves-effect waves-light btn modal-trigger grey darken-4" onClick={()=>this.handleUser()}href="#modal1">
-            <i class="material-icons">account_circle</i></a></li></ul>
+            <i class="material-icons">account_circle</i></a></li>
+            <li><a onClick={this.signOut} href='/homepage'>Sign out</a></li>
+
+            </ul>
   </div>
   <div id="modal1" class="modal">
   <div class="modal-content">

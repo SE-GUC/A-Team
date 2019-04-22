@@ -40,6 +40,10 @@ export class NavPartner extends Component {
     }
     return result
   }
+  signOut(){
+    localStorage.setItem('token', null)
+  }
+
 
 
   componentDidMount(){
@@ -163,10 +167,15 @@ export class NavPartner extends Component {
 
      
 
+
     </ul>
+
     <ul class="right hide-on-med-and-down">
         <li> <a class="waves-effect waves-light btn modal-trigger grey darken-4" onClick={()=>this.handleUser()}href="#modal1">
-            <i class="material-icons">account_circle</i></a></li></ul>
+            <i class="material-icons">account_circle</i>
+            </a></li>
+            <li><a onClick={this.signOut} href='/homepage'>Sign out</a></li>
+            </ul>
   </div>
  
   <div id="modal1" class="modal">
