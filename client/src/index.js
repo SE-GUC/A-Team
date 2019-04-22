@@ -21,19 +21,18 @@ import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
 import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
-//import EventCard from './components/EventsCardContainer'
+import EventCardContainer from './components/EventCards/EventsCardContainer'
 import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
 import MainPage from './components/Admin/MainPage'
-import Skills from './components//Admin/SkillController'
+import Skills from './components/Admin/SkillController'
 import CardTest from './components/CardTest';
 import 'materialize-css/dist/css/materialize.min.css';
 import ViewTApplicants from './components/ViewTaskApplicants';
 import Event_Module from './components/EventCards/EventModule'
 import ProjectPostForm from './components/ProjectPostForm'
 import EventCard from './components/EventCards/EventsCardContainer'
-import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
 import Home from './components/HomePage'
-
+import TaskAdmin from './components/TaskAdmin'
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'
 // import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
@@ -45,6 +44,7 @@ import EventModule from './components/EventCards/EventModule'
 import NavPartner from './components/Authentication/NavPartner'
 import NavAdmin from './components/Authentication/NavAdmin'
 import NavMemeber from './components/Authentication/NavMember'
+import Filter from './components/EventCards/FilterEventsContainer'
 
 import LoginPage from './components/Authentication/LoginPage'
 
@@ -53,13 +53,19 @@ import './css/navbar.css'
 const routing=(
     <Router>
     <div>
-
     <Route path="/homepage" component={Home} />
-    <Route path="/task_card" component={TaskCardContainer} />
-    <Route path="/Events" component={EventCard} />
+    <Route path="/homepage/get_tasks" component={TaskList}/>
+    <Route path="/homepage/filter" component={Filter} />
+    <Route path="/homepage/task_card" component={TaskCardContainer} />
+    <Route path="/homepage/viewallproj" component={ViewAllProjectsComponent} />
+    <Route path='/homepage/register' component={Register}/>
+    <Route path='/homepage/login' component={LoginPage}/>
+
+    {/* <Route path="/Events" component={EventCard} /> */}
 
       <Route path="/partner" component={NavPartner}/>    
       <Route path="/partner/Events" component={EventCard} />
+      <Route path="/partner/myevents" component={EventsPartner} />
       <Route path="/partner/Create_Events" component={CreateEvent} />
       <Route path="/partner/feedback" component={Feedback}/>    
       <Route path="/partner/appcard" component={ApplicationCard}/>    
@@ -70,9 +76,9 @@ const routing=(
       <Route path="/partner/task_card" component={TaskCardContainer} />
       <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/partner/post_project" component={ProjectPostForm}/>  
+      <Route path="/partner/filter" component={Filter}/>  
 
 
-      {/* <Route path="/admin" component={NavAdmin}/>     */}
       <Route path="/admin" component={NavAdmin}/>
       <Route path="/admin/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/admin/post_project" component={ProjectPostForm}/>  
@@ -90,6 +96,8 @@ const routing=(
       <Route path="/admin/viewrtaskapplicants" component={ViewTApplicants}/>
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path="/admin/TaskPanel" component={TaskPanelA} />
+      <Route path="/admin/filter" component={Filter}/>  
+
 
 
       <Route path="/member" component={NavMemeber} />
@@ -101,12 +109,14 @@ const routing=(
       <Route path="/member/appcard" component={ApplicationCard}/>    
       <Route path='/member/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
       <Route path="/member/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/member/filter" component={Filter}/>  
+
 
 
 
       {/* <Route path="/card" component={EventCard}/>     */}
       <Route path="/post_project" component={ProjectPostForm}/>  
-      <Route path="/adminContainer" component={AdminViewEvents}/>    
+      {/* <Route path="/adminContainer" component={AdminViewEvents}/>     */}
       <Route path="/feedback" component={Feedback}/>    
       <Route path="/appcard" component={ApplicationCard}/>    
       {/* <Route path='/eventmodule' component={EventModule}/> */}
@@ -133,7 +143,6 @@ const routing=(
       <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path='/register' component={Register}/>
       {/* <Route path='/event_module' component={Event_Module}/> */}
-      <Route path='/login' component={LoginPage}/>
     
       
     </div>
