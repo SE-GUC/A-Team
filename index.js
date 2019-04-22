@@ -56,6 +56,7 @@ if(process.env.NODE_ENV ==='production'){
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
+
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
