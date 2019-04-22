@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Redirect, Route } from 'react-router-dom'
 import NavGeneral from '../NavGeneral'
 import '../../css/navbar.css'
+import M from 'materialize-css'
 
 class LoginPage  extends Component {
     constructor(props)
@@ -27,7 +28,6 @@ class LoginPage  extends Component {
     }
     async loginbtn(){
       var myuser;
-        console.log('ay 7aga')
         const body={
             email:this.state.email,
             password:this.state.password
@@ -53,14 +53,19 @@ class LoginPage  extends Component {
           })
         .catch(err => { 
             console.log(err) })
-        if(myuser.type.includes('P')) {
+        if( myuser!==undefined&&myuser.type.includes('P') ) {
           this.props.history.replace('/partner');
-        } else if(myuser.type.includes('CA')) {
-        } else if(myuser.type.includes('M')) {
+        } else if(myuser!==undefined&&myuser.type.includes('CA') ) {
+          this.props.history.replace('/ca');
+
+        } else if( myuser!==undefined&&myuser.type.includes('M')) {
           this.props.history.replace('/member');
 
-        } else if (myuser.type.includes('A')) {
+        } else if (myuser!==undefined&&myuser.type.includes('A')) {
           this.props.history.replace('/admin');
+        }
+        else{
+          alert('Wrong password')
         }
     }
     render() {
@@ -70,19 +75,19 @@ class LoginPage  extends Component {
         // }
     
         return(
-            <div style={{marginLeft:'220px'}}>
-            <div>
+            <div style={{paddingLeft:'220px',backgroundColor:'#212121'}}>
+            <div >
               <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s5">
               <input onChange={this.handleEmail} id="email" type="email" class="white-text"/>
-                  <label class='white-text'for="email">Email</label>
+                  <label class='green-text'for="email">Email</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s5">
                   <input onChange={this.handlePass} id="password" type="password" class="white-text"/>
-                  <label for="password" class='white-text'>Password</label>
+                  <label for="password" class='green-text'>Password</label>
                 </div>
-                <div className='col s3'>
-                <a onClick={()=>this.loginbtn()} id='login-btn-nav' className='loginb'><span>Login</span></a>
+                <div className='col s2 white-text' style={{marginTop:'20px'}}>
+                <a onClick={()=>this.loginbtn()} id='login-btn-nav' className='btn waves-effect waves-light green darken-2'>Login</a>
                 </div>
               </div>
           </div>

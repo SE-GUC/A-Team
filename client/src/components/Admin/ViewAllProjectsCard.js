@@ -111,7 +111,7 @@ class ViewAllProjectsCard extends Component {
                 <p>
                        
                 </p>
-                <a onClick={()=>this.accept()} class="waves-effect waves-light btn-small green">Accept</a>
+                <a  disabled onClick={()=>this.accept()} class="waves-effect waves-light btn-small green">Accept</a>
 				</div>
 			</div>
 		</div>

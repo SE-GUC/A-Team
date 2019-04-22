@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const Tasks = require("../../models/Task");
 const Project = require("../../models/Project");
 const User = require("../../models/User");
+const jwt =require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
 const checkToken = (req, res, next) => {
   const header = req.headers['authorization'];
@@ -51,58 +53,38 @@ router.get('/get_my_projects/:id',checkToken, async (request, response) => {
   })
  
   });
-router.post("/create", async (req, res) => {
-  const status = joi.validate(req.body, {
-    project_name: joi.string().max(40).required(),
-    description: joi.string().min(10).required(),
-    skills: joi.array().items(joi.string()),
-    partner_responsible: joi.string().length(24), //Need to Handle That this id belongs to a partner
-    tasks: joi.array().items(joi.string().length(24)),
-    consultancy_agency_applicants: joi.array().items(joi.object().keys({
-      consultancy_agency_id: joi.string().length(24).required(),
-      is_accepted: joi.boolean()
-    })),
-    status:joi.string().min(10).allow()
-
-})
-if (status.error) {
-    return res.json({
-        error: status.error.details[0].message
-    })
-}
-try {
-  user = await User.findById(req.body.partner_responsible).exec()
-  if (user === null) {
-      return res.json({
-          error: `The partner_id you entered does not belong to a user`
-      })
-  }
-} catch (err) {
-  return res.json({
-      error: `Error, couldn't find a user given the following id`
-  })
-}
-  const { project_name, description, partner_responsible, skills } = req.body;
+router.post("/create",checkToken, async (req, res) => {
   try {
-    const proj = await new Project({
-      project_name: project_name,
-      description: description,
-      date_Posted: moment().format("MMMM Do YYYY, h:mm:ss a"),
-      partner_responsible: partner_responsible,
-      skills: skills,
-      consultancy_agency_applicants: [],
-      consultancy_agency_assigned: undefined,
-      tasks: [],
-      status:'PENDING_APPROVAL'
+    jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+        if(err){
+          console.log(err)
+        }
+        else{
+        
+          const { project_name, description, skills } = req.body;
+            const proj = await new Project({ 
+              project_name: project_name,
+              description: description,
+              date_Posted: moment().format("MMMM Do YYYY, h:mm:ss a"),
+              skills: skills,
+              partner_responsible:authorizedData.id,
+              consultancy_agency_applicants: [],
+              consultancy_agency_assigned: undefined,
+              tasks: [],
+              status:'PENDING_APPROVAL'
+        
+            }).save();
+            return res.json({ data:proj });
 
-    }).save();
-    return res.json({ proj });
-  } catch (err) {
-    console.log(err.message);
-    return res.json({
-      error: `Request Error`
-    });
-  }
+        }
+    }
+)
+
+
+}
+catch(err) {
+  console.log(err)
+}
 });
 
 router.get('/read/:id', async(req,res) => {
@@ -292,4 +274,41 @@ router.put('/AddTask',async (req, res) => {
       return response.json({ error: `Error` })
     }
   }); 
+
+
+ 
+
+
+ //ALY ZAMZAMY 13.13 filter projects based on status
+ router.get("/getByStatus/:status", async (req, res) => {
+  //joi validation
+  const s = joi.validate(req.params, {
+    status: joi.string().required()
+  });
+  if (s.error) {
+    return response.json({ error: s.error.details[0].message });
+  }
+
+  //add ifs => if status is not in ENUM return message
+ var list=['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED',"ALL"]
+ const status=req.params.status
+  if (!list.includes(status)) {
+    return res.json({
+      message: "The status you entered is not a valid status"
+    });
+  }
+  try {
+    //if condtion to make sure it is a valid status
+    const criteria = req.params.status;
+    const query = await Project.find({ status: criteria });
+
+    return res.json({ data: query });
+  } catch (e) {
+    return res.json({ error: e });
+  }
+});
+
+
+
+
 module.exports=router

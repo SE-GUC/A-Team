@@ -1,46 +1,74 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const User = require('../../models/User');
+const axios = require('axios');
 
-async function sendMail() {
-  try {
-    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-    // create reusable transporter object using the default SMTP transport
-    const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "favian10@ethereal.email",
-        pass: "ucxBR9an6XcMezsCQG"
-      }
-    });
+const x = "seifmohamedwael97@gmail.com";
+var lastEmail = '';
 
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: '"Fred Foo 👻" favian10@ethereal.email', // sender address
-      to: "youshalaby@gmail.com", // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>" // html body
-    });
+// async function getUsers(ze) {
+//   const m = await axios.get('http://localhost:4000/api/users/')
+//   .then(res => {
+//     const ze = [];
+//     for(let i = 0;i < res.data.length;i++) {
+//     const x = String(res.data[i].email)
+    
+//     ze.push(x)
 
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    
+//     }
+//     return "mangaaa";
+//     console.log(ze)
 
-    // Preview only available when sending through an Ethereal account
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    console.log('Receipient:',info.accepted[0])
-    return info.accepted[0];
-  } catch (error) {
-    console.log("Error:", error);
-  }
-}
+
+//   })
+// }
+// console.log(getUsers(ze))
 
 router.get("/send", async (req, res) => {
-  const message =await sendMail();
-  console.log('message',message)
-  return res.json({ message: message });
+  const m = await axios.get('http://localhost:4000/api/users/')
+    .then(res => {
+      lastEmail = res.data[res.data.length-1].email;
+      console.log("I am inside axios")
+    }) 
+    console.log(lastEmail)
+
+  let  transporter = nodemailer.createTransport({
+    service:'gmail',
+    secure:false,
+    port:25,
+    auth:{ 
+      user: 'ateamseproj@gmail.com',
+      pass: 'Qwer12345678'
+  
+    },
+    tls:{
+      rejectUnauthorized:false
+    }
+     
+  
+  });
+  
+  
+  let HelperOptions = {  
+    from:'"A-Team" <ateamseproj@gmail.com>',
+    to: lastEmail,
+    subject:'Test ',
+    text:'You have been accepted ebset ya 3am  '
+   };
+  
+  transporter.sendMail(HelperOptions,(error,info) => {
+     if (error){
+      return console.log(error);
+     }
+     console.log("The Message has been sent ");
+     console.log(info);
+     console.log(manga.email)
+    });  
+
+   
+    res.json("Meesage Sent to Accepted Users") 
 });
 
 module.exports = router;

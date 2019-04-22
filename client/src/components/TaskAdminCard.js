@@ -76,30 +76,38 @@ class TaskAdminCard extends Component {
         }
           console.log(tasking.id);
           console.log(tasking.response);
-          const url = "http://localhost:4000/api/tasks/update/" + tasking.id;
+          const url = "http://localhost:4000/api/tasks/update_admin_response/" + tasking.id;
           axios.put(url, { response_from_admin: tasking.response }).then(res => {
+            console.log("inside axios")
+            console.log(res.data.response_from_admin)
             this.setState({ response: '' });
-            this.setState({response_from_admin:res.data.response_from_admin})
-            // this.setState({ done:true })
           });
         var msg="Posted Task's Response from Admin Successfully"
         var html="<span style='color:green'>"+msg+"</span>"
             M.toast({html:html })
     }
     getFeedbacks=()=>{
+        const m = axios.get('http://localhost:4000/api/tasks/'+this.state._id)
         var message=''
         var array=this.state.response_from_admin
-        if(array.length===0){
+        console.log(this.state.response_from_admin)
+        if(this.state.response_from_admin.length==0) {
             var msg="There are No Responses for this Task"
             var html="<span style='color:orange'>"+msg+"</span>"
             M.toast({html:html })
         }    
         else{
-            for(var i=0;i<array.length;i++){
-                message= message+array[i]+'\n'
-                console.log(array[i])
+            for(var i=0;i<this.state.response_from_admin.length;i++){
+                message= message+this.state.response_from_admin[i]+'\n'
+                console.log(this.state.response_from_admin[i])
+                var msg="Testing the unlimited test"
+                var html="<span style='color:orange'>"+this.state.response_from_admin[i]+"</span>"
+                M.toast({html:html })
+               
             }
+            
             window.alert(message)
+            
         }    
             
     }
@@ -161,7 +169,7 @@ class TaskAdminCard extends Component {
        console.log(uuid)  
        console.log('PID',this.state.partner_id)   
        const partnerURL='http://localhost:4000/api/users/'+ uuid  
-       axios.get(partnerURL)
+      await axios.get(partnerURL)
        .then(res=>{
            console.log('URL',partnerURL)
            console.log("Response",res)

@@ -159,7 +159,7 @@ class EventsCardContainer extends React.Component {
         }
         for(var i=0; i<elements3.length;i++){
             for(var j=0; j<intersection1.length;j++){
-                if(elements3[i]._id===intersection1[j]._id&& elements3[i].status!=='PENDING_APPROVAL'){
+                if(elements3[i]._id===intersection1[j]._id && elements3[i].status!=='PENDING_APPROVAL'){
                     intersection2.push(elements3[i])
                 }
             }

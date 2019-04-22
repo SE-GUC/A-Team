@@ -97,7 +97,6 @@ function notPending(a) {
     console.log('eh')
     return false;
 }
-console.log('eh el kalam')
   return true;
 }
 
@@ -587,7 +586,7 @@ router
   .all(async (request, response, next) => {
     const status = joi.validate(request.params, {
       id: joi.string().length(24).required()
-    })
+    })//wareeeny 
     if (status.error) {
       return response.json({ error: status.error.details[0].message })
     }
@@ -617,6 +616,55 @@ router
     } catch (err) {
       return response.json({ error: `Error, couldn't find application for a event given the following data` })
     }
-  })  
+  })
+
+  router.get('/getMyEvents/:id', async(req,res)=>{
+    try{
+      const eventsPartnerCreated=Event.find({partner_initiated:req.params.id})
+      return res.json({ data: eventsPartnerCreated })
+  } catch (err) {
+    return res.json({ error: `Error, couldn't find application for a event given the following data` })
+  }
+
+  })
+
+
   
+ 
+
+//ALY ZAMZAMY 13.14 filter events based on status
+router.get("/getByStatus/:status", async (req, res) => {
+  //joi validation
+  const s = joi.validate(req.params, {
+    status: joi.string().required()
+  });
+  if (s.error) {
+    return response.json({ error: s.error.details[0].message });
+  }
+
+  //add ifs => if status is not in ENUM return message
+ var list=['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED',"ALL"]
+ const status=req.params.status
+  if (!list.includes(status)) {
+    return res.json({
+      message: "The status you entered is not a valid status"
+    });
+  }
+  try {
+    //if condtion to make sure it is a valid status
+    const criteria = req.params.status;
+    const query = await Event.find({ status: criteria });
+
+    return res.json({ data: query });
+  } catch (e) {
+    return res.json({ error: e });
+  }
+});
+
+
+
+
 module.exports=router 
+
+
+  
