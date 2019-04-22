@@ -33,47 +33,6 @@ const notif=require('./routes/api/notification')
     }).on('error', function(error){
         console.log('Error is: ', error);
     });
-
-    app.get('*', function(req, res){
-        res.sendFile(__dirname + '/index.html');
-      });
-
-
-app.get('/',(req,res)=>{
-    res.send(`
-    <h1>Hello friend</h1>
-    <a href="/api/events" > to create an event</a>
-    <a href="api/tasks" >Go to member page</a>`
-    )
-})
-
-
-app.get('/', (req, res) => {
-    res.send(`<h1>Freelancer </h1>
-    <a href="/api/locations">Locations</a>
-       `);
-})
-
-
-
-app.get('/',(req,res)=>{
-    res.send(`
-    <h1>Hello</h1>
-    <a href="/api/PartnerRequest" > to initiate a request to organize an event</a>`)
-})
-
-
-app.get('/',(req,res)=>{
-    res.send(`
-    <h1>Hello</h1>
-    <a href="api/tasks" >Go to member page</a>`)
-})
-
-
-
-
-
-
 app.use('/api/events', events)
 app.use('/api/admins', admins)
 app.use('/api/users', users)
@@ -90,11 +49,15 @@ app.use('/api/members',member)
 app.use('/api/skills',skills)
 app.use('/api/notifications',notif)
 //app.use('/api/tasks',tasks_objects)
-
-
-
+if(process.env.NODE_ENV ==='production'){
+    app.use(express.static('client/build'))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+    })
+}
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
+
 const port = 4000 | process.env.PORT;
 app.listen(process.env.PORT || 4000)
