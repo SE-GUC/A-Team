@@ -97,7 +97,6 @@ function notPending(a) {
     console.log('eh')
     return false;
 }
-console.log('eh el kalam')
   return true;
 }
 
