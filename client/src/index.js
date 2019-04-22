@@ -16,7 +16,7 @@ import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
 import CreateEvent from './components/CreateEvent'
-import TaskPanelA from './components/TaskStoryOneThreeTwo'
+import TaskPanelA from './components/TaskAdmin'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
