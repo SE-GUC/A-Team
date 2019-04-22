@@ -22,11 +22,7 @@ class EventsCardContainer extends React.Component {
             limit:0
         }
     }
-    loadMore=(e)=> {
-        this.setState({
-            limit:this.state.limit+2
-        })
-    }
+
     componentDidMount() {
         axios('http://localhost:4000/api/users/getCreatedEvents', {
             method: 'GET',
@@ -47,19 +43,17 @@ class EventsCardContainer extends React.Component {
         if(!this.state.loading) {
         var elements1=[];
         const events=this.state.elements
+        console.log(events)
         for(var i=0;i<this.state.elements.length;i++){
-            console.log(events[i]._id)
-            if(i <= this.state.limit) {
-            elements1.push(<Card data ={events[i]}/>);
-            }
+                console.log(events[i])
+                elements1.push(<Card data ={events[i]}/>);
+            
         }
         return (
             <div class="container">
                 <div class="row">
                     <div class = "row s2">  
                         {elements1}
-                        <button class="waves-effect waves-light btn-small green" type="submit" name="action" onClick={this.loadMore}>Load More</button>
-
                     </div>
                 </div>
             </div>
