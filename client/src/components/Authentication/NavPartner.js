@@ -179,7 +179,7 @@ export class NavPartner extends Component {
       <p><b>Phone:</b>{this.state.phone}  </p>
       <p><b>Date Of Birth:</b>{this.state.date_of_birth}  </p>
       <p><b>Interests:</b>{ this.displayArray(this.state.interests)}</p>
-      <p><b>Board members:</b>{()=>this.getBoard(this.state.board_members)}</p>
+      <p><b>Board members:</b>{this.getBoard(this.state.board_members)}</p>
       <p><b>Past Projects:</b>{this.state.past_projects}</p>
       <p><b>Events Created:</b>{this.state.events_created}</p>
       </pre>

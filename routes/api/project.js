@@ -274,4 +274,41 @@ router.put('/AddTask',async (req, res) => {
       return response.json({ error: `Error` })
     }
   }); 
+
+
+ 
+
+
+ //ALY ZAMZAMY 13.13 filter projects based on status
+ router.get("/getByStatus/:status", async (req, res) => {
+  //joi validation
+  const s = joi.validate(req.params, {
+    status: joi.string().required()
+  });
+  if (s.error) {
+    return response.json({ error: s.error.details[0].message });
+  }
+
+  //add ifs => if status is not in ENUM return message
+ var list=['PENDING_APPROVAL','APPROVED','ACCEPTING_APPLICANTS','SOLD_OUT','FINISHED',"ALL"]
+ const status=req.params.status
+  if (!list.includes(status)) {
+    return res.json({
+      message: "The status you entered is not a valid status"
+    });
+  }
+  try {
+    //if condtion to make sure it is a valid status
+    const criteria = req.params.status;
+    const query = await Project.find({ status: criteria });
+
+    return res.json({ data: query });
+  } catch (e) {
+    return res.json({ error: e });
+  }
+});
+
+
+
+
 module.exports=router
