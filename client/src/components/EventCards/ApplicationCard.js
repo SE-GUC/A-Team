@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-
 import axios from 'axios'
 import M from 'materialize-css';
 
@@ -40,12 +39,36 @@ class EventCard extends Component {
         this.setState({partner_initiated:this.props.data.partner_initiated})
     } 
     applybtn() {
+        this.setState({submitState:true})
+        this.apply2()
         const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
-        axios.post(url,{
-            applicant_id:"5cae2d049cd95a5754daa7e4"
-        })
+
+        axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+          }).then(res=>{
+              console.log('geh hena?')
+              console.log(res)
+          });
     }
-    
+    apply2() {
+        const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
+
+        axios({
+            method: 'POST',
+            url: url,
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+          }).then(res=>{
+             // console.log('geh hena?')
+              console.log(res)
+          });
+
+    }    
 
     render() {
         return (
@@ -74,13 +97,10 @@ class EventCard extends Component {
             </div>
      
     
-	<div class="" >
+	<div  >
 		<div class="col s12 m6">
 			<div class="card blue-grey darken-1">
-				<div class="card-content white-text" id="cardContent">
-					<div class="card__meta">
-						<time>{}</time>
-					</div>
+            <div class="card-content white-text" id="cardContent">
 					<span class="card-title">{this.state.name}</span>
                     <p>---------------------------------------------------------</p>
                         
@@ -92,14 +112,10 @@ class EventCard extends Component {
                     <p><b>Speakers:</b> {this.state.speakers}</p>
                     <p><b>Topics:</b> {this.state.topics}</p>
                     <p><b>Type:</b> {this.state.type}</p>
-
-				</div>
-
-
-
-				<div class="card-action">
-                <a onClick={()=>this.applybtn()} class="waves-effect waves-light btn">Apply</a>
-
+                    <br></br>
+                    <center>
+                        <button type='button' onClick={()=>this.applybtn()} class="waves-effect waves-light btn-small green darken-2">Apply</button>
+                        </center>
 				</div>
 			</div>
 		</div>

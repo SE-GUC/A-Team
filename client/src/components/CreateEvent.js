@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'; 
-
-
-  
+import moment from 'moment'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";  
   
 
 class CreateEvent extends Component {
@@ -30,9 +30,40 @@ class CreateEvent extends Component {
             chosentypearray:[],
             ch:[],
             type5:'',
-            speaker:''
-        }
+            speaker:'',
+            startDate: new Date(),
+           shalabySpeakr:[]       }
 
+    }
+    onChipAddSpeaker=()=>{
+      var result = [];
+      var elem = document.getElementById('speaker-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ speakers: result });
+      console.log(this.state.speakers)
+    }
+    onChipAddPrice=()=>{
+      var result = [];
+      var elem = document.getElementById('price-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ price: result });
+      console.log(this.state.price)
+    }
+    onChipAddTopic=()=>{
+      var result = [];
+      var elem = document.getElementById('topics-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ topics: result });
+      console.log(this.state.topics)
     }
     componentDidMount(){
       let elems = document.querySelectorAll('.dropdown-trigger');
@@ -45,8 +76,8 @@ class CreateEvent extends Component {
         var cap=[]
 
         for(let c=0;c<res.data.data.length;c++){
-          if(res.data.data[c].booked==='Available'){
-              locc.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangelocation} id={res.data.data[c]._id}
+          if(res.data.data[c].booked==='Available'){  
+              locc.push(<li><button style={{color:'black'}} class="waves-effect waves-light btn green lighten-3" onClick={this.handleChangelocation} id={res.data.data[c]._id}
               >{res.data.data[c].title}: {res.data.data[c].subtitle} Capactity{res.data.data[c].capacity}</button></li>)
               this.setState({remaining_places:res.data.data[c].capacity}) 
         }
@@ -57,20 +88,27 @@ class CreateEvent extends Component {
       .catch(error =>{
         console.log(error)
       })
-      var elems1 = document.querySelectorAll('.chips');
-      M.Chips.init(elems1, {inDuration: 300, outDuration: 225});
+      var elems1 = document.getElementById('speaker-chips');
+      M.Chips.init(elems1, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Speaker'});
+      var elems7 = document.getElementById('price-chips');
+      M.Chips.init(elems7, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Price'});
+      var elems8 = document.getElementById('topics-chips');
+      M.Chips.init(elems8, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Topic'});
     
       var ty=[]
         axios.get('http://localhost:4000/api/events/getTypesHoss')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
-            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p]}>{response.data.data[p].name}</button></li>)
+            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p].name}>{response.data.data[p].name}</button></li>)
           }
         })
         .catch(error =>{
           console.log(error)
         })
         this.setState({type:ty})
+
+        var elemsdate = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(elemsdate, {inDuration: 300, outDuration: 225});
     }
     
 setname=(event)=>{
@@ -108,84 +146,140 @@ handleChangelocation=(event)=>{
  this.setState({chosen:event.target.id})
 console.log(this.state.chosen)
   }
+  handleChangedate=(event)=> {
+    this.setState({startDate: event.target.value});
+  }
 handleChangetype = event=> {
   event.preventDefault();
+  console.log(event.target.id)
     // this.setState({chosen_type:event.target.id})
     this.state.chosentypearray.push(event.target.id)
     console.log(this.state.chosen_type)
     console.log(this.state.chosentypearray)
   }
-handleClick=event=>
-    {
+  handleClick=event=>
+  {
+    event.preventDefault();
 
-      event.preventDefault();
-      var allSpeakers=this.state.speaker.split(',')
-      var allPrices=this.state.price.split(',')
-      var alltopics=this.state.topics.split(',')
-      const url= 'http://localhost:4000/api/events/'
-      console.log(url)
-      const body= {
-        price:allPrices,
-        location:this.state.chosen,
-        name:this.state.name,
-        about:this.state.about,
-        remaining_places:this.state.remaining_places,
-        speakers:allSpeakers,
-        topics:alltopics,
-        type:this.state.chosentypearray,
-        partner_initiated:'5cae2d049cd95a5754daa7e4'
+    const url= 'http://localhost:4000/api/events/'
+    if(this.state.name===''){
+      const msg='you have to enter a name'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+    if(this.state.price.length===0){
+      const msg='you have to enter a price'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+      if(this.state.about===''){
+        const msg='you have to tell us what this event is about'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
       }
-      console.log(body)
-      axios.post(url,body)
-      .then(res =>{  
+    else{
+    if(this.state.speakers.length===0){
+      const msg='you have to enter atleast 1 speaker'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }  
+    else{
+    if(this.state.topics.length===0){
+      const msg='you have to enter atleast 1 topics'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+      if(this.state.chosen===''){
+        const msg='you have to enter a location'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+      }else{
+        if(this.state.chosentypearray.length===0){
+          const msg='you have to enter atleast one type'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+        }
+        
+
+    else{
+      
+
+  //  var allSpeakers=this.state.speaker.split(',')
+//    var allSpeakers=this.state.speaker.split(',')
+   // var allPrices=this.state.price.split(',')
+   // var alltopics=this.state.topics.split(',')
+    
+    
+    axios({
+        method: 'POST',
+        url: url,
+        headers: {
+            authorization: localStorage.getItem('token')
+        }, 
+        data: {
+          price:this.state.price,
+          location:this.state.chosen,
+          name:this.state.name,
+          about:this.state.about,
+          remaining_places:this.state.remaining_places,
+          speakers:this.state.speakers,
+          topics:this.state.topics,
+          event_date:this.state.startDate,
+          type:this.state.chosentypearray
+        }
+      }).then(res=>{
         alert('posted successfully')
         console.log(res)
       })
-      .catch(function (error){
-        console.log(error)
-      })
+    .catch(function (error){
+      console.log(error)
+    })
     }
-    
-    
+  }
+}
+  }
+}
+}}   
+  }
     render()
     {
         return(
           <div>
-                      <h6>Hey</h6>
-                      <h6>Hey</h6>
-                      <h6>Hey</h6>
-
-                
-                <br/>
-                
-          
-          <div class="row">
-          <form onSubmit={this.handleClick} class="col s12">
+          <div class="container">
+          <h4>Create Event</h4>
+          <p>Please be advised that Your Event won't be seen by others until its is approved by Lirten-Hub</p>
+          <br></br>
+          <form onSubmit={this.handleClick} className='eventForm'>
             <div class="row">
               <div class="input-field col s6">
-                <input placeholder="Name of the Event" state={this.state} id="Event_name" type="text" class="validate" onChange={this.setname}/>
-                <label for="Event_name"></label>
+              <i class="material-icons prefix">event</i>
+              <input placeholder="Event Name" state={this.state} id="Event_name" type="text" class="validate" onChange={this.setname}/>
+              <label for="Event_name">Event Name</label>
               </div>
               <div class="input-field col s6">
-                <input placeholder="Add prices (Separate prices by commas)" state={this.state} id="price_id" type="text" class="validate" onChange={this.setprice}/>
-                   <label for="price_id"></label>
+              <i class="material-icons prefix" >monetization_on</i>
+                   <div id="price-chips" type="text" className='chips' onKeyUp={this.onChipAddPrice} onKeyPress={this.onChipAddPrice} onKeyDown={this.onChipAddPrice}/>
+                   <label for="price-chips"></label>
               </div>
             </div> 
             <div class="row">
               <div class="input-field col s12">
-                <input placeholder="about" id="about_id" state={this.state} type="text" class="validate" onChange={this.setabout}/>
+              <i class="material-icons prefix" style={{marginTop:'1px'}}>info</i>
+                <textarea placeholder="about" id="about_id" state={this.state}  class="materialize-textarea" onChange={this.setabout}/>
                 <label for="about_id"></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <input placeholder="Add speakers (Separate speakers by commas)" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
+              <i class="material-icons prefix">mic</i>
+              <div id='speaker-chips' className='chips' onKeyUp={this.onChipAddSpeaker} onKeyPress={this.onChipAddSpeaker} onKeyDown={this.onChipAddSpeaker}></div>
                 <label for="about_id"></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <input placeholder="Add topics (Separate topics by commas)" id="topics_id" state={this.state} type="text" class="validate" onChange={this.settopics}/>
+              <i class="material-icons prefix">book</i>
+                <div id="topics-chips"  className='chips' onKeyUp={this.onChipAddTopic} onKeyPress={this.onChipAddTopic} onKeyDown={this.onChipAddTopic}/>
                 <label for="topics_id"></label>
               </div>
             </div>
@@ -218,7 +312,8 @@ handleClick=event=>
                   <input class="custom-class" id="topics_id" onChange={this.settopics}/>
                   </div>
               </div> */}
-              <div class="row">
+             <div className='row'>
+             <div class="row">
                   <a class='dropdown-trigger btn' href='#' data-target='dropdown2' >Select Type</a>
                       <ul id='dropdown2' class='dropdown-content'>
                       {this.state.type}
@@ -230,18 +325,33 @@ handleClick=event=>
                   {this.state.location}
                   </ul>
                   </div>
-                  <br/>
-          
-                  
+                  </div>
+                  <div class="row">
+                  <div className="input-field col s6">
+                  <i class="material-icons prefix">event</i>
+                    <input type="date" onChange={this.handleChangedate} />
+                    
+                  </div>
+                  <div className=" col s6"></div>
+                  </div>
+                  <br/>   
                    <br/>
                   <br/>
                   <div class="row">
+                  <div className='input-field col s12'>
+                  </div>
+                  </div>
+                  <br/>
+          
+                  
+                  <div class="row" style={{marginRight:'80px'}}>
                   <div class="col s10 offset-s1 center-align">
-                  <button class="btn waves-effect waves-light" name="action" state={this.state} onClick={this.handleClick}>Submit Form
+                  <button class="waves-effect waves-light btn green darken-2" name="action" state={this.state} onClick={this.handleClick}>Submit Form
                     <i class="material-icons right"></i>
                   </button>
                   </div>
                   </div>
+                  
           </form>
         </div>
         </div>

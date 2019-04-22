@@ -10,9 +10,17 @@ router.get('/', async (req,res) => {
 })
 
 // get single
-router.route('/:title').get(async (request, response) => {
+router.route('/searchbytitle/:title').get(async (request, response) => {
   try {
     const locations = await Location.find({title:request.params.title}).exec()
+    return response.json({ data: locations })
+  } catch (err) {
+    return response.json({ error:" Error, couldn't find a event given the following title" })
+  }
+})
+router.route('/:id').get(async (request, response) => {
+  try {
+    const locations = await Location.findById(request.params.id)
     return response.json({ data: locations })
   } catch (err) {
     return response.json({ error:" Error, couldn't find a event given the following title" })

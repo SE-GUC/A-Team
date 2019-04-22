@@ -16,9 +16,9 @@ export class Form extends Component {
     price: "1",
     is_assigned: "",
     partner_id: "5cae373eaea50e48600c8483", //Assuming Session
-    time_expected: "1 Day(s)",
+    time_expected: "28 Day(s)",
     level_of_comitment: "Moderate",
-    experience_needed: "1 Day(s)",
+    experience_needed: "28 Day(s)",
     description: "",
     skills: [],
     all_skills: []
@@ -119,7 +119,17 @@ export class Form extends Component {
     this.getSkillFromDB();
   }
   renderLoading() {
-    return <div>Loading...</div>;
+    return <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>;
   }
   renderError() {
     return <div>Ooops, : {this.state.error.message}</div>;
@@ -133,15 +143,16 @@ export class Form extends Component {
 
   render() {
     return (
-      <div>
-        <div className="layoutTaskForm">
-          <div className="layoutTaskFormInner">
+      <div >
+        <div>
+          <div >
             <div className="container">
-              <form onSubmit={this.handleSubmit} className="cols12">
-                <div className="section">
-                  <h4>Task Details:</h4>
-                  <div className="row">
-                    <div className="input-field col s6">
+            <h4>Create a Task:</h4>
+            <p>Please Be Advised that the Task won't be posted untik it is apprved by Lirten-Hub</p>
+              <form onSubmit={this.handleSubmit} className="taskForm" >
+                <div >
+                  <div className='row' title='Task Name and Time-Expected'>
+                  <div className="input-field col s6">
                       <TaskBasicField
                         className="text"
                         state={this.state}
@@ -149,76 +160,75 @@ export class Form extends Component {
                         type="text"
                         func={this.setname}
                       />
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <TaskDatePack
+                      </div>
+                      <div className="col s6"  style={{marginTop:'15px'}}>
+                      <TaskDatePack
                       id="1"
                       fieldname="Time Expected"
                       func={this.setTime}
                     />
+                      </div>  
                   </div>
-
-                  <div className="input-field col s12">
+                  <div className="row" title="Description">
+                    <div className="input-field col s12">
                     <TaskBasicField
                       fieldname="Task Description"
                       type="bigtext"
                       func={this.setDescription}
                     />
+                    </div>
                   </div>
-                </div>
-
-                <h4>Pricing:</h4>
-                <div className="section">
-                  <tr>
-                    <td>
-                      <TaskBasicField
+                  <center> <h4>Pricing:</h4></center>
+                  <div class='row' title="Pricing">
+                  <div className='input-field col s6'>
+                  <TaskBasicField
                         classname="money"
                         fieldname="Compensation"
                         type="number"
                         func={this.setCompensation}
                       />
-                    </td>
-                    <td>Your Price Offer for the Task in EGP</td>
-                  </tr>
-                </div>
-
-                <h4>Requierements:</h4>
-                <div className="row">
-                  <TaskDatePack
+                  </div>
+                  <div className='col s6' style={{marginTop:'30px'}}>
+                  <p>Your Price Offer for the Task in EGP</p>
+                  </div>
+                  </div>
+                  <center><h4>Requierements:</h4></center>
+                  <div className="row" title="Experience and level of commitment" style={{marginBottom:'40px'}}>
+                    <div className='col s6'>
+                    <TaskDatePack
                     id="2"
                     fieldname="Experience required"
                     func={this.setExperience}
                   />
-                </div>
-                <div className="row">
-                  <TaskCommitment func={this.setCommitment} />
-                </div>
-
-                <br />
-                
-                <Skills
+                    </div>
+                    <div className='col s6' style={{borderLeft:'1px dashed black'}}>
+                    <TaskCommitment func={this.setCommitment} />
+                    </div>
+                  </div>
+                  <div className='row' title="Skills">
+                  <div className='col s6'>
+                  <Skills
                   addSkill={this.addSkill}
                   delSkill={this.delSkill}
                   skills={this.state.skills}
                   state={this.state}
                   col={this.state.all_skills}
                 />
-
-                <div className="row">
-                  <div className="input-field col s4" />
-                  <div className="input-field col s4">
-                    <input
+                  </div>
+                  <div className= 'col s6' style={{marginTop:'20px'}}>
+                  <p>Please Enter The Skills that are required</p>
+                  <p>You have to Enter at least one skill</p>
+                  <p>Please Review the information you Entered before submitting</p>
+                  <input
                       type="submit"
                       value="Submit"
-                      className="waves-effect waves-light btn-large"
+                      className="waves-effect waves-light btn-large green darken-2"
                       state={this.state}
                     />
                   </div>
-                  <div className="input-field col s4" />
+                  </div>
                 </div>
-              </form>
+           </form>
             </div>
           </div>
         </div>

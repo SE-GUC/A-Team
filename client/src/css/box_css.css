@@ -1,10 +1,50 @@
-body,a,p,li,input,h1,h2,h3,h4,h5,h6,table,tr,td,ul,span,i,div,nav,th,b,strong{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #f4f4f4;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 }
-body{
-  background: #f4f4f4
+
+main {
+  flex: 1 0 auto;
 }
-::placeholder{
+a,
+p,
+li,
+input,
+table,
+tr,
+td,
+ul,
+span,
+i,
+div,
+nav,
+th,
+label,
+ul {
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
+b,
+strong,
+h6,
+h5 {
+  font-weight: 900;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: Arial Black, Arial Bold, Gadget, sans-serif;
+}
+a:hover {
+  text-decoration: wavy;
+  color: royalblue;
+  transition: 400ms;
+}
+::placeholder {
   color: dimgrey;
   opacity: 0.8;
 }
@@ -14,6 +54,9 @@ body{
   height: 43px;
   border-radius: 8%;
   margin: 8px;
+}
+.input[type="submit"]:hover {
+  background: gold;
 }
 .form {
   height: 100%;
@@ -45,8 +88,7 @@ body{
   align-content: center;
 }
 .input[type="text"] {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: inherit;
   color: cadetblue;
 }
 .datepack {
@@ -72,8 +114,7 @@ body{
 select {
   padding: 5px 5px;
   margin: 2px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: inherit;
   border: none;
   border-radius: 4px;
   background-color: azure;
@@ -81,8 +122,6 @@ select {
 }
 option {
   padding: 5px 5px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   border: none;
   border-radius: 4px;
   background-color: azure;
@@ -171,8 +210,7 @@ td {
   background: #f4f4f4;
   border: black solid 2px;
   border-radius: 10%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: inherit;
   text-align: left;
   width: 200px;
   height: 30px;
@@ -247,38 +285,78 @@ td {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.Steps{
+.Steps {
   height: 900px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   border-bottom: 1px darkgrey dashed;
   margin-bottom: 15px;
-
 }
-.Steps1{
+.Steps1 {
   height: 800px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   border-bottom: 1px darkgrey solid;
   margin-bottom: 15px;
-
 }
-.StepsM{
+.StepsM {
   height: 500px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   border-bottom: 1px darkgrey dashed;
   margin-bottom: 15px;
-
 }
-.StepsF{
+.StepsF {
   height: 500px;
   border: 2px darkgrey solid;
   padding: 20px;
   padding-left: 30px;
   margin-bottom: 15px;
-
 }
+.taskForm {
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  height: 900px;
+}
+.projectForm {
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  height: 500px;
+}
+.eventForm {
+  border: 2px solid #212121;
+  margin-bottom: 50px;
+  padding-top: 10px;
+}
+.fa.fa-star{
+  padding: 0px;
+  margin: 0px;
+  width:20px;
+}
+.fa-star {
+  transition: 0ms;
+  opacity: 1;
+  background: transparent;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  text-decoration: none;
+}
+.fa-star:hover {
+  color:gold
+}
+.fa-star.checked {
+  color: gold;
+}
+.fa-star.checked:hover {
+  background: transparent;
+  transition: 0ms;
+  color:yellow
+}
+.whiteph::placeholder{
+  color:whitesmoke
+}
+/*fa fa-star checked*/

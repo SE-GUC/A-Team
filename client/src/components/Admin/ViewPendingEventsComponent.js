@@ -31,9 +31,8 @@ class ViewPendingEventsComponent extends React.Component {
 
     componentDidMount() {
       
-        axios.get('http://localhost:4000/api/getPending/')
+        axios.get('http://localhost:4000/api/events/getPending/')
             .then(res => {
-                console.log(res.data.data)
                 this.setState({
                     elements: res.data.data
                 })
@@ -47,8 +46,6 @@ class ViewPendingEventsComponent extends React.Component {
 
 
     }
-
-
     render() {
         if(!this.state.loading) {
             console.log(this.state.elements)
@@ -70,9 +67,17 @@ class ViewPendingEventsComponent extends React.Component {
         );
         } else {
             return(
-                <div>
-                    Loading...
-                </div>
+                <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+                    </div>
             )
         }
     }

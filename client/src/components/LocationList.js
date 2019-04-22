@@ -32,7 +32,17 @@ class LocationList extends Component {
 
     }
     renderLoading() {
-        return <div>Loading...</div>
+        return <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     }
     renderError() {
         return (
@@ -63,9 +73,8 @@ class LocationList extends Component {
             <div className="m">
             
             <p className="Table-header" align="center">Locations</p>
-            <LocationTable data={this.state.locations}/> {/*
-            As you can see, and bas bdkhl guwa hena el array el gebto men TaskList, mgm3 hena?ahh ana i mean fel app.cs i dont know how to viok stoepw
-            */}
+            <LocationTable data={this.state.locations}/> {
+            }
             
             </div>
 

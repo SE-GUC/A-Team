@@ -1,0 +1,189 @@
+.iul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .ili {
+    text-decoration: none;
+    float: left;
+    color: aliceblue;
+    margin: 5px;
+    padding: 10px;
+    border-right: aliceblue 2px solid;
+    opacity: 0.7;
+    font-family:  Montserrat, "Open Sans", Helvetica, Arial, sans-serif;;
+  }
+
+  .ili:hover {
+    opacity: 1;
+    text-decoration: none;
+    font-family:  Montserrat, "Open Sans", Helvetica, Arial, sans-serif;;
+  }
+
+  .githublogo {
+    text-decoration: none;
+    float: left;
+    color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-right: aliceblue 2px solid;
+    opacity: 0.7;
+    font-family: - Montserrat, "Open Sans", Helvetica, Arial, sans-serif;;
+    background: url(https://git-scm.com/images/logos/downloads/Git-Logo-White.png) no-repeat left center;
+    background-size: 90%;
+
+  }
+
+  .githublogo:hover {
+    color: transparent;
+    opacity: 1;
+  }
+
+  .homebtn {
+    text-decoration: none;
+    float: left;
+    color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-right: aliceblue 2px solid;
+    opacity: 0.7;
+    font-family:  Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+    background: url(https://www.indiaretailing.com/wp-content/uploads/2016/02/Home-Button.png) no-repeat left center;
+    background-size: 90%;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .homebtn:hover {
+    color: transparent;
+    opacity: 1;
+  }
+  .fa {
+    padding: 15px;
+    font-size: 15px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    margin: 3px;
+  }
+  
+  
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  .fa-facebook:hover{
+      transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:#3B5998;
+      text-decoration: none;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  .fa-twitter:hover{
+    transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:#55ACEE;
+      text-decoration: none;
+  }
+  
+  .fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+  .fa-google:hover{
+    transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:#dd4b39;
+      text-decoration: none;
+  }
+  
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  .fa-linkedin:hover{
+    transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:#007bb5;
+      text-decoration: none;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  .fa-youtube:hover{
+    transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:#bb0000;
+      text-decoration: none;
+  }
+  .fa-rss {
+    background: #ff6600;
+    color: white;
+  }
+  .fa-rss:hover{
+    transition: 700ms;
+      opacity: 1;
+      background: #212121;
+      color:#ff6600;
+      text-decoration: none;
+  }
+ #login-btn-nav:hover{
+   background: #212121;
+    
+ }
+.login-box:hover{
+  transition:700ms;
+  color:green;  
+}
+.login-div-cancel{
+  color:#d32f2f;
+}
+.login-div-cancel:hover{
+  color:#d32f2f;
+}
+.login-div{
+  transition: 600ms;
+}
+
+
+.loginb span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.loginb span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.loginb:hover span {
+  color:green;
+  padding-right: 25px;
+}
+
+.loginb:hover span:after {
+  opacity: 1;
+  right: 0;
+}

@@ -7,17 +7,19 @@ import axios from "axios";
 import M from "materialize-css";
 export class Register extends Component {
   state = {
+    takenEmails:[],
+    takenUnames:[],
     col: { data: ["adams", "barbra", "cat", "doggo"] },
     currentStep: 1, // Should be 1 intially
-    type: ["C"], //feault is M
-    name: "youssef shalaby 1",
-    email: "youshalabyP@gmail.com",
-    username: "Shalaby8P9",
-    password: "123456789",
-    password2: "123456789",
-    date_of_birth: "23/09/1998",
-    phone: "01119455455",
-    intrests: ["Art"],
+    type: ["M"], //feault is M
+    name: "",
+    email: "",
+    username: "",
+    password: "",
+    password2: "",
+    date_of_birth: "",
+    phone: "",
+    intrests: [],
     is_private: false,
     all_skills: [],
     //CA
@@ -32,9 +34,17 @@ export class Register extends Component {
     //field_of_work: [],
     //board_members: []
   };
+  addURL=(url)=>{
+    var array=this.state.reports
+    array.push(url)
+    this.setState({reports:array})
+    console.log(url,"From MAIN")
+  }
   componentDidMount() {
     this.getIntrestfromDB();
     this.getSkillFromDB();
+    this.getEmailfromDB();
+    this.getUsernamefromDB();
   }
   addSkill = newskill => {
     var update = this.state.skills;
@@ -64,6 +74,32 @@ export class Register extends Component {
     }
     this.setState({ skills: uskills });
   };
+  getUsernamefromDB=()=>{
+    try {
+      axios
+        .get("http://localhost:4000/api/tasks/alluserNames")
+        .then(res => {
+          this.setState({ takenUnames: res.data });
+          //console.log("Fetched ALl the EMails in The DB",res.data)
+          return res;
+        });
+    } catch (error) {
+      console.log("error");
+    }
+  }
+  getEmailfromDB= () =>{
+    try {
+      axios
+        .get("http://localhost:4000/api/tasks/allemails")
+        .then(res => {
+          this.setState({ takenEmails: res.data });
+          //console.log("Fetched ALl the EMails in The DB",res.data)
+          return res;
+        });
+    } catch (error) {
+      console.log("error");
+    }
+  }
   getSkillFromDB = () => {
     try {
       axios
@@ -118,18 +154,25 @@ export class Register extends Component {
     if (currentStep === 1) {
       //edit later currentStep === 1
       //nwraeeh el button ama yekteb hagto
-      const { name, email, username, phone, password, password2,intrests } = this.state;
+      const { name, email, username, phone, password, password2,intrests,date_of_birth } = this.state;
+      var array=this.state.takenEmails
+      var chkr= array.includes(email);
+      var array1=this.state.takenUnames
+      var chkr1=array1.includes(username)
+      console.log(date_of_birth)
       if (
         name !== "" &&
         email !== "" &&
         email.includes("@") &&
-        username.length > 8 &&
-        password.length > 8 &&
-        password2.length > 8 &&
+        username.length >= 8 &&
+        password.length >= 8 &&
+        password2.length >= 8 &&
         password === password2 &&
         phone !== "" && 
         intrests.length !==0
-
+        &&(chkr===false)
+        &&(chkr1===false)
+        && date_of_birth.includes('-')
       ) {
         return (
           <button
@@ -369,7 +412,7 @@ export class Register extends Component {
           <h3>Registration Form</h3>
           <p>
             Step {this.state.currentStep} (Next Button Will Appear when you
-            finsih required fields)
+            finish required fields)
           </p>
           <div  className="col s12">
             <Step1
@@ -388,6 +431,8 @@ export class Register extends Component {
               addSkill={this.addIntrest}
               delSkill={this.delIntrest}
               col={this.state.col}
+              takenEmails={this.state.takenEmails}
+              takenUnames={this.state.takenUnames}
             />
             <Step2
               handleChange={this.handleChange}
@@ -406,6 +451,7 @@ export class Register extends Component {
               addBoard={this.addBoard}
               delBoard={this.delBoard}
               setReport={this.setReport}
+              addURL={this.addURL}
             />
             <Step3
               handleChange={this.handleChange}

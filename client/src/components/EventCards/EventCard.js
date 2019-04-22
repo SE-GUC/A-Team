@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
+import '../../css/TaskCardContainer.css'
+
 import axios from 'axios'
 
 
@@ -23,19 +25,29 @@ class EventCard extends Component {
 
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
+        var loctaionid=''
         console.log(this.props.data)
         this.setState({id:this.props.data})
             this.setState({name:this.props.data.name})
             this.setState({remaining_places:this.props.data.remaining_places})
-            this.setState({location:this.props.data.location})
+            //this.setState({location:this.props.data.location})
+            loctaionid=this.props.data.location
             this.setState({about:this.props.data.about})
             this.setState({price:this.props.data.price})
             this.setState({speakers:this.props.data.speakers+','})
             this.setState({topics:this.props.data.topics+ ','})
             this.setState({type:this.props.data.type})
             this.setState({partner_initiated:this.props.data.partner_initiated})
-
+            await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+                    .then(res=>{
+                        console.log(res)
+                        var c= ""+res.data.data.title+", "+res.data.data.subtitle
+                        this.setState({location:c})
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
 
     }
 
@@ -70,7 +82,8 @@ class EventCard extends Component {
 
 				</div>
 				<div class="card-action" id = "cardAction">
-
+                <div style={{paddingTop:'25px'}}>
+                </div>
 				</div>
 			</div>
 		</div>

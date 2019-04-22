@@ -23,17 +23,24 @@ class ViewPendingEvents extends Component {
             time_of_edit:'',
             feedbacks:[],
             responses_from_admin:[],
-            applicants:[]
+            applicants:[],
+            response:'',
+            is_accepted:false,
+            partner:''
 
         }
     }
-    componentDidMount() {
+    handleChangeText =(event) => {
+        this.setState({response:event.target.value})
+    }
+    async componentDidMount() {
+        var loctaionid=''
         this.setState({
             id: this.props.value
         })
         
         
-        axios.get('http://localhost:4000/api/events/getPendingId/'+this.props.value)
+       await axios.get('http://localhost:4000/api/events/getid/'+this.props.value)
             .then(res => {
                 this.setState({
                     remaining_places: res.data.data.remaining_places
@@ -44,9 +51,10 @@ class ViewPendingEvents extends Component {
                 this.setState({
                     name: res.data.data.name
                 })
-                this.setState({
-                    location: res.data.data.location
-                })
+                // this.setState({
+                //     location: res.data.data.location
+                // })
+                loctaionid=res.data.data.location
                 this.setState({
                     about: res.data.data.about
                 })
@@ -83,28 +91,51 @@ class ViewPendingEvents extends Component {
                 this.setState({
                     applicants: res.data.data.applicants
                 })
+                this.setState({
+                    partner:res.data.data.partner_initiated
+                })
               
             })
             .catch(err => {
                 console.log(err)
             })
+                await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+                .then(res=>{
+                    console.log(res)
+                    var c= ""+res.data.data.title+", "+res.data.data.subtitle
+                    this.setState({location:c})
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
            
     }
     sbmtbtn() {
         this.setState({submitState:true})
-        const url='http://localhost:4000/api/events/'+this.state.id +'/feedback'
-        axios.post(url,{
-            user_id:"5cae2d049cd95a5754daa7e4", //da ghalat, admin id hayethat hena
-            comment:this.state.message,
-            rate:this.state.range
-
-        })
+        const url='http://localhost:4000/api/events/'+this.state.id +'/adminresponse'
+        axios({
+        method: "POST",
+        url: url,
+        headers: {
+            authorization: localStorage.getItem("token")
+        },
+        data: {
+            response: this.state.response,
+            is_accepted: this.state.is_accepted
+        }
+        }).then(res => {
+        console.log("geh hena?");
+        console.log(res);
+        });
     }
     accept(){
-        this.setState({submitState:true})
+        this.setState({is_accepted:true})
      
         axios.put('http://localhost:4000/api/events/' + this.props.value, {
-            state: 'ACCEPTED'
+            status: 'ACCEPTED'
+        })
+        axios.post('http://localhost:4000/api/users/'+this.state.partner+'/addcreatedevent', {
+            eventid:this.state.id
         })
     }
 
@@ -140,9 +171,9 @@ class ViewPendingEvents extends Component {
                     <p><b>Status:</b> {this.state.status}</p>
                     <p><b>Attendees:</b> {this.state.attendees}</p>
                     <p><b>Time of edit:</b> {this.state.time_of_edit}</p>
-                    <p><b>Feedback:</b> {this.state.feedbacks}</p>
+                    {/* <p><b>Feedback:</b> {this.state.feedbacks}</p>
                     <p><b>Response:</b> {this.state.responses_from_admin}</p>
-                    <p><b>Applicants:</b> {this.state.applicants}</p>
+                    <p><b>Applicants:</b> {this.state.applicants}</p> */}
 
 				</div>
                 
@@ -154,7 +185,8 @@ class ViewPendingEvents extends Component {
                    
                     </label>
                 </p>
-            <a onClick={this.accept} class="waves-effect waves-light btn">Accept</a>
+
+            <a onClick={()=>this.accept()} class="waves-effect waves-light btn">Accept</a>
 				</div>
 			</div>
 		</div>

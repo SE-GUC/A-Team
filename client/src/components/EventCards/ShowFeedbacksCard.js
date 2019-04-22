@@ -64,6 +64,7 @@ class ShowFeedbacks extends Component {
                     <p><b>Rate:</b> {this.state.rate}</p>
 				</div>
 				<div class="card-action">
+                
 
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'materialize-css/dist/css/materialize.min.css';
+import '../css/TaskCardContainer.css'
 import M from "materialize-css";
 
 class TaskCard extends Component {
@@ -91,7 +92,7 @@ class TaskCard extends Component {
     <br/>
     <br/>
     {/* <div class="container" width="120"> */}
-    <div class="">
+    <div class="" id="manga">
             <div class="card blue-grey darken-1" id="cardHopefully">
                 <div class="card-content white-text" id="cardContent">
                     <div class="card__meta">
@@ -114,9 +115,9 @@ class TaskCard extends Component {
                 </div>
                 <div class="card-action" id="cardAction">
                 <div style={{paddingTop:'10px'}}>
-                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.applyTask}>Do I have the Required Skills?
+                        <button class="waves-effect waves-light btn-small yellow accent-2" type="submit" id="reqBut" name="action" onClick={this.applyTask}>Do I have the Required Skills?
                         </button>
-                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.applyTask}>Apply
+                        <button class="waves-effect waves-light btn-small green darken-2" type="submit" name="action" onClick={this.applyTask}>Apply
                         </button>
                         </div> 
                 </div>

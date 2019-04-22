@@ -54,7 +54,7 @@ class GetEventsByType extends Component {
                     Type:
                     <input type="text" name="type" onChange={this.handleChange} />
                 </label>
-                <button type="submit">Search Events by type</button>
+                <button type="submit" className="waves-effect waves-light btn cyan darken-3">Search Events by type</button>
                 <ul>
             <li>
             <Table data={this.state.events}/>             
@@ -83,7 +83,7 @@ class GetEventsByType extends Component {
                 </label>
                 
                 <br/>
-                <button type="submit">Search Events by type</button>
+                <button type="submit" className='waves-effect waves-light btn cyan darken-3'>Search Events by type</button>
             </form>
             </div>
             

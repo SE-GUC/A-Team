@@ -48,13 +48,13 @@ class MainPage extends Component {
                 <p>
                        
                 </p>
-                <a onClick={()=>this.toggle()} href="ViewAllEventsContainer" class="waves-effect waves-light btn">Events</a>
+                <a onClick={()=>this.toggle()} href="viewpendingevents" class="waves-effect waves-light btn">Events</a>
 				</div>
                 <div class="card-action">
                 <p>
                        
                 </p>
-                <a onClick={()=>this.toggle2()} href="ViewAllProjectsComponent"  class="waves-effect waves-light btn">Projects</a>
+                <a onClick={()=>this.toggle2()} href="viewallproj"  class="waves-effect waves-light btn">Projects</a>
 				</div>
           </div>
         );

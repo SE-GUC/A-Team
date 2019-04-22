@@ -29,14 +29,19 @@ class ApplicaitonCardContainer extends React.Component {
         })
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/api/events/')
-            .then(res => {
-                this.setState({events: res.data.data})
-                this.setState({elements:res.data.data})
-                this.setState({loading:false})
+        axios('http://localhost:4000/api/events/geteligible', {
+            method: 'GET',
+            headers: {
+              'authorization': localStorage.getItem('token')
+            }
+          })
+          .then(res => {
+            console.log(res)
+            this.setState({elements:res.data.data})
+            this.setState({loading:false})
             })
-            .catch(err => {
-                console.log("oislijdlijSfiz")
+          .catch(err => { 
+              console.log(err) 
             })
     }
 
@@ -55,7 +60,7 @@ class ApplicaitonCardContainer extends React.Component {
                 <div class="row">
                     <div class = "row s2">  
                         {elements1}
-                        <button class="waves-effect waves-light btn-small" type="submit" name="action" onClick={this.loadMore}>Load More</button>
+                        <button class="waves-effect waves-light btn-small  green darken-3" type="submit" name="action" onClick={this.loadMore}>Load More</button>
 
                     </div>
                 </div>
