@@ -161,7 +161,7 @@ export class PostForm extends Component {
                       <TaskBasicField
                         className="text"
                         state={this.state}
-                        fieldname="Porject Name"
+                        fieldname="Project Name"
                         type="text"
                         func={this.setname}
                       />
