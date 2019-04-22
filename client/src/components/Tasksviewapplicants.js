@@ -3,23 +3,28 @@ import axios from "axios";
 import Collapsible from 'react-collapsible';
 class Tasksviewapplicants extends Component {
   state = {
-    tasks:[]
+    tasks:[],
+    _id:[],
+    i:'0',
+    is_assign:true,
+    task_id:'',
+    assign_id:''
   };
-  assignapplicant = (data)=>{
-    try{
-      console.log("Fetching")
-     axios.post("http://localhost:4000/api/Tasks/assign", data).then(res => {
-        console.log(res);
-        console.log("assigned..")
-        var html="<span style='color:green'>You have Succussfuly assigned</span>"
-        M.toast({html:html })
-      //  return res.data
-      });
-    } catch (error) {
-      console.log("error");
-    }
-  }
   
+  findbyid =(id) => {
+    axios.get('http://localhost:4000/api/users/'+id).then(res => {
+      const x =res.data.data;
+      console.log(res)
+      this.setState({user_name: x.username})
+      this.setState({email: x.email}) 
+    })
+  }
+  assign =() => {
+    const data ="{'is_assigned':'true','assign_id':assign_id}";
+    axios.put('http://localhost:4000/api/tasks/assign/'+this.task_id,data).then(res => {
+      
+  })
+}
   componentDidMount () {
     axios.get(`http://localhost:4000/api/tasks/view_applicants`)
             .then(res => {
@@ -27,9 +32,8 @@ class Tasksviewapplicants extends Component {
               this.setState({tasks: res.data.data})
               
             })
-
-            
-  }
+            }
+        
   render() {
     return (
     
@@ -45,10 +49,15 @@ class Tasksviewapplicants extends Component {
     <div class="collapsible-header">
   
       <i class="material-icons">arrow_drop_down</i>
-      
+     
       <Collapsible trigger={task.name}>
       {task.applicants.map(appin => (
-            <li>{appin._id}</li>
+        
+            <li>
+
+              {appin._id}
+            </li>
+            
           ))}
     </Collapsible>
       <span class="new badge">{task.applicants.length}</span></div>
@@ -65,19 +74,22 @@ class Tasksviewapplicants extends Component {
     <div class="input-field col s6">
     <div class="input-field col s6">
     <i class="material-icons prefix">account_circle</i>
-    <input id="icon_prefix" type="text" class="validate"></input>
-    <label for="icon_prefix">Task Name</label>
+    <input id="icon_prefix" type="text" class="validate" value={this.state.task_id}></input>
+    <label for="icon_prefix">Task id</label>
     </div>
     <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
-          <input id="icon_telephone" type="tel" class="validate"></input>
-          <label for="applicant_name">Applicant name</label>
+          <input id="icon_telephone" type="tel" class="validate" value={this.state.assign_id}></input>
+          <label for="applicant_name">Applicant id</label>
         </div>
     <div class="input-field col s6">
-          <i class="material-icons prefix">phone</i>
+          <i class="material-icons prefix">Applicant name</i>
           <input id="icon_telephone" type="tel" class="validate"></input>
           <label for="icon_telephone">Telephone</label>
         </div>
+        <button class="waves-effect waves-light btn-small" type="assign" id="reqBut" name="action" onClick={this.assign()}>assign
+                        </button>
+
     </div>
     </div>
     </form>
