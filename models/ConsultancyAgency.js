@@ -8,17 +8,18 @@ const cosultancyAgencySchema = new Schema({
         type: String,
         required: true
     },
-    field_of_work: {
+    field_of_work: [{
         type: String,
-        required: true
-    },
+        required: false
+    }],
     board_members: [{
-        type: String,
-        required: true
+        name: String,
+        email: String,
+        job_title:String
     }],
     reports: [{
         type: String,
-        required: true
+        required: false
     }]
 })
 
