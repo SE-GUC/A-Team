@@ -30,8 +30,7 @@ class Tasksviewapplicants extends Component {
             .then(res => {
               console.log(res)
               this.setState({tasks: res.data.data})
-              
-            })
+ })
             }
         
   render() {
