@@ -161,7 +161,7 @@ class TaskAdminCard extends Component {
        console.log(uuid)  
        console.log('PID',this.state.partner_id)   
        const partnerURL='http://localhost:4000/api/users/'+ uuid  
-       axios.get(partnerURL)
+      await axios.get(partnerURL)
        .then(res=>{
            console.log('URL',partnerURL)
            console.log("Response",res)

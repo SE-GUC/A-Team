@@ -32,12 +32,12 @@ class TaskCardContainer extends React.Component {
     }
     loadMore=(e)=> {
         this.setState({
-            limit:this.state.limit+2
+            limit:this.state.limit+10
         })
     }
     componentDidMount() {
        
-        axios.get('http://localhost:4000/api/tasks/read/')
+        axios.get('http://localhost:4000/api/tasks/view_accepting')
             .then(res => {
                 this.setState({
                     elements: res.data.data
