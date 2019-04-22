@@ -127,10 +127,53 @@ handleChangetype = event=> {
     event.preventDefault();
 
     const url= 'http://localhost:4000/api/events/'
+    if(this.state.name===''){
+      const msg='you have to enter a name'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+    if(this.state.price.length===0){
+      const msg='you have to enter a price'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+      if(this.state.about===''){
+        const msg='you have to tell us what this event is about'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+      }
+    else{
+    if(this.state.speaker.length===0){
+      const msg='you have to enter atleast 1 speaker'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }  
+    else{
+    if(this.state.topics.length===0){
+      const msg='you have to enter atleast 1 topics'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+      if(this.state.chosen===''){
+        const msg='you have to enter a location'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+      }else{
+        if(this.state.chosentypearray.length===0){
+          const msg='you have to enter atleast one type'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+        }
+        
+
+    else{
+      
+
     var allSpeakers=this.state.speaker.split(',')
     var allPrices=this.state.price.split(',')
     var alltopics=this.state.topics.split(',')
-
+    
+    
     axios({
         method: 'POST',
         url: url,
@@ -155,8 +198,13 @@ handleChangetype = event=> {
     .catch(function (error){
       console.log(error)
     })
+    }
   }
-    
+}
+  }
+}
+}}   
+  }
     render()
     {
         return(
@@ -181,7 +229,7 @@ handleChangetype = event=> {
             <div class="row">
               <div class="input-field col s12">
               <i class="material-icons prefix">info</i>
-                <textarea placeholder="about" id="about_id" state={this.state}  class="materialize-textarea" onChange={this.setabout}/>
+                <textarea placeholder="About" id="about_id" state={this.state}  class="materialize-textarea" onChange={this.setabout}/>
                 <label for="about_id"></label>
               </div>
             </div>
