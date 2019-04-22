@@ -34,8 +34,9 @@ test("Deletes a user",async()=>{
 
   test('add event to user',async()=>{
     const response= await funcs.addEventIAttended('5cae2d049cd95a5754daa7e4', '5cadbf76f0282229d89e7bd4')
+    console.log(response)
     const allUsers= await funcs.getUsers();
-    console.log(allUsers.data.data[0])
-    expect(response.events_attended.length).toBe(allUsers.data.data[0].events_attended.length)
+    console.log(allUsers)
+    expect(response.events_attended.length).toBe(allUsers.data[0].events_attended.length-1)
   })
   
