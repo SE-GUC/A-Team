@@ -25,7 +25,23 @@ const checkToken = (req, res, next) => {
       res.sendStatus(403)
   }
 }
-
+router.get('/getByPrice/:Price', async(req,res)=>{
+  try{ 
+    const allEvents=await Event.find({}).exec()
+  if(req.params.Price==='empty')
+       return res.json({ data: allEvents }) 
+   var r= []
+   allEvents.forEach(event =>{
+     if (event.price[0]<parseInt(req.params.Price+1)){
+       r.push(event)
+     }
+   })
+   return res.json({data: r })
+ }
+ catch(err){
+   return res.json({ error: `Error, couldn't find an event given the following price` })
+ }
+ })
 
 router.get('/getEligible', checkToken, async(req,res)=> {
   jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
@@ -41,6 +57,7 @@ router.get('/getEligible', checkToken, async(req,res)=> {
         var allEvents = await Event.find({}).exec()
         // console.log(allEvents)
         const user = await User.findById(authorizedData.id).exec()
+
         // console.log(user)
         var result=[]
         // console.log(user.interests)
@@ -50,14 +67,24 @@ router.get('/getEligible', checkToken, async(req,res)=> {
           var intersection = interests.filter(value => types.includes(value))
           // console.log(intersection)
 
-          if(intersection.length>0 ){
+          if(intersection.length>0){
             console.log(user.interests)
             result.push(allEvents[i])
           }
         }
+        // console.log(result.length)
+        var resres=[]
+        for (var i=0;i<result.length;i++) {
+          if(result[i].status!=='PENDING_APPROVAL') {
+            resres.push(result[i])
+          }
+        }
+        console.log(resres)
+        // console.log(result.length)
+
         console.log('SUCCESS: Connected to protected route');
         // console.log(result)
-        return res.json({ data: result })
+        return res.json({ data: resres })
       }
       catch(err){
         console.log(err)
@@ -65,15 +92,26 @@ router.get('/getEligible', checkToken, async(req,res)=> {
     
     }
 })
+function notPending(a) {
+  if (a.status==='PENDING_APPROVAL'){
+    console.log('eh')
+    return false;
+}
+console.log('eh el kalam')
+  return true;
+}
 
 })
 
 
 
-
 router.get('/getBySpeakers/:speaker', async(req,res)=>{
   try {
+
     const allEvents = await Event.find({}).exec()
+    if(req.params.speaker==='empty')
+      return res.json({ data: allEvents }) 
+
     var result=[]
     allEvents.forEach(event =>{
       if (event.speakers.includes(req.params.speaker)){
@@ -85,26 +123,16 @@ router.get('/getBySpeakers/:speaker', async(req,res)=>{
     return res.json({ error: `Error, couldn't find an event given the following speaker` })
   }
 })
-router.get('/FilterByPrice/:Price', async(req,res)=>{
- try{ const allEvents=await Event.find({}).exec()
-  var r= []
-  allEvents.forEach(event =>{
-    if (event.price[0]<parseInt(req.params.Price+1)){
-      r.push(event)
-    }
-  })
-  return res.json({data: r })
-}
-catch(err){
-  return res.json({ error: `Error, couldn't find an event given the following price` })
-}
-})
+
 
 
 
 router.get('/getByRemainginPlaces/:places', async(req,res)=>{
   try {
+   
     const allEvents = await Event.find({}).exec()
+    if(req.params.places==='empty')
+    return res.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.remaining_places<parseInt(req.params.places)){
@@ -120,6 +148,8 @@ router.get('/getByRemainginPlaces/:places', async(req,res)=>{
 router.get('/getByTopics/:topic', async(req,res)=>{
   try {
     const allEvents = await Event.find({}).exec()
+    if(req.params.topic==='empty')
+    return res.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.topics.includes(req.params.topic)){
@@ -249,10 +279,11 @@ router.post('/createType', async (request, response) => {
     })
   })
   
-//get all events with a type "task 2.3" na2sa testing
 router.route('/getByType/:type').get(async (request, response) => {
   try {
     const allEvents = await Event.find({}).exec()
+    if(request.params.type==='empty')
+    return response.json({ data: allEvents }) 
     var result=[]
     allEvents.forEach(event =>{
       if (event.type.includes(request.params.type)){
@@ -263,7 +294,7 @@ router.route('/getByType/:type').get(async (request, response) => {
     console.log(result)
     return response.json({ data: result })
   } catch (err) {
-    return response.json({ error: `Error, couldn't find a event given the following type` })
+    return response.json({ error: err })
   }
 })
 
@@ -297,6 +328,7 @@ router
       speakers: joi.array().items(joi.string().min(4).max(70)),
       topics: joi.array().items(joi.string().min(3).max(70)),
       type: joi.array().items(joi.string().min(3).max(20)).required(),
+      event_date:joi.date(),
       // partner_initiated: joi.string().length(24).required(),
       attendees: joi.array().items(joi.string().length(24)),
       status: joi.string(),
@@ -336,6 +368,7 @@ router
             topics: request.body.topics,
             type: request.body.type,
             partner_initiated: authorizedData.id,
+            event_date:request.body.event_date,
             status:'PENDING_APPROVAL',
             time_of_edit: moment().format('MMMM Do YYYY, h:mm:ss a'),
             attendees: [],
@@ -570,7 +603,8 @@ router
         } else {
           const responsefromadmin = {
             admin_id: authorizedData.id,
-            is_accepted: request.body.is_accepted
+            is_accepted: request.body.is_accepted,
+            response: request.body.response
           }
           const event = await Event.findByIdAndUpdate(request.params.id, { $push: { responses_from_admin: responsefromadmin } }).exec()
           console.log('SUCCESS: Connected to protected route');

@@ -47,9 +47,9 @@ export class NavGeneral extends Component {
 <ul id="dropdown11" class="dropdown-content">
   {/* <li><a href='/submit_task'>Post a Task</a></li> //partner
   <li><a href='/recommend'>Recommend Tasks</a></li> //member */}
-  <li><a href='/get_tasks'>Get Tasks</a></li> 
+  <li><a href='/homepage/get_tasks'>Get Tasks</a></li> 
   {/* <li><a href='/ViewTaskApplicants'>View applicants</a></li> //partner */}
-  <li><a href='/task_card'>Task Cards</a></li> 
+  <li><a href='/homepage/task_card'>Task Cards</a></li> 
   {/* <li><a class='ili' href='/StoryOnePointEleven'>Tasks i applied on</a></li> //member */}
 </ul>
 <ul id="dropdown111" class="dropdown-content">
@@ -57,18 +57,10 @@ export class NavGeneral extends Component {
   {/* <li><a href="/feedback">Write Feedback </a></li> */}
   {/* <li><a href="/appcard">Apply for Event </a></li>
   <li><a href='/partnerfeedbacks'>Feedbacks on my Events</a></li> */}
-  <li><a href='/events'>Show Events</a></li>
-</ul>
-<ul id="dropdown1111" class="dropdown-content">
-  <li><a class='ili' href='/skills'>Skill Panel</a></li>
-  <li><a class='ili' href='/register'>Register</a></li>
-  <li><a class='ili' href='/Admin'>Admin Panel</a></li>
-  <li><a href='/task_control_panel'>Task Control Panel</a></li> 
-  <li><a href='/Review'>Review task</a></li> //admin
-  <li><a class='ili' href='/Review'>Review</a></li>
+  <li><a href='/homepage/filter'>Show Events</a></li>
 </ul>
 <ul id="dropdown11111" class="dropdown-content">
-  <li><a class='ili' href='/viewallproj'>All Projects</a></li>
+  <li><a class='ili' href='/homepage/viewallproj'>All Projects</a></li>
   {/* <li><a class='ili' href='/post_project'>Post a Project</a></li> //partner */}
 </ul>
 <nav class="blue-text text-darken-2">
@@ -87,8 +79,8 @@ export class NavGeneral extends Component {
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
             class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a href='/login'>Login</a></li>
-      <li><a href='/register'>Sign Up</a></li>   
+      <li><a href='/homepage/login'>Login</a></li>
+      <li><a href='/homepage/register'>Sign Up</a></li>   
       <li><a id='login-action' href='#' onClick={this.hideLogin} className='login-box' >Sign in</a></li>  
       <li><div id='login-nav-div' className='login-div' style={{display:'none'}} ><Login></Login></div></li> 
     </ul>

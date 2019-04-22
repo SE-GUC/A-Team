@@ -159,19 +159,20 @@ export class Register extends Component {
       var chkr= array.includes(email);
       var array1=this.state.takenUnames
       var chkr1=array1.includes(username)
+      console.log(date_of_birth)
       if (
         name !== "" &&
         email !== "" &&
         email.includes("@") &&
-        username.length > 8 &&
-        password.length > 8 &&
-        password2.length > 8 &&
+        username.length >= 8 &&
+        password.length >= 8 &&
+        password2.length >= 8 &&
         password === password2 &&
         phone !== "" && 
         intrests.length !==0
-        &&!chkr
-        &&!chkr1
-        && date_of_birth !==''
+        &&(chkr===false)
+        &&(chkr1===false)
+        && date_of_birth.includes('-')
       ) {
         return (
           <button

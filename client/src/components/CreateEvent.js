@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'; 
-
-
-  
+import moment from 'moment'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";  
   
 
 class CreateEvent extends Component {
@@ -30,9 +30,20 @@ class CreateEvent extends Component {
             chosentypearray:[],
             ch:[],
             type5:'',
-            speaker:''
-        }
+            speaker:'',
+            startDate: new Date(),
+           shalabySpeakr:[]       }
 
+    }
+    onChipAddSpeaker=()=>{
+      var result = [];
+      var elem = document.getElementById('speaker-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ speakers: result });
+      console.log(this.state.speakers)
     }
     componentDidMount(){
       let elems = document.querySelectorAll('.dropdown-trigger');
@@ -45,7 +56,7 @@ class CreateEvent extends Component {
         var cap=[]
 
         for(let c=0;c<res.data.data.length;c++){
-          if(res.data.data[c].booked==='Available'){
+          if(res.data.data[c].booked==='Available'){  
               locc.push(<li><button style={{color:'black'}} class="waves-effect waves-light btn green lighten-3" onClick={this.handleChangelocation} id={res.data.data[c]._id}
               >{res.data.data[c].title}: {res.data.data[c].subtitle} Capactity{res.data.data[c].capacity}</button></li>)
               this.setState({remaining_places:res.data.data[c].capacity}) 
@@ -57,20 +68,23 @@ class CreateEvent extends Component {
       .catch(error =>{
         console.log(error)
       })
-      var elems1 = document.querySelectorAll('.chips');
-      M.Chips.init(elems1, {inDuration: 300, outDuration: 225});
+      var elems1 = document.getElementById('speaker-chips');
+      M.Chips.init(elems1, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Speaker'});
     
       var ty=[]
         axios.get('http://localhost:4000/api/events/getTypesHoss')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
-            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p]}>{response.data.data[p].name}</button></li>)
+            ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p].name}>{response.data.data[p].name}</button></li>)
           }
         })
         .catch(error =>{
           console.log(error)
         })
         this.setState({type:ty})
+
+        var elemsdate = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(elemsdate, {inDuration: 300, outDuration: 225});
     }
     
 setname=(event)=>{
@@ -108,44 +122,51 @@ handleChangelocation=(event)=>{
  this.setState({chosen:event.target.id})
 console.log(this.state.chosen)
   }
+  handleChangedate=(event)=> {
+    this.setState({startDate: event.target.value});
+  }
 handleChangetype = event=> {
   event.preventDefault();
+  console.log(event.target.id)
     // this.setState({chosen_type:event.target.id})
     this.state.chosentypearray.push(event.target.id)
     console.log(this.state.chosen_type)
     console.log(this.state.chosentypearray)
   }
-handleClick=event=>
-    {
+  handleClick=event=>
+  {
+    event.preventDefault();
 
-      event.preventDefault();
-      var allSpeakers=this.state.speaker.split(',')
-      var allPrices=this.state.price.split(',')
-      var alltopics=this.state.topics.split(',')
-      const url= 'http://localhost:4000/api/events/'
-      console.log(url)
-      const body= {
-        price:allPrices,
-        location:this.state.chosen,
-        name:this.state.name,
-        about:this.state.about,
-        remaining_places:this.state.remaining_places,
-        speakers:allSpeakers,
-        topics:alltopics,
-        type:this.state.chosentypearray,
-        partner_initiated:'5cae2d049cd95a5754daa7e4'
-      }
-      console.log(body)
-      axios.post(url,body)
-      .then(res =>{  
+    const url= 'http://localhost:4000/api/events/'
+//    var allSpeakers=this.state.speaker.split(',')
+    var allPrices=this.state.price.split(',')
+    var alltopics=this.state.topics.split(',')
+
+    axios({
+        method: 'POST',
+        url: url,
+        headers: {
+            authorization: localStorage.getItem('token')
+        }, 
+        data: {
+          price:allPrices,
+          location:this.state.chosen,
+          name:this.state.name,
+          about:this.state.about,
+          remaining_places:this.state.remaining_places,
+          speakers:this.state.speakers,
+          topics:alltopics,
+          event_date:this.state.startDate,
+          type:this.state.chosentypearray
+        }
+      }).then(res=>{
         alert('posted successfully')
         console.log(res)
       })
-      .catch(function (error){
-        console.log(error)
-      })
-    }
-    
+    .catch(function (error){
+      console.log(error)
+    })
+  }
     
     render()
     {
@@ -170,7 +191,7 @@ handleClick=event=>
             </div> 
             <div class="row">
               <div class="input-field col s12">
-              <i class="material-icons prefix">info</i>
+              <i class="material-icons prefix" style={{marginTop:'1px'}}>info</i>
                 <textarea placeholder="about" id="about_id" state={this.state}  class="materialize-textarea" onChange={this.setabout}/>
                 <label for="about_id"></label>
               </div>
@@ -178,7 +199,7 @@ handleClick=event=>
             <div class="row">
               <div class="input-field col s12">
               <i class="material-icons prefix">mic</i>
-                <input placeholder="Add speakers (Separate speakers by commas)" id="speakers_id" state={this.state} type="text" class="validate" onChange={this.setspeaker}/>
+              <div id='speaker-chips' className='chips' onKeyUp={this.onChipAddSpeaker} onKeyPress={this.onChipAddSpeaker} onKeyDown={this.onChipAddSpeaker}></div>
                 <label for="about_id"></label>
               </div>
             </div>
@@ -231,7 +252,22 @@ handleClick=event=>
                   {this.state.location}
                   </ul>
                   </div>
-             </div>
+                  </div>
+                  <div class="row">
+                  <div className="input-field col s6">
+                  <i class="material-icons prefix">event</i>
+                    <input type="date" onChange={this.handleChangedate} />
+                    
+                  </div>
+                  <div className=" col s6"></div>
+                  </div>
+                  <br/>   
+                   <br/>
+                  <br/>
+                  <div class="row">
+                  <div className='input-field col s12'>
+                  </div>
+                  </div>
                   <br/>
           
                   

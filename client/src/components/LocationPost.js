@@ -10,12 +10,15 @@ class LocationPost extends Component {
     location: "",
     capacity: null,
     booked: ""
+   
   };
   handleChangeOne = e => {
-    // this.setState({ [e.target.title]: e.target.value});
+  
     this.setState({
       title: e.target.value
     });
+    console.log(this.state.title)
+
   };
   handleChangeTwo = e => {
     this.setState({
@@ -59,7 +62,7 @@ class LocationPost extends Component {
       }
     
     );
-    console.log(m);
+    console.log(m.data);
   };
   renderLoading() {
     return <div class="preloader-wrapper big active">
@@ -79,42 +82,53 @@ class LocationPost extends Component {
   }
 
   render() {
-    // if(this.state.loading) {
-    //     return this.renderLoading()
-    // }
+    
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Location Title:
-          <input type="text" name="title" onChange={this.handleChangeOne} />
-        </label>
-        
-        <label>
-          Location SUBTitle:
-          <input type="text" name="subtitle" onChange={this.handleChangeOne} />
-        </label>
-        
-        <label>
-          Location :
-          <input type="text" name="location" onChange={this.handleChangeTwo} />
-        </label>
-        
-        <label>
-          Location Capacity:
-          <input
-            type="number"
-            name="capacity"
-            onChange={this.handleChangeThree}
-          />
-        </label>
+      <div className='container'>
+      <center><h4>Post  a Location</h4></center>
+        <form onSubmit={this.handleSubmit}>
+        <div className='row'>
 
-        <label>
-          Location availability:
-          <input type="text" name="booked" onChange={this.handleChangeFour} />
-        </label>
+        <div className='input-field col s6'>
+        <i class="material-icons prefix">location_city</i>
+        <input type="text" name="title" onChange={this.handleChangeOne} placeholder='Location Title'/>
+        </div>
+         <div className='input-field col s6'>
+         <i class="material-icons prefix">location_city</i>
+         <input type="text" name="subtitle" onChange={this.handleChangeTwo} placeholder='Location SUBTitle' />
+        </div>
+        
+        
+        </div>
+        <div className='row'>
 
-        <button type="submit" className="waves-effect waves-light btn green darken-3">Add Location</button>
+        <div className='input-field col s6'>
+        <i class="material-icons prefix">location_on</i>
+        <input type="text" name="location" onChange={this.handleChangeThree} placeholder='Location '/>
+        </div>
+         <div className='input-field col s6'>
+         <i class="material-icons prefix">format_list_numbered</i>
+         <input type="number" name="capacity" onChange={this.handleChangeFour} placeholder='Location Capacity' />
+        </div>
+        
+        
+        </div>
+      
+        <div className='row'>
+
+        <div className='input-field col s6'>
+        <i class="material-icons prefix">edit_location</i>
+        <input type="text" name="booked" onChange={this.handleChangeFive} placeholder='Location Booking'/>
+        </div>
+        <button type="submit" className="waves-effect waves-light btn green darken-3" onClick={this.handleSubmit}>Add Location</button>
+        </div>
+        
+
+        
+
+        
       </form>
+      </div>
     );
   }
 }

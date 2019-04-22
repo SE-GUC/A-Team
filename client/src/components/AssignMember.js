@@ -15,32 +15,27 @@ class AssignMember extends Component {
       
 
 
-    handleChange = task => {
-        this.setState({ id: task.target.value })
-    }
-
-
-    handleAnotheChange = task => {
-        this.setState({ assigned_id: task.target.value })
-    }
-
-    // apply=(member_id)=>{
-    //     var update=this.state.consultancy_agency_applicants
-    //     update.push(consultancy_agency_id)
-        
-    //     this.setState({consultancy_agency_applicants:update})
+    // handleChange = task => {
+    //     this.setState({ id: task.target.value })
     // }
-    handleSubmit = project => {
-        task.preventDefault(); //prevents page from reloading
-        // const t = {
-        //     assigned_id: this.state.assigned_id
-       
-        // };
-        const url = 'http://localhost:4000/api/project/tasks/assignMember'+this.state.id
-      
 
-        axios.put(url,{assigned_id: this.state.assigned_id })
+
+    // handleAnotheChange = task => {
+    //     this.setState({ assigned_id: task.target.value })
+    // }
+
+    handleSubmit = project => {
+        project.preventDefault(); //prevents page from reloading
+        // const url = 'http://localhost:4000/api/tasks/assignMember/'+this.state.id
+      axios( 'http://localhost:4000/api/tasks/assignMember/'+this.state.id, {
+        method: 'PUT',
+        headers: {
+          'authorization': localStorage.getItem('token')
+        }
+      })
+    //    axios.put(url,{assigned_id: this.state.assigned_id })
         .then(res => {
+            
             console.log(res);
             var msg="Assigned Member! "
             var html="<span style='color:#green'>"+msg+"</span>"

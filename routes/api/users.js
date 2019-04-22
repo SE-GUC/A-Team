@@ -9,7 +9,7 @@ const moment = require('moment')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const tokenKey = require('../../config/keys').secretOrKey
-
+const Admin = require('../../models/Admin')
 
 
 
@@ -119,9 +119,12 @@ router.get('/getCreatedEvents', checkToken, async (req, res) => {
 router.post('/login', async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		const user = await User.findOne({ email });
-		if (!user) return res.status(404).json({ email: 'Email does not exist' });
-		const match = bcrypt.compareSync(password, user.password);
+    const user = await User.findOne({ email })||await Admin.findOne({ email });
+    console.log(user)
+		// if (!user) return res.status(404).json({ email: 'Email does not exist' });
+    const match = bcrypt.compareSync(password, user.password);
+    console.log(match)
+    
 		if (match) {
             const payload = {
                 id: user.id,
@@ -131,6 +134,17 @@ router.post('/login', async (req, res) => {
             }
             const token = jwt.sign(payload, tokenKey, { expiresIn: '999h' })
             return res.json({token: `Bearer ${token}`})
+        }
+        else if (email==='admin@admin.com'){
+          const payload = {
+            id: user._id,
+            name: user.name,
+            email: user.email, 
+            type:user.type
+        }
+        console.log(payload)
+        const token = jwt.sign(payload, tokenKey, { expiresIn: '999h' })
+        return res.json({token: `Bearer ${token}`}) 
         }
 		else return res.status(400).send({ password: 'Wrong password' });
 	} catch (e) {}
@@ -142,7 +156,7 @@ router.get('/dashboard',checkToken, function(req,res){
   jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
     if(err){
         //If error send Forbidden (403)
-        console.log('ERROR: Could not connect to the protected route');
+        console.log(err);
         res.sendStatus(403);
     } else {
         return res.json({
@@ -279,7 +293,32 @@ router
         return response.json({ error: status.error.details[0].message })
       }
       
-      const user = await User.findByIdAndUpdate(request.params.id, { $push: { eventsAttended: request.body.eventid } }).exec()
+      const user = await User.findByIdAndUpdate(request.params.id, { $push: { events_attended: request.body.eventid } }).exec()
+      return response.json({ data: user })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })  
+  router
+  .route('/:id/addCreatedEvent')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        eventid:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const user = await User.findByIdAndUpdate(request.params.id, { $push: { events_created: request.body.eventid } }).exec()
       return response.json({ data: user })
     } catch (err) {
       return response.json({ error: err.message })

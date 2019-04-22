@@ -7,8 +7,23 @@ const uuid = require('uuid')
 const joi = require('joi')
 const mongoose = require('mongoose')
 const User = require('../../models/User')
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
 
-
+const checkToken = (req, res, next) => {
+    const header = req.headers['authorization'];
+      
+    if(typeof header !== 'undefined') {
+        const bearer = header.split(' ');
+        const token = bearer[1];
+      
+        req.token = token;
+        next();
+    } else {
+        //If header is undefined return Forbidden (403)
+        res.sendStatus(403)
+    }
+  }
 
 router.get('/allemails', async(req, res)=>{
     const allUsers=await User.find({}).exec()
@@ -37,6 +52,27 @@ router.get('/', async (req, res) => {
         res.data('Request Erorr')
     }
 });
+router.get('/get_my_tasks',checkToken, async (request, response) => {
+  //member
+         //verify the JWT token generated for the user
+         jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+            if(err){
+                //If error send Forbidden (403)
+                console.log('ERROR: Could not connect to the protected route');
+                res.sendStatus(403);
+            }else{
+                const user = await User.findById(authorizedData.id).exec()
+                    const allTasks = await user.tasks_applied_for
+                    var result=[]
+                    allTasks.forEach(task =>{
+                      if (task.id == (request.params.id)){
+                        result.push(task)
+                      }
+                    })
+                    return response.json({ data: result });
+                }
+            })
+                });
 ///////////////
 router.get('/view_accepting', async (req, res) => {
     const task = await Tasks.find({status:"Accepting"});
@@ -81,22 +117,21 @@ router.get('/view_applicants', async(req,res) => {
     }
     res.json({data:c});
     
+});
+router.get('/view_applicants/:id', async(req,res) => {
+    const tasks= await Tasks.findById(req.params.id)
+    const c=[]
+    
+
+        const element = tasks.applicants;
+        
+        c.push({element})
+      
+    
+    res.json({data:c});
+    
 })
-/////////////////
-router.get('/get_my_tasks/:assigned_id', async (request, response) => {
-    try {
-        const allTasks = await Task.find({}).exec()
-        var result=[]
-        allTasks.forEach(task =>{
-          if (task.assigned_id == (request.params.assigned_id)){
-            result.push(task)
-          }
-        })
-        return response.json({ data: result })
-      } catch (err) {
-        return response.json({ error: `Error, you haven't applied for any tasks` })
-      }
-    });
+
 router.post('/add_task', async (req, res) => {
     const newTask = new Task({
         name: "new",
@@ -127,14 +162,11 @@ router.post('/add_task', async (req, res) => {
 
 })
 router.get('/read/:id', async(req,res) => {
-    try{
-    const tsk = await Task.findById(req.params.id)
-    console.log(tsk)
-    return res.json({ data: tsk })
-    } catch (err) {
-        return res.json({error: err.message})
-    }
-})
+ 
+        const tsk = await Task.findById(req.params.id)
+                  return res.json({ data: tsk });
+
+});
 
 //Youssef Shalaby
 router.put('/addSkill',async(req,res)=>{ //Admin Access only
@@ -374,18 +406,22 @@ router.put('/update_admin_response/:id', async (req,res) => {
             )
     
 })
-router.post('remove_applicant/:id', async (request, response) => {
+//hena
+router.post('remove_applicant/:id', checkToken, async (request, response) => {
     try {
+        jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+
       const status = joi.validate(request.body, {
-        user_id:joi.string().length(24)
+      //  user_id:joi.string().length(24)
       })
       if (status.error) {
         return response.json({ error: status.error.details[0].message })
       }
       
-      const Tasks = await Task.findByIdAndUpdate(request.params.id, { $pop: { applicants: request.body.user_id } }).exec()
+      const Tasks = await Task.findByIdAndUpdate(request.params.id, { $pop: { applicants: authorizedData.id } }).exec()
       return response.json({ data: Tasks })
-    } catch (err) {
+    })
+ } catch (err) {
       return response.json({ error: `Error` })  
     }
   }); 
@@ -474,10 +510,13 @@ router.put('/revvv/:id', async (req, res) => {
     }
 })
 
-router.put('/accept/:tid/:pid', async(req, res) => {
+//hena
+router.put('/accept/:tid',checkToken, async(req, res) => {
 //accepting task upload via task is and partner id
 
 try {
+    jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+
     const exists = await Task.findOne({ _id: req.params.tid });
     if (exists === null) {
       return res.json({ message: "Task id is invalid" });
@@ -485,7 +524,7 @@ try {
     console.log(exists);
     const prtid = exists.partner_id._id;
     const st = exists.status;
-    if(prtid == req.params.pid && st=='Approved'){
+    if(prtid == authorizedData.id && st=='Approved'){
 
         Tasks.findByIdAndUpdate(req.params.tid, {
            
@@ -511,40 +550,100 @@ try {
             Task
         });
     }
+  
     else{
        return res.json({
             msg: `You are only allowed to update your own approved taks!`,
             
         });
     }
+})
 } catch (error) {
     console.log(error)
    // res.json({
         //msg: 'cant accept'
     //})
     }
+    
 });
+router.put('/approve/:tid',checkToken, async(req, res) => {
+    //accepting task upload via task is and partner id
+    
+    try {
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+    
+        const exists = await Task.findOne({ _id: req.params.tid });
+        if (exists === null) {
+          return res.json({ message: "Task id is invalid" });
+        }
+        console.log(exists);
+        const prtid = exists.partner_id._id;
+        const st = exists.status;
+        if(prtid == authorizedData.id && st=='Pending'){
+    
+            Tasks.findByIdAndUpdate(req.params.tid, {
+               
+                status: "Approved",
+                
+            }, {
+                new: true
+            }, (err, model) => {
+                if (!err) {
+                    return res.json({
+                        data: model
+                    })
+                } else {
+                    return res.data({
+                        error: `Can't acc task`
+                    })
+                }
+            });
+    
+          //exists.status="Accepting";
+           return res.json({
+                msg: `Task accepted`,
+                Task
+            });
+        }
+      
+        else{
+           return res.json({
+                msg: `You are only allowed to update your own approved taks!`,
+                
+            });
+        }
+    })
+    } catch (error) {
+        console.log(error)
+       // res.json({
+            //msg: 'cant accept'
+        //})
+        }
+        
+    });
 
 
 
 
-
+//hena
 //STORY 1.11  MEMBERS CAN VIEW TASKS THEY APPLIED ON
-router.get('/viewapplied/:id', async(req, res) => {
+router.get('/viewapplied/:id',checkToken, async(req, res) => {
 
     try {
-        const exists = await User.findOne({ _id: req.params.id });
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+
+        const exists = await User.findOne({ _id: authorizedData.id });
         if (exists === null) {
           return res.json({ message: "Please enter a valid member id" });
         }
         console.log(exists);
 
-            const u = await User.findById(req.params.id)
+            const u = await User.findById(authorizedData.id )
             res.json({
                 data: u.tasks_applied_for
             })
         
-
+        })
 }catch (error) {
     console.log(error)
   
@@ -577,12 +676,14 @@ router.get('/get/:id', async (req, res) => {
         res.data('Request Error')
     }
 });
+//hena
 //assigning a request 
 router.put('assign/:id', async (req, res) => {
     try {
+        jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
         Tasks.findByIdAndUpdate(req.params.id, {
             is_assigned: req.body.is_assigned,
-            assigned_id: req.body.assigned_id
+            assigned_id: authorizedData.id
         }, {
             new: true
         }, (err, model) => {
@@ -596,6 +697,7 @@ router.put('assign/:id', async (req, res) => {
                 })
             }
         });
+    })
     } catch (err) {
         res.data('Request Error')
     }
@@ -603,9 +705,11 @@ router.put('assign/:id', async (req, res) => {
 
 });
 
-router.get('/recommend/:member_id', async (req, res) => {
+//hena :)
+router.get('/recommend',checkToken, async (req, res) => {
     //Input: a skills array 
     //Output: Tasks that could be recommended to Member
+
     var status = joi.validate(req.body, {
         skills: joi.array().items(joi.string().max(20))
     })
@@ -623,7 +727,9 @@ router.get('/recommend/:member_id', async (req, res) => {
         })
     }
     try {
-        const found= await User.findById(req.params.member_id)
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+
+        const found= await User.findById(authorizedData.id)
         if(!found){
             return res.json({error:"Member does not exist"})
         }
@@ -656,12 +762,15 @@ router.get('/recommend/:member_id', async (req, res) => {
             }
         }
         return res.json(result)
+    })
     } catch (err) {
         res.json('Error While running')
     }
 
 });
-router.get('/apply/:id/:member_id', async (req, res) => {
+
+//hena 
+router.get('/apply/:id',checkToken, async (req, res) => {
     const status = joi.validate(req.params, {
         id: joi.string().length(24).required(),
         member_id:joi.string().length(24).required()
@@ -673,7 +782,9 @@ router.get('/apply/:id/:member_id', async (req, res) => {
         
     }
     try {
-        const found= await User.findById(req.params.member_id)
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+
+        const found= await User.findById(authorizedData.id)
         if(!found){
             return res.json({error:"Member does not exist"})
         }
@@ -691,11 +802,13 @@ router.get('/apply/:id/:member_id', async (req, res) => {
                 msg: 'You can NOT apply on the task with id ' + req.params.id
             })
         }
+    })
     } catch (err) {
         res.json('Request Error')
     }
 
 });
+//hena
 router
   .route('/assignMember/:id')
   .all(async (request, response, next) => {
@@ -707,19 +820,25 @@ router
     }
     next()
   })
-  .put(async (request, response) => {
+  .put(checkToken, async (request, response) => {
     try {
-      const status = joi.validate(request.body, {
-        memberid:joi.string().length(24)
+        jwt.verify(request.token, tokenKey, async (err, authorizedData) => {
+          if(err){
+              //If error send Forbidden (403)
+              console.log('ERROR: Could not connect to the protected route');
+              response.sendStatus(403);
+          } else {
+            const task = await Tasks.findByIdAndUpdate(request.params.id, { assigned_id: authorizedData.id } ).exec()
+            console.log('SUCCESS: Connected to protected route');
+  
+              return response.json({data: task
+              });
+          }
       })
-      if (status.error) {
-        return response.json({ error: status.error.details[0].message })
+      } catch (err) {
+        return response.json({ error: `Error, couldn't find application for a event given the following data` })
       }
-      const task = await Tasks.findByIdAndUpdate(request.params.id, { assigned_id: request.body.memberid } ).exec()
-      return response.json({ data: task })
-    } catch (err) {
-      return response.json({ error: `Error` })
-    }
   });
+
 
 module.exports = router

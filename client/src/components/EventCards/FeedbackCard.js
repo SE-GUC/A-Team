@@ -20,6 +20,11 @@ class FeedbackCard extends Component {
       message: "",
       range: 5,
       submitState: false,
+      class1:"fa fa-star checked",
+      class2:"fa fa-star checked",
+      class3:"fa fa-star checked",
+      class4:"fa fa-star checked",
+      class5:"fa fa-star checked",
       checked: {
         transition: "none",
         opacity: "1",
@@ -30,17 +35,18 @@ class FeedbackCard extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log(this.props.data);
+    var loctaionid=''
     this.setState({ id: this.props.data });
     const url = "http://localhost:4000/api/events/getid/" + this.props.data;
     console.log(url);
-    axios
+    await axios
       .get(url)
       .then(res => {
         this.setState({ name: res.data.data.name });
         this.setState({ remaining_places: res.data.data.remaining_places });
-        this.setState({ location: res.data.data.location });
+        loctaionid=res.data.data.location
         this.setState({ about: res.data.data.about });
         this.setState({ price: res.data.data.price });
         this.setState({ speakers: res.data.data.speakers });
@@ -51,6 +57,15 @@ class FeedbackCard extends Component {
       .catch(err => {
         console.log(err);
       });
+      await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+      .then(res=>{
+          console.log(res)
+          var c= ""+res.data.data.title+", "+res.data.data.subtitle
+          this.setState({location:c})
+      })
+      .catch(err=>{
+          console.log(err)
+      })
   }
 
   sbmtbtn() {
@@ -74,6 +89,61 @@ class FeedbackCard extends Component {
     });
   }
 
+  
+  change1(){
+    this.setState({class1:"fa fa-star checked"})
+    this.setState({class2:"fa fa-star"})
+    this.setState({class3:"fa fa-star"})
+    this.setState({class4:"fa fa-star"})
+    this.setState({class5:"fa fa-star"})
+    this.setState({rate:1})
+    
+    
+  }
+  
+  change2(){
+    this.setState({class1:"fa fa-star checked"})
+    this.setState({class2:"fa fa-star checked"})
+    this.setState({class3:"fa fa-star"})
+    this.setState({class4:"fa fa-star"})
+    this.setState({class5:"fa fa-star"})
+    this.setState({rate:2})
+    
+    
+  }
+  
+  change3(){
+    this.setState({class1:"fa fa-star checked"})
+    this.setState({class2:"fa fa-star checked"})
+    this.setState({class3:"fa fa-star checked"})
+    this.setState({class4:"fa fa-star"})
+    this.setState({class5:"fa fa-star"})
+    this.setState({rate:3})
+    
+    
+  }
+  
+  change4(){
+    this.setState({class1:"fa fa-star checked"})
+    this.setState({class2:"fa fa-star checked"})
+    this.setState({class3:"fa fa-star checked"})
+    this.setState({class4:"fa fa-star checked"})
+    this.setState({class5:"fa fa-star"})
+    this.setState({rate:4})
+    
+    
+  }
+  
+  change5(){
+    this.setState({class1:"fa fa-star checked"})
+    this.setState({class2:"fa fa-star checked"})
+    this.setState({class3:"fa fa-star checked"})
+    this.setState({class4:"fa fa-star checked"})
+    this.setState({class5:"fa fa-star checked"})
+    this.setState({rate:5})
+    
+    
+  }
   handleChangeText = event => {
     this.setState({ message: event.target.value });
   };
@@ -119,11 +189,12 @@ class FeedbackCard extends Component {
                 </p>
                 <p>
                   <b>Rating: </b>
-                  <span class="fa fa-star checked" />
-                  <span class="fa fa-star checked" />
-                  <span class="fa fa-star" />
-                  <span class="fa fa-star" />
-                  <span class="fa fa-star" />
+                  <span onClick={()=>this.change1()} class={this.state.class1} />
+                  <span onClick={()=>this.change2()} class={this.state.class2} />
+                  <span onClick={()=>this.change3()} class={this.state.class3} />
+                  <span onClick={()=>this.change4()} class={this.state.class4} />
+                  <span onClick={()=>this.change5()} class={this.state.class5} />
+                  
                 </p>
                 <textarea
                   onChange={this.handleChangeText}
