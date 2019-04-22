@@ -32,7 +32,7 @@ class EventCard extends Component {
         console.log(this.props.data)
         var loctaionid=''
         this.setState({id:this.props.data})
-            const url = 'http://localhost:4000/api/events/getid/' + this.props.data
+            const url = 'https://ateamse2.herokuapp.com/api/events/getid/' + this.props.data
             console.log(url)
            await axios.get(url)
                 .then(res => {
@@ -55,7 +55,7 @@ class EventCard extends Component {
                 })
 
                 console.log(loctaionid)
-                await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+                await axios.get('https://ateamse2.herokuapp.com/api/locations/'+loctaionid)
                 .then(res=>{
                     console.log(res)
                     var c= ""+res.data.data.title+", "+res.data.data.subtitle

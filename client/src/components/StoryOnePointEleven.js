@@ -31,7 +31,7 @@ class StoryOnePointEleven extends Component {
         };
         console.log(tasking.tid)
         
-        const url = 'http://localhost:4000/api/tasks/viewapplied/'+tasking.id
+        const url = 'https://ateamse2.herokuapp.com/api/tasks/viewapplied/'+tasking.id
         axios.get(url, {response_from_admin: tasking.response})
         .then(res => {
             this.setState({ Tasks: res.data.data })

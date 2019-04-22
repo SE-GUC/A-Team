@@ -19,7 +19,7 @@ class ViewTaskApplicants extends Component {
       }
     
       componentDidMount () {
-        axios.get(`http://localhost:4000/api/tasks/read/applicants/`)
+        axios.get(`https://ateamse2.herokuapp.com/api/tasks/read/applicants/`)
                 .then(res => {
                   console.log(res)
                   this.setState({tasks: res.data.data})

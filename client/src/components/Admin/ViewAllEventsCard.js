@@ -33,7 +33,7 @@ class ViewAllEventsCard extends Component {
         })
         
         
-        axios.get('http://localhost:4000/api/events/getID/'+this.props.value)
+        axios.get('https://ateamse2.herokuapp.com/api/events/getID/'+this.props.value)
             .then(res => {
                 this.setState({
                     remaining_places: res.data.data.remaining_places

@@ -37,7 +37,7 @@ class EventsCardContainer extends React.Component {
     // }
     handlefilterprice(){  
         const pricefiltered= this.state.price_filter
-        axios.get('http://localhost:4000/api/events/getByPrice/'+pricefiltered)
+        axios.get('https://ateamse2.herokuapp.com/api/events/getByPrice/'+pricefiltered)
         .then(res => {
             // this.setState({events: res.data.data})
             console.log(res.data.data)
@@ -63,7 +63,7 @@ class EventsCardContainer extends React.Component {
         if(pricefiltered===''){
             pricefiltered='empty'
         }
-        await axios.get('http://localhost:4000/api/events/getByPrice/'+pricefiltered)
+        await axios.get('https://ateamse2.herokuapp.com/api/events/getByPrice/'+pricefiltered)
         .then(res => {
             // this.setState({events: res.data.data})
             //console.log(res.data.data)
@@ -79,7 +79,7 @@ class EventsCardContainer extends React.Component {
         if(topicsfiltered===''){
             topicsfiltered='empty'
         }
-        await axios.get('http://localhost:4000/api/events/getByTopics/'+topicsfiltered)
+        await axios.get('https://ateamse2.herokuapp.com/api/events/getByTopics/'+topicsfiltered)
         .then(res => {
             // this.setState({events: res.data.data})
             console.log(res.data.data)
@@ -95,7 +95,7 @@ class EventsCardContainer extends React.Component {
         if(speakersfiltered===''){
             speakersfiltered='empty'
         }
-        await axios.get('http://localhost:4000/api/events/getBySpeakers/'+speakersfiltered)
+        await axios.get('https://ateamse2.herokuapp.com/api/events/getBySpeakers/'+speakersfiltered)
         .then(res => {
             // this.setState({events: res.data.data})
             //console.log(res.data.data)
@@ -111,7 +111,7 @@ class EventsCardContainer extends React.Component {
         if(typefilter===''){
             typefilter='empty'
         }
-        await axios.get('http://localhost:4000/api/events/getByType/'+typefilter)
+        await axios.get('https://ateamse2.herokuapp.com/api/events/getByType/'+typefilter)
         .then(res => {
             // this.setState({events: res.data.data})
             //console.log(res.data.data)
@@ -127,7 +127,7 @@ class EventsCardContainer extends React.Component {
         if(remainingplacesfiltered===''){
             remainingplacesfiltered='empty'
         }
-        await axios.get('http://localhost:4000/api/events/getByRemainginPlaces/'+remainingplacesfiltered)
+        await axios.get('https://ateamse2.herokuapp.com/api/events/getByRemainginPlaces/'+remainingplacesfiltered)
         .then(res => {
             // this.setState({events: res.data.data})
             console.log(res.data.data)

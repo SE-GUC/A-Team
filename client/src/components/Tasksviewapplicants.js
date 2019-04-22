@@ -12,7 +12,7 @@ class Tasksviewapplicants extends Component {
   };
   
   findbyid =(id) => {
-    axios.get('http://localhost:4000/api/users/'+id).then(res => {
+    axios.get('https://ateamse2.herokuapp.com/api/users/'+id).then(res => {
       const x =res.data.data;
       console.log(res)
       this.setState({user_name: x.username})
@@ -21,12 +21,12 @@ class Tasksviewapplicants extends Component {
   }
   assign =() => {
     const data ="{'is_assigned':'true','assign_id':assign_id}";
-    axios.put('http://localhost:4000/api/tasks/assign/'+this.task_id,data).then(res => {
+    axios.put('https://ateamse2.herokuapp.com/api/tasks/assign/'+this.task_id,data).then(res => {
       
   })
 }
   componentDidMount () {
-    axios.get(`http://localhost:4000/api/tasks/view_applicants`)
+    axios.get(`https://ateamse2.herokuapp.com/api/tasks/view_applicants`)
             .then(res => {
               console.log(res)
               this.setState({tasks: res.data.data})

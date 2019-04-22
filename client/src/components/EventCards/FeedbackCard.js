@@ -54,7 +54,7 @@ class FeedbackCard extends Component {
     console.log(this.props.data);
     var loctaionid=''
     this.setState({ id: this.props.data });
-    const url = "http://localhost:4000/api/events/getid/" + this.props.data;
+    const url = "https://ateamse2.herokuapp.com/api/events/getid/" + this.props.data;
     console.log(url);
     await axios
       .get(url)
@@ -73,7 +73,7 @@ class FeedbackCard extends Component {
       .catch(err => {
         console.log(err);
       });
-      await axios.get('http://localhost:4000/api/locations/'+loctaionid)
+      await axios.get('https://ateamse2.herokuapp.com/api/locations/'+loctaionid)
       .then(res=>{
           console.log(res)
           var c= ""+res.data.data.title+", "+res.data.data.subtitle
@@ -82,7 +82,7 @@ class FeedbackCard extends Component {
       .catch(err=>{
           console.log(err)
       })
-      const partnerURL='http://localhost:4000/api/users/'+ uuid  
+      const partnerURL='https://ateamse2.herokuapp.com/api/users/'+ uuid  
      await axios.get(partnerURL)
       .then(res=>{
           console.log('URL',partnerURL)
@@ -108,7 +108,7 @@ class FeedbackCard extends Component {
   sbmtbtn() {
     this.setState({ submitState: true });
     const url =
-      "http://localhost:4000/api/events/" + this.state.id + "/feedback";
+      "https://ateamse2.herokuapp.com/api/events/" + this.state.id + "/feedback";
 
     axios({
       method: "POST",

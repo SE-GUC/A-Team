@@ -38,7 +38,7 @@ class TaskAdmin extends React.Component {
     }
     componentDidMount() {
        
-        axios.get('http://localhost:4000/api/tasks/view_pending')
+        axios.get('https://ateamse2.herokuapp.com/api/tasks/view_pending')
             .then(res => {
                 this.setState({
                     elements: res.data.data

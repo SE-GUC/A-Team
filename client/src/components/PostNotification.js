@@ -7,7 +7,7 @@ var nodemailer = require("nodemailer")
 class PostNotification extends Component {
     
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/notifications/send`)
+        axios.get(`https://ateamse2.herokuapp.com/api/notifications/send`)
             .then(res => {
                 var msg="Sent Users XD "
                 var html="<span style='color:#ffdd42'>"+msg+"</span>"

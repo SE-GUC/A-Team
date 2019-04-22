@@ -38,7 +38,7 @@ class AppLocNavbar extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navBar>
                             <NavItem>
-                                <NavLink href="http://localhost:4000/api/locations/">
+                                <NavLink href="https://ateamse2.herokuapp.com/api/locations/">
                                 Location List
                                 </NavLink>
                             </NavItem>

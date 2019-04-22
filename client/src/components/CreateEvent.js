@@ -70,7 +70,7 @@ class CreateEvent extends Component {
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
       var elems4 = document.querySelectorAll('select');
      M.FormSelect.init(elems4,  {inDuration: 300, outDuration: 225});
-      axios.get('http://localhost:4000/api/locations/')
+      axios.get('https://ateamse2.herokuapp.com/api/locations/')
       .then(res => {
         var locc=[]
         var cap=[]
@@ -96,7 +96,7 @@ class CreateEvent extends Component {
       M.Chips.init(elems8, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Topic'});
     
       var ty=[]
-        axios.get('http://localhost:4000/api/events/getTypesHoss')
+        axios.get('https://ateamse2.herokuapp.com/api/events/getTypesHoss')
         .then(response =>{
           for(let p=0;p<response.data.data.length;p++){
             ty.push(<li><button class="btn waves-effect waves-light" onClick={this.handleChangetype} id={response.data.data[p].name}>{response.data.data[p].name}</button></li>)
@@ -161,7 +161,7 @@ handleChangetype = event=> {
   {
     event.preventDefault();
 
-    const url= 'http://localhost:4000/api/events/'
+    const url= 'https://ateamse2.herokuapp.com/api/events/'
     if(this.state.name===''){
       const msg='you have to enter a name'
     var html="<span style='color:#ffdd42'>"+msg+"</span>"

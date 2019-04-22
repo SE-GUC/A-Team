@@ -20,7 +20,7 @@ class ShowFeedbacks extends Component {
     async componentDidMount() {
         var elements=[]
         console.log(this.props.data)
-        const url = 'http://localhost:4000/api/events/getid/'+this.props.data.eventid
+        const url = 'https://ateamse2.herokuapp.com/api/events/getid/'+this.props.data.eventid
         console.log(url)
         await axios.get(url)
         .then(
@@ -31,7 +31,7 @@ class ShowFeedbacks extends Component {
                 
             }
         )
-        axios.get('http://localhost:4000/api/users/'+this.state.feedbacks[this.props.data.index].user_id)
+        axios.get('https://ateamse2.herokuapp.com/api/users/'+this.state.feedbacks[this.props.data.index].user_id)
         .then(
             res=>{
                 this.setState({name:res.data.data.name})

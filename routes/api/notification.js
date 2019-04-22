@@ -8,7 +8,7 @@ const x = "seifmohamedwael97@gmail.com";
 var lastEmail = '';
 
 // async function getUsers(ze) {
-//   const m = await axios.get('http://localhost:4000/api/users/')
+//   const m = await axios.get('https://ateamse2.herokuapp.com/api/users/')
 //   .then(res => {
 //     const ze = [];
 //     for(let i = 0;i < res.data.length;i++) {
@@ -27,7 +27,7 @@ var lastEmail = '';
 // console.log(getUsers(ze))
 
 router.get("/send", async (req, res) => {
-  const m = await axios.get('http://localhost:4000/api/users/')
+  const m = await axios.get('https://ateamse2.herokuapp.com/api/users/')
     .then(res => {
       lastEmail = res.data[res.data.length-1].email;
       console.log("I am inside axios")

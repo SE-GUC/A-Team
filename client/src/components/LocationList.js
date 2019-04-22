@@ -15,7 +15,7 @@ class LocationList extends Component {
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/locations/`)
+        axios.get(`https://ateamse2.herokuapp.com/api/locations/`)
             .then(res => {
                 console.log(res)
                 this.setState({locations: res.data.data});

@@ -4,7 +4,7 @@ const functions={
     login: async() => {
         return axios({
             method:'post',
-            url: 'http://localhost:4000/api/users/login/',
+            url: 'https://ateamse2.herokuapp.com/api/users/login/',
             headers: {'Content-Type': 'application/json'},
             data: {
                 email:'lifelianghje@gmail.com',
@@ -13,20 +13,20 @@ const functions={
         });
     },
     getNotifs: async(id) => {
-        const notifs = await axios.get('http://localhost:4000/api/notify/'+id+'/notifyMember/')
+        const notifs = await axios.get('https://ateamse2.herokuapp.com/api/notify/'+id+'/notifyMember/')
         //console.log(notifs.data.notifications[0])
         return notifs.data
     },
     postNotif: async(id,taskd)  => {
         const m =  axios({
             method:'post',
-            url: 'http://localhost:4000/api/notify/' +id +'/notifyMember/',
+            url: 'https://ateamse2.herokuapp.com/api/notify/' +id +'/notifyMember/',
             headers: {'Content-type': 'application/json'},
             data: {
                 taskid: taskd
             }
         })
-        const no = await axios.get('http://localhost:4000/api/notify/' +id +'/notifyMember/')
+        const no = await axios.get('https://ateamse2.herokuapp.com/api/notify/' +id +'/notifyMember/')
         console.log(no.data.notifications)
         return no
 

@@ -41,7 +41,7 @@ class TaskCard extends Component {
         })
         var uuid=''
         console.log(this.props.value)
-        const url = 'http://localhost:4000/api/tasks/read/' + this.props.value
+        const url = 'https://ateamse2.herokuapp.com/api/tasks/read/' + this.props.value
         console.log(url)
        await axios.get(url)
             .then(res => {
@@ -84,7 +84,7 @@ class TaskCard extends Component {
             .catch(err => {
                 console.log(err)
             })
-            const partnerURL='http://localhost:4000/api/users/'+ uuid  
+            const partnerURL='https://ateamse2.herokuapp.com/api/users/'+ uuid  
            await axios.get(partnerURL)
             .then(res=>{
                 console.log('URL',partnerURL)
@@ -110,7 +110,7 @@ class TaskCard extends Component {
     applyTask=(e)=>{
         const task_id=this.state._id
         const member_id=this.state.assume_memberID
-        const getURL='http://localhost:4000/api/tasks/apply/'+task_id+'/'+member_id
+        const getURL='https://ateamse2.herokuapp.com/api/tasks/apply/'+task_id+'/'+member_id
         axios.get(getURL)
         .then(result=>{
         var message=result.data.msg

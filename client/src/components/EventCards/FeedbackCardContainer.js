@@ -35,7 +35,7 @@ class FeedbackCardContainer extends React.Component {
         })
     }
     componentDidMount() {
-        axios('http://localhost:4000/api/users/getEvents', {
+        axios('https://ateamse2.herokuapp.com/api/users/getEvents', {
             method: 'GET',
             headers: {
               'authorization': localStorage.getItem('token')

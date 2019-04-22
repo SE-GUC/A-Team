@@ -29,7 +29,7 @@ class ViewAllProjectsComponent extends React.Component {
 
     componentDidMount() {
       
-        axios.get('http://localhost:4000/api/project/')
+        axios.get('https://ateamse2.herokuapp.com/api/project/')
             .then(res => {
                 console.log(res.data.data)
                 this.setState({

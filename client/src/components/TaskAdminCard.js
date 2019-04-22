@@ -37,7 +37,7 @@ class TaskAdminCard extends Component {
     }
     approve=(event)=>{
         event.preventDefault();
-        axios('http://localhost:4000/api/tasks/approve'+this.state.id, {
+        axios('https://ateamse2.herokuapp.com/api/tasks/approve'+this.state.id, {
             method: 'PUT',
             headers: {
               'authorization': localStorage.getItem('token')
@@ -76,7 +76,7 @@ class TaskAdminCard extends Component {
         }
           console.log(tasking.id);
           console.log(tasking.response);
-          const url = "http://localhost:4000/api/tasks/update_admin_response/" + tasking.id;
+          const url = "https://ateamse2.herokuapp.com/api/tasks/update_admin_response/" + tasking.id;
           axios.put(url, { response_from_admin: tasking.response }).then(res => {
             console.log("inside axios")
             console.log(res.data.response_from_admin)
@@ -87,7 +87,7 @@ class TaskAdminCard extends Component {
             M.toast({html:html })
     }
     getFeedbacks=()=>{
-        const m = axios.get('http://localhost:4000/api/tasks/'+this.state._id)
+        const m = axios.get('https://ateamse2.herokuapp.com/api/tasks/'+this.state._id)
         var message=''
         var array=this.state.response_from_admin
         console.log(this.state.response_from_admin)
@@ -119,7 +119,7 @@ class TaskAdminCard extends Component {
             id: this.props.value
         })
         console.log(this.props.value)
-        const url = 'http://localhost:4000/api/tasks/read/' + this.props.value
+        const url = 'https://ateamse2.herokuapp.com/api/tasks/read/' + this.props.value
         console.log(url)
        await axios.get(url)
             .then(res => {
@@ -168,7 +168,7 @@ class TaskAdminCard extends Component {
             })
        console.log(uuid)  
        console.log('PID',this.state.partner_id)   
-       const partnerURL='http://localhost:4000/api/users/'+ uuid  
+       const partnerURL='https://ateamse2.herokuapp.com/api/users/'+ uuid  
       await axios.get(partnerURL)
        .then(res=>{
            console.log('URL',partnerURL)
@@ -192,7 +192,7 @@ class TaskAdminCard extends Component {
     applyTask=(e)=>{
         const task_id=this.state._id
         const member_id=this.state.assume_memberID
-        const getURL='http://localhost:4000/api/tasks/apply/'+task_id+'/'+member_id
+        const getURL='https://ateamse2.herokuapp.com/api/tasks/apply/'+task_id+'/'+member_id
         axios.get(getURL)
         .then(result=>{
         var message=result.data.msg

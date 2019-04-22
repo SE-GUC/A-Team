@@ -3,26 +3,26 @@ const functions = {
   
 //partnerrequests crud
     getPartner: async () => {
-        const g = await axios.get('http://localhost:4000/api/PartnerRequest/geteventrequest/')
+        const g = await axios.get('https://ateamse2.herokuapp.com/api/PartnerRequest/geteventrequest/')
         //console.log(g)
         return g
     },
    
     updatePartner: async(id,organ) => {
-        const m = await axios.put('http://localhost:4000/api/PartnerRequest/update/'+id, {organizer: organ})
+        const m = await axios.put('https://ateamse2.herokuapp.com/api/PartnerRequest/update/'+id, {organizer: organ})
         //console.log(m.data)
         return m.data
 
     },
     deletePartner: async(id) => {
-        const x = axios.delete('http://localhost:4000/api/PartnerRequest/deleterequest/'+id)
+        const x = axios.delete('https://ateamse2.herokuapp.com/api/PartnerRequest/deleterequest/'+id)
         
         return x
     },
     postPartner: async() => {
         return axios({
             method:'post',
-            url: 'http://localhost:4000/api/PartnerRequest/addrequest/',
+            url: 'https://ateamse2.herokuapp.com/api/PartnerRequest/addrequest/',
             headers: {'Content-Type': 'application/json'},
             data: {
                 organizer:'Farah'

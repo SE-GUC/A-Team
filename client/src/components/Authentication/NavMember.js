@@ -48,7 +48,7 @@ export class NavMember extends Component {
   }
   async handleUser(){
     var id1=''
-    var url='http://localhost:4000/api/users/dashboard'
+    var url='https://ateamse2.herokuapp.com/api/users/dashboard'
    await Axios({
       method: 'get',
         url: url,
@@ -63,8 +63,8 @@ export class NavMember extends Component {
     .catch(err=>{
       console.log(err)
     })
-   // url='http://localhost:4000/api/users/'
-   await Axios.get('http://localhost:4000/api/users/'+id1)
+   // url='https://ateamse2.herokuapp.com/api/users/'
+   await Axios.get('https://ateamse2.herokuapp.com/api/users/'+id1)
    .then(res=>{
       this.setState({name:res.data.data.name})
       this.setState({type:res.data.data.type})
@@ -90,7 +90,7 @@ export class NavMember extends Component {
 
    var result=''
      for(var i=0;i<this.state.events_created.length;i++){
-      await Axios.get('http://localhost:4000/api/events/getid/'+this.state.events_created[i])
+      await Axios.get('https://ateamse2.herokuapp.com/api/events/getid/'+this.state.events_created[i])
        .then(res=>{
          result=result+res.data.data.name+", "
          console.log(res)
@@ -99,7 +99,7 @@ export class NavMember extends Component {
     this.setState({events_created:result})
     var result1=''
     for(var i=0;i<this.state.past_projects.length;i++){
-      await Axios.get('http://localhost:4000/api/project/get_my_projects/'+this.state.past_projects[i])
+      await Axios.get('https://ateamse2.herokuapp.com/api/project/get_my_projects/'+this.state.past_projects[i])
       .then(response=>{
         result1=result1+response.data.data.project_name+', '
       })

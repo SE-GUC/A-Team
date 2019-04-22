@@ -24,7 +24,7 @@ class EventsCardContainer extends React.Component {
     }
     componentDidMount() {
 
-        axios('http://localhost:4000/api/users/getCreatedEvents', {
+        axios('https://ateamse2.herokuapp.com/api/users/getCreatedEvents', {
             method: 'GET',
             headers: {
               'authorization': localStorage.getItem('token')

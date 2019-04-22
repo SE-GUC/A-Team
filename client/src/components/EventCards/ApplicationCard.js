@@ -41,7 +41,7 @@ class EventCard extends Component {
     applybtn() {
         this.setState({submitState:true})
         this.apply2()
-        const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
+        const url='https://ateamse2.herokuapp.com/api/events/'+this.state.id +'/apply'
 
         axios({
             method: 'POST',
@@ -55,7 +55,7 @@ class EventCard extends Component {
           });
     }
     apply2() {
-        const url='http://localhost:4000/api/events/'+this.state.id +'/apply'
+        const url='https://ateamse2.herokuapp.com/api/events/'+this.state.id +'/apply'
 
         axios({
             method: 'POST',

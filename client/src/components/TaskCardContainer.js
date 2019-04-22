@@ -37,7 +37,7 @@ class TaskCardContainer extends React.Component {
     }
     componentDidMount() {
        
-        axios.get('http://localhost:4000/api/tasks/view_accepting')
+        axios.get('https://ateamse2.herokuapp.com/api/tasks/view_accepting')
             .then(res => {
                 this.setState({
                     elements: res.data.data

@@ -29,7 +29,7 @@ class ApplicaitonCardContainer extends React.Component {
         })
     }
     componentDidMount() {
-        axios('http://localhost:4000/api/events/geteligible', {
+        axios('https://ateamse2.herokuapp.com/api/events/geteligible', {
             method: 'GET',
             headers: {
               'authorization': localStorage.getItem('token')

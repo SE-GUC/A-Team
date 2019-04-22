@@ -1,5 +1,5 @@
 const axios = require('axios');
-const heroku='http://localhost:4000/'
+const heroku='https://ateamse2.herokuapp.com/'
 const headers={
         'Content-Type': 'application/json',
         'Authorization': 'JWT fefege...' 
@@ -10,7 +10,7 @@ const functions = {
         createProject:async()=>{
                 return  axios({
                           method: 'post',
-                          url: 'http://localhost:4000/api/project/create',
+                          url: 'https://ateamse2.herokuapp.com/api/project/create',
                           headers: {'Content-Type': 'application/json'}, 
                           data: {
                           project_name:'This project was created by jest',
@@ -22,7 +22,7 @@ const functions = {
             getproject:async()=>{
               return  axios({
                         method: 'get',
-                        url: 'http://localhost:4000/api/project/crud',
+                        url: 'https://ateamse2.herokuapp.com/api/project/crud',
                         headers: {'Content-Type': 'application/json'}, 
                         data: {
                         id:'5c9b3d2a6c59bf0017b4a481'
@@ -32,7 +32,7 @@ const functions = {
         updateProject:async()=>{
                 return  axios({
                           method: 'put',
-                          url: 'http://localhost:4000/api/project/crud',
+                          url: 'https://ateamse2.herokuapp.com/api/project/crud',
                           headers: {'Content-Type': 'application/json'}, 
                           data: {
                           id:'5c9b396a6c59bf0017b4a445',
@@ -47,7 +47,7 @@ const functions = {
           deleteProject:async()=>{
                 return  axios({
                           method: 'delete',
-                          url: 'http://localhost:4000/api/project/crud',
+                          url: 'https://ateamse2.herokuapp.com/api/project/crud',
                           headers: {'Content-Type': 'application/json'}, 
                           data: {
                                 id:'5c9b396a6c59bf0017b4a445'
@@ -57,7 +57,7 @@ const functions = {
           addTask:async()=>{
                 return  axios({
                           method: 'post',
-                          url: 'http://localhost:4000/api/project/5c9b39236c59bf0017b4a441/addTask',
+                          url: 'https://ateamse2.herokuapp.com/api/project/5c9b39236c59bf0017b4a441/addTask',
                           headers: {'Content-Type': 'application/json'}, 
                           data: {
                                 taskid:'5c9b9bbf69bb9e0017b86e6f'

@@ -77,7 +77,7 @@ export class Register extends Component {
   getUsernamefromDB=()=>{
     try {
       axios
-        .get("http://localhost:4000/api/tasks/alluserNames")
+        .get("https://ateamse2.herokuapp.com/api/tasks/alluserNames")
         .then(res => {
           this.setState({ takenUnames: res.data });
           //console.log("Fetched ALl the EMails in The DB",res.data)
@@ -90,7 +90,7 @@ export class Register extends Component {
   getEmailfromDB= () =>{
     try {
       axios
-        .get("http://localhost:4000/api/tasks/allemails")
+        .get("https://ateamse2.herokuapp.com/api/tasks/allemails")
         .then(res => {
           this.setState({ takenEmails: res.data });
           //console.log("Fetched ALl the EMails in The DB",res.data)
@@ -103,7 +103,7 @@ export class Register extends Component {
   getSkillFromDB = () => {
     try {
       axios
-        .get("http://localhost:4000/api/skills/getSkillCollection")
+        .get("https://ateamse2.herokuapp.com/api/skills/getSkillCollection")
         .then(res => {
           this.setState({ all_skills: res.data });
           return res.data;
@@ -279,7 +279,7 @@ export class Register extends Component {
   postRegister = (data)=>{
     try{
       console.log("Fetching")
-     axios.post("http://localhost:4000/api/users/register", data).then(res => {
+     axios.post("https://ateamse2.herokuapp.com/api/users/register", data).then(res => {
         console.log(res);
         console.log("Submited..")
         var html="<span style='color:green'>You have Succussfuly Registred</span>"
@@ -370,7 +370,7 @@ export class Register extends Component {
   };
   getIntrestfromDB() {
     try {
-      axios.get("http://localhost:4000/api/events/getTypes").then(res => {
+      axios.get("https://ateamse2.herokuapp.com/api/events/getTypes").then(res => {
         this.setState({ col: res.data });
         return res.data;
       });

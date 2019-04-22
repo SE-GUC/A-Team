@@ -26,8 +26,8 @@ class AssignMember extends Component {
 
     handleSubmit = project => {
         project.preventDefault(); //prevents page from reloading
-        // const url = 'http://localhost:4000/api/tasks/assignMember/'+this.state.id
-      axios( 'http://localhost:4000/api/tasks/assignMember/'+this.state.id, {
+        // const url = 'https://ateamse2.herokuapp.com/api/tasks/assignMember/'+this.state.id
+      axios( 'https://ateamse2.herokuapp.com/api/tasks/assignMember/'+this.state.id, {
         method: 'PUT',
         headers: {
           'authorization': localStorage.getItem('token')

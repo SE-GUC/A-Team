@@ -36,7 +36,7 @@ class ApplyForProj extends Component {
         // const application = {
         //     id: this.state.project_id
         // };
-        const url = 'http://localhost:4000/api/project/applyProj/'+this.state.project_id
+        const url = 'https://ateamse2.herokuapp.com/api/project/applyProj/'+this.state.project_id
         // const applyCons=(consultancy_agency_id)=>{
         //     var update=this.state.consultancy_agency_applicants
         //     update.push(consultancy_agency_id)
