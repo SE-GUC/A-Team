@@ -72,7 +72,7 @@ export class NavGeneral extends Component {
      
 
     <ul class="left hide-on-med-and-down">
-        <li><a href="/homepage" ><i class="material-icons">home</i></a></li>
+        <li><a href="/" ><i class="material-icons">home</i></a></li>
       <li> <a href="https://github.com/SE-GUC/A-Team" title="Git-Hub"><i class="material-icons">storage</i></a> </li>
       <li><a class="dropdown-trigger" href="#" data-target="dropdown11111">Projects<i
             class="material-icons right">arrow_drop_down</i></a></li>

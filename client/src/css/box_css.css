@@ -67,6 +67,10 @@ a:hover {
   position: fixed;
   overflow: scroll;
 }
+.pxl{
+  background: rgb(84,110,122);
+  background: linear-gradient(322deg, rgba(84,110,122,1) 14%, rgba(232,232,232,1) 49%, rgba(69,90,100,1) 84%); 
+}
 .fill {
   background-color: #d4f4fd;
   text-align: center;
