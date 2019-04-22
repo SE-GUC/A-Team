@@ -766,7 +766,7 @@ router.get('/recommend',checkToken, async (req, res) => {
 });
 
 //hena 
-router.get('/apply/:id',checkToken, async (req, res) => {
+router.get('/apply/:id/:member_id',checkToken, async (req, res) => {
     const status = joi.validate(req.params, {
         id: joi.string().length(24).required(),
         member_id:joi.string().length(24).required()
@@ -780,7 +780,7 @@ router.get('/apply/:id',checkToken, async (req, res) => {
     try {
         jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
 
-        const found= await User.findById(authorizedData.id)
+        const found= await User.findById(req.params.member_id)
         if(!found){
             return res.json({error:"Member does not exist"})
         }
