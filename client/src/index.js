@@ -50,6 +50,7 @@ import Email from './components/PostNotification'
 import LoginPage from './components/Authentication/LoginPage'
 
 import './css/navbar.css'
+import LocationPost from './components/LocationPost';
 
 const routing=(
     <Router>
@@ -113,7 +114,8 @@ const routing=(
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path="/admin/TaskPanel" component={TaskPanelA} />
       <Route path="/admin/filter" component={Filter}/>  
-      <Route path="/admin/Email" component={Email}/>  
+      <Route path="/admin/Email" component={Email}/>
+      <Route path="/admin/postLocations" component={LocationPost}/>    
 
 
 
