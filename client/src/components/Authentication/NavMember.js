@@ -7,6 +7,10 @@ export class NavPartner extends Component {
     let elems = document.querySelectorAll('.dropdown-trigger');
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
   }
+  signOut(){
+    localStorage.setItem('token', null)
+  }
+
   render() {
     console.log('geh hena?')
     return (

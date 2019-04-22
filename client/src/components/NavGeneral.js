@@ -27,7 +27,10 @@ export class NavGeneral extends Component {
       document.getElementById('login-action').classList.add('login-div')
       document.getElementById('login-action').innerHTML="Sign in"
     }
-    
+
+  }
+  signOut(){
+    localStorage.setItem('token', null)
   }
   render() {
 
@@ -80,8 +83,8 @@ export class NavGeneral extends Component {
       <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
             class="material-icons right">arrow_drop_down</i></a></li>
       <li><a href='/homepage/login'>Login</a></li>
+      <li><a onClick={this.signOut} href='/homepage'>Sign out</a></li>
       <li><a href='/homepage/register'>Sign Up</a></li>   
-      <li><a id='login-action' href='#' onClick={this.hideLogin} className='login-box' >Sign in</a></li>  
       <li><div id='login-nav-div' className='login-div' style={{display:'none'}} ><Login></Login></div></li> 
     </ul>
   </div>
