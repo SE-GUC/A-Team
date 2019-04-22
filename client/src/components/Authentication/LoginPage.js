@@ -75,7 +75,7 @@ class LoginPage  extends Component {
         // }
     
         return(
-            <div style={{paddingLeft:'220px',backgroundColor:'#212121'}}>
+            <div style={{paddingBottom:'400px',paddingLeft:'220px',backgroundColor:'#212121'}}>
             <div >
               <div class="row">
                 <div class="input-field col s5">
