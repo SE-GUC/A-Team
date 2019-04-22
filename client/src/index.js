@@ -48,13 +48,14 @@ import NavMemeber from './components/Authentication/NavMember'
 import Filter from './components/EventCards/FilterEventsContainer'
 import Email from './components/PostNotification'
 import LoginPage from './components/Authentication/LoginPage'
-
+import viewapplicants from './components/Tasksviewapplicants'
 import './css/navbar.css'
 import LocationPost from './components/LocationPost';
 
 const routing=(
     <Router>
     <div>
+    <Route path="/view_applicant" component={viewapplicants} />
     <Route path="/homepage" component={Home} />
     <Route path="/homepage/get_tasks" component={TaskList}/>
     <Route path="/homepage/filter" component={Filter} />
