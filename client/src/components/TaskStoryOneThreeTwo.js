@@ -3,8 +3,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-
-
+import M from "materialize-css";
 
 class TaskStoryOneThreeTwo extends Component {
   state = {
@@ -36,10 +35,22 @@ class TaskStoryOneThreeTwo extends Component {
       this.setState({ response: res.data });
       // this.setState({ done:true })
     });
-    window.alert("Edited Task's Response from Admin Successfully");
+    var msg="Edited Task's Response from Admin Successfully"
+    var html="<span style='color:green'>"+msg+"</span>"
+        M.toast({html:html })
   };
   renderLoading() {
-    return <div>Loading...</div>;
+    return <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>;
   }
   renderError() {
     return <div>Ooops, : {this.state.error.message}</div>;
@@ -77,7 +88,7 @@ class TaskStoryOneThreeTwo extends Component {
           />
         </label>
 
-        <button type="submit">Update Task's response from admin</button>
+        <button type="submit" className="waves-effect waves-light btn green darken-2">Update Task's response from admin</button>
       </form>
     );
   }

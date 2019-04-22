@@ -17,19 +17,25 @@ class ShowFeedbacks extends Component {
             // partner_initiated:''
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
         var elements=[]
         console.log(this.props.data)
         const url = 'http://localhost:4000/api/events/getid/'+this.props.data.eventid
         console.log(url)
-        axios.get(url)
+        await axios.get(url)
         .then(
             res =>{
-                this.setState({name:res.data.data.name})
                 this.setState({feedbacks:res.data.data.feedbacks})
                 this.setState({feedback:this.state.feedbacks[this.props.data.index].comment})
                 this.setState({rate:this.state.feedbacks[this.props.data.index].rate})
                 
+            }
+        )
+        axios.get('http://localhost:4000/api/users/'+this.state.feedbacks[this.props.data.index].user_id)
+        .then(
+            res=>{
+                this.setState({name:res.data.data.name})
+                console.log(res)
             }
         )
 
@@ -64,6 +70,7 @@ class ShowFeedbacks extends Component {
                     <p><b>Rate:</b> {this.state.rate}</p>
 				</div>
 				<div class="card-action">
+                
 
 				</div>
 			</div>

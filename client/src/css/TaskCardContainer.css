@@ -1,15 +1,26 @@
-.card {
-    width:400px;
-    height: 400px;
-    padding:20px;
-    margin-right:15px;
-
+#cardContent {
+    height: 330px;
 }
-
+#cardAction {
+    width: 400px;
+    background-color:	#909090;
+}
+#reqBut {
+    margin-right: 20px;
+}
 .container {
     justify-items: center;
     /* grid-gap: 20px 5000px; */
     grid-column-gap:100px;
     grid-column-gap: 10px;
 
+}
+#manga {
+    margin-right: 20px;
+}
+#test {
+    background-color:	#909090;
+}
+#loadMoreBut {
+    margin-right: 20px;
 }

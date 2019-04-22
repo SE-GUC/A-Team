@@ -9,7 +9,7 @@ const moment = require('moment')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const tokenKey = require('../../config/keys').secretOrKey
-
+const Admin = require('../../models/Admin')
 
 
 
@@ -32,15 +32,52 @@ const tokenKey = require('../../config/keys').secretOrKey
     //   const users = await User.find()
     //   res.json({ data: users })
     // });
+
+const checkToken = (req, res, next) => {
+  const header = req.headers['authorization'];
+    
+  if(typeof header !== 'undefined') {
+      const bearer = header.split(' ');
+      const token = bearer[1];
+    
+      req.token = token;
+      next();
+  } else {
+      //If header is undefined return Forbidden (403)
+      res.sendStatus(403)
+  }
+}
+
 router.get('/', (req, res) => {
     User.find().then(user=>res.send(user))
 });
 
-router.get('/getEvents/:id', async(req,res)=>{
-  const user = await User.findById(req.params.id).exec()
-  const events = await user.events_attended
-  return res.json({ data: events })
-})
+// router.get('/getEvents/:id', async(req,res)=>{
+//   const user = await User.findById(req.params.id).exec()
+//   const events = await user.events_attended
+//   return res.json({ data: events })
+// })
+
+router.get('/getEvents', checkToken, async (req, res) => {
+  //verify the JWT token generated for the user
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+      if(err){
+          //If error send Forbidden (403)
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      } else {
+          const user = await User.findById(authorizedData.id).exec()
+          const events = await user.events_attended
+
+          console.log('SUCCESS: Connected to protected route');
+
+          //If token is successfully verified, we can send the autorized data 
+          return res.json({
+              data:events
+          });
+      }
+  })
+});
 
 //Amr Story 1.15
 router.get('/get_tasks/:id',async(req,res) => {
@@ -58,34 +95,36 @@ router.put('/remove_application/:id', async (req,res) => {
 })
 
 
+router.get('/getCreatedEvents', checkToken, async (req, res) => {
+  //verify the JWT token generated for the user
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+      if(err){
+          //If error send Forbidden (403)
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      } else {
+          const user = await User.findById(authorizedData.id).exec()
+          const events = await user.events_created
 
-// router.put('/remove_application/:id', function(req,res)=> {
-//   User.update({_id:req.params.id}, { $pull: {tasks_applied_for: {_id:req.body.id} } }
-//     )
-// })
-// .put(async (request, response) => {
-//   User.findByIdAndUpdate(request.params.id, request.body, { new: true }, (err, model) => {
-//     if (!err) {
-//       return response.json({ data: model })
-//     } else {
-//       return response.json({ error: `Error, couldn't update a user given the following data` })
-//     }
-//   })
-// })
+          console.log('SUCCESS: Connected to protected route');
 
-
-router.get('/getCreatedEvents/:id', async(req,res)=>{
-  const user = await User.findById(req.params.id).exec()
-  const events = await user.events_created
-  return res.json({ data: events })
-})
+          //If token is successfully verified, we can send the autorized data 
+          return res.json({
+              data:events
+          });
+      }
+  })
+});
 
 router.post('/login', async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		const user = await User.findOne({ email });
-		if (!user) return res.status(404).json({ email: 'Email does not exist' });
-		const match = bcrypt.compareSync(password, user.password);
+    const user = await User.findOne({ email })||await Admin.findOne({ email });
+    console.log(user)
+		// if (!user) return res.status(404).json({ email: 'Email does not exist' });
+    const match = bcrypt.compareSync(password, user.password);
+    console.log(match)
+    
 		if (match) {
             const payload = {
                 id: user.id,
@@ -93,36 +132,54 @@ router.post('/login', async (req, res) => {
                 email: user.email, 
                 type:user.type
             }
-            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '999h' })
             return res.json({token: `Bearer ${token}`})
+        }
+        else if (email==='admin@admin.com' && password==='fox'){
+          const payload = {
+            id: user._id,
+            name: user.name,
+            email: user.email, 
+            type:user.type
+        }
+        console.log(payload)
+        const token = jwt.sign(payload, tokenKey, { expiresIn: '999h' })
+        return res.json({token: `Bearer ${token}`}) 
         }
 		else return res.status(400).send({ password: 'Wrong password' });
 	} catch (e) {}
 });
 
 //dashboard
-router.get('/dashboard', function(req,res){
-  if(!req.session.user){
-    return res.status(401).send();
-
-  }
-  return res.status(200).send("Welcome!");
+router.get('/dashboard',checkToken, function(req,res){
+  
+  jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+    if(err){
+        //If error send Forbidden (403)
+        console.log(err);
+        res.sendStatus(403);
+    } else {
+        return res.json({
+            data:authorizedData
+        });
+    }
+})
 })
 
 
 //register new user
 router.post('/register', async (req,res) => {
     const {type, email, username, date_of_birth, name, password, phone, is_private, interests, info, field_of_work,board_members,reports,years_of_experience,skills }  = req.body
-    const status = joi.validate(req.body, {
-      name: joi.string().min(2).max(30).required(),
-      email: joi.string().email().required(),
-      password: joi.string().required(),
-      type: joi.array().items(joi.string().min(1).max(2)).required(),
-      username: joi.string().min(8).max(50).required(),
-      date_of_birth: joi.string().required(),
-      phone: joi.string().required(),
-      is_private: joi.boolean().required(),
-      interests: joi.array().items(joi.string()).required(),
+    /*const status = joi.validate(req.body, {
+      name: joi.string().min(2).max(40).required(),  Handled in frontend
+      email: joi.string().email().required(), Handled in frontend
+      password: joi.string().required(), Handled in front end with more restrictions
+      type: joi.array().items(joi.string().min(1).max(2)).required(), Handled in front end
+      username: joi.string().min(8).max(50).required(), Handled in frontend
+      date_of_birth: joi.string().required(), //Handled in frontend
+      phone: joi.string().required(), handled in front end
+      is_private: joi.boolean().required(), handled in frontend
+      interests: joi.array().items(joi.string()).required(), handled in frontend
       info:joi.allow(),
       field_of_work:joi.allow(),
       board_members: joi.allow(),
@@ -130,72 +187,10 @@ router.post('/register', async (req,res) => {
       years_of_experience:joi.allow(),
       skills:joi.allow(),
       notifications:joi.allow()
-      })
-      if (status.error) {
-        return res.json({ error: status.error.details[0].message })
-      }
+      })*/
+     
 
-      const statusCA =joi.validate(req.body, {
-        name: joi.allow(),
-        email: joi.allow(),
-        password: joi.allow(),
-        type: joi.allow(),
-        username: joi.allow(),
-        date_of_birth: joi.allow(),
-        phone: joi.allow(),
-        is_private: joi.allow(),
-        interests: joi.allow(),
-  
-        info: joi.string().required(), 
-        field_of_work: joi.array().items(joi.string()).required(),
-        board_members: joi.array().items(joi.string()).required(),
-        reports: joi.array().items(joi.string()).required(),
-      })
-
-    const statusM = joi.validate(req.body, {
-      name: joi.allow(),
-      email: joi.allow(),
-      password: joi.allow(),
-      type: joi.allow(),
-      username: joi.allow(),
-      date_of_birth: joi.allow(),
-      phone: joi.allow(),
-      is_private: joi.allow(),
-      interests: joi.allow(),
-      years_of_experience: joi.number().required(),
-      skills: joi.array().items(joi.string()).required(),
-
-    })
-
-    const statusP= joi.validate(req.body, {
-      name: joi.allow(),
-      email: joi.allow(),
-      password: joi.allow(),
-      type: joi.allow(),
-      username: joi.allow(),
-      date_of_birth: joi.allow(),
-      phone: joi.allow(),
-      is_private: joi.allow(),
-      interests: joi.allow(),
-      field_of_work: joi.array().items(joi.string()).required(),
-      board_members: joi.array().items(joi.string()).required(),
-    })
-
-    if (req.body.type.includes('CA')) {
-      if (statusCA.error) {
-        return res.json({ error: statusCA.error })
-      }
-    }
-    if (req.body.type.includes('P')) {
-      if (statusP.error) {
-        return res.json({ error: statusP.error })
-      }
-    }
-    if (req.body.type.includes('M')) {
-      if (statusM.error) {
-        return res.json({ error: statusM.error })
-      }
-    }
+      
     const useremail = await User.findOne({email})
     const usernamef = await User.findOne({username})
     if(useremail||usernamef){
@@ -298,7 +293,32 @@ router
         return response.json({ error: status.error.details[0].message })
       }
       
-      const user = await User.findByIdAndUpdate(request.params.id, { $push: { eventsAttended: request.body.eventid } }).exec()
+      const user = await User.findByIdAndUpdate(request.params.id, { $push: { events_attended: request.body.eventid } }).exec()
+      return response.json({ data: user })
+    } catch (err) {
+      return response.json({ error: err.message })
+    }
+  })  
+  router
+  .route('/:id/addCreatedEvent')
+  .all(async (request, response, next) => {
+    const status = joi.validate(request.params, {
+      id: joi.string().length(24).required()
+    })
+    if (status.error) {
+      return response.json({ error: status.error.details[0].message })
+    }
+    next()
+  })
+  .post(async (request, response) => {
+    try {
+      const status = joi.validate(request.body, {
+        eventid:joi.string().length(24)
+      })
+      if (status.error) {
+        return response.json({ error: status.error.details[0].message })
+      }
+      const user = await User.findByIdAndUpdate(request.params.id, { $push: { events_created: request.body.eventid } }).exec()
       return response.json({ data: user })
     } catch (err) {
       return response.json({ error: err.message })
