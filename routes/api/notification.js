@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const User = require('../../models/User');
 
+
+const x = "seifmohamedwael97@gmail.com";
 
 
 router.get("/send", async (req, res) => {
@@ -22,7 +25,7 @@ router.get("/send", async (req, res) => {
   });
   let HelperOptions = {  
     from:'"A-Team" <ateamseproj@gmail.com>',
-    to: 'Seifmohamedwael97@gmail.com',
+    to: x,
     subject:'Test ',
     text:'You have been accepted ebset ya 3am  '
    };
