@@ -56,7 +56,8 @@ class LoginPage  extends Component {
         if(myuser.type.includes('P')) {
           this.props.history.replace('/partner');
         } else if(myuser.type.includes('CA')) {
-          
+          this.props.history.replace('/ca');
+
         } else if(myuser.type.includes('M')) {
           this.props.history.replace('/member');
 
@@ -71,19 +72,19 @@ class LoginPage  extends Component {
         // }
     
         return(
-            <div style={{marginLeft:'220px'}}>
-            <div>
+            <div style={{paddingLeft:'220px',backgroundColor:'#212121'}}>
+            <div >
               <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s5">
               <input onChange={this.handleEmail} id="email" type="email" class="white-text"/>
-                  <label class='white-text'for="email">Email</label>
+                  <label class='green-text'for="email">Email</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s5">
                   <input onChange={this.handlePass} id="password" type="password" class="white-text"/>
-                  <label for="password" class='white-text'>Password</label>
+                  <label for="password" class='green-text'>Password</label>
                 </div>
-                <div className='col s3'>
-                <a onClick={()=>this.loginbtn()} id='login-btn-nav' className='loginb'><span>Login</span></a>
+                <div className='col s2 white-text' style={{marginTop:'20px'}}>
+                <a onClick={()=>this.loginbtn()} id='login-btn-nav' className='btn waves-effect waves-light green darken-2'>Login</a>
                 </div>
               </div>
           </div>

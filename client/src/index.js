@@ -16,7 +16,7 @@ import Event from './components/Events'
 import Partnerreq from './components/PartnerRequests'
 import Locationcomps from './components/Locationcomps'
 import CreateEvent from './components/CreateEvent'
-import TaskPanelA from './components/TaskStoryOneThreeTwo'
+import TaskPanelA from './components/TaskAdmin'
 import ApplyProject from './components/ApplyForProj'
 import CancelApp from './components/CancelApp'
 import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
@@ -42,6 +42,7 @@ import TaskCardContainer from './components/TaskCardContainer'
 import Register from './components/Authentication/Register'
 import EventModule from './components/EventCards/EventModule'
 import NavPartner from './components/Authentication/NavPartner'
+import NavCA from './components/Authentication/NavCA'
 import NavAdmin from './components/Authentication/NavAdmin'
 import NavMemeber from './components/Authentication/NavMember'
 import Filter from './components/EventCards/FilterEventsContainer'
@@ -63,7 +64,7 @@ const routing=(
 
     {/* <Route path="/Events" component={EventCard} /> */}
 
-      <Route path="/partner" component={NavPartner}/>    
+    <Route path="/partner" component={NavPartner}/>    
       <Route path="/partner/Events" component={EventCard} />
       <Route path="/partner/myevents" component={EventsPartner} />
       <Route path="/partner/Create_Events" component={CreateEvent} />
@@ -76,7 +77,22 @@ const routing=(
       <Route path="/partner/task_card" component={TaskCardContainer} />
       <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
       <Route path="/partner/post_project" component={ProjectPostForm}/>  
-      <Route path="/partner/filter" component={Filter}/>  
+      <Route path="/partner/filter" component={Filter}/>        
+      
+      <Route path="/ca" component={NavCA}/>    
+      <Route path="/ca/Events" component={EventCard} />
+      <Route path="/ca/myevents" component={EventsPartner} />
+      <Route path="/ca/Create_Events" component={CreateEvent} />
+      <Route path="/ca/feedback" component={Feedback}/>    
+      <Route path="/ca/appcard" component={ApplicationCard}/>    
+      <Route path='/ca/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
+      <Route path='/ca/submit_task' component={TaskPostForm}/>
+      <Route path="/ca/get_tasks" component={TaskList}/>
+      <Route path="/ca/viewrtaskapplicants" component={ViewTApplicants}/>
+      <Route path="/ca/task_card" component={TaskCardContainer} />
+      <Route path="/ca/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/ca/post_project" component={ProjectPostForm}/>  
+      <Route path="/ca/filter" component={Filter}/>  
 
 
       <Route path="/admin" component={NavAdmin}/>
