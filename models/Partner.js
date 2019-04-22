@@ -2,29 +2,28 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const partnerSchema = new Schema({
-  consultancy_agency_id: { 
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
-  partners:[{
+  field_of_work:[{
     type: String,
     required: true
   }],
-  field_of_work:{
-    type: String,
-    required: true
-  },
   past_projects:[{
-    type: String,
-    required: false
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    ref:'Project'
   }],
   board_members:[{
     type: String,
     required: false
   }],
-  events:[{
+  events_attended:[{
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: false,
+    ref:'Event'
+  }],
+  events_created:[{
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    ref:'Event'
   }],
   feedback:[{
     type: String,
