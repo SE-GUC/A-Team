@@ -35,10 +35,11 @@ const functions = {
             },
            
         
-        updateLocationInfo: async(id,titleup)  => {
-                const location = await axios.put('http://localhost:4000/api/locations/'+id, {title: titleup})
-                return location
-            },
+        updateLocationInfo: async(id,titleup,subtitle,location,capacity,booked)  => {
+            const Location = await axios.put('http://localhost:4000/api/locations/'+id, {title:titleup,subtitle,location,capacity, booked})
+            return Location
+            }, 
+            
 
         updateLocationcapacity: async(id,capacityup)  => {
                 const location = await axios.put('http://localhost:4000/api/locations/'+id, {capacity: capacityup})
@@ -46,9 +47,9 @@ const functions = {
             },
             
          // for story 2.2 (as  member i should be able to book available locations)  
-        updateLocationBooking: async(id,bookedup)  => {
-                const location = await axios.put('http://localhost:4000/api/locations/'+id, {booked:bookedup})
-                return location
+        updateLocationBooking: async(id,title,subtitle,location,capacity,bookedup)  => {
+                const Location = await axios.put('http://localhost:4000/api/locations/'+id, {title,subtitle,location,capacity, booked:bookedup})
+                return Location
             },  
 
             
