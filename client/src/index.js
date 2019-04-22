@@ -46,7 +46,7 @@ import NavCA from './components/Authentication/NavCA'
 import NavAdmin from './components/Authentication/NavAdmin'
 import NavMemeber from './components/Authentication/NavMember'
 import Filter from './components/EventCards/FilterEventsContainer'
-
+import Email from './components/PostNotification'
 import LoginPage from './components/Authentication/LoginPage'
 
 import './css/navbar.css'
@@ -113,6 +113,7 @@ const routing=(
       <Route path="/admin/StoryOnePointEleven" component={StoryOnePointEleven} />
       <Route path="/admin/TaskPanel" component={TaskPanelA} />
       <Route path="/admin/filter" component={Filter}/>  
+      <Route path="/admin/Email" component={Email}/>  
 
 
 
