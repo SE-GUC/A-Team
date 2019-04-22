@@ -667,6 +667,4 @@ router.get("/getByStatus/:status", async (req, res) => {
 module.exports=router 
 
 
-  })  
   
-module.exports=router 
