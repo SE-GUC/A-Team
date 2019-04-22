@@ -179,77 +179,73 @@ router.put('/addSkill',async(req,res)=>{ //Admin Access only
     console.log('Updated Version',Task.schema.path('skills').caster.enumValues)
     return res.json({skills:Task.schema.path('skills').caster.enumValues})
 })
-router.post('/add', async (req, res) => {
+router.post('/add',checkToken, async (req, res) => {
     //adding a task ith appropriate parenthesis
-    const status = joi.validate(req.body, {
-        name: joi.string().max(40).required(),
-        monetary_compensation: joi.number().required(),
-        time_expected: joi.string().required(),
-        level_of_comitment: joi.string().required(),
-        experience_needed: joi.string().required(),
-        description: joi.string().min(10).required(),
-        partner_id: joi.string().length(24),
-        skills: joi.array().items(joi.string()),
-        admin_id: joi.string().length(24),
-        assigned_id: joi.string().length(24),
-        applicants: joi.array().items(joi.object().keys({
-            applicant_id: joi.string().length(24).required(),
-            is_accepted: joi.boolean()
-          }))
- 
-    })
-    if (status.error) {
-        return res.json({
-            error: status.error.details[0].message
-        })
-    }
     try {
-        user = await User.findById(req.body.partner_id).exec()
-        if (user === null) {
-            return res.json({
-                error: `The partner_id you entered does not belong to a user`
+        jwt.verify(req.token, tokenKey, async (err, authorizedData) => {
+            if(err){
+              //If error send Forbidden (403)
+              console.log('ERROR: Could not connect to the protected route');
+              response.sendStatus(403);
+          } else {
+            const status = joi.validate(req.body, {
+                name: joi.string().max(40).required(),
+                monetary_compensation: joi.number().required(),
+                time_expected: joi.string().required(),
+                level_of_comitment: joi.string().required(),
+                experience_needed: joi.string().required(),
+                description: joi.string().min(10).required(),
+                skills: joi.array().items(joi.string()),
+                admin_id: joi.string().length(24),
+                assigned_id: joi.string().length(24),
+                applicants: joi.array().items(joi.object().keys({
+                    applicant_id: joi.string().length(24).required(),
+                    is_accepted: joi.boolean()
+                  }))
+         
             })
-        }
-    } catch (err) {
-        return res.json({
-            error: `Error, couldn't find a user given the following id`
-        })
-    }
-
-    try {
-        const new_task = await new Task({
-            _id: mongoose.Types.ObjectId(),
-            name: req.body.name,
-            time_of_post: moment().format('MMMM Do YYYY, h:mm:ss a'),
-            time_of_review: '',
-            monetary_compensation: req.body.monetary_compensation,
-            price: req.body.price,
-            time_of_assingment: '',
-            status: 'Pending',
-            assigned_id: undefined,
-            time_expected: req.body.time_expected,
-            level_of_comitment: req.body.level_of_comitment,
-            experience_needed: req.body.experience_needed,
-            description: req.body.description,
-            partner_id: req.body.partner_id,
-            skills: req.body.skills,
-            response_from_admin: [],
-            admin_id: req.body.admin_id, //for now
-            applicants: []
-        }).save()
-        return res.json({
-            data: new_task
-        })
-    } catch (err) {
-        console.log(err.message)
-        return res.json({
-            error: `Error, couldn't create a new Task with the following data`
-        })
-    }
-
-
-
-
+            if (status.error) {
+                return res.json({
+                    error: status.error.details[0].message
+                })
+            }
+            try {
+                const new_task = await new Task({
+                    _id: mongoose.Types.ObjectId(),
+                    name: req.body.name,
+                    time_of_post: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                    time_of_review: '',
+                    monetary_compensation: req.body.monetary_compensation,
+                    price: req.body.price,
+                    time_of_assingment: '',
+                    status: 'Pending',
+                    assigned_id: undefined,
+                    time_expected: req.body.time_expected,
+                    level_of_comitment: req.body.level_of_comitment,
+                    experience_needed: req.body.experience_needed,
+                    description: req.body.description,
+                    partner_id: authorizedData.id,
+                    skills: req.body.skills,
+                    response_from_admin: [],
+                    admin_id: req.body.admin_id, //for now
+                    applicants: []
+                }).save()
+                return res.json({
+                    data: new_task
+                })
+            } catch (err) {
+                console.log(err.message)
+                return res.json({
+                    error: `Error, couldn't create a new Task with the following data`
+                })
+            }
+          }
+      })
+        
+      }
+       catch (err) {
+        return res.json({ error: `Error, couldn't create a new task with the following data` })
+      }
 })
 
 router.post('/create', async (req, res) => {

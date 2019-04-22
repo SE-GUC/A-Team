@@ -45,6 +45,26 @@ class CreateEvent extends Component {
       this.setState({ speakers: result });
       console.log(this.state.speakers)
     }
+    onChipAddPrice=()=>{
+      var result = [];
+      var elem = document.getElementById('price-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ price: result });
+      console.log(this.state.price)
+    }
+    onChipAddTopic=()=>{
+      var result = [];
+      var elem = document.getElementById('topics-chips');
+      var instance = M.Chips.getInstance(elem);
+      for (var i = 0; i < instance.chipsData.length; i++) {
+        result.push(instance.chipsData[i].tag);
+      }
+      this.setState({ topics: result });
+      console.log(this.state.topics)
+    }
     componentDidMount(){
       let elems = document.querySelectorAll('.dropdown-trigger');
       M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
@@ -70,6 +90,10 @@ class CreateEvent extends Component {
       })
       var elems1 = document.getElementById('speaker-chips');
       M.Chips.init(elems1, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Speaker'});
+      var elems7 = document.getElementById('price-chips');
+      M.Chips.init(elems7, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Price'});
+      var elems8 = document.getElementById('topics-chips');
+      M.Chips.init(elems8, {inDuration: 300, outDuration: 225,secondaryPlaceholder:'Add',placeholder:'Enter Topic'});
     
       var ty=[]
         axios.get('http://localhost:4000/api/events/getTypesHoss')
@@ -138,10 +162,54 @@ handleChangetype = event=> {
     event.preventDefault();
 
     const url= 'http://localhost:4000/api/events/'
-//    var allSpeakers=this.state.speaker.split(',')
-    var allPrices=this.state.price.split(',')
-    var alltopics=this.state.topics.split(',')
+    if(this.state.name===''){
+      const msg='you have to enter a name'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+    if(this.state.price.length===0){
+      const msg='you have to enter a price'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+      if(this.state.about===''){
+        const msg='you have to tell us what this event is about'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+      }
+    else{
+    if(this.state.speakers.length===0){
+      const msg='you have to enter atleast 1 speaker'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }  
+    else{
+    if(this.state.topics.length===0){
+      const msg='you have to enter atleast 1 topics'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+    }else{
+      if(this.state.chosen===''){
+        const msg='you have to enter a location'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+      }else{
+        if(this.state.chosentypearray.length===0){
+          const msg='you have to enter atleast one type'
+    var html="<span style='color:#ffdd42'>"+msg+"</span>"
+     M.toast({html:html })
+        }
+        
 
+    else{
+      
+
+  //  var allSpeakers=this.state.speaker.split(',')
+//    var allSpeakers=this.state.speaker.split(',')
+   // var allPrices=this.state.price.split(',')
+   // var alltopics=this.state.topics.split(',')
+    
+    
     axios({
         method: 'POST',
         url: url,
@@ -149,13 +217,13 @@ handleChangetype = event=> {
             authorization: localStorage.getItem('token')
         }, 
         data: {
-          price:allPrices,
+          price:this.state.price,
           location:this.state.chosen,
           name:this.state.name,
           about:this.state.about,
           remaining_places:this.state.remaining_places,
           speakers:this.state.speakers,
-          topics:alltopics,
+          topics:this.state.topics,
           event_date:this.state.startDate,
           type:this.state.chosentypearray
         }
@@ -166,8 +234,13 @@ handleChangetype = event=> {
     .catch(function (error){
       console.log(error)
     })
+    }
   }
-    
+}
+  }
+}
+}}   
+  }
     render()
     {
         return(
@@ -184,9 +257,9 @@ handleChangetype = event=> {
               <label for="Event_name">Event Name</label>
               </div>
               <div class="input-field col s6">
-              <i class="material-icons prefix">monetization_on</i>
-                   <input placeholder="Add prices (Separate prices by commas)" state={this.state} id="price_id" type="text" class="validate" onChange={this.setprice}/>
-                   <label for="price_id">Price</label>
+              <i class="material-icons prefix" >monetization_on</i>
+                   <div id="price-chips" type="text" className='chips' onKeyUp={this.onChipAddPrice} onKeyPress={this.onChipAddPrice} onKeyDown={this.onChipAddPrice}/>
+                   <label for="price-chips"></label>
               </div>
             </div> 
             <div class="row">
@@ -206,7 +279,7 @@ handleChangetype = event=> {
             <div class="row">
               <div class="input-field col s12">
               <i class="material-icons prefix">book</i>
-                <input placeholder="Add topics (Separate topics by commas)" id="topics_id" state={this.state} type="text" class="validate" onChange={this.settopics}/>
+                <div id="topics-chips"  className='chips' onKeyUp={this.onChipAddTopic} onKeyPress={this.onChipAddTopic} onKeyDown={this.onChipAddTopic}/>
                 <label for="topics_id"></label>
               </div>
             </div>

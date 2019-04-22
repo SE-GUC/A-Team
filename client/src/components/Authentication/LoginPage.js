@@ -56,6 +56,7 @@ class LoginPage  extends Component {
         if(myuser.type.includes('P')) {
           this.props.history.replace('/partner');
         } else if(myuser.type.includes('CA')) {
+          
         } else if(myuser.type.includes('M')) {
           this.props.history.replace('/member');
 
