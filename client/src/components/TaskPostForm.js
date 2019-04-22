@@ -16,9 +16,9 @@ export class Form extends Component {
     price: "1",
     is_assigned: "",
     partner_id: "5cae373eaea50e48600c8483", //Assuming Session
-    time_expected: "1 Day(s)",
+    time_expected: "28 Day(s)",
     level_of_comitment: "Moderate",
-    experience_needed: "1 Day(s)",
+    experience_needed: "28 Day(s)",
     description: "",
     skills: [],
     all_skills: []

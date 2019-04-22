@@ -2,6 +2,44 @@ import React, { Component } from "react";
 import '../css/homepage.css'
 import '../css/navbar.css'
 import M from 'materialize-css'
+import NavGeneral from './NavGeneral'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
+import TaskControl from '../TaskControl';
+import Dummy from '../components/Dummy'
+import TaskList from '../components/TaskList'
+import TaskPostForm from '../components/TaskPostForm'
+import Recommend from '../components/Recommend';
+import Review from '../components/StoryOnepointTwo';
+import StoryOnePointEleven from '../components/StoryOnePointEleven'
+import Event from '../components/Events'
+import Partnerreq from '../components/PartnerRequests'
+import Locationcomps from '../components/Locationcomps'
+import CreateEvent from '../components/CreateEvent'
+import ApplyProject from '../components/ApplyForProj'
+import CancelApp from '../components/CancelApp'
+import ViewAllProjectsComponent from './Admin/ViewAllProjectsComponent';
+import ViewAllEventsContainer from './Admin/ViewAllEventsContainer';
+//import EventCard from './components/EventsCardContainer'
+import ViewPendingEventsComponent from './Admin/ViewPendingEventsComponent'
+import MainPage from './Admin/MainPage'
+import Skills from './Admin/SkillController'
+import 'materialize-css/dist/css/materialize.min.css';
+import ViewTApplicants from '../components/ViewTaskApplicants';
+import ProjectPostForm from '../components/ProjectPostForm'
+import EventCard from '../components/EventCards/EventsCardContainer'
+import AdminViewEvents from './Admin/ViewAllEventsContainer'
+import Feedback from '../components/EventCards/FeedbackCardContainer'
+import ApplicationCard from '../components/EventCards/ApplicationCardContainer'
+// import ApplicantsCard from './components/EventCards/ApplicantCardsContainer'
+import EventsPartnerFeedbacks from '../components/EventCards/EventPartnerFeedbackContainer'
+import TaskCardContainer from '../components/TaskCardContainer'
+import Register from '../components/Authentication/Register'
+import EventModule from '../components/EventCards/EventModule'
+import NavPartner from '../components/Authentication/NavPartner'
+import {BrowserRouter} from 'react-router-dom';
+import LoginPage from '../components/Authentication/LoginPage'
+
+import '../css/navbar.css'
 export class HomePage extends Component {
   componentDidMount(){
     let elems = document.querySelectorAll('.dropdown-trigger');
@@ -11,66 +49,57 @@ export class HomePage extends Component {
 
     return (
       <div>
-        <head>
-  <meta charset="utf-8" />
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#000000" />
-
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>React App</title>
-</head>
-<ul id="dropdown11" class="dropdown-content">
-  <li><a href='/submit_task'>Post a Task</a></li>
-  <li><a href='/recommend'>Recommend Tasks</a></li>
-  <li><a href='/task_control_panel'>Task Control Panel</a></li>
-  <li><a href='/get_tasks'>Get Tasks</a></li>
-  <li><a href='/Review'>Review task</a></li>
-  <li><a href='/ViewTaskApplicants'>View applicants</a></li>
-  <li><a href='/task_card'>Task Cards</a></li>
-  <li><a class='ili' href='/StoryOnePointEleven'>Tasks i applied on</a></li>
-</ul>
-<ul id="dropdown111" class="dropdown-content">
-  {/* <li><a href='/Create_Events'>Create Events</a></li> */}
-  {/* <li><a href="/feedback">Write Feedback </a></li> */}
-  {/* <li><a href="/appcard">Apply for Event </a></li>
-  <li><a href='/partnerfeedbacks'>Feedbacks on my Events</a></li> */}
-  <li><a href='/events'>Show Events</a></li>
-</ul>
-<ul id="dropdown1111" class="dropdown-content">
-  <li><a class='ili' href='/skills'>Skill Panel</a></li>
-  <li><a class='ili' href='/register'>Register</a></li>
-  <li><a class='ili' href='/Admin'>Admin Panel</a></li>
-  <li><a class='ili' href='/Review'>Review</a></li>
-</ul>
-<ul id="dropdown11111" class="dropdown-content">
-  <li><a class='ili' href='/viewallproj'>All Projects</a></li>
-  <li><a class='ili' href='/post_project'>Post a Project</a></li>
-</ul>
-<nav class="blue-text text-darken-2">
-  <div class="nav-wrapper grey darken-4">
+        <NavGeneral/>
       
-     
-
-    <ul class="left hide-on-med-and-down">
-        <li><a href="/" ><i class="material-icons">home</i></a></li>
-      <li> <a href="https://github.com/SE-GUC/A-Team" title="Git-Hub"><i class="material-icons">storage</i></a> </li>
-      <li><a class="dropdown-trigger" href="#" data-target="dropdown11111">Projects<i
-            class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a class="dropdown-trigger" href="#" data-target="dropdown1111">Admin<i
-            class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a class="dropdown-trigger" href="#" data-target="dropdown111">Events<i
-            class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a class="dropdown-trigger" href="#" data-target="dropdown11">Tasks<i
-            class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a href='/login'>Login</a></li>
-      <li><a href='/register'>Sign Up</a></li>   
-    </ul>
-  </div>
-</nav>
-
+        <Router>
+    <div>
+    <Route path="/task_card" component={TaskCardContainer} />
+    <Route path="/Events" component={EventCard} />
+      <Route path="/partner" component={NavPartner}/>    
+      <Route path="/partner/Events" component={EventCard} />
+      <Route path="/partner/Create_Events" component={CreateEvent} />
+      <Route path="/partner/feedback" component={Feedback}/>    
+      <Route path="/partner/appcard" component={ApplicationCard}/>    
+      <Route path='/partner/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
+      <Route path='/partner/submit_task' component={TaskPostForm}/>
+      <Route path="/partner/get_tasks" component={TaskList}/>
+      <Route path="/partner/viewrtaskapplicants" component={ViewTApplicants}/>
+      <Route path="/partner/task_card" component={TaskCardContainer} />
+      <Route path="/partner/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/partner/post_project" component={ProjectPostForm}/>  
+      {/* <Route path="/card" component={EventCard}/>     */}
+      <Route path="/post_project" component={ProjectPostForm}/>  
+      <Route path="/adminContainer" component={AdminViewEvents}/>    
+      <Route path="/feedback" component={Feedback}/>    
+      <Route path="/appcard" component={ApplicationCard}/>    
+      {/* <Route path='/eventmodule' component={EventModule}/> */}
+      {/* <Route path='/partnerrequests' component={EventsPartner}/> */}
+      <Route path='/partnerfeedbacks' component={EventsPartnerFeedbacks }/>
+      <Route path='/skills' component={Skills }/>
+      <Route path="/task_control_panel" component={TaskControl} />
+      <Route path="/get_tasks" component={TaskList}/>
+      <Route path="/dummy" component={Dummy} />
+      <Route path='/submit_task' component={TaskPostForm}/>
+      <Route path="/recommend" component={Recommend} />
+      <Route path="/Review" component={Review} />
+      <Route path="/Admin" component={MainPage} />
+      <Route path="/Event" component={Event} />
+      <Route path="/Partner_Requests" component={Partnerreq} />
+      <Route path="/locations" component={Locationcomps} />
+      <Route path="/Create_Events" component={CreateEvent} />
+      <Route path="/applyproj" component={ApplyProject} />
+      <Route path="/cancelapp" component={CancelApp} />
+      <Route path="/viewallproj" component={ViewAllProjectsComponent} />
+      <Route path="/viewallevents" component={ViewAllEventsContainer} />
+      <Route path="/viewpendingevents" component={ViewPendingEventsComponent} />
+      <Route path="/StoryOnePointEleven" component={StoryOnePointEleven} />
+      <Route path='/register' component={Register}/>
+      {/* <Route path='/event_module' component={Event_Module}/> */}
+      <Route path='/login' component={LoginPage}/>
+    
+      
+    </div>
+  </Router>
       </div>
     );
   }

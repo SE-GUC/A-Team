@@ -1,37 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Events from './components/Events'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
-import PartnerRequests from './components/PartnerRequests'
-import TaskControl from './TaskControl';
-import Dummy from './components/Dummy'
-import TaskList from './components/TaskList'
-import TaskPostForm from './components/TaskPostForm'
-import Recommend from './components/Recommend';
-import Review from './components/StoryOnepointTwo';
-import StoryOnePointEleven from './components/StoryOnePointEleven'
-import Event from './components/Events'
-import Partnerreq from './components/PartnerRequests'
-import Locationcomps from './components/Locationcomps'
-import CreateEvent from './components/CreateEvent'
-import ApplyProject from './components/ApplyForProj'
-import CancelApp from './components/CancelApp'
-import ViewAllProjectsComponent from './components/Admin/ViewAllProjectsComponent';
-import ViewAllEventsContainer from './components/Admin/ViewAllEventsContainer';
-//import EventCard from './components/EventsCardContainer'
-import ViewPendingEventsComponent from './components/Admin/ViewPendingEventsComponent'
-import MainPage from './components/Admin/MainPage'
-import Skills from './components//Admin/SkillController'
-import CardTest from './components/CardTest';
-import 'materialize-css/dist/css/materialize.min.css';
-import ViewTApplicants from './components/ViewTaskApplicants';
-import Event_Module from './components/EventCards/EventModule'
-import ProjectPostForm from './components/ProjectPostForm'
-import EventCard from './components/EventCards/EventsCardContainer'
-import AdminViewEvents from './components/Admin/ViewAllEventsContainer'
-import Home from './components/HomePage'
+import './css/box_css.css'
 
 import Feedback from './components/EventCards/FeedbackCardContainer'
 import ApplicationCard from './components/EventCards/ApplicationCardContainer'

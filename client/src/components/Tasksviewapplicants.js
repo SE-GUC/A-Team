@@ -5,7 +5,20 @@ class Tasksviewapplicants extends Component {
   state = {
     tasks:[]
   };
-  
+  assignapplicant = (data)=>{
+    try{
+      console.log("Fetching")
+     axios.post("http://localhost:4000/api/Tasks/assign", data).then(res => {
+        console.log(res);
+        console.log("assigned..")
+        var html="<span style='color:green'>You have Succussfuly assigned</span>"
+        M.toast({html:html })
+      //  return res.data
+      });
+    } catch (error) {
+      console.log("error");
+    }
+  }
   
   componentDidMount () {
     axios.get(`http://localhost:4000/api/tasks/view_applicants`)

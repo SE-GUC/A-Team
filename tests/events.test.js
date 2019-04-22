@@ -54,9 +54,13 @@ test('gets events by type' , async()=>{
 })
 test('Creating a new feedback in the feedbacks array', async() =>{
   const allEvents= await funcs.getEvents();
-  const response = await funcs.addNewFeedback("5c93b78f1d4b8e5b48557ba0","5c9e33e5559ed00017ece5ea","comment");
-  expect(allEvents.data.data[0].feedbacks.length).toEqual(response.data.data.feedbacks.length);
+  // console.log(allEvents.data.data[2]._id)
+  const response = await funcs.addNewFeedback(allEvents.data.data[2]._id);
+  // console.log(response.data.data)
+  expect(allEvents.data.data[2].feedbacks.length).toEqual(response.data.data.feedbacks.length);
 })
+
+test('',)
 
 test("Deletes an event",async()=>{
   const result = await funcs.deleteEvent()
